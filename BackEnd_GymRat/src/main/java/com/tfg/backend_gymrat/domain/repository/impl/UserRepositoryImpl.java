@@ -6,18 +6,27 @@ import com.tfg.backend_gymrat.persistence.mongo.UserMongo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public class UserRepositoryImpl implements UserRepository {
 
     @Autowired
     private UserMongo userMongo;
 
-    //@Autowired
-    //private MongoTemplate mongoTemplate;
 
     @Override
     public void createUser(User user) {
-        //mongoTemplate.save(user);
         userMongo.insert(user);
+    }
+
+    @Override
+    public Optional<User> findByUserName(String userName) {
+        return userMongo.findUserByUsername(userName);
+    }
+
+    @Override
+    public boolean existsUser(String userName) {
+        return userMongo.existsUserByUserName(userName);
     }
 }
