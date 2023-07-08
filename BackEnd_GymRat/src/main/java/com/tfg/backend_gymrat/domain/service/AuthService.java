@@ -5,7 +5,11 @@ import com.tfg.backend_gymrat.domain.dto.entity.UserDTO;
 import com.tfg.backend_gymrat.domain.dto.errors.IncorrectRegistrationException;
 import com.tfg.backend_gymrat.util.UtilClass;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authorization.AuthorizationManager;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +21,9 @@ public class AuthService {
 
     @Autowired
     private JWTService jwtService;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
     public String registerUser(UserDTO user) throws Exception{
 
@@ -30,12 +37,15 @@ public class AuthService {
 
 
     public String login(String username, String password){
-        UserDTO user = userService.findUserByUsername(username);
-        if(!BCrypt.checkpw(password,user.getPassword())){
-            throw new BadCredentialsException(ErrorConstants.BAD_CREDENTIALS);
-        }
 
-        return  jwtService.generateToken(username);
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        username,
+                        password
+                )
+        );
+
+        return jwtService.generateToken(username);
     }
 
 

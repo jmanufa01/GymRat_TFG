@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.MissingRequestValueException;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,7 +31,8 @@ public class AuthController {
 
     @Autowired
     private AuthService authService;
-
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     private final Log log = new Log();
 
@@ -49,7 +51,7 @@ public class AuthController {
 
             UserDTO user = new UserDTO(request.username(),
                 request.email(),
-                BCrypt.hashpw(request.password(),BCrypt.gensalt(10)),
+                passwordEncoder.encode(request.password()),
                 request.gym_experience(),
                 request.age(),
                 request.height(),

@@ -65,26 +65,6 @@ public class JWTService implements Serializable {
     }
 
     /**
-     * Método para extraer el Id de un determinado payload de un JWT.
-     * @param payload contiene el Id y proviene del JWT.
-     * @return id del payload
-     */
-    public Integer extractPass(Claims payload)
-    {
-        return Integer.valueOf(payload.get("pass").toString());
-    }
-
-    /**
-     * Método para extraer el tipo de usuario de un determinado payload de un JWT.
-     * @param payload ontiene el tipo de usuario y proviene del JWT.
-     * @return tipo de usuario del JWT
-     */
-    public Integer extractRole(Claims payload)
-    {
-        return Integer.valueOf(payload.get("role").toString());
-    }
-
-    /**
      * Método para comprobar si un token está expirado o no
      * @param payload
      * @return true si lo esta y false si no lo está
