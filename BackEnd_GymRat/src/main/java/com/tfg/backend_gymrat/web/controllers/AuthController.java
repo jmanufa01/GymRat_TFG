@@ -1,11 +1,10 @@
 package com.tfg.backend_gymrat.web.controllers;
 
-import com.tfg.backend_gymrat.constants.AuthConstants;
 import com.tfg.backend_gymrat.domain.dto.api.auth.request.UserRegistrationRequest;
 import com.tfg.backend_gymrat.domain.dto.api.auth.response.UserRegistrationResponse;
+import com.tfg.backend_gymrat.domain.dto.entity.UserDTO;
 import com.tfg.backend_gymrat.domain.service.AuthService;
 import com.tfg.backend_gymrat.persistence.entity.Role;
-import com.tfg.backend_gymrat.persistence.entity.User;
 import com.tfg.backend_gymrat.util.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -44,21 +43,23 @@ public class AuthController {
 
             //log.log(AuthConstants.REGISTRATION_IN_PROCCESS, request.userName());
 
+            System.out.println(request.toString());
 
-            User user = new User(request.userName(),
+
+            UserDTO user = new UserDTO(request.username(),
                 request.email(),
                 request.password(),
-                request.gym_experiece(),
+                request.gym_experience(),
                 request.age(),
                 request.height(),
                 request.weight(),
                     Role.USER);
 
-            authService.registerUser(user);
-
+            String jwt = authService.registerUser(user);
+            System.out.println(jwt);
             //log.log(AuthConstants.REGISTRATION_SUCCESSFUL, request.userName());
 
-            return ok(new UserRegistrationResponse(request.userName())); //TODO: Send jwt not username
+            return ok(new UserRegistrationResponse(jwt));
         }catch (Exception e){
             //log.log(AuthConstants.REGISTRATION_FAILED, request.userName());
             return badRequest().body(null);  //TODO: Introduce error in body

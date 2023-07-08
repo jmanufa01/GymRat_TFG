@@ -1,50 +1,53 @@
 package com.tfg.backend_gymrat.web.security;
 
 
-import com.tfg.backend_gymrat.domain.service.AuthService;
+import com.tfg.backend_gymrat.domain.service.UserService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtParserBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import jakarta.xml.bind.DatatypeConverter;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.spec.SecretKeySpec;
+import java.io.Serializable;
 import java.security.Key;
 import java.util.Date;
-import java.util.HashMap;
+
 
 @Service
-public class JWTService {
-    private static final byte[] keyPass = DatatypeConverter
-            .parseBase64Binary("6d01b6098fec840b681cfe7441311a6ca26443412064bdcc31a693d678e0ba1e");  //Secret pass encrypted
-    private static final Key SECRET_KEY = new SecretKeySpec(keyPass, SignatureAlgorithm.HS256.getJcaName());
+public class JWTService implements Serializable {
 
     @Autowired
-    private AuthService authService;
+    private UserService userService;
+    private final byte[] keyPass = DatatypeConverter
+            .parseBase64Binary("6d01b6098fec840b681cfe7441311a6ca26443412064bdcc31a693d678e0ba1e");  //Secret pass encrypted
+    private final Key SECRET_KEY = new SecretKeySpec(keyPass, SignatureAlgorithm.HS256.getJcaName());
 
     /**
      * Método que genera un JWT encriptado que contiene el email, el tipo de usuario y el ID de usuario, añadiéndole una
      * fecha de expiración de 10 horas (600 minutos)
-     * @param userName email del usuario
-     * @param password tipo de usuario (siendo 0,1 o 2)
-     * @param role ID de usuario
+     * @param username user's username registered with
      * @return JWT
      */
-    public String generateToken(String userName,String password, String role){
+    public String generateToken(String username){
+        Payload payload = new Payload();
+        payload.put("user",username);
+        System.out.println(payload.toString());
 
-        HashMap<String,Object> payload = new HashMap<>();
-        payload.put("user",userName);
-        payload.put("pass",password);
-        payload.put("role",role);
-        return Jwts.builder().setClaims(payload)
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 3600 * 10))
-                .signWith(SECRET_KEY)
-                .compact();
+        try {
+            String jwt = Jwts.builder()
+                    .setClaims(payload.getPayload())
+                    .setIssuedAt(new Date())
+                    .setExpiration(new Date(System.currentTimeMillis() + 1000 * 3600 * 10))
+                    .signWith(SECRET_KEY,SignatureAlgorithm.HS256)
+                    .compact();
+
+            return jwt;
+        }catch (Exception e){
+            return "no fufa";
+        }
     }
 
     /**
@@ -107,7 +110,7 @@ public class JWTService {
      */
     public boolean isTokenValid(String jwt){
         Claims payload = getClaims(jwt);
-        return !isExpired(payload) && authService.existsUserByUserName(extractUserName(jwt));
+        return !isExpired(payload) && userService.existsUserByUserName(extractUserName(jwt));
     }
 
 }
