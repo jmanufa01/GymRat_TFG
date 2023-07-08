@@ -1,6 +1,7 @@
 package com.tfg.backend_gymrat.web.security;
 
 
+import com.tfg.backend_gymrat.domain.service.JWTService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

@@ -28,7 +28,6 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public void createUser(UserDTO user) {
-        System.out.println(mapper.toUser(user));
         userMongo.insert(mapper.toUser(user));
     }
 

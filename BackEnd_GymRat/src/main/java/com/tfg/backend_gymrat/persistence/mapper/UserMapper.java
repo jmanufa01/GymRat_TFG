@@ -11,7 +11,10 @@ import org.mapstruct.Mappings;
 public interface UserMapper {
 
 
-    @Mapping(source = "gym_experience", target = "gymExperience")
+    @Mappings({
+            @Mapping(source = "username",target = "username"),
+            @Mapping(source = "gym_experience", target = "gymExperience")
+    })
     UserDTO toUserDTO(User user);
 
     @InheritInverseConfiguration

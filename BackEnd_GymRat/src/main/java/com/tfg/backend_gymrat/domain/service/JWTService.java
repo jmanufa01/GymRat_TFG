@@ -1,7 +1,9 @@
-package com.tfg.backend_gymrat.web.security;
+package com.tfg.backend_gymrat.domain.service;
 
 
+import com.tfg.backend_gymrat.constants.AuthConstants;
 import com.tfg.backend_gymrat.domain.service.UserService;
+import com.tfg.backend_gymrat.web.security.Payload;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtParserBuilder;
 import io.jsonwebtoken.Jwts;
@@ -21,9 +23,6 @@ public class JWTService implements Serializable {
 
     @Autowired
     private UserService userService;
-    private final byte[] keyPass = DatatypeConverter
-            .parseBase64Binary("6d01b6098fec840b681cfe7441311a6ca26443412064bdcc31a693d678e0ba1e");  //Secret pass encrypted
-    private final Key SECRET_KEY = new SecretKeySpec(keyPass, SignatureAlgorithm.HS256.getJcaName());
 
     /**
      * Método que genera un JWT encriptado que contiene el email, el tipo de usuario y el ID de usuario, añadiéndole una
@@ -34,20 +33,13 @@ public class JWTService implements Serializable {
     public String generateToken(String username){
         Payload payload = new Payload();
         payload.put("user",username);
-        System.out.println(payload.toString());
-
-        try {
-            String jwt = Jwts.builder()
+        return Jwts.builder()
                     .setClaims(payload.getPayload())
                     .setIssuedAt(new Date())
                     .setExpiration(new Date(System.currentTimeMillis() + 1000 * 3600 * 10))
-                    .signWith(SECRET_KEY,SignatureAlgorithm.HS256)
+                    .signWith(AuthConstants.SECRET_KEY,SignatureAlgorithm.HS256)
                     .compact();
 
-            return jwt;
-        }catch (Exception e){
-            return "no fufa";
-        }
     }
 
     /**
@@ -57,7 +49,7 @@ public class JWTService implements Serializable {
      */
     public Claims getClaims(String token)
     {
-        JwtParserBuilder jwtParserBuilder = Jwts.parserBuilder().setSigningKey(SECRET_KEY);  //Creamos el metodo de descrifrado del jwt con la clave previamente creada
+        JwtParserBuilder jwtParserBuilder = Jwts.parserBuilder().setSigningKey(AuthConstants.SECRET_KEY);  //Creamos el metodo de descrifrado del jwt con la clave previamente creada
         System.out.println(jwtParserBuilder.build().parse(token).getBody()); //Obtenemos el payload (body del jwt)
         return (Claims) jwtParserBuilder.build().parse(token).getBody();
     }

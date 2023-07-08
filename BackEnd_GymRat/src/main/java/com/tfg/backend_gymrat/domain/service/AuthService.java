@@ -1,10 +1,12 @@
 package com.tfg.backend_gymrat.domain.service;
 
+import com.tfg.backend_gymrat.constants.ErrorConstants;
 import com.tfg.backend_gymrat.domain.dto.entity.UserDTO;
 import com.tfg.backend_gymrat.domain.dto.errors.IncorrectRegistrationException;
 import com.tfg.backend_gymrat.util.UtilClass;
-import com.tfg.backend_gymrat.web.security.JWTService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,6 +26,16 @@ public class AuthService {
 
         userService.createNewUser(user);
         return jwtService.generateToken(user.getUsername());
+    }
+
+
+    public String login(String username, String password){
+        UserDTO user = userService.findUserByUsername(username);
+        if(!BCrypt.checkpw(password,user.getPassword())){
+            throw new BadCredentialsException(ErrorConstants.BAD_CREDENTIALS);
+        }
+
+        return  jwtService.generateToken(username);
     }
 
 

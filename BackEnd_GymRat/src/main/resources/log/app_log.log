@@ -24,11 +24,11 @@ Description:
 
 The dependencies of some of the beans in the application context form a cycle:
 
-   webSecurityConfig (field private com.tfg.backend_gymrat.web.security.JWTService com.tfg.backend_gymrat.config.WebSecurityConfig.jwtService)
+   webSecurityConfig (field private com.tfg.backend_gymrat.domain.service.JWTService com.tfg.backend_gymrat.config.WebSecurityConfig.jwtService)
 ┌─────┐
-|  JWTService (field private com.tfg.backend_gymrat.domain.service.AuthService com.tfg.backend_gymrat.web.security.JWTService.authService)
+|  JWTService (field private com.tfg.backend_gymrat.domain.service.AuthService com.tfg.backend_gymrat.domain.service.JWTService.authService)
 ↑     ↓
-|  authService (field private com.tfg.backend_gymrat.web.security.JWTService com.tfg.backend_gymrat.domain.service.AuthService.jwtService)
+|  authService (field private com.tfg.backend_gymrat.domain.service.JWTService com.tfg.backend_gymrat.domain.service.AuthService.jwtService)
 └─────┘
 
 
@@ -4975,3 +4975,802 @@ Security filter chain: [
 ************************************************************
 
 
+2023-07-08T18:56:33.244+02:00  INFO 25756 --- [main] c.t.b.BackEndGymRatApplication           : Starting BackEndGymRatApplication using Java 20.0.1 with PID 25756 (C:\Users\Manu\Desktop\UNI\TFG\Repo\GymRat_TFG\BackEnd_GymRat\target\classes started by Manu in C:\Users\Manu\Desktop\UNI\TFG\Repo\GymRat_TFG\BackEnd_GymRat)
+2023-07-08T18:56:33.245+02:00  INFO 25756 --- [main] c.t.b.BackEndGymRatApplication           : No active profile set, falling back to 1 default profile: "default"
+2023-07-08T18:56:33.661+02:00  INFO 25756 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data MongoDB repositories in DEFAULT mode.
+2023-07-08T18:56:33.695+02:00  INFO 25756 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 29 ms. Found 1 MongoDB repository interfaces.
+2023-07-08T18:56:34.203+02:00  INFO 25756 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-07-08T18:56:34.212+02:00  INFO 25756 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-07-08T18:56:34.213+02:00  INFO 25756 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.10]
+2023-07-08T18:56:34.290+02:00  INFO 25756 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-07-08T18:56:34.291+02:00  INFO 25756 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 989 ms
+2023-07-08T18:56:34.477+02:00  INFO 25756 --- [main] org.mongodb.driver.client                : MongoClient with metadata {"driver": {"name": "mongo-java-driver|sync|spring-boot", "version": "4.9.1"}, "os": {"type": "Windows", "name": "Windows 11", "architecture": "amd64", "version": "10.0"}, "platform": "Java/Oracle Corporation/20.0.1+9-29"} created with settings MongoClientSettings{readPreference=primary, writeConcern=WriteConcern{w=null, wTimeout=null ms, journal=null}, retryWrites=true, retryReads=true, readConcern=ReadConcern{level=null}, credential=MongoCredential{mechanism=null, userName='rootuser', source='admin', password=<hidden>, mechanismProperties=<hidden>}, streamFactoryFactory=null, commandListeners=[], codecRegistry=ProvidersCodecRegistry{codecProviders=[ValueCodecProvider{}, BsonValueCodecProvider{}, DBRefCodecProvider{}, DBObjectCodecProvider{}, DocumentCodecProvider{}, CollectionCodecProvider{}, IterableCodecProvider{}, MapCodecProvider{}, GeoJsonCodecProvider{}, GridFSFileCodecProvider{}, Jsr310CodecProvider{}, JsonObjectCodecProvider{}, BsonCodecProvider{}, EnumCodecProvider{}, com.mongodb.client.model.mql.ExpressionCodecProvider@51bddd98, com.mongodb.Jep395RecordCodecProvider@21c747a]}, loggerSettings=LoggerSettings{maxDocumentLength=1000}, clusterSettings={hosts=[localhost:27017], srvServiceName=mongodb, mode=SINGLE, requiredClusterType=UNKNOWN, requiredReplicaSetName='null', serverSelector='null', clusterListeners='[]', serverSelectionTimeout='30000 ms', localThreshold='30000 ms'}, socketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=0, receiveBufferSize=0, sendBufferSize=0}, heartbeatSocketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=10000, receiveBufferSize=0, sendBufferSize=0}, connectionPoolSettings=ConnectionPoolSettings{maxSize=100, minSize=0, maxWaitTimeMS=120000, maxConnectionLifeTimeMS=0, maxConnectionIdleTimeMS=0, maintenanceInitialDelayMS=0, maintenanceFrequencyMS=60000, connectionPoolListeners=[], maxConnecting=2}, serverSettings=ServerSettings{heartbeatFrequencyMS=10000, minHeartbeatFrequencyMS=500, serverListeners='[]', serverMonitorListeners='[]'}, sslSettings=SslSettings{enabled=false, invalidHostNameAllowed=false, context=null}, applicationName='null', compressorList=[], uuidRepresentation=JAVA_LEGACY, serverApi=null, autoEncryptionSettings=null, contextProvider=null}
+2023-07-08T18:56:34.512+02:00  INFO 25756 --- [cluster-ClusterId{value='64a995425936ef29b8bdfcb5', description='null'}-localhost:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=localhost:27017, type=STANDALONE, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=17, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=43750000}
+2023-07-08T18:56:35.204+02:00  INFO 25756 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@18715bb, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2a19a0fe, org.springframework.security.web.context.SecurityContextHolderFilter@56c42964, org.springframework.security.web.header.HeaderWriterFilter@2b3f7704, org.springframework.security.web.authentication.logout.LogoutFilter@22c8ee48, com.tfg.backend_gymrat.web.security.JWTAuthenticationFilter@2b7774d5, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@340c5fb6, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@66298fe9, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7d284f15, org.springframework.security.web.session.SessionManagementFilter@68e24e7, org.springframework.security.web.access.ExceptionTranslationFilter@41e8d917, org.springframework.security.web.access.intercept.AuthorizationFilter@3ef2b8e5]
+2023-07-08T18:56:35.209+02:00  WARN 25756 --- [main] o.s.s.c.a.web.builders.WebSecurity       : 
+
+********************************************************************
+**********        Security debugging is enabled.       *************
+**********    This may include sensitive information.  *************
+**********      Do not use in a production system!     *************
+********************************************************************
+
+
+2023-07-08T18:56:35.293+02:00  WARN 25756 --- [main] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates, check your Thymeleaf configuration, or set spring.thymeleaf.check-template-location=false)
+2023-07-08T18:56:35.351+02:00  INFO 25756 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-07-08T18:56:35.357+02:00  INFO 25756 --- [main] c.t.b.BackEndGymRatApplication           : Started BackEndGymRatApplication in 2.587 seconds (process running for 3.309)
+2023-07-08T18:56:53.235+02:00  INFO 25756 --- [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-07-08T18:56:53.235+02:00  INFO 25756 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-07-08T18:56:53.236+02:00  INFO 25756 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2023-07-08T18:56:53.241+02:00  INFO 25756 --- [http-nio-8080-exec-2] Spring Security Debugger                 : 
+
+************************************************************
+
+Request received for POST '/v1/auth/register':
+
+org.apache.catalina.connector.RequestFacade@7ea89ce1
+
+servletPath:/v1/auth/register
+pathInfo:null
+headers: 
+content-type: application/json
+user-agent: PostmanRuntime/7.32.3
+postman-token: f3ad22b4-3e76-4f36-8a82-a68a004b5551
+host: localhost:8080
+accept-encoding: gzip, deflate, br
+connection: keep-alive
+content-length: 255
+
+
+Security filter chain: [
+  DisableEncodeUrlFilter
+  WebAsyncManagerIntegrationFilter
+  SecurityContextHolderFilter
+  HeaderWriterFilter
+  LogoutFilter
+  JWTAuthenticationFilter
+  RequestCacheAwareFilter
+  SecurityContextHolderAwareRequestFilter
+  AnonymousAuthenticationFilter
+  SessionManagementFilter
+  ExceptionTranslationFilter
+  AuthorizationFilter
+]
+
+
+************************************************************
+
+
+2023-07-08T18:58:45.804+02:00  INFO 2664 --- [main] c.t.b.BackEndGymRatApplication           : Starting BackEndGymRatApplication using Java 20.0.1 with PID 2664 (C:\Users\Manu\Desktop\UNI\TFG\Repo\GymRat_TFG\BackEnd_GymRat\target\classes started by Manu in C:\Users\Manu\Desktop\UNI\TFG\Repo\GymRat_TFG\BackEnd_GymRat)
+2023-07-08T18:58:45.806+02:00  INFO 2664 --- [main] c.t.b.BackEndGymRatApplication           : No active profile set, falling back to 1 default profile: "default"
+2023-07-08T18:58:46.125+02:00  INFO 2664 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data MongoDB repositories in DEFAULT mode.
+2023-07-08T18:58:46.154+02:00  INFO 2664 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 25 ms. Found 1 MongoDB repository interfaces.
+2023-07-08T18:58:46.633+02:00  INFO 2664 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-07-08T18:58:46.642+02:00  INFO 2664 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-07-08T18:58:46.642+02:00  INFO 2664 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.10]
+2023-07-08T18:58:46.711+02:00  INFO 2664 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-07-08T18:58:46.711+02:00  INFO 2664 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 862 ms
+2023-07-08T18:58:46.873+02:00  INFO 2664 --- [main] org.mongodb.driver.client                : MongoClient with metadata {"driver": {"name": "mongo-java-driver|sync|spring-boot", "version": "4.9.1"}, "os": {"type": "Windows", "name": "Windows 11", "architecture": "amd64", "version": "10.0"}, "platform": "Java/Oracle Corporation/20.0.1+9-29"} created with settings MongoClientSettings{readPreference=primary, writeConcern=WriteConcern{w=null, wTimeout=null ms, journal=null}, retryWrites=true, retryReads=true, readConcern=ReadConcern{level=null}, credential=MongoCredential{mechanism=null, userName='rootuser', source='admin', password=<hidden>, mechanismProperties=<hidden>}, streamFactoryFactory=null, commandListeners=[], codecRegistry=ProvidersCodecRegistry{codecProviders=[ValueCodecProvider{}, BsonValueCodecProvider{}, DBRefCodecProvider{}, DBObjectCodecProvider{}, DocumentCodecProvider{}, CollectionCodecProvider{}, IterableCodecProvider{}, MapCodecProvider{}, GeoJsonCodecProvider{}, GridFSFileCodecProvider{}, Jsr310CodecProvider{}, JsonObjectCodecProvider{}, BsonCodecProvider{}, EnumCodecProvider{}, com.mongodb.client.model.mql.ExpressionCodecProvider@77c3c037, com.mongodb.Jep395RecordCodecProvider@252744a1]}, loggerSettings=LoggerSettings{maxDocumentLength=1000}, clusterSettings={hosts=[localhost:27017], srvServiceName=mongodb, mode=SINGLE, requiredClusterType=UNKNOWN, requiredReplicaSetName='null', serverSelector='null', clusterListeners='[]', serverSelectionTimeout='30000 ms', localThreshold='30000 ms'}, socketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=0, receiveBufferSize=0, sendBufferSize=0}, heartbeatSocketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=10000, receiveBufferSize=0, sendBufferSize=0}, connectionPoolSettings=ConnectionPoolSettings{maxSize=100, minSize=0, maxWaitTimeMS=120000, maxConnectionLifeTimeMS=0, maxConnectionIdleTimeMS=0, maintenanceInitialDelayMS=0, maintenanceFrequencyMS=60000, connectionPoolListeners=[], maxConnecting=2}, serverSettings=ServerSettings{heartbeatFrequencyMS=10000, minHeartbeatFrequencyMS=500, serverListeners='[]', serverMonitorListeners='[]'}, sslSettings=SslSettings{enabled=false, invalidHostNameAllowed=false, context=null}, applicationName='null', compressorList=[], uuidRepresentation=JAVA_LEGACY, serverApi=null, autoEncryptionSettings=null, contextProvider=null}
+2023-07-08T18:58:46.885+02:00  INFO 2664 --- [cluster-ClusterId{value='64a995c61b859b69f2c486cc', description='null'}-localhost:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=localhost:27017, type=STANDALONE, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=17, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=22909600}
+2023-07-08T18:58:47.481+02:00  INFO 2664 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@13fe5bb7, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4276ad40, org.springframework.security.web.context.SecurityContextHolderFilter@39c7fb0b, org.springframework.security.web.header.HeaderWriterFilter@60c96eb4, org.springframework.security.web.authentication.logout.LogoutFilter@7f93f4c, com.tfg.backend_gymrat.web.security.JWTAuthenticationFilter@6e5f5478, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@48c5698, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6aad919c, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5fb07347, org.springframework.security.web.session.SessionManagementFilter@64b73e0a, org.springframework.security.web.access.ExceptionTranslationFilter@1a17dd6f, org.springframework.security.web.access.intercept.AuthorizationFilter@51f01535]
+2023-07-08T18:58:47.486+02:00  WARN 2664 --- [main] o.s.s.c.a.web.builders.WebSecurity       : 
+
+********************************************************************
+**********        Security debugging is enabled.       *************
+**********    This may include sensitive information.  *************
+**********      Do not use in a production system!     *************
+********************************************************************
+
+
+2023-07-08T18:58:47.562+02:00  WARN 2664 --- [main] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates, check your Thymeleaf configuration, or set spring.thymeleaf.check-template-location=false)
+2023-07-08T18:58:47.613+02:00  INFO 2664 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-07-08T18:58:47.620+02:00  INFO 2664 --- [main] c.t.b.BackEndGymRatApplication           : Started BackEndGymRatApplication in 2.118 seconds (process running for 2.738)
+2023-07-08T18:59:11.370+02:00  INFO 2664 --- [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-07-08T18:59:11.370+02:00  INFO 2664 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-07-08T18:59:11.371+02:00  INFO 2664 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2023-07-08T18:59:11.375+02:00  INFO 2664 --- [http-nio-8080-exec-2] Spring Security Debugger                 : 
+
+************************************************************
+
+Request received for POST '/v1/auth/register':
+
+org.apache.catalina.connector.RequestFacade@30113a1e
+
+servletPath:/v1/auth/register
+pathInfo:null
+headers: 
+content-type: application/json
+user-agent: PostmanRuntime/7.32.3
+postman-token: b76e77ca-776e-4111-b471-34e62a8b799c
+host: localhost:8080
+accept-encoding: gzip, deflate, br
+connection: keep-alive
+content-length: 175
+
+
+Security filter chain: [
+  DisableEncodeUrlFilter
+  WebAsyncManagerIntegrationFilter
+  SecurityContextHolderFilter
+  HeaderWriterFilter
+  LogoutFilter
+  JWTAuthenticationFilter
+  RequestCacheAwareFilter
+  SecurityContextHolderAwareRequestFilter
+  AnonymousAuthenticationFilter
+  SessionManagementFilter
+  ExceptionTranslationFilter
+  AuthorizationFilter
+]
+
+
+************************************************************
+
+
+2023-07-08T19:46:38.968+02:00  INFO 6912 --- [main] c.t.b.BackEndGymRatApplication           : Starting BackEndGymRatApplication using Java 20.0.1 with PID 6912 (C:\Users\Manu\Desktop\UNI\TFG\Repo\GymRat_TFG\BackEnd_GymRat\target\classes started by Manu in C:\Users\Manu\Desktop\UNI\TFG\Repo\GymRat_TFG\BackEnd_GymRat)
+2023-07-08T19:46:38.970+02:00  INFO 6912 --- [main] c.t.b.BackEndGymRatApplication           : No active profile set, falling back to 1 default profile: "default"
+2023-07-08T19:46:39.270+02:00  INFO 6912 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data MongoDB repositories in DEFAULT mode.
+2023-07-08T19:46:39.303+02:00  INFO 6912 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 29 ms. Found 1 MongoDB repository interfaces.
+2023-07-08T19:46:39.745+02:00  INFO 6912 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-07-08T19:46:39.751+02:00  INFO 6912 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-07-08T19:46:39.751+02:00  INFO 6912 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.10]
+2023-07-08T19:46:39.820+02:00  INFO 6912 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-07-08T19:46:39.820+02:00  INFO 6912 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 806 ms
+2023-07-08T19:46:39.965+02:00  INFO 6912 --- [main] org.mongodb.driver.client                : MongoClient with metadata {"driver": {"name": "mongo-java-driver|sync|spring-boot", "version": "4.9.1"}, "os": {"type": "Windows", "name": "Windows 11", "architecture": "amd64", "version": "10.0"}, "platform": "Java/Oracle Corporation/20.0.1+9-29"} created with settings MongoClientSettings{readPreference=primary, writeConcern=WriteConcern{w=null, wTimeout=null ms, journal=null}, retryWrites=true, retryReads=true, readConcern=ReadConcern{level=null}, credential=MongoCredential{mechanism=null, userName='rootuser', source='admin', password=<hidden>, mechanismProperties=<hidden>}, streamFactoryFactory=null, commandListeners=[], codecRegistry=ProvidersCodecRegistry{codecProviders=[ValueCodecProvider{}, BsonValueCodecProvider{}, DBRefCodecProvider{}, DBObjectCodecProvider{}, DocumentCodecProvider{}, CollectionCodecProvider{}, IterableCodecProvider{}, MapCodecProvider{}, GeoJsonCodecProvider{}, GridFSFileCodecProvider{}, Jsr310CodecProvider{}, JsonObjectCodecProvider{}, BsonCodecProvider{}, EnumCodecProvider{}, com.mongodb.client.model.mql.ExpressionCodecProvider@1526f71, com.mongodb.Jep395RecordCodecProvider@49ca94a9]}, loggerSettings=LoggerSettings{maxDocumentLength=1000}, clusterSettings={hosts=[localhost:27017], srvServiceName=mongodb, mode=SINGLE, requiredClusterType=UNKNOWN, requiredReplicaSetName='null', serverSelector='null', clusterListeners='[]', serverSelectionTimeout='30000 ms', localThreshold='30000 ms'}, socketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=0, receiveBufferSize=0, sendBufferSize=0}, heartbeatSocketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=10000, receiveBufferSize=0, sendBufferSize=0}, connectionPoolSettings=ConnectionPoolSettings{maxSize=100, minSize=0, maxWaitTimeMS=120000, maxConnectionLifeTimeMS=0, maxConnectionIdleTimeMS=0, maintenanceInitialDelayMS=0, maintenanceFrequencyMS=60000, connectionPoolListeners=[], maxConnecting=2}, serverSettings=ServerSettings{heartbeatFrequencyMS=10000, minHeartbeatFrequencyMS=500, serverListeners='[]', serverMonitorListeners='[]'}, sslSettings=SslSettings{enabled=false, invalidHostNameAllowed=false, context=null}, applicationName='null', compressorList=[], uuidRepresentation=JAVA_LEGACY, serverApi=null, autoEncryptionSettings=null, contextProvider=null}
+2023-07-08T19:46:39.976+02:00  INFO 6912 --- [cluster-ClusterId{value='64a9a0ffc9b82f206f6f0dfb', description='null'}-localhost:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=localhost:27017, type=STANDALONE, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=17, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=19630500}
+2023-07-08T19:46:40.526+02:00  INFO 6912 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@645dc557, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@48c5698, org.springframework.security.web.context.SecurityContextHolderFilter@d16209e, org.springframework.security.web.header.HeaderWriterFilter@141aba65, org.springframework.security.web.authentication.logout.LogoutFilter@4c6bba7d, com.tfg.backend_gymrat.web.security.JWTAuthenticationFilter@17884d, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@76596288, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@a9a8ec3, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@68e24e7, org.springframework.security.web.session.SessionManagementFilter@45e7bb79, org.springframework.security.web.access.ExceptionTranslationFilter@98637a2, org.springframework.security.web.access.intercept.AuthorizationFilter@57c6feea]
+2023-07-08T19:46:40.531+02:00  WARN 6912 --- [main] o.s.s.c.a.web.builders.WebSecurity       : 
+
+********************************************************************
+**********        Security debugging is enabled.       *************
+**********    This may include sensitive information.  *************
+**********      Do not use in a production system!     *************
+********************************************************************
+
+
+2023-07-08T19:46:40.602+02:00  WARN 6912 --- [main] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates, check your Thymeleaf configuration, or set spring.thymeleaf.check-template-location=false)
+2023-07-08T19:46:40.654+02:00  INFO 6912 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-07-08T19:46:40.660+02:00  INFO 6912 --- [main] c.t.b.BackEndGymRatApplication           : Started BackEndGymRatApplication in 1.993 seconds (process running for 2.471)
+2023-07-08T19:47:03.694+02:00  INFO 6912 --- [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-07-08T19:47:03.695+02:00  INFO 6912 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-07-08T19:47:03.695+02:00  INFO 6912 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2023-07-08T19:47:03.701+02:00  INFO 6912 --- [http-nio-8080-exec-2] Spring Security Debugger                 : 
+
+************************************************************
+
+Request received for POST '/v1/auth/register':
+
+org.apache.catalina.connector.RequestFacade@12e8a7a
+
+servletPath:/v1/auth/register
+pathInfo:null
+headers: 
+content-type: application/json
+user-agent: PostmanRuntime/7.32.3
+postman-token: fbfed770-8589-4266-b89b-9f2e3f400461
+host: localhost:8080
+accept-encoding: gzip, deflate, br
+connection: keep-alive
+content-length: 178
+
+
+Security filter chain: [
+  DisableEncodeUrlFilter
+  WebAsyncManagerIntegrationFilter
+  SecurityContextHolderFilter
+  HeaderWriterFilter
+  LogoutFilter
+  JWTAuthenticationFilter
+  RequestCacheAwareFilter
+  SecurityContextHolderAwareRequestFilter
+  AnonymousAuthenticationFilter
+  SessionManagementFilter
+  ExceptionTranslationFilter
+  AuthorizationFilter
+]
+
+
+************************************************************
+
+
+2023-07-08T19:47:03.793+02:00  INFO 6912 --- [http-nio-8080-exec-2] com.tfg.backend_gymrat.util.Log          : User null registration is in proccess...
+2023-07-08T19:47:03.947+02:00  INFO 6912 --- [http-nio-8080-exec-2] com.tfg.backend_gymrat.util.Log          : User null has been registered succesfully!
+2023-07-08T20:00:56.922+02:00  INFO 8280 --- [main] c.t.b.BackEndGymRatApplication           : Starting BackEndGymRatApplication using Java 20.0.1 with PID 8280 (C:\Users\Manu\Desktop\UNI\TFG\Repo\GymRat_TFG\BackEnd_GymRat\target\classes started by Manu in C:\Users\Manu\Desktop\UNI\TFG\Repo\GymRat_TFG\BackEnd_GymRat)
+2023-07-08T20:00:56.924+02:00  INFO 8280 --- [main] c.t.b.BackEndGymRatApplication           : No active profile set, falling back to 1 default profile: "default"
+2023-07-08T20:00:57.262+02:00  INFO 8280 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data MongoDB repositories in DEFAULT mode.
+2023-07-08T20:00:57.291+02:00  INFO 8280 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 25 ms. Found 1 MongoDB repository interfaces.
+2023-07-08T20:00:57.722+02:00  INFO 8280 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-07-08T20:00:57.729+02:00  INFO 8280 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-07-08T20:00:57.730+02:00  INFO 8280 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.10]
+2023-07-08T20:00:57.801+02:00  INFO 8280 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-07-08T20:00:57.802+02:00  INFO 8280 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 831 ms
+2023-07-08T20:00:57.947+02:00  INFO 8280 --- [main] org.mongodb.driver.client                : MongoClient with metadata {"driver": {"name": "mongo-java-driver|sync|spring-boot", "version": "4.9.1"}, "os": {"type": "Windows", "name": "Windows 11", "architecture": "amd64", "version": "10.0"}, "platform": "Java/Oracle Corporation/20.0.1+9-29"} created with settings MongoClientSettings{readPreference=primary, writeConcern=WriteConcern{w=null, wTimeout=null ms, journal=null}, retryWrites=true, retryReads=true, readConcern=ReadConcern{level=null}, credential=MongoCredential{mechanism=null, userName='rootuser', source='admin', password=<hidden>, mechanismProperties=<hidden>}, streamFactoryFactory=null, commandListeners=[], codecRegistry=ProvidersCodecRegistry{codecProviders=[ValueCodecProvider{}, BsonValueCodecProvider{}, DBRefCodecProvider{}, DBObjectCodecProvider{}, DocumentCodecProvider{}, CollectionCodecProvider{}, IterableCodecProvider{}, MapCodecProvider{}, GeoJsonCodecProvider{}, GridFSFileCodecProvider{}, Jsr310CodecProvider{}, JsonObjectCodecProvider{}, BsonCodecProvider{}, EnumCodecProvider{}, com.mongodb.client.model.mql.ExpressionCodecProvider@9ab310b, com.mongodb.Jep395RecordCodecProvider@5b40de43]}, loggerSettings=LoggerSettings{maxDocumentLength=1000}, clusterSettings={hosts=[localhost:27017], srvServiceName=mongodb, mode=SINGLE, requiredClusterType=UNKNOWN, requiredReplicaSetName='null', serverSelector='null', clusterListeners='[]', serverSelectionTimeout='30000 ms', localThreshold='30000 ms'}, socketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=0, receiveBufferSize=0, sendBufferSize=0}, heartbeatSocketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=10000, receiveBufferSize=0, sendBufferSize=0}, connectionPoolSettings=ConnectionPoolSettings{maxSize=100, minSize=0, maxWaitTimeMS=120000, maxConnectionLifeTimeMS=0, maxConnectionIdleTimeMS=0, maintenanceInitialDelayMS=0, maintenanceFrequencyMS=60000, connectionPoolListeners=[], maxConnecting=2}, serverSettings=ServerSettings{heartbeatFrequencyMS=10000, minHeartbeatFrequencyMS=500, serverListeners='[]', serverMonitorListeners='[]'}, sslSettings=SslSettings{enabled=false, invalidHostNameAllowed=false, context=null}, applicationName='null', compressorList=[], uuidRepresentation=JAVA_LEGACY, serverApi=null, autoEncryptionSettings=null, contextProvider=null}
+2023-07-08T20:00:57.958+02:00  INFO 8280 --- [cluster-ClusterId{value='64a9a459ae6d48780a9ff7c4', description='null'}-localhost:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=localhost:27017, type=STANDALONE, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=17, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=20190000}
+2023-07-08T20:00:58.512+02:00  INFO 8280 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@48c5698, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@17884d, org.springframework.security.web.context.SecurityContextHolderFilter@75527e36, org.springframework.security.web.header.HeaderWriterFilter@3356ff58, org.springframework.security.web.authentication.logout.LogoutFilter@41e8d917, com.tfg.backend_gymrat.web.security.JWTAuthenticationFilter@68e24e7, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6d815fb7, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6d0114c0, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@c732e1c, org.springframework.security.web.session.SessionManagementFilter@605c7a9e, org.springframework.security.web.access.ExceptionTranslationFilter@4afd65fd, org.springframework.security.web.access.intercept.AuthorizationFilter@3b57f915]
+2023-07-08T20:00:58.518+02:00  WARN 8280 --- [main] o.s.s.c.a.web.builders.WebSecurity       : 
+
+********************************************************************
+**********        Security debugging is enabled.       *************
+**********    This may include sensitive information.  *************
+**********      Do not use in a production system!     *************
+********************************************************************
+
+
+2023-07-08T20:00:58.591+02:00  WARN 8280 --- [main] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates, check your Thymeleaf configuration, or set spring.thymeleaf.check-template-location=false)
+2023-07-08T20:00:58.641+02:00  INFO 8280 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-07-08T20:00:58.647+02:00  INFO 8280 --- [main] c.t.b.BackEndGymRatApplication           : Started BackEndGymRatApplication in 2.038 seconds (process running for 2.564)
+2023-07-08T20:02:11.364+02:00  INFO 8280 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-07-08T20:02:11.364+02:00  INFO 8280 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-07-08T20:02:11.365+02:00  INFO 8280 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2023-07-08T20:02:11.370+02:00  INFO 8280 --- [http-nio-8080-exec-1] Spring Security Debugger                 : 
+
+************************************************************
+
+Request received for POST '/v1/auth/register':
+
+org.apache.catalina.connector.RequestFacade@307b0e3c
+
+servletPath:/v1/auth/register
+pathInfo:null
+headers: 
+content-type: application/json
+user-agent: PostmanRuntime/7.32.3
+postman-token: c95c16ae-9efe-4b4c-9f1c-aa5686df9983
+host: localhost:8080
+accept-encoding: gzip, deflate, br
+connection: keep-alive
+content-length: 176
+
+
+Security filter chain: [
+  DisableEncodeUrlFilter
+  WebAsyncManagerIntegrationFilter
+  SecurityContextHolderFilter
+  HeaderWriterFilter
+  LogoutFilter
+  JWTAuthenticationFilter
+  RequestCacheAwareFilter
+  SecurityContextHolderAwareRequestFilter
+  AnonymousAuthenticationFilter
+  SessionManagementFilter
+  ExceptionTranslationFilter
+  AuthorizationFilter
+]
+
+
+************************************************************
+
+
+2023-07-08T20:02:11.455+02:00  INFO 8280 --- [http-nio-8080-exec-1] com.tfg.backend_gymrat.util.Log          : User null registration is in proccess...
+2023-07-08T20:02:23.966+02:00  INFO 8280 --- [http-nio-8080-exec-4] Spring Security Debugger                 : 
+
+************************************************************
+
+Request received for POST '/v1/auth/register':
+
+org.apache.catalina.connector.RequestFacade@1c5d06a5
+
+servletPath:/v1/auth/register
+pathInfo:null
+headers: 
+content-type: application/json
+user-agent: PostmanRuntime/7.32.3
+postman-token: b88fe4d1-0ae8-4c8c-8c54-07c8e1d563ab
+host: localhost:8080
+accept-encoding: gzip, deflate, br
+connection: keep-alive
+content-length: 189
+
+
+Security filter chain: [
+  DisableEncodeUrlFilter
+  WebAsyncManagerIntegrationFilter
+  SecurityContextHolderFilter
+  HeaderWriterFilter
+  LogoutFilter
+  JWTAuthenticationFilter
+  RequestCacheAwareFilter
+  SecurityContextHolderAwareRequestFilter
+  AnonymousAuthenticationFilter
+  SessionManagementFilter
+  ExceptionTranslationFilter
+  AuthorizationFilter
+]
+
+
+************************************************************
+
+
+2023-07-08T20:02:23.967+02:00  INFO 8280 --- [http-nio-8080-exec-4] com.tfg.backend_gymrat.util.Log          : User null registration is in proccess...
+2023-07-08T20:02:24.066+02:00  INFO 8280 --- [http-nio-8080-exec-4] com.tfg.backend_gymrat.util.Log          : User null has been registered succesfully!
+2023-07-08T20:02:54.268+02:00  INFO 8280 --- [http-nio-8080-exec-5] Spring Security Debugger                 : 
+
+************************************************************
+
+Request received for POST '/v1/auth/login':
+
+org.apache.catalina.connector.RequestFacade@3779d99b
+
+servletPath:/v1/auth/login
+pathInfo:null
+headers: 
+content-type: application/json
+user-agent: PostmanRuntime/7.32.3
+accept: */*
+postman-token: 374e9201-3bb8-4544-9c9c-64ddd803adf3
+host: localhost:8080
+accept-encoding: gzip, deflate, br
+connection: keep-alive
+content-length: 64
+
+
+Security filter chain: [
+  DisableEncodeUrlFilter
+  WebAsyncManagerIntegrationFilter
+  SecurityContextHolderFilter
+  HeaderWriterFilter
+  LogoutFilter
+  JWTAuthenticationFilter
+  RequestCacheAwareFilter
+  SecurityContextHolderAwareRequestFilter
+  AnonymousAuthenticationFilter
+  SessionManagementFilter
+  ExceptionTranslationFilter
+  AuthorizationFilter
+]
+
+
+************************************************************
+
+
+2023-07-08T20:02:54.295+02:00  INFO 8280 --- [http-nio-8080-exec-5] com.tfg.backend_gymrat.util.Log          : Log in of user manufaaaaaaaaa failed
+2023-07-08T20:05:22.575+02:00  INFO 26556 --- [main] c.t.b.BackEndGymRatApplication           : Starting BackEndGymRatApplication using Java 20.0.1 with PID 26556 (C:\Users\Manu\Desktop\UNI\TFG\Repo\GymRat_TFG\BackEnd_GymRat\target\classes started by Manu in C:\Users\Manu\Desktop\UNI\TFG\Repo\GymRat_TFG\BackEnd_GymRat)
+2023-07-08T20:05:22.579+02:00  INFO 26556 --- [main] c.t.b.BackEndGymRatApplication           : No active profile set, falling back to 1 default profile: "default"
+2023-07-08T20:05:22.924+02:00  INFO 26556 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data MongoDB repositories in DEFAULT mode.
+2023-07-08T20:05:22.955+02:00  INFO 26556 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 26 ms. Found 1 MongoDB repository interfaces.
+2023-07-08T20:05:23.389+02:00  INFO 26556 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-07-08T20:05:23.395+02:00  INFO 26556 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-07-08T20:05:23.395+02:00  INFO 26556 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.10]
+2023-07-08T20:05:23.457+02:00  INFO 26556 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-07-08T20:05:23.458+02:00  INFO 26556 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 828 ms
+2023-07-08T20:05:23.605+02:00  INFO 26556 --- [main] org.mongodb.driver.client                : MongoClient with metadata {"driver": {"name": "mongo-java-driver|sync|spring-boot", "version": "4.9.1"}, "os": {"type": "Windows", "name": "Windows 11", "architecture": "amd64", "version": "10.0"}, "platform": "Java/Oracle Corporation/20.0.1+9-29"} created with settings MongoClientSettings{readPreference=primary, writeConcern=WriteConcern{w=null, wTimeout=null ms, journal=null}, retryWrites=true, retryReads=true, readConcern=ReadConcern{level=null}, credential=MongoCredential{mechanism=null, userName='rootuser', source='admin', password=<hidden>, mechanismProperties=<hidden>}, streamFactoryFactory=null, commandListeners=[], codecRegistry=ProvidersCodecRegistry{codecProviders=[ValueCodecProvider{}, BsonValueCodecProvider{}, DBRefCodecProvider{}, DBObjectCodecProvider{}, DocumentCodecProvider{}, CollectionCodecProvider{}, IterableCodecProvider{}, MapCodecProvider{}, GeoJsonCodecProvider{}, GridFSFileCodecProvider{}, Jsr310CodecProvider{}, JsonObjectCodecProvider{}, BsonCodecProvider{}, EnumCodecProvider{}, com.mongodb.client.model.mql.ExpressionCodecProvider@2e1b374c, com.mongodb.Jep395RecordCodecProvider@3fcee3d9]}, loggerSettings=LoggerSettings{maxDocumentLength=1000}, clusterSettings={hosts=[localhost:27017], srvServiceName=mongodb, mode=SINGLE, requiredClusterType=UNKNOWN, requiredReplicaSetName='null', serverSelector='null', clusterListeners='[]', serverSelectionTimeout='30000 ms', localThreshold='30000 ms'}, socketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=0, receiveBufferSize=0, sendBufferSize=0}, heartbeatSocketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=10000, receiveBufferSize=0, sendBufferSize=0}, connectionPoolSettings=ConnectionPoolSettings{maxSize=100, minSize=0, maxWaitTimeMS=120000, maxConnectionLifeTimeMS=0, maxConnectionIdleTimeMS=0, maintenanceInitialDelayMS=0, maintenanceFrequencyMS=60000, connectionPoolListeners=[], maxConnecting=2}, serverSettings=ServerSettings{heartbeatFrequencyMS=10000, minHeartbeatFrequencyMS=500, serverListeners='[]', serverMonitorListeners='[]'}, sslSettings=SslSettings{enabled=false, invalidHostNameAllowed=false, context=null}, applicationName='null', compressorList=[], uuidRepresentation=JAVA_LEGACY, serverApi=null, autoEncryptionSettings=null, contextProvider=null}
+2023-07-08T20:05:23.615+02:00  INFO 26556 --- [cluster-ClusterId{value='64a9a5639525c832ed47a5d9', description='null'}-localhost:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=localhost:27017, type=STANDALONE, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=17, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=18849800}
+2023-07-08T20:05:24.209+02:00  INFO 26556 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@645dc557, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@48c5698, org.springframework.security.web.context.SecurityContextHolderFilter@d16209e, org.springframework.security.web.header.HeaderWriterFilter@141aba65, org.springframework.security.web.authentication.logout.LogoutFilter@4c6bba7d, com.tfg.backend_gymrat.web.security.JWTAuthenticationFilter@17884d, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@76596288, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@a9a8ec3, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@68e24e7, org.springframework.security.web.session.SessionManagementFilter@45e7bb79, org.springframework.security.web.access.ExceptionTranslationFilter@98637a2, org.springframework.security.web.access.intercept.AuthorizationFilter@57c6feea]
+2023-07-08T20:05:24.213+02:00  WARN 26556 --- [main] o.s.s.c.a.web.builders.WebSecurity       : 
+
+********************************************************************
+**********        Security debugging is enabled.       *************
+**********    This may include sensitive information.  *************
+**********      Do not use in a production system!     *************
+********************************************************************
+
+
+2023-07-08T20:05:24.285+02:00  WARN 26556 --- [main] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates, check your Thymeleaf configuration, or set spring.thymeleaf.check-template-location=false)
+2023-07-08T20:05:24.331+02:00  INFO 26556 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-07-08T20:05:24.337+02:00  INFO 26556 --- [main] c.t.b.BackEndGymRatApplication           : Started BackEndGymRatApplication in 2.098 seconds (process running for 2.577)
+2023-07-08T20:05:47.417+02:00  INFO 26556 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-07-08T20:05:47.417+02:00  INFO 26556 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-07-08T20:05:47.418+02:00  INFO 26556 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2023-07-08T20:05:47.422+02:00  INFO 26556 --- [http-nio-8080-exec-1] Spring Security Debugger                 : 
+
+************************************************************
+
+Request received for POST '/v1/auth/register':
+
+org.apache.catalina.connector.RequestFacade@f988106
+
+servletPath:/v1/auth/register
+pathInfo:null
+headers: 
+content-type: application/json
+user-agent: PostmanRuntime/7.32.3
+postman-token: ce385922-c6c5-4df0-a96e-61d58f64cfbc
+host: localhost:8080
+accept-encoding: gzip, deflate, br
+connection: keep-alive
+content-length: 173
+
+
+Security filter chain: [
+  DisableEncodeUrlFilter
+  WebAsyncManagerIntegrationFilter
+  SecurityContextHolderFilter
+  HeaderWriterFilter
+  LogoutFilter
+  JWTAuthenticationFilter
+  RequestCacheAwareFilter
+  SecurityContextHolderAwareRequestFilter
+  AnonymousAuthenticationFilter
+  SessionManagementFilter
+  ExceptionTranslationFilter
+  AuthorizationFilter
+]
+
+
+************************************************************
+
+
+2023-07-08T20:05:47.514+02:00  INFO 26556 --- [http-nio-8080-exec-1] com.tfg.backend_gymrat.util.Log          : User null registration is in proccess...
+2023-07-08T20:05:47.664+02:00  INFO 26556 --- [http-nio-8080-exec-1] com.tfg.backend_gymrat.util.Log          : User null has been registered succesfully!
+2023-07-08T20:07:42.954+02:00  INFO 8708 --- [main] c.t.b.BackEndGymRatApplication           : Starting BackEndGymRatApplication using Java 20.0.1 with PID 8708 (C:\Users\Manu\Desktop\UNI\TFG\Repo\GymRat_TFG\BackEnd_GymRat\target\classes started by Manu in C:\Users\Manu\Desktop\UNI\TFG\Repo\GymRat_TFG\BackEnd_GymRat)
+2023-07-08T20:07:42.956+02:00  INFO 8708 --- [main] c.t.b.BackEndGymRatApplication           : No active profile set, falling back to 1 default profile: "default"
+2023-07-08T20:07:43.266+02:00  INFO 8708 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data MongoDB repositories in DEFAULT mode.
+2023-07-08T20:07:43.299+02:00  INFO 8708 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 30 ms. Found 1 MongoDB repository interfaces.
+2023-07-08T20:07:43.743+02:00  INFO 8708 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-07-08T20:07:43.750+02:00  INFO 8708 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-07-08T20:07:43.750+02:00  INFO 8708 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.10]
+2023-07-08T20:07:43.824+02:00  INFO 8708 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-07-08T20:07:43.824+02:00  INFO 8708 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 822 ms
+2023-07-08T20:07:43.966+02:00  INFO 8708 --- [main] org.mongodb.driver.client                : MongoClient with metadata {"driver": {"name": "mongo-java-driver|sync|spring-boot", "version": "4.9.1"}, "os": {"type": "Windows", "name": "Windows 11", "architecture": "amd64", "version": "10.0"}, "platform": "Java/Oracle Corporation/20.0.1+9-29"} created with settings MongoClientSettings{readPreference=primary, writeConcern=WriteConcern{w=null, wTimeout=null ms, journal=null}, retryWrites=true, retryReads=true, readConcern=ReadConcern{level=null}, credential=MongoCredential{mechanism=null, userName='rootuser', source='admin', password=<hidden>, mechanismProperties=<hidden>}, streamFactoryFactory=null, commandListeners=[], codecRegistry=ProvidersCodecRegistry{codecProviders=[ValueCodecProvider{}, BsonValueCodecProvider{}, DBRefCodecProvider{}, DBObjectCodecProvider{}, DocumentCodecProvider{}, CollectionCodecProvider{}, IterableCodecProvider{}, MapCodecProvider{}, GeoJsonCodecProvider{}, GridFSFileCodecProvider{}, Jsr310CodecProvider{}, JsonObjectCodecProvider{}, BsonCodecProvider{}, EnumCodecProvider{}, com.mongodb.client.model.mql.ExpressionCodecProvider@760487aa, com.mongodb.Jep395RecordCodecProvider@1526f71]}, loggerSettings=LoggerSettings{maxDocumentLength=1000}, clusterSettings={hosts=[localhost:27017], srvServiceName=mongodb, mode=SINGLE, requiredClusterType=UNKNOWN, requiredReplicaSetName='null', serverSelector='null', clusterListeners='[]', serverSelectionTimeout='30000 ms', localThreshold='30000 ms'}, socketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=0, receiveBufferSize=0, sendBufferSize=0}, heartbeatSocketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=10000, receiveBufferSize=0, sendBufferSize=0}, connectionPoolSettings=ConnectionPoolSettings{maxSize=100, minSize=0, maxWaitTimeMS=120000, maxConnectionLifeTimeMS=0, maxConnectionIdleTimeMS=0, maintenanceInitialDelayMS=0, maintenanceFrequencyMS=60000, connectionPoolListeners=[], maxConnecting=2}, serverSettings=ServerSettings{heartbeatFrequencyMS=10000, minHeartbeatFrequencyMS=500, serverListeners='[]', serverMonitorListeners='[]'}, sslSettings=SslSettings{enabled=false, invalidHostNameAllowed=false, context=null}, applicationName='null', compressorList=[], uuidRepresentation=JAVA_LEGACY, serverApi=null, autoEncryptionSettings=null, contextProvider=null}
+2023-07-08T20:07:43.976+02:00  INFO 8708 --- [cluster-ClusterId{value='64a9a5ef84109441939a8d26', description='null'}-localhost:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=localhost:27017, type=STANDALONE, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=17, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=17363900}
+2023-07-08T20:07:44.542+02:00  INFO 8708 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@203765b2, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7e050be1, org.springframework.security.web.context.SecurityContextHolderFilter@55951fcd, org.springframework.security.web.header.HeaderWriterFilter@775f15fd, org.springframework.security.web.authentication.logout.LogoutFilter@45e7bb79, com.tfg.backend_gymrat.web.security.JWTAuthenticationFilter@1b47b7f5, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7534785a, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@46ab4efc, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@506aa618, org.springframework.security.web.session.SessionManagementFilter@236861da, org.springframework.security.web.access.ExceptionTranslationFilter@4228f269, org.springframework.security.web.access.intercept.AuthorizationFilter@a9a8ec3]
+2023-07-08T20:07:44.553+02:00  WARN 8708 --- [main] o.s.s.c.a.web.builders.WebSecurity       : 
+
+********************************************************************
+**********        Security debugging is enabled.       *************
+**********    This may include sensitive information.  *************
+**********      Do not use in a production system!     *************
+********************************************************************
+
+
+2023-07-08T20:07:44.633+02:00  WARN 8708 --- [main] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates, check your Thymeleaf configuration, or set spring.thymeleaf.check-template-location=false)
+2023-07-08T20:07:44.686+02:00  INFO 8708 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-07-08T20:07:44.692+02:00  INFO 8708 --- [main] c.t.b.BackEndGymRatApplication           : Started BackEndGymRatApplication in 2.048 seconds (process running for 2.665)
+2023-07-08T20:07:54.239+02:00  INFO 8708 --- [http-nio-8080-exec-3] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-07-08T20:07:54.239+02:00  INFO 8708 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-07-08T20:07:54.240+02:00  INFO 8708 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2023-07-08T20:07:54.244+02:00  INFO 8708 --- [http-nio-8080-exec-3] Spring Security Debugger                 : 
+
+************************************************************
+
+Request received for POST '/v1/auth/register':
+
+org.apache.catalina.connector.RequestFacade@370546f8
+
+servletPath:/v1/auth/register
+pathInfo:null
+headers: 
+content-type: application/json
+user-agent: PostmanRuntime/7.32.3
+postman-token: ae639fec-e223-4dea-9785-18f401d06043
+host: localhost:8080
+accept-encoding: gzip, deflate, br
+connection: keep-alive
+content-length: 175
+
+
+Security filter chain: [
+  DisableEncodeUrlFilter
+  WebAsyncManagerIntegrationFilter
+  SecurityContextHolderFilter
+  HeaderWriterFilter
+  LogoutFilter
+  JWTAuthenticationFilter
+  RequestCacheAwareFilter
+  SecurityContextHolderAwareRequestFilter
+  AnonymousAuthenticationFilter
+  SessionManagementFilter
+  ExceptionTranslationFilter
+  AuthorizationFilter
+]
+
+
+************************************************************
+
+
+2023-07-08T20:07:54.329+02:00  INFO 8708 --- [http-nio-8080-exec-3] com.tfg.backend_gymrat.util.Log          : User null registration is in proccess...
+2023-07-08T20:07:54.472+02:00  INFO 8708 --- [http-nio-8080-exec-3] com.tfg.backend_gymrat.util.Log          : User null has been registered succesfully!
+2023-07-08T20:08:41.764+02:00  INFO 4268 --- [main] c.t.b.BackEndGymRatApplication           : Starting BackEndGymRatApplication using Java 20.0.1 with PID 4268 (C:\Users\Manu\Desktop\UNI\TFG\Repo\GymRat_TFG\BackEnd_GymRat\target\classes started by Manu in C:\Users\Manu\Desktop\UNI\TFG\Repo\GymRat_TFG\BackEnd_GymRat)
+2023-07-08T20:08:41.765+02:00  INFO 4268 --- [main] c.t.b.BackEndGymRatApplication           : No active profile set, falling back to 1 default profile: "default"
+2023-07-08T20:08:42.076+02:00  INFO 4268 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data MongoDB repositories in DEFAULT mode.
+2023-07-08T20:08:42.118+02:00  INFO 4268 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 38 ms. Found 1 MongoDB repository interfaces.
+2023-07-08T20:08:42.560+02:00  INFO 4268 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-07-08T20:08:42.567+02:00  INFO 4268 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-07-08T20:08:42.567+02:00  INFO 4268 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.10]
+2023-07-08T20:08:42.633+02:00  INFO 4268 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-07-08T20:08:42.634+02:00  INFO 4268 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 824 ms
+2023-07-08T20:08:42.780+02:00  INFO 4268 --- [main] org.mongodb.driver.client                : MongoClient with metadata {"driver": {"name": "mongo-java-driver|sync|spring-boot", "version": "4.9.1"}, "os": {"type": "Windows", "name": "Windows 11", "architecture": "amd64", "version": "10.0"}, "platform": "Java/Oracle Corporation/20.0.1+9-29"} created with settings MongoClientSettings{readPreference=primary, writeConcern=WriteConcern{w=null, wTimeout=null ms, journal=null}, retryWrites=true, retryReads=true, readConcern=ReadConcern{level=null}, credential=MongoCredential{mechanism=null, userName='rootuser', source='admin', password=<hidden>, mechanismProperties=<hidden>}, streamFactoryFactory=null, commandListeners=[], codecRegistry=ProvidersCodecRegistry{codecProviders=[ValueCodecProvider{}, BsonValueCodecProvider{}, DBRefCodecProvider{}, DBObjectCodecProvider{}, DocumentCodecProvider{}, CollectionCodecProvider{}, IterableCodecProvider{}, MapCodecProvider{}, GeoJsonCodecProvider{}, GridFSFileCodecProvider{}, Jsr310CodecProvider{}, JsonObjectCodecProvider{}, BsonCodecProvider{}, EnumCodecProvider{}, com.mongodb.client.model.mql.ExpressionCodecProvider@5995851e, com.mongodb.Jep395RecordCodecProvider@48a2db72]}, loggerSettings=LoggerSettings{maxDocumentLength=1000}, clusterSettings={hosts=[localhost:27017], srvServiceName=mongodb, mode=SINGLE, requiredClusterType=UNKNOWN, requiredReplicaSetName='null', serverSelector='null', clusterListeners='[]', serverSelectionTimeout='30000 ms', localThreshold='30000 ms'}, socketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=0, receiveBufferSize=0, sendBufferSize=0}, heartbeatSocketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=10000, receiveBufferSize=0, sendBufferSize=0}, connectionPoolSettings=ConnectionPoolSettings{maxSize=100, minSize=0, maxWaitTimeMS=120000, maxConnectionLifeTimeMS=0, maxConnectionIdleTimeMS=0, maintenanceInitialDelayMS=0, maintenanceFrequencyMS=60000, connectionPoolListeners=[], maxConnecting=2}, serverSettings=ServerSettings{heartbeatFrequencyMS=10000, minHeartbeatFrequencyMS=500, serverListeners='[]', serverMonitorListeners='[]'}, sslSettings=SslSettings{enabled=false, invalidHostNameAllowed=false, context=null}, applicationName='null', compressorList=[], uuidRepresentation=JAVA_LEGACY, serverApi=null, autoEncryptionSettings=null, contextProvider=null}
+2023-07-08T20:08:42.791+02:00  INFO 4268 --- [cluster-ClusterId{value='64a9a62ae9b68f60d6d46e31', description='null'}-localhost:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=localhost:27017, type=STANDALONE, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=17, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=19079001}
+2023-07-08T20:08:43.354+02:00  INFO 4268 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@308e87a1, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@66298fe9, org.springframework.security.web.context.SecurityContextHolderFilter@1b47b7f5, org.springframework.security.web.header.HeaderWriterFilter@2ef041bb, org.springframework.security.web.authentication.logout.LogoutFilter@39c7fb0b, com.tfg.backend_gymrat.web.security.JWTAuthenticationFilter@c262f2f, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4b6b5352, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2f86f9cf, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5563bb40, org.springframework.security.web.session.SessionManagementFilter@40016ce1, org.springframework.security.web.access.ExceptionTranslationFilter@1426370c, org.springframework.security.web.access.intercept.AuthorizationFilter@340c5fb6]
+2023-07-08T20:08:43.358+02:00  WARN 4268 --- [main] o.s.s.c.a.web.builders.WebSecurity       : 
+
+********************************************************************
+**********        Security debugging is enabled.       *************
+**********    This may include sensitive information.  *************
+**********      Do not use in a production system!     *************
+********************************************************************
+
+
+2023-07-08T20:08:43.435+02:00  WARN 4268 --- [main] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates, check your Thymeleaf configuration, or set spring.thymeleaf.check-template-location=false)
+2023-07-08T20:08:43.482+02:00  INFO 4268 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-07-08T20:08:43.488+02:00  INFO 4268 --- [main] c.t.b.BackEndGymRatApplication           : Started BackEndGymRatApplication in 2.047 seconds (process running for 2.492)
+2023-07-08T20:09:48.688+02:00  INFO 14036 --- [main] c.t.b.BackEndGymRatApplication           : Starting BackEndGymRatApplication using Java 20.0.1 with PID 14036 (C:\Users\Manu\Desktop\UNI\TFG\Repo\GymRat_TFG\BackEnd_GymRat\target\classes started by Manu in C:\Users\Manu\Desktop\UNI\TFG\Repo\GymRat_TFG\BackEnd_GymRat)
+2023-07-08T20:09:48.690+02:00  INFO 14036 --- [main] c.t.b.BackEndGymRatApplication           : No active profile set, falling back to 1 default profile: "default"
+2023-07-08T20:09:48.992+02:00  INFO 14036 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data MongoDB repositories in DEFAULT mode.
+2023-07-08T20:09:49.028+02:00  INFO 14036 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 32 ms. Found 1 MongoDB repository interfaces.
+2023-07-08T20:09:49.478+02:00  INFO 14036 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-07-08T20:09:49.484+02:00  INFO 14036 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-07-08T20:09:49.485+02:00  INFO 14036 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.10]
+2023-07-08T20:09:49.561+02:00  INFO 14036 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-07-08T20:09:49.562+02:00  INFO 14036 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 827 ms
+2023-07-08T20:09:49.709+02:00  INFO 14036 --- [main] org.mongodb.driver.client                : MongoClient with metadata {"driver": {"name": "mongo-java-driver|sync|spring-boot", "version": "4.9.1"}, "os": {"type": "Windows", "name": "Windows 11", "architecture": "amd64", "version": "10.0"}, "platform": "Java/Oracle Corporation/20.0.1+9-29"} created with settings MongoClientSettings{readPreference=primary, writeConcern=WriteConcern{w=null, wTimeout=null ms, journal=null}, retryWrites=true, retryReads=true, readConcern=ReadConcern{level=null}, credential=MongoCredential{mechanism=null, userName='rootuser', source='admin', password=<hidden>, mechanismProperties=<hidden>}, streamFactoryFactory=null, commandListeners=[], codecRegistry=ProvidersCodecRegistry{codecProviders=[ValueCodecProvider{}, BsonValueCodecProvider{}, DBRefCodecProvider{}, DBObjectCodecProvider{}, DocumentCodecProvider{}, CollectionCodecProvider{}, IterableCodecProvider{}, MapCodecProvider{}, GeoJsonCodecProvider{}, GridFSFileCodecProvider{}, Jsr310CodecProvider{}, JsonObjectCodecProvider{}, BsonCodecProvider{}, EnumCodecProvider{}, com.mongodb.client.model.mql.ExpressionCodecProvider@671ea6ff, com.mongodb.Jep395RecordCodecProvider@1c52552f]}, loggerSettings=LoggerSettings{maxDocumentLength=1000}, clusterSettings={hosts=[localhost:27017], srvServiceName=mongodb, mode=SINGLE, requiredClusterType=UNKNOWN, requiredReplicaSetName='null', serverSelector='null', clusterListeners='[]', serverSelectionTimeout='30000 ms', localThreshold='30000 ms'}, socketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=0, receiveBufferSize=0, sendBufferSize=0}, heartbeatSocketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=10000, receiveBufferSize=0, sendBufferSize=0}, connectionPoolSettings=ConnectionPoolSettings{maxSize=100, minSize=0, maxWaitTimeMS=120000, maxConnectionLifeTimeMS=0, maxConnectionIdleTimeMS=0, maintenanceInitialDelayMS=0, maintenanceFrequencyMS=60000, connectionPoolListeners=[], maxConnecting=2}, serverSettings=ServerSettings{heartbeatFrequencyMS=10000, minHeartbeatFrequencyMS=500, serverListeners='[]', serverMonitorListeners='[]'}, sslSettings=SslSettings{enabled=false, invalidHostNameAllowed=false, context=null}, applicationName='null', compressorList=[], uuidRepresentation=JAVA_LEGACY, serverApi=null, autoEncryptionSettings=null, contextProvider=null}
+2023-07-08T20:09:49.719+02:00  INFO 14036 --- [cluster-ClusterId{value='64a9a66d3ea31b7127a88fcb', description='null'}-localhost:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=localhost:27017, type=STANDALONE, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=17, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=18745100}
+2023-07-08T20:09:50.270+02:00  INFO 14036 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@76596288, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6d815fb7, org.springframework.security.web.context.SecurityContextHolderFilter@75839695, org.springframework.security.web.header.HeaderWriterFilter@4cd7d5e1, org.springframework.security.web.authentication.logout.LogoutFilter@6f867b0c, com.tfg.backend_gymrat.web.security.JWTAuthenticationFilter@51af8049, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@794c5f5e, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2cd3fc29, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@376af784, org.springframework.security.web.session.SessionManagementFilter@11abd6c, org.springframework.security.web.access.ExceptionTranslationFilter@5f0677f3, org.springframework.security.web.access.intercept.AuthorizationFilter@21c75084]
+2023-07-08T20:09:50.279+02:00  WARN 14036 --- [main] o.s.s.c.a.web.builders.WebSecurity       : 
+
+********************************************************************
+**********        Security debugging is enabled.       *************
+**********    This may include sensitive information.  *************
+**********      Do not use in a production system!     *************
+********************************************************************
+
+
+2023-07-08T20:09:50.353+02:00  WARN 14036 --- [main] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates, check your Thymeleaf configuration, or set spring.thymeleaf.check-template-location=false)
+2023-07-08T20:09:50.408+02:00  INFO 14036 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-07-08T20:09:50.415+02:00  INFO 14036 --- [main] c.t.b.BackEndGymRatApplication           : Started BackEndGymRatApplication in 2.032 seconds (process running for 2.518)
+2023-07-08T20:09:54.995+02:00  INFO 14036 --- [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-07-08T20:09:54.995+02:00  INFO 14036 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-07-08T20:09:54.996+02:00  INFO 14036 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2023-07-08T20:09:55.001+02:00  INFO 14036 --- [http-nio-8080-exec-2] Spring Security Debugger                 : 
+
+************************************************************
+
+Request received for POST '/v1/auth/register':
+
+org.apache.catalina.connector.RequestFacade@5ef89dda
+
+servletPath:/v1/auth/register
+pathInfo:null
+headers: 
+content-type: application/json
+user-agent: PostmanRuntime/7.32.3
+postman-token: afd562bf-f045-4d00-8235-f7307cf0261b
+host: localhost:8080
+accept-encoding: gzip, deflate, br
+connection: keep-alive
+content-length: 178
+
+
+Security filter chain: [
+  DisableEncodeUrlFilter
+  WebAsyncManagerIntegrationFilter
+  SecurityContextHolderFilter
+  HeaderWriterFilter
+  LogoutFilter
+  JWTAuthenticationFilter
+  RequestCacheAwareFilter
+  SecurityContextHolderAwareRequestFilter
+  AnonymousAuthenticationFilter
+  SessionManagementFilter
+  ExceptionTranslationFilter
+  AuthorizationFilter
+]
+
+
+************************************************************
+
+
+2023-07-08T20:09:55.096+02:00  WARN 14036 --- [http-nio-8080-exec-2] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot construct instance of `com.tfg.backend_gymrat.domain.dto.api.auth.request.UserRegistrationRequest`, problem: username is marked non-null but is null]
+2023-07-08T20:09:55.099+02:00  INFO 14036 --- [http-nio-8080-exec-2] Spring Security Debugger                 : 
+
+************************************************************
+
+Request received for POST '/error':
+
+org.apache.catalina.core.ApplicationHttpRequest@3287a71b
+
+servletPath:/error
+pathInfo:null
+headers: 
+content-type: application/json
+user-agent: PostmanRuntime/7.32.3
+postman-token: afd562bf-f045-4d00-8235-f7307cf0261b
+host: localhost:8080
+accept-encoding: gzip, deflate, br
+connection: keep-alive
+content-length: 178
+
+
+Security filter chain: [
+  DisableEncodeUrlFilter
+  WebAsyncManagerIntegrationFilter
+  SecurityContextHolderFilter
+  HeaderWriterFilter
+  LogoutFilter
+  JWTAuthenticationFilter
+  RequestCacheAwareFilter
+  SecurityContextHolderAwareRequestFilter
+  AnonymousAuthenticationFilter
+  SessionManagementFilter
+  ExceptionTranslationFilter
+  AuthorizationFilter
+]
+
+
+************************************************************
+
+
+2023-07-08T20:10:06.955+02:00  INFO 14036 --- [http-nio-8080-exec-3] Spring Security Debugger                 : 
+
+************************************************************
+
+Request received for POST '/v1/auth/register':
+
+org.apache.catalina.connector.RequestFacade@1663bd11
+
+servletPath:/v1/auth/register
+pathInfo:null
+headers: 
+content-type: application/json
+user-agent: PostmanRuntime/7.32.3
+postman-token: e7208e7e-4ea7-4f2a-bf29-d8108b814688
+host: localhost:8080
+accept-encoding: gzip, deflate, br
+connection: keep-alive
+content-length: 177
+
+
+Security filter chain: [
+  DisableEncodeUrlFilter
+  WebAsyncManagerIntegrationFilter
+  SecurityContextHolderFilter
+  HeaderWriterFilter
+  LogoutFilter
+  JWTAuthenticationFilter
+  RequestCacheAwareFilter
+  SecurityContextHolderAwareRequestFilter
+  AnonymousAuthenticationFilter
+  SessionManagementFilter
+  ExceptionTranslationFilter
+  AuthorizationFilter
+]
+
+
+************************************************************
+
+
+2023-07-08T20:10:06.962+02:00  INFO 14036 --- [http-nio-8080-exec-3] com.tfg.backend_gymrat.util.Log          : User manufaaa1 registration is in proccess...
+2023-07-08T20:10:29.890+02:00  INFO 14036 --- [http-nio-8080-exec-5] Spring Security Debugger                 : 
+
+************************************************************
+
+Request received for POST '/v1/auth/register':
+
+org.apache.catalina.connector.RequestFacade@79098f13
+
+servletPath:/v1/auth/register
+pathInfo:null
+headers: 
+content-type: application/json
+user-agent: PostmanRuntime/7.32.3
+postman-token: 959d4ea3-6bab-468b-8e62-228a558d7165
+host: localhost:8080
+accept-encoding: gzip, deflate, br
+connection: keep-alive
+content-length: 184
+
+
+Security filter chain: [
+  DisableEncodeUrlFilter
+  WebAsyncManagerIntegrationFilter
+  SecurityContextHolderFilter
+  HeaderWriterFilter
+  LogoutFilter
+  JWTAuthenticationFilter
+  RequestCacheAwareFilter
+  SecurityContextHolderAwareRequestFilter
+  AnonymousAuthenticationFilter
+  SessionManagementFilter
+  ExceptionTranslationFilter
+  AuthorizationFilter
+]
+
+
+************************************************************
+
+
+2023-07-08T20:10:29.891+02:00  INFO 14036 --- [http-nio-8080-exec-5] com.tfg.backend_gymrat.util.Log          : User manufaaaaaa1 registration is in proccess...
+2023-07-08T20:10:29.990+02:00  INFO 14036 --- [http-nio-8080-exec-5] com.tfg.backend_gymrat.util.Log          : User manufaaaaaa1 has been registered succesfully!
+2023-07-08T20:10:54.717+02:00  INFO 14036 --- [http-nio-8080-exec-6] Spring Security Debugger                 : 
+
+************************************************************
+
+Request received for POST '/v1/auth/register':
+
+org.apache.catalina.connector.RequestFacade@328cc3a9
+
+servletPath:/v1/auth/register
+pathInfo:null
+headers: 
+content-type: application/json
+user-agent: PostmanRuntime/7.32.3
+postman-token: 1b0c890d-b100-4509-86be-c78cbf29310f
+host: localhost:8080
+accept-encoding: gzip, deflate, br
+connection: keep-alive
+content-length: 186
+
+
+Security filter chain: [
+  DisableEncodeUrlFilter
+  WebAsyncManagerIntegrationFilter
+  SecurityContextHolderFilter
+  HeaderWriterFilter
+  LogoutFilter
+  JWTAuthenticationFilter
+  RequestCacheAwareFilter
+  SecurityContextHolderAwareRequestFilter
+  AnonymousAuthenticationFilter
+  SessionManagementFilter
+  ExceptionTranslationFilter
+  AuthorizationFilter
+]
+
+
+************************************************************
+
+
+2023-07-08T20:10:54.718+02:00  WARN 14036 --- [http-nio-8080-exec-6] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot construct instance of `com.tfg.backend_gymrat.domain.dto.api.auth.request.UserRegistrationRequest`, problem: username is marked non-null but is null]
+2023-07-08T20:10:54.719+02:00  INFO 14036 --- [http-nio-8080-exec-6] Spring Security Debugger                 : 
+
+************************************************************
+
+Request received for POST '/error':
+
+org.apache.catalina.core.ApplicationHttpRequest@3c4b3b88
+
+servletPath:/error
+pathInfo:null
+headers: 
+content-type: application/json
+user-agent: PostmanRuntime/7.32.3
+postman-token: 1b0c890d-b100-4509-86be-c78cbf29310f
+host: localhost:8080
+accept-encoding: gzip, deflate, br
+connection: keep-alive
+content-length: 186
+
+
+Security filter chain: [
+  DisableEncodeUrlFilter
+  WebAsyncManagerIntegrationFilter
+  SecurityContextHolderFilter
+  HeaderWriterFilter
+  LogoutFilter
+  JWTAuthenticationFilter
+  RequestCacheAwareFilter
+  SecurityContextHolderAwareRequestFilter
+  AnonymousAuthenticationFilter
+  SessionManagementFilter
+  ExceptionTranslationFilter
+  AuthorizationFilter
+]
+
+
+************************************************************
+
+
+2023-07-08T20:13:08.158+02:00  INFO 10548 --- [main] c.t.b.BackEndGymRatApplication           : Starting BackEndGymRatApplication using Java 20.0.1 with PID 10548 (C:\Users\Manu\Desktop\UNI\TFG\Repo\GymRat_TFG\BackEnd_GymRat\target\classes started by Manu in C:\Users\Manu\Desktop\UNI\TFG\Repo\GymRat_TFG\BackEnd_GymRat)
+2023-07-08T20:13:08.160+02:00  INFO 10548 --- [main] c.t.b.BackEndGymRatApplication           : No active profile set, falling back to 1 default profile: "default"
+2023-07-08T20:13:08.473+02:00  INFO 10548 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data MongoDB repositories in DEFAULT mode.
+2023-07-08T20:13:08.515+02:00  INFO 10548 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 33 ms. Found 1 MongoDB repository interfaces.
+2023-07-08T20:13:08.950+02:00  INFO 10548 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-07-08T20:13:08.956+02:00  INFO 10548 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-07-08T20:13:08.957+02:00  INFO 10548 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.10]
+2023-07-08T20:13:09.018+02:00  INFO 10548 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-07-08T20:13:09.018+02:00  INFO 10548 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 814 ms
+2023-07-08T20:13:09.163+02:00  INFO 10548 --- [main] org.mongodb.driver.client                : MongoClient with metadata {"driver": {"name": "mongo-java-driver|sync|spring-boot", "version": "4.9.1"}, "os": {"type": "Windows", "name": "Windows 11", "architecture": "amd64", "version": "10.0"}, "platform": "Java/Oracle Corporation/20.0.1+9-29"} created with settings MongoClientSettings{readPreference=primary, writeConcern=WriteConcern{w=null, wTimeout=null ms, journal=null}, retryWrites=true, retryReads=true, readConcern=ReadConcern{level=null}, credential=MongoCredential{mechanism=null, userName='rootuser', source='admin', password=<hidden>, mechanismProperties=<hidden>}, streamFactoryFactory=null, commandListeners=[], codecRegistry=ProvidersCodecRegistry{codecProviders=[ValueCodecProvider{}, BsonValueCodecProvider{}, DBRefCodecProvider{}, DBObjectCodecProvider{}, DocumentCodecProvider{}, CollectionCodecProvider{}, IterableCodecProvider{}, MapCodecProvider{}, GeoJsonCodecProvider{}, GridFSFileCodecProvider{}, Jsr310CodecProvider{}, JsonObjectCodecProvider{}, BsonCodecProvider{}, EnumCodecProvider{}, com.mongodb.client.model.mql.ExpressionCodecProvider@760487aa, com.mongodb.Jep395RecordCodecProvider@1526f71]}, loggerSettings=LoggerSettings{maxDocumentLength=1000}, clusterSettings={hosts=[localhost:27017], srvServiceName=mongodb, mode=SINGLE, requiredClusterType=UNKNOWN, requiredReplicaSetName='null', serverSelector='null', clusterListeners='[]', serverSelectionTimeout='30000 ms', localThreshold='30000 ms'}, socketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=0, receiveBufferSize=0, sendBufferSize=0}, heartbeatSocketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=10000, receiveBufferSize=0, sendBufferSize=0}, connectionPoolSettings=ConnectionPoolSettings{maxSize=100, minSize=0, maxWaitTimeMS=120000, maxConnectionLifeTimeMS=0, maxConnectionIdleTimeMS=0, maintenanceInitialDelayMS=0, maintenanceFrequencyMS=60000, connectionPoolListeners=[], maxConnecting=2}, serverSettings=ServerSettings{heartbeatFrequencyMS=10000, minHeartbeatFrequencyMS=500, serverListeners='[]', serverMonitorListeners='[]'}, sslSettings=SslSettings{enabled=false, invalidHostNameAllowed=false, context=null}, applicationName='null', compressorList=[], uuidRepresentation=JAVA_LEGACY, serverApi=null, autoEncryptionSettings=null, contextProvider=null}
+2023-07-08T20:13:09.175+02:00  INFO 10548 --- [cluster-ClusterId{value='64a9a735ae3e0872cba2be22', description='null'}-localhost:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=localhost:27017, type=STANDALONE, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=17, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=18409500}
+2023-07-08T20:13:09.738+02:00  INFO 10548 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@48c5698, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@17884d, org.springframework.security.web.context.SecurityContextHolderFilter@75527e36, org.springframework.security.web.header.HeaderWriterFilter@3356ff58, org.springframework.security.web.authentication.logout.LogoutFilter@41e8d917, com.tfg.backend_gymrat.web.security.JWTAuthenticationFilter@68e24e7, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6d815fb7, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6d0114c0, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@c732e1c, org.springframework.security.web.session.SessionManagementFilter@605c7a9e, org.springframework.security.web.access.ExceptionTranslationFilter@4afd65fd, org.springframework.security.web.access.intercept.AuthorizationFilter@3b57f915]
+2023-07-08T20:13:09.742+02:00  WARN 10548 --- [main] o.s.s.c.a.web.builders.WebSecurity       : 
+
+********************************************************************
+**********        Security debugging is enabled.       *************
+**********    This may include sensitive information.  *************
+**********      Do not use in a production system!     *************
+********************************************************************
+
+
+2023-07-08T20:13:09.815+02:00  WARN 10548 --- [main] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates, check your Thymeleaf configuration, or set spring.thymeleaf.check-template-location=false)
+2023-07-08T20:13:09.861+02:00  INFO 10548 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-07-08T20:13:09.867+02:00  INFO 10548 --- [main] c.t.b.BackEndGymRatApplication           : Started BackEndGymRatApplication in 2.02 seconds (process running for 2.482)

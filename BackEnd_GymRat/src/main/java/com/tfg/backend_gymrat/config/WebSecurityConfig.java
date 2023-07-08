@@ -2,7 +2,7 @@ package com.tfg.backend_gymrat.config;
 
 import com.tfg.backend_gymrat.domain.service.UserService;
 import com.tfg.backend_gymrat.web.security.JWTAuthenticationFilter;
-import com.tfg.backend_gymrat.web.security.JWTService;
+import com.tfg.backend_gymrat.domain.service.JWTService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
