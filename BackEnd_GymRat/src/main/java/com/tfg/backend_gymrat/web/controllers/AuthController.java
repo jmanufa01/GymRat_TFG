@@ -1,27 +1,19 @@
 package com.tfg.backend_gymrat.web.controllers;
 
 import com.tfg.backend_gymrat.constants.AuthConstants;
-import com.tfg.backend_gymrat.constants.ErrorConstants;
 import com.tfg.backend_gymrat.domain.dto.api.auth.request.UserLoginRequest;
 import com.tfg.backend_gymrat.domain.dto.api.auth.request.UserRegistrationRequest;
 import com.tfg.backend_gymrat.domain.dto.api.auth.response.AuthenticationResponse;
 import com.tfg.backend_gymrat.domain.dto.entity.UserDTO;
-import com.tfg.backend_gymrat.domain.dto.errors.Error;
 import com.tfg.backend_gymrat.domain.service.AuthService;
-import com.tfg.backend_gymrat.persistence.entity.Role;
+import com.tfg.backend_gymrat.domain.dto.entity.Role;
 import com.tfg.backend_gymrat.util.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.MissingRequestValueException;
 import org.springframework.web.bind.annotation.*;
 
 import static org.springframework.http.ResponseEntity.ok;
-import static org.springframework.http.ResponseEntity.badRequest;
-import static org.springframework.http.ResponseEntity.notFound;
 
 /**
  *  Controller to route all the authentication operations related
@@ -73,7 +65,7 @@ public class AuthController {
     /**
      * Function to authenticate a registered user
      *
-     * @param request
+     * @param request Login request (username and password)
      * @return returns the jwt token
      */
     @PostMapping("/login")

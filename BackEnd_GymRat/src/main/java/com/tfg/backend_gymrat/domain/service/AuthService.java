@@ -3,6 +3,7 @@ package com.tfg.backend_gymrat.domain.service;
 import com.tfg.backend_gymrat.constants.ErrorConstants;
 import com.tfg.backend_gymrat.domain.dto.entity.UserDTO;
 import com.tfg.backend_gymrat.exceptions.IncorrectRegistrationException;
+import com.tfg.backend_gymrat.exceptions.MissingRequestDataException;
 import com.tfg.backend_gymrat.util.UtilClass;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -27,9 +28,9 @@ public class AuthService {
         if(user.getEmail().trim().equals("")
                 || user.getPassword().trim().equals("")
                 || user.getUsername().trim().equals(""))
-            throw new MissingRequestValueException("Missing data");
+            throw new MissingRequestDataException();
 
-        if(UtilClass.isEmailValid(user.getEmail()))
+        if(!UtilClass.isEmailValid(user.getEmail()))
             throw new IncorrectRegistrationException();
 
         userService.createNewUser(user);
@@ -40,7 +41,7 @@ public class AuthService {
     public String login(String username, String password) throws Exception {
 
         if(username.trim().equals("") || password.trim().equals("")){
-            throw new MissingRequestValueException(ErrorConstants.MISSING_REQUEST_VALUES);
+            throw new MissingRequestDataException();
         }
 
         authenticationManager.authenticate(

@@ -2,9 +2,9 @@ package com.tfg.backend_gymrat.exceptions.handler;
 
 import com.tfg.backend_gymrat.domain.dto.errors.Error;
 import com.tfg.backend_gymrat.exceptions.IncorrectRegistrationException;
+import com.tfg.backend_gymrat.exceptions.MissingRequestDataException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.web.bind.MissingRequestValueException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,7 +22,7 @@ public class ApiExceptionHandler {
 
 
     @ExceptionHandler({
-            MissingRequestValueException.class,
+            MissingRequestDataException.class,
             IncorrectRegistrationException.class,
             Exception.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)

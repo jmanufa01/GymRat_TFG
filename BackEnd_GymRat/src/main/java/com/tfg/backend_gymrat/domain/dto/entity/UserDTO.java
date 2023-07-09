@@ -1,6 +1,5 @@
 package com.tfg.backend_gymrat.domain.dto.entity;
 
-import com.tfg.backend_gymrat.persistence.entity.Role;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
