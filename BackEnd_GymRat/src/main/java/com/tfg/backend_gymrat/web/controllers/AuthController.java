@@ -33,7 +33,6 @@ public class AuthController {
     private AuthService authService;
     @Autowired
     private PasswordEncoder passwordEncoder;
-
     private final Log log = new Log();
 
     /**
@@ -72,7 +71,7 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> login(@RequestBody UserLoginRequest request){
         try{
-            if(request.username() == null || request.password() == null){
+            if(request.username().trim().equals("") || request.password().trim().equals("")){
                 throw new MissingRequestValueException(ErrorConstants.MISSING_REQUEST_VALUES);
             }
 
