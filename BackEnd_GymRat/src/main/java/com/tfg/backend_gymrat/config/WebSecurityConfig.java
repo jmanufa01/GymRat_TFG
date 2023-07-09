@@ -21,7 +21,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
-@EnableWebSecurity(debug = true)
+@EnableWebSecurity
 public class WebSecurityConfig{
 
     @Autowired
@@ -66,13 +66,13 @@ public class WebSecurityConfig{
                     sessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
                 })
                 .authenticationProvider(this.authenticationProvider())
-                .addFilterBefore(new JWTAuthenticationFilter(jwtService,userDetailsService()), UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests((requests) ->
                         requests.requestMatchers("/v1/auth/**")
                                 .permitAll()
                                 .anyRequest()
                                 .authenticated()
                 )
+                .addFilterBefore(new JWTAuthenticationFilter(jwtService,userDetailsService()), UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 

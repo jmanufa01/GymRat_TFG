@@ -6,11 +6,13 @@ import com.tfg.backend_gymrat.domain.dto.api.auth.request.UserLoginRequest;
 import com.tfg.backend_gymrat.domain.dto.api.auth.request.UserRegistrationRequest;
 import com.tfg.backend_gymrat.domain.dto.api.auth.response.AuthenticationResponse;
 import com.tfg.backend_gymrat.domain.dto.entity.UserDTO;
+import com.tfg.backend_gymrat.domain.dto.errors.Error;
 import com.tfg.backend_gymrat.domain.service.AuthService;
 import com.tfg.backend_gymrat.persistence.entity.Role;
 import com.tfg.backend_gymrat.util.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -43,47 +45,54 @@ public class AuthController {
      * @return
      */
     @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse> register(@RequestBody UserRegistrationRequest request){
+    public ResponseEntity<AuthenticationResponse> register(@RequestBody UserRegistrationRequest request) throws Exception {
+            try{
+                log.log(AuthConstants.REGISTRATION_IN_PROCCESS, request.username());
+
+                UserDTO user = new UserDTO(request.username(),
+                        request.email(),
+                        passwordEncoder.encode(request.password()),
+                        request.gym_experience(),
+                        request.age(),
+                        request.height(),
+                        request.weight(),
+                        Role.USER);
+
+                String jwt = authService.registerUser(user);
+                System.out.println(jwt);
+                log.log(AuthConstants.REGISTRATION_SUCCESSFUL, request.username());
+
+                return ok(new AuthenticationResponse(jwt));
+            } catch (Exception e){
+                log.log(AuthConstants.REGISTRATION_FAILED, request.username());
+                throw e;
+            }
+
+    }
+
+    /**
+     * Function to authenticate a registered user
+     *
+     * @param request
+     * @return returns the jwt token
+     */
+    @PostMapping("/login")
+    public ResponseEntity<AuthenticationResponse> login(@RequestBody UserLoginRequest request) throws Exception {
+
         try {
 
-            log.log(AuthConstants.REGISTRATION_IN_PROCCESS, request.username());
+            log.log(AuthConstants.LOGIN_IN_PROCCESS, request.username());
 
-            UserDTO user = new UserDTO(request.username(),
-                request.email(),
-                passwordEncoder.encode(request.password()),
-                request.gym_experience(),
-                request.age(),
-                request.height(),
-                request.weight(),
-                    Role.USER);
+            String jwt = authService.login(request.username(),request.password());
 
-            String jwt = authService.registerUser(user);
-            System.out.println(jwt);
-            log.log(AuthConstants.REGISTRATION_SUCCESSFUL, request.username());
+            log.log(AuthConstants.LOGIN_SUCCESSFUL, request.username());
 
             return ok(new AuthenticationResponse(jwt));
         }catch (Exception e){
-            //log.log(AuthConstants.REGISTRATION_FAILED, request.userName());
-            return badRequest().body(null);  //TODO: Introduce error in body
-        }
-    }
-
-    @PostMapping("/login")
-    public ResponseEntity<AuthenticationResponse> login(@RequestBody UserLoginRequest request){
-        try{
-            if(request.username().trim().equals("") || request.password().trim().equals("")){
-                throw new MissingRequestValueException(ErrorConstants.MISSING_REQUEST_VALUES);
-            }
-
-            String jwt = authService.login(request.username(),request.password());
-            return ok(new AuthenticationResponse(jwt));
-        } catch (UsernameNotFoundException unfe){
             log.log(AuthConstants.LOGIN_FAILED, request.username());
-            return notFound().build();
-        } catch (Exception e){
-            log.log(AuthConstants.LOGIN_FAILED, request.username());
-            return badRequest().body(null);  //TODO: Introduce error in body
+            throw e;
         }
+
     }
 
 }
