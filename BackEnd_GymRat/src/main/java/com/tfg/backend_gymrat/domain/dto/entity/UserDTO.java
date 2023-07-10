@@ -9,10 +9,10 @@ import java.util.Collection;
 import java.util.List;
 
 @Data
-@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserDTO implements UserDetails {
+
     private String username;
     private String email;
     private String password;
