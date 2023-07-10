@@ -4,5 +4,5 @@ import lombok.NonNull;
 
 public record UserLoginRequest(
         @NonNull String username,
-        @NonNull String password   //It should be hashed since it is done at front-end
+        @NonNull String password
 ) {}
