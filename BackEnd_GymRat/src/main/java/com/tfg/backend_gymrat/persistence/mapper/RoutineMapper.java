@@ -16,6 +16,7 @@ public interface RoutineMapper {
     })
     RoutineDTO toRoutineDTO(Routine routine);
 
+
     @InheritInverseConfiguration
     Routine toRoutine(RoutineDTO routineDTO);
 }

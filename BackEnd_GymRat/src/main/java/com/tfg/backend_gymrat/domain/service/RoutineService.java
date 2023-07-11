@@ -19,6 +19,7 @@ public class RoutineService {
             throw new MissingRequestDataException();
         }
 
+
         repository.insertRoutine(routine);
     }
 
