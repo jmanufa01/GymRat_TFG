@@ -73,6 +73,10 @@ public class WebSecurityConfig{
                                 .authenticated()
                 )
                 .addFilterBefore(new JWTAuthenticationFilter(jwtService,userDetailsService()), UsernamePasswordAuthenticationFilter.class)
+                .sessionManagement(sessionManagementConfigurer -> {
+                    sessionManagementConfigurer.init(http);
+                    sessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                })
                 .build();
     }
 

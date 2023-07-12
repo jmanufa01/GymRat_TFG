@@ -27,6 +27,7 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
     private final UserDetailsService userDetailsService;
 
 
+
     @Override
     protected void doFilterInternal(
             @NonNull HttpServletRequest request,
@@ -51,9 +52,12 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
 
         userName = jwtService.extractUserName(jwt);
 
-        if(userName != null && SecurityContextHolder.getContext().getAuthentication() == null){
+
+        if((userName != null && SecurityContextHolder.getContext().getAuthentication() == null)
+                || !((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername().equals(userName)){
+
             UserDetails userDetails = userDetailsService.loadUserByUsername(userName);
-            System.out.println(userDetails.getAuthorities());
+
             UsernamePasswordAuthenticationToken authenticationToken =
                     new UsernamePasswordAuthenticationToken(
                             userDetails,
