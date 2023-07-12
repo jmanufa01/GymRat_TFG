@@ -1,2 +1,2 @@
 # GymRat_TFG
- Reoositorio para la realización del TFG de GII: GymRat App
+ Repository of the realization of UAH TFG at GII: GymRat App
