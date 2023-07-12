@@ -20,6 +20,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+
+
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig{
@@ -57,24 +59,21 @@ public class WebSecurityConfig{
 
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         return http
                 .csrf(AbstractHttpConfigurer::disable)
-                .sessionManagement(sessionManagementConfigurer -> {
-                    sessionManagementConfigurer.init(http);
-                    sessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
-                })
                 .authenticationProvider(this.authenticationProvider())
                 .authorizeHttpRequests((requests) ->
                         requests.requestMatchers("/v1/auth/**")
                                 .permitAll()
+                                .requestMatchers("/v1/admin/**")
+                                .hasAuthority("ADMIN")
                                 .anyRequest()
                                 .authenticated()
                 )
                 .addFilterBefore(new JWTAuthenticationFilter(jwtService,userDetailsService()), UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
-
 
 }

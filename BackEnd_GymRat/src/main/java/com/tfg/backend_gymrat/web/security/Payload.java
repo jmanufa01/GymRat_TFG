@@ -11,7 +11,6 @@ public class Payload {
 
     private final HashMap<String,Object> payload = new HashMap<>();
 
-
     public void put(String key,Object value){
         payload.put(key,value);
     }

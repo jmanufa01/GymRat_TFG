@@ -7,6 +7,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
+import java.util.List;
+
 @Mapper
 public interface UserMapper {
 
@@ -16,6 +18,7 @@ public interface UserMapper {
             @Mapping(source = "gym_experience", target = "gymExperience")
     })
     UserDTO toUserDTO(User user);
+    List<UserDTO> toUsersDTO(List<User> users);
 
     @InheritInverseConfiguration
     User toUser(UserDTO userDTO);

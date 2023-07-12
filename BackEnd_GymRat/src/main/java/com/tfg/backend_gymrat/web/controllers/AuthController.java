@@ -51,7 +51,6 @@ public class AuthController {
                         Role.USER);
 
                 String jwt = authService.registerUser(user);
-                System.out.println(jwt);
                 log.log(AuthConstants.REGISTRATION_SUCCESSFUL, request.username());
 
                 return ok(new AuthenticationResponse(jwt));

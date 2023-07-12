@@ -28,7 +28,6 @@ public class RoutineController {
     private final Log log = new Log();
 
     @PostMapping("/save")
-    @RolesAllowed({"ADMIN"})
     public ResponseEntity<Void> insertNewEntity(@RequestBody RoutineDTO routine) throws Exception {
 
         try{

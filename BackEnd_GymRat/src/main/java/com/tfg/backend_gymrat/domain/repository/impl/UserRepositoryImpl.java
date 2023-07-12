@@ -8,6 +8,7 @@ import com.tfg.backend_gymrat.persistence.mongo.UserMongo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -39,5 +40,10 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public boolean existsUser(String userName) {
         return userMongo.existsUserByUsername(userName);
+    }
+
+    @Override
+    public List<UserDTO> findAllUsers() {
+        return mapper.toUsersDTO(userMongo.findAll());
     }
 }

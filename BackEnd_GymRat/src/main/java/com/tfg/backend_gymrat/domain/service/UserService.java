@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
 
@@ -15,6 +17,10 @@ public class UserService {
 
     public void createNewUser(UserDTO user){
         repository.createUser(user);
+    }
+
+    public List<UserDTO> getAllUsersInDB(){
+        return repository.findAllUsers();
     }
 
     public boolean existsUserByUserName(String userName){

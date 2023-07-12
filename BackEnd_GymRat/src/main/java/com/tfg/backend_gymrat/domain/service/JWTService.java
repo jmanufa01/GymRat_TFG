@@ -49,8 +49,7 @@ public class JWTService implements Serializable {
      */
     public Claims getClaims(String token)
     {
-        JwtParserBuilder jwtParserBuilder = Jwts.parserBuilder().setSigningKey(AuthConstants.SECRET_KEY);  //Creamos el metodo de descrifrado del jwt con la clave previamente creada
-        System.out.println(jwtParserBuilder.build().parse(token).getBody()); //Obtenemos el payload (body del jwt)
+        JwtParserBuilder jwtParserBuilder = Jwts.parserBuilder().setSigningKey(AuthConstants.SECRET_KEY);
         return (Claims) jwtParserBuilder.build().parse(token).getBody();
     }
 
