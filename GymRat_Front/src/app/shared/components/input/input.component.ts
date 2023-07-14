@@ -10,4 +10,7 @@ export class InputComponent {
 
   @Input('inputPlaceholder')
   public inputPlaceholder: string = '';
+
+  @Input()
+  public inputStep: string = '';
 }
