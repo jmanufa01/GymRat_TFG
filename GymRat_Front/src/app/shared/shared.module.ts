@@ -4,6 +4,7 @@ import { ErrorPageComponent } from './pages/error-page/error-page.component';
 import { FormComponent } from './components/form/form.component';
 import { InputComponent } from './components/input/input.component';
 import { ButtonComponent } from './components/button/button.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,7 @@ import { ButtonComponent } from './components/button/button.component';
     InputComponent,
     ButtonComponent,
   ],
-  imports: [CommonModule],
+  imports: [CommonModule, ReactiveFormsModule],
   exports: [FormComponent, InputComponent, ButtonComponent],
 })
 export class SharedModule {}

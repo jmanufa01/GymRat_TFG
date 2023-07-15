@@ -1,3 +1,7 @@
-<form [class]="this.formStyle">
+<form
+  [class]="this.formStyle"
+  [formGroup]="this.form"
+  (ngSubmit)="(this.submitFunction)"
+>
   <ng-content />
 </form>

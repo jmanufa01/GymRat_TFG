@@ -5,12 +5,15 @@ import { Component, Input } from '@angular/core';
   templateUrl: './input.component.html',
 })
 export class InputComponent {
-  @Input('inputType')
+  @Input()
   public inputType: string = '';
 
-  @Input('inputPlaceholder')
+  @Input()
   public inputPlaceholder: string = '';
 
   @Input()
   public inputStep: string = '';
+
+  @Input()
+  public inputFormControlName: string = '';
 }
