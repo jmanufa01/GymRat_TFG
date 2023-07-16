@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { FormControl, FormControlName, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'shared-input',
@@ -15,5 +16,5 @@ export class InputComponent {
   public inputStep: string = '';
 
   @Input()
-  public inputFormControlName: string = '';
+  public inputFormControl: FormControl = new FormControl('');
 }

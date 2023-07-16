@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnChanges, SimpleChanges, inject } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   templateUrl: './login-page.component.html',
@@ -14,15 +14,14 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   ],
 })
 export class LoginPageComponent {
-  constructor(
-    private formBuilder: FormBuilder,
-    private authService: AuthService
-  ) {}
+  private fb: FormBuilder = inject(FormBuilder);
 
-  public myForm: FormGroup = this.formBuilder.group({
-    username: [''],
-    password: [''],
+  public myForm = this.fb.group({
+    username: new FormControl(),
+    password: new FormControl(),
   });
+
+  constructor(private authService: AuthService) {}
 
   login(): void {
     console.log('LOGIN STATRTED');

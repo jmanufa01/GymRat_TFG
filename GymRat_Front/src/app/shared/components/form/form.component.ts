@@ -10,7 +10,7 @@ export class FormComponent {
   public formStyle: String = '';
 
   @Input()
-  public form: FormGroup<any> = new FormGroup({});
+  public group!: FormGroup;
 
   @Input()
   public submitFunction: Function = (): any => {};

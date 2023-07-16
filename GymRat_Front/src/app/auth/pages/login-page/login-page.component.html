@@ -2,7 +2,7 @@
   ngClass="mt-22 grid w-2/6 h-4/6 m-auto border rounded-md opacity-75
   login-bg-image items-center drop-shadow-2xl"
   formStyle="h-full grid"
-  [form]="this.myForm"
+  [group]="this.myForm"
   [submitFunction]="this.login"
 >
   <h1 class="mx-6 mt-20 text-6xl text-blue-700">Login</h1>
@@ -10,13 +10,13 @@
     ngClass="mx-6 h-12"
     inputType="text"
     inputPlaceholder="Username"
-    inputFormControlName="username"
+    [inputFormControl]="this.myForm.value.username"
   />
   <shared-input
     ngClass="mx-6 h-12"
     inputType="password"
     inputPlaceholder="Password"
-    inputFormControlName="password"
+    [inputFormControl]="this.myForm.value.password"
   />
   <div class="flex flex-col items-center">
     <shared-button ngClass="w-5/6 h-10">Login</shared-button>
