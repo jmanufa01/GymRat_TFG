@@ -14,7 +14,4 @@ export class InputComponent {
 
   @Input()
   public inputStep: string = '';
-
-  @Input()
-  public inputFormControl: FormControl = new FormControl('');
 }

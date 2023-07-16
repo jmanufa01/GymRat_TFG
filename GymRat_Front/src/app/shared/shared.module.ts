@@ -14,6 +14,11 @@ import { ReactiveFormsModule } from '@angular/forms';
     ButtonComponent,
   ],
   imports: [CommonModule, ReactiveFormsModule],
-  exports: [FormComponent, InputComponent, ButtonComponent],
+  exports: [
+    FormComponent,
+    InputComponent,
+    ButtonComponent,
+    ReactiveFormsModule,
+  ],
 })
 export class SharedModule {}

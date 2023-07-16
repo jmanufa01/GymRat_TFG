@@ -17,8 +17,8 @@ export class LoginPageComponent {
   private fb: FormBuilder = inject(FormBuilder);
 
   public myForm = this.fb.group({
-    username: new FormControl(),
-    password: new FormControl(),
+    username: [''],
+    password: [''],
   });
 
   constructor(private authService: AuthService) {}
@@ -28,8 +28,9 @@ export class LoginPageComponent {
 
     const { username, password } = this.myForm.value;
 
-    this.authService
-      .login(username, password)
-      .subscribe((success) => console.log('success'));
+    this.authService.login(username!, password!).subscribe({
+      next: () => console.log('LOGIN SUCCESS'),
+      error: (err) => console.log({ err }),
+    });
   }
 }
