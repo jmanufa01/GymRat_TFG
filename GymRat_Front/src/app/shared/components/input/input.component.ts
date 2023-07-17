@@ -7,6 +7,9 @@ import { FormControl, FormControlName, FormGroup } from '@angular/forms';
 })
 export class InputComponent {
   @Input()
+  public inputClass: string = '';
+
+  @Input()
   public inputType: string = '';
 
   @Input()

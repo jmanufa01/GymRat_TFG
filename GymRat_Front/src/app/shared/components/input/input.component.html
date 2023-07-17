@@ -1,5 +1,8 @@
 <input
-  class="w-full h-full p-2 border-b border-violet-700 bg-transparent outline-none hover:bg-violet-200 placeholder:text-gray-500"
+  [class]="
+    'w-full h-full p-2 border-b border-violet-700 bg-transparent outline-none hover:bg-violet-200 placeholder:text-gray-500 ' +
+    this.inputClass
+  "
   [placeholder]="this.inputPlaceholder"
   [type]="this.inputType"
   [step]="this.inputStep"

@@ -54,5 +54,13 @@ public class AuthService {
         return jwtService.generateToken(username);
     }
 
+    public String check(String authorization) throws Exception{
+        String jwt = authorization.split(" ")[1];
+        if(!jwtService.isTokenValid(jwt)){
+            throw new Exception("jwt expired"); //TODO: change this to appropiate exception
+        }
+
+        return jwt;
+    }
 
 }

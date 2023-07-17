@@ -13,11 +13,8 @@
     </shared-button>
   </div>
 
-  <shared-form
-    ngClass="h-full"
-    formStyle="h-full flex flex-col justify-around items-center"
-  >
-    <div class="grid grid-cols-2">
+  <form ngClass="h-full flex flex-col justify-around items-center">
+    <div class="grid md:grid-cols-2 sm:grid-cols-1">
       <shared-input
         ngClass="mx-6 h-12"
         inputType="text"
@@ -57,5 +54,5 @@
       />
     </div>
     <shared-button ngClass="w-5/6 h-10 mt-2">Register</shared-button>
-  </shared-form>
+  </form>
 </div>

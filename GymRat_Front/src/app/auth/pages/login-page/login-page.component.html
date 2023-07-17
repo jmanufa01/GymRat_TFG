@@ -1,23 +1,36 @@
 <form
   ngClass="mt-22 grid w-2/6 h-4/6 m-auto border rounded-md opacity-75
-  login-bg-image items-center drop-shadow-2xl"
+  login-bg-image items-center drop-shadow-2xl "
   [formGroup]="this.myForm"
   (ngSubmit)="this.login()"
 >
   <h1 class="mx-6 mt-20 text-6xl text-blue-700">Login</h1>
+  <div>
+    <p
+      class="text-red-500 w-full text-center"
+      [style]="{
+        display: this.error ? 'block' : 'none'
+      }"
+    >
+      Invalid username or password!
+    </p>
+  </div>
+
   <shared-input
     ngClass="mx-6 h-12"
     inputType="text"
     inputPlaceholder="Username"
     ngDefaultControl
     formControlName="username"
+    [inputClass]="this.error ? 'border-red-500' : ''"
   />
   <shared-input
-    ngClass="mx-6 h-12"
+    ngClass="mx-6 mb-6 h-12"
     inputType="password"
     inputPlaceholder="Password"
     ngDefaultControl
     formControlName="password"
+    [inputClass]="this.error ? 'border-red-500' : ''"
   />
   <div class="flex flex-col items-center">
     <shared-button ngClass="w-5/6 h-10">Login</shared-button>

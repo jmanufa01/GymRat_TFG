@@ -1,6 +1,7 @@
 import { Component, OnChanges, SimpleChanges, inject } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   templateUrl: './login-page.component.html',
@@ -14,14 +15,18 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
   ],
 })
 export class LoginPageComponent {
-  private fb: FormBuilder = inject(FormBuilder);
+  constructor(
+    private authService: AuthService,
+    private fb: FormBuilder,
+    private router: Router
+  ) {}
 
   public myForm = this.fb.group({
     username: [''],
     password: [''],
   });
 
-  constructor(private authService: AuthService) {}
+  public error: boolean = false;
 
   login(): void {
     console.log('LOGIN STATRTED');
@@ -29,8 +34,11 @@ export class LoginPageComponent {
     const { username, password } = this.myForm.value;
 
     this.authService.login(username!, password!).subscribe({
-      next: () => console.log('LOGIN SUCCESS'),
-      error: (err) => console.log({ err }),
+      next: () => this.router.navigateByUrl('/routines/home'),
+      error: (err) => {
+        console.log({ err });
+        this.error = true;
+      },
     });
   }
 }

@@ -1,17 +1,24 @@
 package com.tfg.backend_gymrat.web.controllers;
 
 import com.tfg.backend_gymrat.constants.AuthConstants;
+import com.tfg.backend_gymrat.domain.dto.api.auth.request.AuthorizationHeader;
 import com.tfg.backend_gymrat.domain.dto.api.auth.request.UserLoginRequest;
 import com.tfg.backend_gymrat.domain.dto.api.auth.request.UserRegistrationRequest;
 import com.tfg.backend_gymrat.domain.dto.api.auth.response.AuthenticationResponse;
 import com.tfg.backend_gymrat.domain.dto.entity.Role;
 import com.tfg.backend_gymrat.domain.dto.entity.UserDTO;
 import com.tfg.backend_gymrat.domain.service.AuthService;
+import com.tfg.backend_gymrat.domain.service.JWTService;
 import com.tfg.backend_gymrat.util.Log;
+import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 import static org.springframework.http.ResponseEntity.ok;
 
@@ -21,6 +28,8 @@ import static org.springframework.http.ResponseEntity.ok;
  */
 @RestController
 @RequestMapping("/v1/auth")
+@CrossOrigin
+@Transactional
 public class AuthController {
 
     @Autowired
@@ -84,6 +93,12 @@ public class AuthController {
             throw e;
         }
 
+    }
+
+    @GetMapping("/check")
+    public ResponseEntity<AuthenticationResponse> check(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorization) throws Exception {
+        String jwt = authService.check(authorization);
+        return ok(new AuthenticationResponse(jwt));
     }
 
 }
