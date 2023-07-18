@@ -1,6 +1,8 @@
 import { Component, computed, effect } from '@angular/core';
 import { AuthService } from './auth/services/auth.service';
 import { AuthStatus } from './auth/interfaces';
+import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +10,11 @@ import { AuthStatus } from './auth/interfaces';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private location: Location
+  ) {}
 
   public finishedAuthCheck = computed<boolean>(() => {
     if (this.authService.authStatus() === AuthStatus.Checking) {
@@ -18,6 +24,15 @@ export class AppComponent {
   });
 
   public authStatusEffect = effect(() => {
-    console.log(this.authService.authStatus());
+    switch (this.authService.authStatus()) {
+      case AuthStatus.Checking:
+        return;
+      case AuthStatus.Authenticated:
+        this.router.navigateByUrl(this.location.path());
+        //this.router.navigateByUrl(this.location.forward());
+        return;
+      case AuthStatus.NotAuthenticated:
+        this.router.navigateByUrl('/auth/login');
+    }
   });
 }

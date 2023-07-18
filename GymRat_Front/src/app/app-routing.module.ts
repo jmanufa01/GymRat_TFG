@@ -1,19 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ErrorPageComponent } from './shared/pages/error-page/error-page.component';
-import { isAuthenticatedGuard } from './auth/guards/is-authenticated.guard';
+import { privateGuard, publicGuard } from './auth/guards';
 
 const routes: Routes = [
   {
     path: 'auth',
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
-    canDeactivate: [isAuthenticatedGuard],
+    canActivate: [publicGuard],
   },
   {
     path: 'routines',
     loadChildren: () =>
       import('./routines/routines.module').then((m) => m.RoutinesModule),
-    canActivate: [isAuthenticatedGuard],
+    canActivate: [privateGuard],
   },
   {
     path: 'error',
@@ -21,7 +21,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'auth/login',
+    redirectTo: '/routines/home',
   },
 ];
 

@@ -1,11 +1,11 @@
 import { TestBed } from '@angular/core/testing';
 import { CanActivateFn } from '@angular/router';
 
-import { privateGuard } from './private.guard';
+import { privateGuardGuard } from './public.guard';
 
-describe('isAuthenticatedGuard', () => {
+describe('privateGuardGuard', () => {
   const executeGuard: CanActivateFn = (...guardParameters) =>
-    TestBed.runInInjectionContext(() => privateGuard(...guardParameters));
+    TestBed.runInInjectionContext(() => privateGuardGuard(...guardParameters));
 
   beforeEach(() => {
     TestBed.configureTestingModule({});

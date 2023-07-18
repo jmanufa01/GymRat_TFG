@@ -3,9 +3,10 @@ import { CommonModule } from '@angular/common';
 
 import { RoutinesRoutingModule } from './routines-routing.module';
 import { HomePageComponent } from './pages/home-page/home-page.component';
+import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 
 @NgModule({
-  declarations: [HomePageComponent],
+  declarations: [HomePageComponent, ProfilePageComponent],
   imports: [CommonModule, RoutinesRoutingModule],
 })
 export class RoutinesModule {}

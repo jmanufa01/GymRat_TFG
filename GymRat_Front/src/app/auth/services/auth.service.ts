@@ -5,6 +5,7 @@ import { Observable, catchError, map, of, tap, throwError } from 'rxjs';
 import { AuthResponse, AuthStatus, CheckResponse, User } from '../interfaces';
 import { JwtService } from './jwt.service';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,8 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private jwtService: JwtService,
-    private router: Router
+    private router: Router,
+    private location: Location
   ) {
     this.checkAuthStatus().subscribe();
   }
@@ -33,7 +35,6 @@ export class AuthService {
       role: 'user', //TODO: Call the API to get the role
     });
     this._authStatus.set(AuthStatus.Authenticated);
-    this.router.navigateByUrl('/routines/home');
     return true;
   }
 
@@ -63,6 +64,7 @@ export class AuthService {
       catchError((err) => {
         console.log({ err });
         this._authStatus.set(AuthStatus.NotAuthenticated);
+        localStorage.removeItem('jwt');
         return of(false);
       })
     );
