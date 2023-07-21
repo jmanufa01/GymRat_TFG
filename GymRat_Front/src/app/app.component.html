@@ -1,1 +1,5 @@
-<router-outlet />
+<shared-loading *ngIf="!this.isAuthenticationFinished(); else authenticated" />
+
+<ng-template #authenticated>
+  <router-outlet />
+</ng-template>

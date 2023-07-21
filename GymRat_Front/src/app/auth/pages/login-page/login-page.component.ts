@@ -29,8 +29,6 @@ export class LoginPageComponent {
   public error: boolean = false;
 
   login(): void {
-    console.log('LOGIN STATRTED');
-
     const { username, password } = this.myForm.value;
 
     this.authService.login(username!, password!).subscribe({

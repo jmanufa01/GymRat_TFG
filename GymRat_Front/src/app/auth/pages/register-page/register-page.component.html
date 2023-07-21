@@ -13,22 +13,32 @@
     </shared-button>
   </div>
 
-  <form ngClass="h-full flex flex-col justify-around items-center">
+  <form
+    ngClass="h-full flex flex-col justify-around items-center"
+    [formGroup]="this.registerForm"
+    (submit)="this.register()"
+  >
     <div class="grid md:grid-cols-2 sm:grid-cols-1">
       <shared-input
         ngClass="mx-6 h-12"
         inputType="text"
         inputPlaceholder="Username"
+        formControlName="username"
+        ngDefaultControl
       />
       <shared-input
         ngClass="mx-6 h-12"
         inputType="text"
         inputPlaceholder="@example.com"
+        formControlName="email"
+        ngDefaultControl
       />
       <shared-input
         ngClass="mx-6 h-12"
         inputType="password"
         inputPlaceholder="Password"
+        formControlName="password"
+        ngDefaultControl
       />
       <shared-input
         ngClass="mx-6 h-12"
@@ -39,18 +49,32 @@
         ngClass="mx-6 h-12"
         inputType="date"
         inputPlaceholder="Birth Date"
+        formControlName="birthDate"
+        ngDefaultControl
       />
       <shared-input
         ngClass="mx-6 h-12"
         inputType="number"
         inputPlaceholder="Height"
         inputStep="0.1"
+        formControlName="height"
+        ngDefaultControl
       />
       <shared-input
         ngClass="mx-6 h-12"
         inputType="number"
         inputPlaceholder="Weight"
         inputStep="0.1"
+        formControlName="weight"
+        ngDefaultControl
+      />
+      <!-- TODO: Change this input to be a list -->
+      <shared-input
+        ngClass="mx-6 h-12"
+        inputType="text"
+        inputPlaceholder="Gym Experience"
+        formControlName="gymExperience"
+        ngDefaultControl
       />
     </div>
     <shared-button ngClass="w-5/6 h-10 mt-2">Register</shared-button>

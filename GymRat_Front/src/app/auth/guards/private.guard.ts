@@ -4,14 +4,11 @@ import { inject } from '@angular/core';
 import { AuthStatus } from '../interfaces';
 
 //TODO: This may be publicGuard??
-export const privateGuard: CanActivateFn = (route, state) => {
+export const PrivateGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthService);
-  const router = inject(Router);
 
-  if (authService.authStatus() === AuthStatus.Authenticated) {
-    return true;
-  }
-
-  router.navigateByUrl('/auth/login');
-  return false;
+  return (
+    authService.authStatus() === AuthStatus.Authenticated ||
+    authService.authStatus() === AuthStatus.Checking
+  );
 };

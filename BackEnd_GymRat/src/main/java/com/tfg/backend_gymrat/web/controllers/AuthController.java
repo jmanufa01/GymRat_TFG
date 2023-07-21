@@ -44,11 +44,13 @@ public class AuthController {
             try{
                 log.log(AuthConstants.REGISTRATION_IN_PROCCESS, request.username());
 
+                System.out.println(request.toString());
+
                 UserDTO user = new UserDTO(request.username(),
                         request.email(),
                         passwordEncoder.encode(request.password()),
-                        request.gym_experience(),
-                        request.age(),
+                        request.gymExperience(),
+                        request.birthDate(),
                         request.height(),
                         request.weight(),
                         Role.USER);

@@ -6,6 +6,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -17,7 +18,7 @@ public class UserDTO implements UserDetails {
     private String email;
     private String password;
     private String gymExperience;
-    private int age;
+    private Date birthDate;
     private double height;
     private double weight;
     private Role role;

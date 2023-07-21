@@ -1,0 +1,26 @@
+<nav
+  class="w-full h-16 flex items-center justify-between bg-violet-200 drop-shadow-2xl border-b border-b-2 border-violet-400"
+>
+  <div class="h-full">
+    <img
+      class="w-18 h-full hover:cursor-pointer"
+      src="assets/gymrat-logo.png"
+      alt="gymrat-logo"
+      routerLink="/routines/home"
+    />
+  </div>
+  <div class="flex items-center mr-2">
+    <img
+      class="mr-2 w-10 h-10 hover:cursor-pointer"
+      src="assets/profile-icon.png"
+      alt="profile-icon"
+      [routerLink]="'/' + this.userName + '/profile'"
+    />
+    <shared-button
+      ngClass="h-9 w-20"
+      buttonStyle="bg-violet-600 text-white hover:bg-violet-100 hover:text-black"
+      (click)="this.logout()"
+      >Log Out</shared-button
+    >
+  </div>
+</nav>

@@ -6,19 +6,12 @@ import { AuthResponse, AuthStatus, CheckResponse, User } from '../interfaces';
 import { JwtService } from './jwt.service';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { FormGroup } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(
-    private http: HttpClient,
-    private jwtService: JwtService,
-    private router: Router,
-    private location: Location
-  ) {
-    this.checkAuthStatus().subscribe();
-  }
   private readonly apiUrl: string = environment.apiUrl;
 
   private _currentUser = signal<User | null>(null);
@@ -28,13 +21,22 @@ export class AuthService {
   public currentUser = computed(() => this._currentUser());
   public authStatus = computed(() => this._authStatus());
 
+  constructor(
+    private http: HttpClient,
+    private jwtService: JwtService,
+    private router: Router
+  ) {
+    this.checkAuthStatus().subscribe();
+  }
+
   private setAuthentication(jwt: string): boolean {
+    this._authStatus.set(AuthStatus.Authenticated);
     localStorage.setItem('jwt', jwt); //TODO: Use a cookie instead of localStorage
+    console.log(this.jwtService.decodeUsername(jwt));
     this._currentUser.set({
       username: this.jwtService.decodeUsername(jwt),
       role: 'user', //TODO: Call the API to get the role
     });
-    this._authStatus.set(AuthStatus.Authenticated);
     return true;
   }
 
@@ -48,7 +50,25 @@ export class AuthService {
     );
   }
 
+  register(body: FormGroup): Observable<boolean> {
+    const url: string = `${this.apiUrl}/auth/register`;
+    //const { username, email, password, birthDate, height, weight } = body.value;
+
+    return this.http.post<AuthResponse>(url, body.value).pipe(
+      map(({ jwt }) => this.setAuthentication(jwt)),
+      catchError((err) => throwError(() => err.error.message))
+    );
+  }
+
+  logout(): void {
+    localStorage.removeItem('jwt');
+    this._currentUser.set(null);
+    this._authStatus.set(AuthStatus.NotAuthenticated);
+    this.router.navigateByUrl('/auth/login');
+  }
+
   checkAuthStatus(): Observable<boolean> {
+    console.log(this.authStatus());
     const url = `${this.apiUrl}/auth/check`;
     const jwt = localStorage.getItem('jwt');
 

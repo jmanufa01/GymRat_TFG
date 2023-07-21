@@ -7,4 +7,6 @@ import { Component, Input } from '@angular/core';
 export class ButtonComponent {
   @Input()
   public buttonStyle: String = '';
+  @Input()
+  public buttonType: String = '';
 }

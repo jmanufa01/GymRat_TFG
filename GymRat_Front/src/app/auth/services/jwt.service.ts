@@ -4,10 +4,11 @@ import { JwtHelperService } from '@auth0/angular-jwt';
   providedIn: 'root',
 })
 export class JwtService {
-  private jwtHelper = new JwtHelperService();
+  private jwtHelper: JwtHelperService = new JwtHelperService();
 
   decodeUsername(jwt: string): string {
     const decodedToken = this.jwtHelper.decodeToken(jwt);
-    return decodedToken.username;
+    console.log(decodedToken);
+    return decodedToken.user;
   }
 }

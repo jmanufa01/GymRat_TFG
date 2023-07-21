@@ -15,7 +15,8 @@ public interface UserMapper {
 
     @Mappings({
             @Mapping(source = "username",target = "username"),
-            @Mapping(source = "gym_experience", target = "gymExperience")
+            @Mapping(source = "gym_experience", target = "gymExperience"),
+            @Mapping(source = "birth_date", target = "birthDate")
     })
     UserDTO toUserDTO(User user);
     List<UserDTO> toUsersDTO(List<User> users);

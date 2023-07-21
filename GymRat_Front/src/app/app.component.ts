@@ -10,29 +10,20 @@ import { Location } from '@angular/common';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  constructor(
-    private authService: AuthService,
-    private router: Router,
-    private location: Location
-  ) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
-  public finishedAuthCheck = computed<boolean>(() => {
-    if (this.authService.authStatus() === AuthStatus.Checking) {
-      return false;
-    }
-    return true;
-  });
+  public isAuthenticationFinished(): boolean {
+    return this.authService.authStatus() !== AuthStatus.Checking;
+  }
 
   public authStatusEffect = effect(() => {
+    console.log(this.authService.authStatus());
     switch (this.authService.authStatus()) {
-      case AuthStatus.Checking:
-        return;
-      case AuthStatus.Authenticated:
-        this.router.navigateByUrl(this.location.path());
-        //this.router.navigateByUrl(this.location.forward());
+      case AuthStatus.Authenticated || AuthStatus.Checking:
         return;
       case AuthStatus.NotAuthenticated:
         this.router.navigateByUrl('/auth/login');
+        return;
     }
   });
 }

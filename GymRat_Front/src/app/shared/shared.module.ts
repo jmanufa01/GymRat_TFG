@@ -1,24 +1,30 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ErrorPageComponent } from './pages/error-page/error-page.component';
-import { FormComponent } from './components/form/form.component';
 import { InputComponent } from './components/input/input.component';
 import { ButtonComponent } from './components/button/button.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { PageComponent } from './components/page/page.component';
+import { LoadingComponent } from './components/loading/loading.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
     ErrorPageComponent,
-    FormComponent,
     InputComponent,
     ButtonComponent,
+    NavBarComponent,
+    PageComponent,
+    LoadingComponent,
   ],
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule],
   exports: [
-    FormComponent,
     InputComponent,
     ButtonComponent,
     ReactiveFormsModule,
+    PageComponent,
+    LoadingComponent,
   ],
 })
 export class SharedModule {}

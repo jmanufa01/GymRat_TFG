@@ -1,19 +1,18 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, CanActivateFn } from '@angular/router';
 import { ErrorPageComponent } from './shared/pages/error-page/error-page.component';
-import { privateGuard, publicGuard } from './auth/guards';
+import { PrivateGuard, PublicGuard } from './auth/guards';
 
 const routes: Routes = [
   {
     path: 'auth',
+    canActivate: [PublicGuard],
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
-    canActivate: [publicGuard],
   },
   {
-    path: 'routines',
-    loadChildren: () =>
-      import('./routines/routines.module').then((m) => m.RoutinesModule),
-    canActivate: [privateGuard],
+    path: '',
+    canActivate: [PrivateGuard],
+    loadChildren: () => import('./main/main.module').then((m) => m.MainModule),
   },
   {
     path: 'error',
@@ -21,7 +20,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: '/routines/home',
+    redirectTo: '',
   },
 ];
 

@@ -6,6 +6,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Date;
+
 @Data
 @EqualsAndHashCode
 @Document("user")
@@ -16,7 +18,7 @@ public class User {
     private String email;
     private String password;
     private String gym_experience;
-    private Integer age;
+    private Date birth_date;
     private Double height;
     private Double weight;
     private String role;
