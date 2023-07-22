@@ -5,7 +5,6 @@ import { InputComponent } from './components/input/input.component';
 import { ButtonComponent } from './components/button/button.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
-import { PageComponent } from './components/page/page.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { RouterModule } from '@angular/router';
 
@@ -15,7 +14,6 @@ import { RouterModule } from '@angular/router';
     InputComponent,
     ButtonComponent,
     NavBarComponent,
-    PageComponent,
     LoadingComponent,
   ],
   imports: [CommonModule, ReactiveFormsModule, RouterModule],
@@ -23,8 +21,8 @@ import { RouterModule } from '@angular/router';
     InputComponent,
     ButtonComponent,
     ReactiveFormsModule,
-    PageComponent,
     LoadingComponent,
+    NavBarComponent,
   ],
 })
 export class SharedModule {}
