@@ -18,3 +18,8 @@ ng-component {
   justify-items: center;
   height: 100%;
 }
+
+.fc .fc-day:hover {
+  background-color: #e2e8f0;
+  cursor: pointer;
+}
