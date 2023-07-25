@@ -7,6 +7,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { RouterModule } from '@angular/router';
+import { ModalComponent } from './components/modal/modal.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -15,14 +17,16 @@ import { RouterModule } from '@angular/router';
     ButtonComponent,
     NavBarComponent,
     LoadingComponent,
+    ModalComponent,
   ],
-  imports: [CommonModule, ReactiveFormsModule, RouterModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule, MatDialogModule],
   exports: [
     InputComponent,
     ButtonComponent,
     ReactiveFormsModule,
     LoadingComponent,
     NavBarComponent,
+    ModalComponent,
   ],
 })
 export class SharedModule {}

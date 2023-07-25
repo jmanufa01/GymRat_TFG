@@ -19,7 +19,16 @@ ng-component {
   height: 100%;
 }
 
+.bg-image {
+  background-image: url("/assets/login-bg-violet.png");
+  background-size: 100% 100%;
+}
+
 .fc .fc-day:hover {
   background-color: #e2e8f0;
   cursor: pointer;
+}
+
+.modal {
+  border-radius: 20px;
 }

@@ -5,14 +5,6 @@ import { Router } from '@angular/router';
 
 @Component({
   templateUrl: './login-page.component.html',
-  styles: [
-    `
-      .login-bg-image {
-        background-image: url('/assets/login-bg-violet.png');
-        background-size: 100% 100%;
-      }
-    `,
-  ],
 })
 export class LoginPageComponent {
   constructor(

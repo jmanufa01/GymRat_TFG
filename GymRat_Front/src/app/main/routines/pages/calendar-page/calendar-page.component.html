@@ -2,5 +2,6 @@
   <full-calendar
     ngClass="mx-auto w-4/5 h-4/5"
     [options]="this.calendarOptions"
+    (click)="this.OnClick($event)"
   ></full-calendar>
 </div>
