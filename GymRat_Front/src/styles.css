@@ -10,6 +10,12 @@
 body {
   width: 100vw;
   height: 100vh;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+body::-webkit-scrollbar {
+  display: none;
 }
 
 ng-component {
@@ -27,6 +33,11 @@ ng-component {
 .fc .fc-day:hover {
   background-color: #e2e8f0;
   cursor: pointer;
+}
+
+.fc .fc-col-header-cell:hover {
+  background-color: white;
+  cursor: default;
 }
 
 .modal {

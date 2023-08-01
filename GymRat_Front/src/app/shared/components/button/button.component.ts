@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { F } from '@fullcalendar/core/internal-common';
 
 @Component({
   selector: 'shared-button',
@@ -9,4 +10,10 @@ export class ButtonComponent {
   public buttonStyle: String = '';
   @Input()
   public buttonType: String = '';
+  @Output()
+  public onButtonClick: EventEmitter<MouseEvent> = new EventEmitter();
+
+  public onClick(event: MouseEvent): void {
+    this.onButtonClick.emit(event);
+  }
 }

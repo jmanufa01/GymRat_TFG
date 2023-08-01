@@ -7,6 +7,10 @@ const routes: Routes = [
     path: 'profile',
     component: ProfilePageComponent,
   },
+  {
+    path: '**',
+    redirectTo: '/routines/home',
+  },
 ];
 
 @NgModule({

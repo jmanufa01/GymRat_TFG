@@ -1,4 +1,5 @@
 <input
+  *ngIf="this.inputType !== 'select'"
   [class]="
     'w-full h-full p-2 border-b border-violet-700 bg-transparent outline-none hover:bg-violet-200 placeholder:text-gray-500 ' +
     this.inputClass
@@ -7,3 +8,15 @@
   [type]="this.inputType"
   [step]="this.inputStep"
 />
+
+<select
+  [class]="
+    'w-full h-full p-2 border-b border-violet-700 bg-transparent outline-none hover:bg-violet-200 placeholder:text-gray-500 ' +
+    this.inputClass
+  "
+  *ngIf="this.inputType === 'select'"
+>
+  <option class="bg-violet-200" *ngFor="let type of this.gymExperienceTypes">
+    {{ type }}
+  </option>
+</select>

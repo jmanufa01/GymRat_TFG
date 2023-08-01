@@ -1,11 +1,10 @@
-import { Component, OnChanges, effect, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CalendarOptions } from '@fullcalendar/core';
-import { F } from '@fullcalendar/core/internal-common';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin, { DateClickArg } from '@fullcalendar/interaction';
-import { ar, es, zhCN } from 'date-fns/locale';
 import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
+import Swal from 'sweetalert2';
 
 @Component({
   templateUrl: './calendar-page.component.html',
@@ -23,9 +22,13 @@ export class CalendarPageComponent {
 
   onDateClick(arg: DateClickArg): void {
     if (arg.date > new Date()) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'You cannot create a routine in the future!',
+      });
       return;
     }
-    console.log(this.event.clientX, this.event.clientY);
 
     this.dialog.open(ModalComponent, {
       width: '60%',
@@ -33,10 +36,10 @@ export class CalendarPageComponent {
       enterAnimationDuration: '200ms',
       autoFocus: true,
       panelClass: 'modal',
-    });
-
-    this.dialog.afterAllClosed.subscribe(() => {
-      console.log('The dialog was closed');
+      data: {
+        date: arg.date,
+        routines: [],
+      },
     });
   }
 

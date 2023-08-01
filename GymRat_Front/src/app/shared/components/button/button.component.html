@@ -4,6 +4,7 @@
     this.buttonStyle
   "
   [type]="this.buttonType"
+  (click)="this.onClick($event)"
 >
   <ng-content></ng-content>
 </button>

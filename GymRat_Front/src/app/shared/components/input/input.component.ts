@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { FormControl, FormControlName, FormGroup } from '@angular/forms';
+import { GymExperienceType } from '../../../shared/interfaces';
 
 @Component({
   selector: 'shared-input',
@@ -17,4 +17,6 @@ export class InputComponent {
 
   @Input()
   public inputStep: string = '';
+
+  public gymExperienceTypes = Object.values(GymExperienceType);
 }

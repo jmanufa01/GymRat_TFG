@@ -1,7 +1,54 @@
 <form class="w-full h-full bg-gradient-to-b from-violet-200 to-blue-400">
-  <h1 mat-dialog-title>Buenas</h1>
-  <ul mat-dialog-content>
-    <li>Buenas</li>
-    <li>Julian</li>
-  </ul>
+  <div
+    *ngIf="!this.newRoutineView; else newRoutine"
+    class="p-2 flex justify-between items-center"
+  >
+    <shared-button ngClass="w-16 h-8" mat-dialog-close buttonType="button"
+      >Exit
+    </shared-button>
+    <h1 class="mr-2 text-xl font-bold text-center">
+      {{ this.data.date | date : "longDate" }}
+    </h1>
+    <img
+      class="w-10 h-10 hover:bg-gray-400 hover:cursor-pointer"
+      src="assets/add.png"
+      alt="add-icon"
+      (click)="this.changeView()"
+    />
+  </div>
+
+  <ng-template #newRoutine>
+    <div class="p-2 flex justify-between items-center">
+      <shared-button ngClass="w-16 h-8" mat-dialog-close buttonType="button">
+        Exit
+      </shared-button>
+      <h1 class="text-xl font-bold text-center">
+        {{ this.data.date | date : "longDate" }}
+      </h1>
+      <shared-button
+        ngClass="w-12 h-10"
+        buttonStyle="flex justify-center"
+        (onButtonClick)="this.changeView()"
+        ><img class="pt-1 w-8 h-8" src="assets/back-icon.png" alt="back-icon"
+      /></shared-button>
+    </div>
+
+    <div class="h-4/5 grid grid-rows-2 p-4">
+      <div class="scrollable-div">
+        <div class="h-2/5" *ngFor="let number of this.exercises">
+          <h1>{{ number }}</h1>
+        </div>
+        <shared-button
+          ngClass="h-16"
+          buttonType="button"
+          (onButtonClick)="this.addExercise()"
+          >Add Exercise</shared-button
+        >
+      </div>
+
+      <shared-button ngClass="h-16 self-end" buttonType="button">
+        Confirm
+      </shared-button>
+    </div>
+  </ng-template>
 </form>
