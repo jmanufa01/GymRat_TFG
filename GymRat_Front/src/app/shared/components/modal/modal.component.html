@@ -32,21 +32,22 @@
         ><img class="pt-1 w-8 h-8" src="assets/back-icon.png" alt="back-icon"
       /></shared-button>
     </div>
+    <!-- TODO: Add exercises to routine -->
 
     <div class="h-4/5 grid grid-rows-2 p-4">
-      <div class="scrollable-div">
-        <div class="h-2/5" *ngFor="let number of this.exercises">
-          <h1>{{ number }}</h1>
-        </div>
-        <shared-button
-          ngClass="h-16"
-          buttonType="button"
-          (onButtonClick)="this.addExercise()"
-          >Add Exercise</shared-button
-        >
+      <div class="h-16">
+        <shared-button buttonType="button" (onButtonClick)="this.addExercise()"
+          >Add Exercise
+        </shared-button>
       </div>
 
-      <shared-button ngClass="h-16 self-end" buttonType="button">
+      <div class="h-44 scrollable-div">
+        <div *ngFor="let number of this.exercises">
+          <h1>{{ number }}</h1>
+        </div>
+      </div>
+
+      <shared-button ngClass="mt-12 h-16" buttonType="button">
         Confirm
       </shared-button>
     </div>

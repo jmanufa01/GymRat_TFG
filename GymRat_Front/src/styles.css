@@ -10,11 +10,16 @@
 body {
   width: 100vw;
   height: 100vh;
+}
+
+body,
+body * {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
 
-body::-webkit-scrollbar {
+body::-webkit-scrollbar,
+body *::-webkit-scrollbar {
   display: none;
 }
 
