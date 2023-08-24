@@ -1,7 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-exercise',
+  selector: 'shared-exercise',
   templateUrl: './exercise.component.html',
 })
-export class ExerciseComponent {}
+export class ExerciseComponent {
+  @Input()
+  public exerciseNumber: number = 0;
+
+  public isSuperset: boolean = false;
+
+  public changeExerciseType(): void {
+    this.isSuperset = !this.isSuperset;
+  }
+}

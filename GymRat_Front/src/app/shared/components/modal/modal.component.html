@@ -34,16 +34,16 @@
     </div>
     <!-- TODO: Add exercises to routine -->
 
-    <div class="h-4/5 grid grid-rows-1 p-4">
+    <div class="h-4/5 flex flex-col p-2">
       <div class="h-16">
         <shared-button buttonType="button" (onButtonClick)="this.addExercise()"
           >Add Exercise
         </shared-button>
       </div>
 
-      <div class="h-72 scrollable-div pb-10">
-        <div *ngFor="let number of this.exercises">
-          <h1>{{ number }}</h1>
+      <div class="h-4/5 mt-6 scrollable-div pb-10">
+        <div class="mb-4" *ngFor="let number of this.exercises">
+          <shared-exercise [exerciseNumber]="number" />
         </div>
 
         <div *ngIf="this.exercises.length > 0" ngClass="h-14 w-24 m-auto">
