@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ModalData } from '../../interfaces';
 
 @Component({
-  selector: 'shared-modal',
+  selector: 'routines-modal',
   templateUrl: './modal.component.html',
   styles: [
     `

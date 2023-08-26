@@ -43,7 +43,7 @@
 
       <div class="h-4/5 mt-6 scrollable-div pb-10">
         <div class="mb-4" *ngFor="let number of this.exercises">
-          <shared-exercise [exerciseNumber]="number" />
+          <routines-exercise [exerciseNumber]="number" />
         </div>
 
         <div *ngIf="this.exercises.length > 0" ngClass="h-14 w-24 m-auto">

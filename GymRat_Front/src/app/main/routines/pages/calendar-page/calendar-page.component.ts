@@ -3,8 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { CalendarOptions } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin, { DateClickArg } from '@fullcalendar/interaction';
-import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
 import Swal from 'sweetalert2';
+import { ModalComponent } from '../../components/modal/modal.component';
 
 @Component({
   templateUrl: './calendar-page.component.html',

@@ -7,10 +7,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { RouterModule } from '@angular/router';
-import { ModalComponent } from './components/modal/modal.component';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { ExerciseComponent } from './components/exercise/exercise.component';
 
 @NgModule({
   declarations: [
@@ -19,23 +15,14 @@ import { ExerciseComponent } from './components/exercise/exercise.component';
     ButtonComponent,
     NavBarComponent,
     LoadingComponent,
-    ModalComponent,
-    ExerciseComponent,
   ],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    RouterModule,
-    MatDialogModule,
-    MatCheckboxModule,
-  ],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule],
   exports: [
     InputComponent,
     ButtonComponent,
     ReactiveFormsModule,
     LoadingComponent,
     NavBarComponent,
-    ModalComponent,
   ],
 })
 export class SharedModule {}

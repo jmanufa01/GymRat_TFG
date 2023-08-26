@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { GymExperienceType } from '../../../shared/interfaces';
+import { GymExperienceType } from '../../../main/routines/interfaces';
 
 @Component({
   selector: 'shared-input',
