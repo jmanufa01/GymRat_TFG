@@ -35,7 +35,7 @@ export class RegisterPageComponent {
   register(): void {
     console.log(this.registerForm.value);
     this.authService.register(this.registerForm).subscribe({
-      next: () => this.router.navigateByUrl('/routines/home'),
+      next: () => this.router.navigateByUrl('/home'),
       error: (err) => console.log(err),
     });
   }

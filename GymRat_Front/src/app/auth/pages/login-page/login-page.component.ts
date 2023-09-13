@@ -24,7 +24,7 @@ export class LoginPageComponent {
     const { username, password } = this.myForm.value;
 
     this.authService.login(username!, password!).subscribe({
-      next: () => this.router.navigateByUrl('/routines/home'),
+      next: () => this.router.navigateByUrl('/home'),
       error: (err) => {
         console.log({ err });
         this.error = true;

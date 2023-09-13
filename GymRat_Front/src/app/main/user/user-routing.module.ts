@@ -9,7 +9,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: '/routines/home',
+    redirectTo: '/home',
   },
 ];
 
