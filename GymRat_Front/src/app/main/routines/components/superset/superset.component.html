@@ -1,1 +1,17 @@
-<p>superset works!</p>
+<div class="flex items-center justify-between">
+  <h1 class="text-xl" *ngIf="!this.isSuperset">
+    Exercise {{ this.exerciseNumber }}
+  </h1>
+  <h1 class="text-xl" *ngIf="this.isSuperset">
+    Superset {{ this.exerciseNumber }}
+  </h1>
+  <button type="button" (click)="this.trashClick()">
+    <img class="w-10 h-10" src="assets/trash-icon.png" alt="trash-icon" />
+  </button>
+</div>
+<mat-checkbox (change)="this.changeExerciseType()">Superset?</mat-checkbox>
+<routines-exercise
+  *ngFor="let item of exercises"
+  [exerciseNumber]="item"
+  (form)="this.addExercise($event)"
+/>

@@ -48,3 +48,7 @@ ng-component {
 .modal {
   border-radius: 20px;
 }
+
+.scrollable-div {
+  overflow-y: auto;
+}

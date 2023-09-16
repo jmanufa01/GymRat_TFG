@@ -35,7 +35,7 @@
     <!-- TODO: Add exercises to routine -->
 
     <div class="h-4/5 flex flex-col p-2">
-      <div class="h-16">
+      <div class="h-16 w-32 self-center">
         <shared-button buttonType="button" (onButtonClick)="this.addExercise()"
           >Add Exercise
         </shared-button>
@@ -43,7 +43,10 @@
 
       <div class="h-4/5 mt-6 scrollable-div pb-10">
         <div class="mb-4" *ngFor="let number of this.exercises">
-          <routines-exercise [exerciseNumber]="number" />
+          <routines-superset
+            [exerciseNumber]="number"
+            (trash)="deleteComponent($event)"
+          />
         </div>
 
         <div *ngIf="this.exercises.length > 0" ngClass="h-14 w-24 m-auto">

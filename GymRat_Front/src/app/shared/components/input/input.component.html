@@ -1,13 +1,28 @@
-<input
-  *ngIf="this.inputType !== 'select'"
-  [class]="
-    'w-full h-full p-2 border-b border-violet-700 bg-transparent outline-none hover:bg-violet-200 placeholder:text-gray-500 ' +
-    this.inputClass
-  "
-  [placeholder]="this.inputPlaceholder"
-  [type]="this.inputType"
-  [step]="this.inputStep"
-/>
+<div *ngIf="this.inputType !== 'select'">
+  <input
+    [class]="
+      'w-full h-full p-2 border-b border-violet-700 bg-transparent outline-none hover:bg-violet-200 placeholder:text-gray-500 ' +
+      this.inputClass
+    "
+    [placeholder]="this.inputPlaceholder"
+    [type]="this.inputType"
+    [step]="this.inputStep"
+  />
+
+  <ul
+    [class]="
+      'absolute m-1 rounded-md bg-gradient-to-b from-violet-200 to-violet-400 scrollable-div ' +
+      this.listClass
+    "
+  >
+    <li
+      class="p-4 hover:bg-violet-200 hover:rounded-md hover:cursor-pointer"
+      *ngFor="let item of this.hints"
+    >
+      {{ item }}
+    </li>
+  </ul>
+</div>
 
 <select
   [class]="

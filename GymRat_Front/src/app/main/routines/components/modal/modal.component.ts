@@ -5,13 +5,6 @@ import { ModalData } from '../../interfaces';
 @Component({
   selector: 'routines-modal',
   templateUrl: './modal.component.html',
-  styles: [
-    `
-      .scrollable-div {
-        overflow-y: auto;
-      }
-    `,
-  ],
 })
 export class ModalComponent {
   constructor(
@@ -21,7 +14,7 @@ export class ModalComponent {
 
   public newRoutineView: boolean = false;
 
-  public exercisesNumber: number = 0;
+  public exercisesNumber: number = 1;
 
   public exercises: number[] = [];
 
@@ -35,5 +28,17 @@ export class ModalComponent {
 
   public closeModal(): void {
     this.dialogRef.close();
+  }
+
+  public deleteComponent(exerciseNumber: number): void {
+    this.exercises = this.exercises.filter((x) => x !== exerciseNumber);
+    this.exercises = this.exercises.map((x) => {
+      if (x > exerciseNumber) {
+        x--;
+      }
+      return x;
+    });
+    console.log(this.exercises);
+    this.exercisesNumber--;
   }
 }

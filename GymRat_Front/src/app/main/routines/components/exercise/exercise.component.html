@@ -1,12 +1,9 @@
 <form [formGroup]="exerciseForm" ngClass="flex flex-col">
-  <h1>Exercise {{ this.exerciseNumber }}</h1>
-  <mat-checkbox (change)="this.changeExerciseType()">Superset?</mat-checkbox>
-  <div
-    ngClass="w-3/5 self-center"
-    *ngIf="this.isSuperset"
-    class="grid grid-cols-1 p-4"
-  >
-    <div class="flex">
+  <div ngClass="w-3/5 self-center" class="grid grid-cols-1 p-4">
+    <h1 class="p-4 text-center text-lg" *ngIf="this.exerciseNumber > 0">
+      Exercise {{ this.exerciseNumber }}
+    </h1>
+    <div class="grid grid-cols-2">
       <shared-input
         class="p-2"
         inputType="text"
@@ -28,6 +25,7 @@
         <shared-input
           *ngFor="let item of this.series"
           class="p-2"
+          inputType="number"
           inputPlaceholder="Rep {{ item + 1 }}"
           ngDefaultControl
           formControlName="r{{ item }}"
@@ -37,14 +35,13 @@
         <shared-input
           *ngFor="let item of this.series"
           class="p-2"
+          inputType="number"
+          inputStep="0.1"
           inputPlaceholder="Weight {{ item + 1 }}"
           ngDefaultControl
           formControlName="w{{ item }}"
         />
       </div>
     </div>
-  </div>
-  <div class="w-24 h-14 self-start">
-    <shared-button class="p-2">Add</shared-button>
   </div>
 </form>

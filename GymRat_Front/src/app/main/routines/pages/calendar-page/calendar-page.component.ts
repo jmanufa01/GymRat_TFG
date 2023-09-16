@@ -17,6 +17,7 @@ export class CalendarPageComponent {
     initialView: 'dayGridMonth',
     plugins: [dayGridPlugin, interactionPlugin],
     dateClick: this.onDateClick.bind(this),
+    weekNumberCalculation: 'ISO',
   };
   public event: MouseEvent = new MouseEvent('click');
 

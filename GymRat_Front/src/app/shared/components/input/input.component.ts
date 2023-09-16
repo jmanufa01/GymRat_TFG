@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input } from '@angular/core';
 import { GymExperienceType } from '../../../main/routines/interfaces';
 
 @Component({
@@ -6,8 +6,13 @@ import { GymExperienceType } from '../../../main/routines/interfaces';
   templateUrl: './input.component.html',
 })
 export class InputComponent {
+  constructor(private elRef: ElementRef) {}
+
   @Input()
   public inputClass: string = '';
+
+  @Input()
+  public listClass: string = '';
 
   @Input()
   public inputType: string = '';
@@ -17,6 +22,9 @@ export class InputComponent {
 
   @Input()
   public inputStep: string = '';
+
+  @Input()
+  public hints: string[] = [];
 
   public gymExperienceTypes = Object.values(GymExperienceType);
 }

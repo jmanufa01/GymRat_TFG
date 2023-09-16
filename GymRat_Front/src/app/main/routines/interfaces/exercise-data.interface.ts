@@ -5,5 +5,5 @@ export interface Exercise {
   difficulty: string;
   series: number;
   reps: number[];
-  weights: [];
+  weights: number[];
 }

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
@@ -8,6 +8,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 export class ExerciseComponent {
   constructor(private fb: FormBuilder) {
     this.exerciseForm.valueChanges.subscribe((value) => {
+      this.form.emit(this.exerciseForm);
       this.series = Array(Number(this.exerciseForm.get('series')!.value))
         .fill(0)
         .map((x, i) => i);
@@ -15,26 +16,21 @@ export class ExerciseComponent {
       if (this.series.length > 0) {
         this.changeControls();
       }
-
-      console.log(this.exerciseForm.get('reps')?.value);
     });
   }
-
   @Input()
   public exerciseNumber: number = 0;
 
   public series: number[] = [];
 
-  public isSuperset: boolean = false;
-
   public exerciseForm: FormGroup = this.fb.group({
     exerciseName: [''],
+    muscle: [''],
     series: [0],
   });
 
-  public changeExerciseType(): void {
-    this.isSuperset = !this.isSuperset;
-  }
+  @Output()
+  public form: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
 
   public changeControls(): void {
     let controls = this.loadControls();
