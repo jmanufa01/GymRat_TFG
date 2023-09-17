@@ -42,14 +42,12 @@
       </div>
 
       <div class="h-4/5 mt-6 scrollable-div pb-10">
-        <div class="mb-4" *ngFor="let number of this.exercises">
-          <routines-superset
-            [exerciseNumber]="number"
-            (trash)="deleteComponent($event)"
-          />
-        </div>
+        <ng-template #supersetRef class="mb-4"></ng-template>
 
-        <div *ngIf="this.exercises.length > 0" ngClass="h-14 w-24 m-auto">
+        <div
+          *ngIf="this.componentReferences.length > 0"
+          ngClass="h-14 w-24 m-auto"
+        >
           <shared-button ngClass="mt-12" buttonType="button">
             Confirm
           </shared-button>
