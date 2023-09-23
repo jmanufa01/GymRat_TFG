@@ -8,7 +8,6 @@ import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class SupersetDTO extends ExerciseDTO{
-    String id;
+public class SupersetDTO {
     List<ExerciseDTO> exercises;
 }

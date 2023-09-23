@@ -28,6 +28,7 @@ ng-component {
   flex-direction: column;
   justify-items: center;
   height: 100%;
+  width: 100%;
 }
 
 .bg-image {

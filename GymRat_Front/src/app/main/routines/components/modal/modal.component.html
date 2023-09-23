@@ -1,4 +1,7 @@
-<form class="w-full h-full bg-gradient-to-b from-violet-200 to-blue-400">
+<form
+  class="w-full h-full bg-gradient-to-b from-violet-200 to-blue-400"
+  (ngSubmit)="this.saveRoutine()"
+>
   <div
     *ngIf="!this.newRoutineView; else newRoutine"
     class="p-2 flex justify-between items-center"
@@ -48,7 +51,7 @@
           *ngIf="this.componentReferences.length > 0"
           ngClass="h-14 w-24 m-auto"
         >
-          <shared-button ngClass="mt-12" buttonType="button">
+          <shared-button ngClass="mt-12" buttonType="submit">
             Confirm
           </shared-button>
         </div>

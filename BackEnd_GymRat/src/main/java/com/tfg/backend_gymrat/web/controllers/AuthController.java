@@ -23,7 +23,6 @@ import static org.springframework.http.ResponseEntity.ok;
  */
 @RestController
 @RequestMapping("/v1/auth")
-@CrossOrigin
 public class AuthController {
 
     @Autowired
@@ -43,8 +42,6 @@ public class AuthController {
     public ResponseEntity<AuthenticationResponse> register(@RequestBody UserRegistrationRequest request) throws Exception {
             try{
                 log.log(AuthConstants.REGISTRATION_IN_PROCCESS, request.username());
-
-                System.out.println(request.toString());
 
                 UserDTO user = new UserDTO(request.username(),
                         request.email(),

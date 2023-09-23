@@ -10,8 +10,6 @@ import java.util.List;
 @Data
 @Document("routine")
 public class Routine {
-    @Id
-    private String code;
     private Date realization_date;
     private List<String> muscular_group;
     private List<String> users;

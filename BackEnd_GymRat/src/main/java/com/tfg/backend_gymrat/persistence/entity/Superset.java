@@ -10,6 +10,5 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = false)
 @Document("superset")
 public class Superset extends Exercise{
-    private String id;
     private List<Exercise> exercises;
 }

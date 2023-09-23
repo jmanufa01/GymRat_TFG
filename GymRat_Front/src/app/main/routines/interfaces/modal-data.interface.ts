@@ -1,6 +1,6 @@
-import { RoutineData } from './routine-data.interface';
+import { Routine } from './routine.interface';
 
 export interface ModalData {
   date: string;
-  routines: RoutineData[];
+  routines: Routine[];
 }

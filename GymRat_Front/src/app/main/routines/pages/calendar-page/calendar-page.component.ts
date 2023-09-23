@@ -35,6 +35,7 @@ export class CalendarPageComponent {
       width: '60%',
       height: '70%',
       enterAnimationDuration: '200ms',
+      exitAnimationDuration: '200ms',
       autoFocus: true,
       panelClass: 'modal',
       data: {

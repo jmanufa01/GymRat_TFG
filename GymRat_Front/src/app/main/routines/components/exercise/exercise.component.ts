@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { ExerciseForm } from '../../interfaces';
 
 @Component({
   selector: 'routines-exercise',
@@ -23,10 +24,12 @@ export class ExerciseComponent {
 
   public series: number[] = [];
 
-  public exerciseForm: FormGroup = this.fb.group({
+  public exerciseForm: FormGroup<ExerciseForm> = this.fb.group({
     exerciseName: [''],
     muscle: [''],
     series: [0],
+    reps: this.fb.group({}),
+    weights: this.fb.group({}),
   });
 
   @Output()
@@ -42,9 +45,9 @@ export class ExerciseComponent {
       });
     } else {
       if (
-        Object.keys(this.exerciseForm.get('reps')?.value).length !==
+        Object.keys(this.exerciseForm.get('reps')!.value).length !==
           this.series.length &&
-        Object.keys(this.exerciseForm.get('weights')?.value).length !==
+        Object.keys(this.exerciseForm.get('weights')!.value).length !==
           this.series.length
       ) {
         this.exerciseForm.setControl('reps', controls[0], { emitEvent: false });

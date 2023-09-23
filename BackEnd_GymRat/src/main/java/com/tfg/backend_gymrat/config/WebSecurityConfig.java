@@ -3,6 +3,7 @@ package com.tfg.backend_gymrat.config;
 import com.tfg.backend_gymrat.domain.service.UserService;
 import com.tfg.backend_gymrat.web.security.JWTAuthenticationFilter;
 import com.tfg.backend_gymrat.domain.service.JWTService;
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,7 +20,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 
 @Configuration
@@ -27,22 +29,28 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class WebSecurityConfig{
 
     @Autowired
-    private UserService userService;
+    private JWTAuthenticationFilter jwtAuthenticationFilter;
 
-    @Autowired
-    private JWTService jwtService;
-
+    @Bean
+    public WebMvcConfigurer corsConfigurer(){
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(@NonNull CorsRegistry corsRegistry){
+                corsRegistry.addMapping("/**").allowedMethods("*").allowedOrigins("*")
+                        .allowedHeaders("*").maxAge(3600);
+            }
+        };
+    }
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return username -> userService.findUserByUsername(username);
+        return username -> jwtAuthenticationFilter.getUserService().findUserByUsername(username);
     }
 
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
-
 
     @Bean
     public AuthenticationProvider authenticationProvider(){
@@ -63,7 +71,19 @@ public class WebSecurityConfig{
 
         return http
                 .csrf(AbstractHttpConfigurer::disable)
+                .cors(httpSecurityCorsConfigurer -> {
+                    try {
+                        httpSecurityCorsConfigurer.init(http);
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                })
                 .authenticationProvider(this.authenticationProvider())
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .sessionManagement(sessionManagementConfigurer -> {
+                    sessionManagementConfigurer.init(http);
+                    sessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                })
                 .authorizeHttpRequests((requests) ->
                         requests.requestMatchers("/v1/auth/**")
                                 .permitAll()
@@ -72,11 +92,6 @@ public class WebSecurityConfig{
                                 .anyRequest()
                                 .authenticated()
                 )
-                .addFilterBefore(new JWTAuthenticationFilter(jwtService,userDetailsService()), UsernamePasswordAuthenticationFilter.class)
-                .sessionManagement(sessionManagementConfigurer -> {
-                    sessionManagementConfigurer.init(http);
-                    sessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-                })
                 .build();
     }
 

@@ -5,21 +5,22 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
+import { ExerciseForm } from '../../interfaces';
 
 @Component({
   selector: 'routines-superset',
   templateUrl: './superset.component.html',
 })
 export class SupersetComponent {
-  public isSuperset: boolean = false;
-
   @Input()
   public exerciseNumber: number = 0;
 
   public exercises: number[] = [0];
 
-  public exercisesForms: FormGroup<any>[] = [];
+  public isSuperset: boolean = false;
+
+  public exercisesForms: FormGroup<ExerciseForm>[] = [];
 
   @Output()
   public trash: EventEmitter<number> = new EventEmitter();
