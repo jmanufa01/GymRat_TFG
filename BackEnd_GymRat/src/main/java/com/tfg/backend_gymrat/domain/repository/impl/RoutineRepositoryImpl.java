@@ -7,6 +7,9 @@ import com.tfg.backend_gymrat.persistence.mongo.RoutineMongo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+import java.util.Optional;
+
 @Repository
 public class RoutineRepositoryImpl implements RoutineRepository {
 
@@ -18,5 +21,10 @@ public class RoutineRepositoryImpl implements RoutineRepository {
     @Override
     public void insertRoutine(RoutineDTO routineDTO) {
         mongo.insert(mapper.toRoutine(routineDTO));
+    }
+
+    @Override
+    public Optional<List<RoutineDTO>> findAllRoutinesByUsername(String username) {
+        return mongo.findAllByUsersContaining(username).map(routines -> mapper.toRoutineDTOs(routines));
     }
 }

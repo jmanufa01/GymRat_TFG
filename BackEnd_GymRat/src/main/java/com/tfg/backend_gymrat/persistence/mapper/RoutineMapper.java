@@ -7,6 +7,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
+import java.util.List;
+
 @Mapper
 public interface RoutineMapper {
 
@@ -15,8 +17,10 @@ public interface RoutineMapper {
             @Mapping(source = "muscular_group", target = "muscularGroup")
     })
     RoutineDTO toRoutineDTO(Routine routine);
+    List<RoutineDTO> toRoutineDTOs(List<Routine> routines);
 
 
     @InheritInverseConfiguration
     Routine toRoutine(RoutineDTO routineDTO);
+    List<Routine> toRoutines(List<RoutineDTO> routineDTOs);
 }

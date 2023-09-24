@@ -12,5 +12,5 @@ public class Routine {
     private Date realization_date;
     private List<String> muscular_group;
     private List<String> users;
-    private List<SimpleExercise> simpleExercises;
+    private List<Exercise> simpleExercises;
 }

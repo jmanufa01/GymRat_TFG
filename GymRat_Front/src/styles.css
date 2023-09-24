@@ -46,6 +46,10 @@ ng-component {
   cursor: default;
 }
 
+.fc-daygrid-day-events:hover * {
+  background: none !important;
+}
+
 .modal {
   border-radius: 20px;
 }
