@@ -34,8 +34,4 @@ public class ApiExceptionHandler {
         return new Error(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase(), e.getMessage());
     }
 
-    //@ExceptionHandler({
-      //      HttpMessageNotReadableException.class
-    //})
-    //public void messageNotReadable(){}  //Change this when error found (Controller executed twice)
 }

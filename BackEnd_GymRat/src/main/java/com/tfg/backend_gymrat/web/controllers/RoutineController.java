@@ -7,7 +7,6 @@ import com.tfg.backend_gymrat.domain.service.RoutineService;
 import com.tfg.backend_gymrat.util.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -35,12 +34,6 @@ public class RoutineController {
             log.log(AppConstants.ROUTINE_INSERTION_FAILURE);
             throw e;
         }
-    }
-
-
-    @GetMapping("/hello")
-    public ResponseEntity<AuthenticationResponse> returnHello() {
-        return ok(new AuthenticationResponse("hello"));
     }
 
 }

@@ -25,12 +25,12 @@ public class AuthService {
 
     public String registerUser(UserDTO user) throws Exception{
 
-        if(user.getEmail().trim().equals("")
+        if(user.email().trim().equals("")
                 || user.getPassword().trim().equals("")
                 || user.getUsername().trim().equals(""))
             throw new MissingRequestDataException();
 
-        if(!UtilClass.isEmailValid(user.getEmail()))
+        if(!UtilClass.isEmailValid(user.email()))
             throw new IncorrectRegistrationException();
 
         userService.createNewUser(user);

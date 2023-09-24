@@ -9,6 +9,6 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Document("superset")
-public class Superset extends Exercise{
-    private List<Exercise> exercises;
+public class Superset extends Exercise {
+    private List<SimpleExercise> simpleExercises;
 }

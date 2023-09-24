@@ -17,6 +17,6 @@ public class RoutineRepositoryImpl implements RoutineRepository {
 
     @Override
     public void insertRoutine(RoutineDTO routineDTO) {
-        mongo.save(mapper.toRoutine(routineDTO));
+        mongo.insert(mapper.toRoutine(routineDTO));
     }
 }
