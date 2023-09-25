@@ -26,10 +26,11 @@ public class RoutineController {
     private final Log log = new Log();
 
     @PostMapping("/save")
-    public ResponseEntity<Void> insertNewEntity(RoutineDTO routine) throws Exception{
+    public ResponseEntity<Void> insertNewEntity(@RequestBody RoutineDTO routine) throws Exception{
 
         try{
             log.log(AppConstants.INSERTING_ROUTINE);
+            System.out.println(routine.toString());
             routineService.insertNewRoutine(routine);
 
             log.log(AppConstants.ROUTINE_INSERTION_SUCCESS);

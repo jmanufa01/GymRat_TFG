@@ -9,17 +9,18 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+@Data
+@AllArgsConstructor
+public class UserDTO implements UserDetails{
 
-public record UserDTO (
-        @NonNull String username,
-        @NonNull String email,
-        @NonNull String password,
-        @NonNull String gymExperience,
-        @NonNull Date birthDate,
-        @NonNull Double height,
-        @NonNull Double weight,
-        @NonNull Role role
-) implements UserDetails{
+    private String username;
+    private String email;
+    private String password;
+    private String gymExperience;
+    private Date birthDate;
+    private Double height;
+    private Double weight;
+    private Role role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

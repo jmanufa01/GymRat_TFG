@@ -14,6 +14,7 @@ export class RoutinesService {
   private readonly apiUrl: string = environment.apiUrl;
 
   public insertRoutine(routine: Routine): Observable<boolean> {
+    console.log(routine);
     const url = `${this.apiUrl}/routines/save`;
     const body = routine;
     const options = {
