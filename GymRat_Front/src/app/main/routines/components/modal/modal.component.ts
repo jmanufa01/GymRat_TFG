@@ -11,7 +11,6 @@ import { SupersetComponent } from '../superset/superset.component';
 import { Superset } from '../../interfaces/superset.interface';
 import { Exercise } from '../../interfaces/exercise.interface';
 import { RoutinesService } from '../../services/routines.service';
-import { map } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth.service';
 
 @Component({

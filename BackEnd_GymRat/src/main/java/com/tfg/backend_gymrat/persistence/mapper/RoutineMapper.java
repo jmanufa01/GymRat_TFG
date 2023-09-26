@@ -22,8 +22,8 @@ public abstract class RoutineMapper {
 
     public RoutineDTO toRoutineDTO(Routine routine){
         return new RoutineDTO(
-                routine.getRealization_date(),
-                routine.getMuscular_group(),
+                routine.getRealizationDate(),
+                routine.getMuscularGroup(),
                 routine.getUsers(),
                 mapper.toExerciseDTOs(routine.getExercises()));
     }

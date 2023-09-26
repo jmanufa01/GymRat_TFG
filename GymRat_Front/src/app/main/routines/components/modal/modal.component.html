@@ -21,7 +21,7 @@
   </div>
 
   <ng-template #newRoutine>
-    <div class="p-2 flex justify-between items-center">
+    <article class="p-2 flex justify-between items-center">
       <shared-button ngClass="w-16 h-8" mat-dialog-close buttonType="button">
         Exit
       </shared-button>
@@ -34,10 +34,10 @@
         (onButtonClick)="this.changeView()"
         ><img class="pt-1 w-8 h-8" src="assets/back-icon.png" alt="back-icon"
       /></shared-button>
-    </div>
+    </article>
     <!-- TODO: Add exercises to routine -->
 
-    <div class="h-4/5 flex flex-col p-2">
+    <article class="h-4/5 flex flex-col p-2">
       <div class="h-16 w-32 self-center">
         <shared-button buttonType="button" (onButtonClick)="this.addExercise()"
           >Add Exercise
@@ -56,6 +56,6 @@
           </shared-button>
         </div>
       </div>
-    </div>
+    </article>
   </ng-template>
 </form>

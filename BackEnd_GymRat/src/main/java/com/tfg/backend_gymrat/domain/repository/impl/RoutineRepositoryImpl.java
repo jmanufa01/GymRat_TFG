@@ -7,6 +7,7 @@ import com.tfg.backend_gymrat.persistence.mongo.RoutineMongo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,7 +25,8 @@ public class RoutineRepositoryImpl implements RoutineRepository {
     }
 
     @Override
-    public Optional<List<RoutineDTO>> findAllRoutinesByUsername(String username) {
-        return mongo.findAllByUsersContaining(username).map(routines -> mapper.toRoutineDTOs(routines));
+    public Optional<List<RoutineDTO>> findAllRoutinesByUsernameAndDateBetween(String username, Date start, Date finish) {
+        return mongo.findAllByUsersContainingAndRealizationDateBetween(username,start,finish)
+                .map(routines -> mapper.toRoutineDTOs(routines));
     }
 }

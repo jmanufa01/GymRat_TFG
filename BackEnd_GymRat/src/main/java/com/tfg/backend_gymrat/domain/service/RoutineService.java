@@ -7,6 +7,7 @@ import com.tfg.backend_gymrat.util.UtilClass;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -26,8 +27,11 @@ public class RoutineService {
     }
 
 
-    public List<RoutineDTO> findRoutineByUserAndMonth(String username, Date date){
-        return repository.findAllRoutinesByUsername(username).orElseThrow();
+    public List<RoutineDTO> findRoutineByUserAndMonth(String username, String date) throws Exception {
+        Date firstDayOfMonth = new SimpleDateFormat("yyyy-MM-dd").parse(date.substring(0,8) + "01");
+        Date lastDayOfMonth = new SimpleDateFormat("yyyy-MM-dd").parse(date.substring(0,8) + "31");
+
+        return repository.findAllRoutinesByUsernameAndDateBetween(username,firstDayOfMonth, lastDayOfMonth).orElseThrow();
     }
 
 

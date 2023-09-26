@@ -1,7 +1,8 @@
 <div class="mt-20 grid h-full w-full align-middle">
   <full-calendar
-    ngClass="mx-auto py-14 w-3/4 h-4/5"
+    #fullCalendar
+    ngClass="mx-auto xzxpy-14 w-3/4 h-4/5"
     [options]="this.calendarOptions"
-    (click)="this.OnClick($event)"
+    (click)="this.loadCalendar()"
   ></full-calendar>
 </div>

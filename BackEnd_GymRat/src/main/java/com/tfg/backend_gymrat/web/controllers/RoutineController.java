@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -47,13 +48,12 @@ public class RoutineController {
         try{
             log.log(AppConstants.OBTAINING_ROUTINES);
 
-            //System.out.println(new Date(date));
-
-            List<RoutineDTO> routines = routineService.findRoutineByUserAndMonth(usernameHeader.username(), new Date());
-
+            List<RoutineDTO> routines = routineService.findRoutineByUserAndMonth(usernameHeader.username(),date);
+            System.out.println(date);
             log.log(AppConstants.ROUTINE_OBTAINMENT_SUCCESS);
             return ok(routines);
         }catch (Exception e){
+            log.log("Error: " + e.getMessage());
             log.log(AppConstants.ROUTINE_OBTAINMENT_FAILURE);
             throw e;
         }

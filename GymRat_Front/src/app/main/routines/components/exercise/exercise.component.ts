@@ -37,27 +37,18 @@ export class ExerciseComponent {
 
   public changeControls(): void {
     let controls = this.loadControls();
-
-    if (!this.exerciseForm.get('reps') && !this.exerciseForm.get('weights')) {
-      this.exerciseForm.addControl('reps', controls[0], { emitEvent: false });
-      this.exerciseForm.addControl('weights', controls[1], {
+    if (
+      Object.keys(this.exerciseForm.get('reps')!.value).length !==
+        this.series.length &&
+      Object.keys(this.exerciseForm.get('weights')!.value).length !==
+        this.series.length
+    ) {
+      this.exerciseForm.setControl('reps', controls[0], { emitEvent: false });
+      this.exerciseForm.setControl('weights', controls[1], {
         emitEvent: false,
       });
-    } else {
-      if (
-        Object.keys(this.exerciseForm.get('reps')!.value).length !==
-          this.series.length &&
-        Object.keys(this.exerciseForm.get('weights')!.value).length !==
-          this.series.length
-      ) {
-        this.exerciseForm.setControl('reps', controls[0], { emitEvent: false });
-        this.exerciseForm.setControl('weights', controls[1], {
-          emitEvent: false,
-        });
-      }
     }
   }
-
   public loadControls(): [FormGroup<{}>, FormGroup<{}>] {
     let formGroupReps = new FormGroup({});
     let formGroupWeights = new FormGroup({});
