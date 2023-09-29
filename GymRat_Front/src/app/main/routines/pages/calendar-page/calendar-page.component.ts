@@ -39,6 +39,8 @@ export class CalendarPageComponent implements AfterViewInit {
 
   private date: Date = new Date();
 
+  public loadingCalendar = false;
+
   public onDateClick(arg: DateClickArg): void {
     if (arg.date > new Date()) {
       Swal.fire({
@@ -76,10 +78,6 @@ export class CalendarPageComponent implements AfterViewInit {
     });
   }
 
-  onClick(): void {
-    console.log('clicked');
-  }
-
   fillEvents(routines: Routine[]): void {
     routines.forEach((routine) => {
       this.events.push({
@@ -90,6 +88,7 @@ export class CalendarPageComponent implements AfterViewInit {
   }
 
   loadCalendar(): void {
+    this.loadingCalendar = true;
     const calendarDate = this.calendarComponent.getApi().getDate();
     if (
       this.events.length < 1 ||
@@ -113,6 +112,7 @@ export class CalendarPageComponent implements AfterViewInit {
           },
         });
     }
+    this.loadingCalendar = false;
   }
 
   ngAfterViewInit(): void {

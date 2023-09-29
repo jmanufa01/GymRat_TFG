@@ -47,8 +47,6 @@ export class RoutinesService {
       },
     };
 
-    console.log(options.headers);
-
     return this.http.get<Routine[]>(url, options).pipe(
       map((res) => res),
       catchError((err) => throwError(() => err.message))

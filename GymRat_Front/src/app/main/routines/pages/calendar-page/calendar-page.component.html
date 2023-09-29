@@ -1,8 +1,15 @@
-<div class="mt-20 grid h-full w-full align-middle">
-  <full-calendar
-    #fullCalendar
-    ngClass="mx-auto xzxpy-14 w-3/4 h-4/5"
-    [options]="this.calendarOptions"
-    (click)="this.loadCalendar()"
-  ></full-calendar>
-</div>
+<shared-loading
+  class="m-auto h-full w-full"
+  *ngIf="this.loadingCalendar; else calendar"
+></shared-loading>
+
+<ng-template #calendar>
+  <div class="mt-20 grid h-full w-full align-middle">
+    <full-calendar
+      #fullCalendar
+      ngClass="mx-auto xzxpy-14 w-3/4 h-4/5"
+      [options]="this.calendarOptions"
+      (click)="this.loadCalendar()"
+    ></full-calendar>
+  </div>
+</ng-template>
