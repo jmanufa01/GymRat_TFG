@@ -18,6 +18,30 @@
         ngDefaultControl
         formControlName="series"
       />
+      <shared-input
+        class="p-2"
+        inputType="select"
+        inputPlaceholder="Muscle"
+        [selectorTypes]="this.muscles"
+        ngDefaultControl
+        formControlName="muscle"
+      />
+      <shared-input
+        class="p-2"
+        inputType="select"
+        inputPlaceholder="Type"
+        [selectorTypes]="this.types"
+        ngDefaultControl
+        formControlName="type"
+      />
+      <shared-input
+        class="p-2"
+        inputType="select"
+        inputPlaceholder="Difficulty"
+        [selectorTypes]="this.difficulties"
+        ngDefaultControl
+        formControlName="difficulty"
+      />
     </div>
 
     <div *ngIf="this.series.length > 0">

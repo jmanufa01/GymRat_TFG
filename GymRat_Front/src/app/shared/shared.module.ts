@@ -7,6 +7,7 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReplacePipe } from './pipes/replace.pipe';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ButtonComponent,
     NavBarComponent,
     LoadingComponent,
+    ReplacePipe,
   ],
   imports: [CommonModule, RouterModule, ReactiveFormsModule, FormsModule],
   exports: [

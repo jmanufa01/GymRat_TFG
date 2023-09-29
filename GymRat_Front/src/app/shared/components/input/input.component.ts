@@ -1,5 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input } from '@angular/core';
-import { GymExperienceType } from '../../../main/routines/interfaces';
+import { Component, ElementRef, Input } from '@angular/core';
 
 @Component({
   selector: 'shared-input',
@@ -26,5 +25,6 @@ export class InputComponent {
   @Input()
   public hints: string[] = [];
 
-  public gymExperienceTypes = Object.values(GymExperienceType);
+  @Input()
+  public selectorTypes: any[] = [];
 }

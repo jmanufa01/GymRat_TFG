@@ -3453,3 +3453,431 @@ Caused by: java.net.SocketTimeoutException: Read timed out
 2023-09-25T18:54:19.645+02:00  INFO 7592 --- [http-nio-8080-exec-3] com.tfg.backend_gymrat.util.Log          : Routine insertion has been successfully made!
 2023-09-25T18:54:36.959+02:00  INFO 7592 --- [http-nio-8080-exec-4] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
 2023-09-25T18:54:36.986+02:00  INFO 7592 --- [http-nio-8080-exec-4] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T13:41:52.038+02:00  INFO 16284 --- [main] c.t.b.BackEndGymRatApplication           : Starting BackEndGymRatApplication using Java 20.0.1 with PID 16284 (C:\Users\Manu\Desktop\UNI\TFG\Repo\GymRat_TFG\BackEnd_GymRat\target\classes started by Manu in C:\Users\Manu\Desktop\UNI\TFG\Repo\GymRat_TFG\BackEnd_GymRat)
+2023-09-29T13:41:52.041+02:00  INFO 16284 --- [main] c.t.b.BackEndGymRatApplication           : No active profile set, falling back to 1 default profile: "default"
+2023-09-29T13:41:52.587+02:00  INFO 16284 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data MongoDB repositories in DEFAULT mode.
+2023-09-29T13:41:52.652+02:00  INFO 16284 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 60 ms. Found 2 MongoDB repository interfaces.
+2023-09-29T13:41:53.238+02:00  INFO 16284 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-09-29T13:41:53.249+02:00  INFO 16284 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-09-29T13:41:53.249+02:00  INFO 16284 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.10]
+2023-09-29T13:41:53.333+02:00  INFO 16284 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-09-29T13:41:53.334+02:00  INFO 16284 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1232 ms
+2023-09-29T13:41:53.517+02:00  INFO 16284 --- [main] org.mongodb.driver.client                : MongoClient with metadata {"driver": {"name": "mongo-java-driver|sync|spring-boot", "version": "4.9.1"}, "os": {"type": "Windows", "name": "Windows 11", "architecture": "amd64", "version": "10.0"}, "platform": "Java/Oracle Corporation/20.0.1+9-29"} created with settings MongoClientSettings{readPreference=primary, writeConcern=WriteConcern{w=majority, wTimeout=null ms, journal=null}, retryWrites=true, retryReads=true, readConcern=ReadConcern{level=null}, credential=MongoCredential{mechanism=null, userName='josefando', source='admin', password=<hidden>, mechanismProperties=<hidden>}, streamFactoryFactory=null, commandListeners=[], codecRegistry=ProvidersCodecRegistry{codecProviders=[ValueCodecProvider{}, BsonValueCodecProvider{}, DBRefCodecProvider{}, DBObjectCodecProvider{}, DocumentCodecProvider{}, CollectionCodecProvider{}, IterableCodecProvider{}, MapCodecProvider{}, GeoJsonCodecProvider{}, GridFSFileCodecProvider{}, Jsr310CodecProvider{}, JsonObjectCodecProvider{}, BsonCodecProvider{}, EnumCodecProvider{}, com.mongodb.client.model.mql.ExpressionCodecProvider@22bdb1d0, com.mongodb.Jep395RecordCodecProvider@67b355c8]}, loggerSettings=LoggerSettings{maxDocumentLength=1000}, clusterSettings={hosts=[127.0.0.1:27017], srvHost=tfg.u8c4dcq.mongodb.net, srvServiceName=mongodb, mode=MULTIPLE, requiredClusterType=REPLICA_SET, requiredReplicaSetName='atlas-5qggkf-shard-0', serverSelector='null', clusterListeners='[]', serverSelectionTimeout='30000 ms', localThreshold='30000 ms'}, socketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=0, receiveBufferSize=0, sendBufferSize=0}, heartbeatSocketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=10000, receiveBufferSize=0, sendBufferSize=0}, connectionPoolSettings=ConnectionPoolSettings{maxSize=100, minSize=0, maxWaitTimeMS=120000, maxConnectionLifeTimeMS=0, maxConnectionIdleTimeMS=0, maintenanceInitialDelayMS=0, maintenanceFrequencyMS=60000, connectionPoolListeners=[], maxConnecting=2}, serverSettings=ServerSettings{heartbeatFrequencyMS=10000, minHeartbeatFrequencyMS=500, serverListeners='[]', serverMonitorListeners='[]'}, sslSettings=SslSettings{enabled=true, invalidHostNameAllowed=false, context=null}, applicationName='null', compressorList=[], uuidRepresentation=JAVA_LEGACY, serverApi=null, autoEncryptionSettings=null, contextProvider=null}
+2023-09-29T13:41:53.537+02:00  INFO 16284 --- [cluster-ClusterId{value='6516b80166c8a34baf4392b5', description='null'}-srv-tfg.u8c4dcq.mongodb.net] org.mongodb.driver.cluster               : Adding discovered server ac-40hupyr-shard-00-01.u8c4dcq.mongodb.net:27017 to client view of cluster
+2023-09-29T13:41:53.561+02:00  INFO 16284 --- [cluster-ClusterId{value='6516b80166c8a34baf4392b5', description='null'}-srv-tfg.u8c4dcq.mongodb.net] org.mongodb.driver.cluster               : Adding discovered server ac-40hupyr-shard-00-00.u8c4dcq.mongodb.net:27017 to client view of cluster
+2023-09-29T13:41:53.561+02:00  INFO 16284 --- [cluster-ClusterId{value='6516b80166c8a34baf4392b5', description='null'}-srv-tfg.u8c4dcq.mongodb.net] org.mongodb.driver.cluster               : Adding discovered server ac-40hupyr-shard-00-02.u8c4dcq.mongodb.net:27017 to client view of cluster
+2023-09-29T13:41:53.821+02:00  INFO 16284 --- [main] org.mongodb.driver.cluster               : No server chosen by com.mongodb.client.internal.MongoClientDelegate$$Lambda$974/0x00000008015128d0@1f4f0fcc from cluster description ClusterDescription{type=REPLICA_SET, connectionMode=MULTIPLE, serverDescriptions=[ServerDescription{address=ac-40hupyr-shard-00-01.u8c4dcq.mongodb.net:27017, type=UNKNOWN, state=CONNECTING}, ServerDescription{address=ac-40hupyr-shard-00-00.u8c4dcq.mongodb.net:27017, type=UNKNOWN, state=CONNECTING}, ServerDescription{address=ac-40hupyr-shard-00-02.u8c4dcq.mongodb.net:27017, type=UNKNOWN, state=CONNECTING}]}. Waiting for 30000 ms before timing out
+2023-09-29T13:41:54.103+02:00  INFO 16284 --- [cluster-ClusterId{value='6516b80166c8a34baf4392b5', description='null'}-ac-40hupyr-shard-00-02.u8c4dcq.mongodb.net:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=ac-40hupyr-shard-00-02.u8c4dcq.mongodb.net:27017, type=REPLICA_SET_PRIMARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=17, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=291799500, setName='atlas-5qggkf-shard-0', canonicalAddress=ac-40hupyr-shard-00-02.u8c4dcq.mongodb.net:27017, hosts=[ac-40hupyr-shard-00-00.u8c4dcq.mongodb.net:27017, ac-40hupyr-shard-00-02.u8c4dcq.mongodb.net:27017, ac-40hupyr-shard-00-01.u8c4dcq.mongodb.net:27017], passives=[], arbiters=[], primary='ac-40hupyr-shard-00-02.u8c4dcq.mongodb.net:27017', tagSet=TagSet{[Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='EU_WEST_3'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=7fffffff0000000000000073, setVersion=2, topologyVersion=TopologyVersion{processId=650c38fa4a45b2a6044b57b8, counter=6}, lastWriteDate=Fri Sep 29 13:41:54 CEST 2023, lastUpdateTimeNanos=182449256671300}
+2023-09-29T13:41:54.103+02:00  INFO 16284 --- [cluster-ClusterId{value='6516b80166c8a34baf4392b5', description='null'}-ac-40hupyr-shard-00-00.u8c4dcq.mongodb.net:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=ac-40hupyr-shard-00-00.u8c4dcq.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=17, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=280195300, setName='atlas-5qggkf-shard-0', canonicalAddress=ac-40hupyr-shard-00-00.u8c4dcq.mongodb.net:27017, hosts=[ac-40hupyr-shard-00-00.u8c4dcq.mongodb.net:27017, ac-40hupyr-shard-00-02.u8c4dcq.mongodb.net:27017, ac-40hupyr-shard-00-01.u8c4dcq.mongodb.net:27017], passives=[], arbiters=[], primary='ac-40hupyr-shard-00-02.u8c4dcq.mongodb.net:27017', tagSet=TagSet{[Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='EU_WEST_3'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=2, topologyVersion=TopologyVersion{processId=650c37f09015af2581216c5a, counter=4}, lastWriteDate=Fri Sep 29 13:41:54 CEST 2023, lastUpdateTimeNanos=182449256671300}
+2023-09-29T13:41:54.103+02:00  INFO 16284 --- [cluster-ClusterId{value='6516b80166c8a34baf4392b5', description='null'}-ac-40hupyr-shard-00-01.u8c4dcq.mongodb.net:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=ac-40hupyr-shard-00-01.u8c4dcq.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=17, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=295474600, setName='atlas-5qggkf-shard-0', canonicalAddress=ac-40hupyr-shard-00-01.u8c4dcq.mongodb.net:27017, hosts=[ac-40hupyr-shard-00-00.u8c4dcq.mongodb.net:27017, ac-40hupyr-shard-00-02.u8c4dcq.mongodb.net:27017, ac-40hupyr-shard-00-01.u8c4dcq.mongodb.net:27017], passives=[], arbiters=[], primary='ac-40hupyr-shard-00-02.u8c4dcq.mongodb.net:27017', tagSet=TagSet{[Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='EU_WEST_3'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=2, topologyVersion=TopologyVersion{processId=650c3a08aa68184dad294cca, counter=3}, lastWriteDate=Fri Sep 29 13:41:54 CEST 2023, lastUpdateTimeNanos=182449256671100}
+2023-09-29T13:41:54.105+02:00  INFO 16284 --- [cluster-ClusterId{value='6516b80166c8a34baf4392b5', description='null'}-ac-40hupyr-shard-00-02.u8c4dcq.mongodb.net:27017] org.mongodb.driver.cluster               : Discovered replica set primary ac-40hupyr-shard-00-02.u8c4dcq.mongodb.net:27017 with max election id 7fffffff0000000000000073 and max set version 2
+2023-09-29T13:41:54.875+02:00  INFO 16284 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@3d033453, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@43deba42, org.springframework.security.web.context.SecurityContextHolderFilter@a826ff8, org.springframework.security.web.header.HeaderWriterFilter@21090c88, org.springframework.web.filter.CorsFilter@e795a1d, org.springframework.security.web.authentication.logout.LogoutFilter@67c21bf, com.tfg.backend_gymrat.web.security.JWTAuthenticationFilter@7d0cd23c, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@49889154, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3dde5f38, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@38c10190, org.springframework.security.web.session.SessionManagementFilter@59b447a4, org.springframework.security.web.access.ExceptionTranslationFilter@cec590c, org.springframework.security.web.access.intercept.AuthorizationFilter@6133e20b]
+2023-09-29T13:41:54.969+02:00  WARN 16284 --- [main] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates, check your Thymeleaf configuration, or set spring.thymeleaf.check-template-location=false)
+2023-09-29T13:41:55.028+02:00  INFO 16284 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-09-29T13:41:55.035+02:00  INFO 16284 --- [main] c.t.b.BackEndGymRatApplication           : Started BackEndGymRatApplication in 3.587 seconds (process running for 4.577)
+2023-09-29T13:42:07.290+02:00  INFO 16284 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-09-29T13:42:07.291+02:00  INFO 16284 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-09-29T13:42:07.291+02:00  INFO 16284 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2023-09-29T13:42:07.387+02:00  INFO 16284 --- [http-nio-8080-exec-2] com.tfg.backend_gymrat.util.Log          : User manufa01 login is in proccess...
+2023-09-29T13:42:07.644+02:00  INFO 16284 --- [http-nio-8080-exec-2] com.tfg.backend_gymrat.util.Log          : User manufa01 has been logged in succesfully!
+2023-09-29T13:42:11.767+02:00  INFO 16284 --- [http-nio-8080-exec-4] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T13:42:11.806+02:00  INFO 16284 --- [http-nio-8080-exec-4] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T13:42:16.222+02:00  INFO 16284 --- [http-nio-8080-exec-6] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T13:42:16.247+02:00  INFO 16284 --- [http-nio-8080-exec-6] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T13:42:18.135+02:00  INFO 16284 --- [http-nio-8080-exec-8] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T13:42:18.161+02:00  INFO 16284 --- [http-nio-8080-exec-8] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T13:42:19.448+02:00  INFO 16284 --- [http-nio-8080-exec-9] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T13:42:19.473+02:00  INFO 16284 --- [http-nio-8080-exec-9] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T13:42:24.757+02:00  INFO 16284 --- [http-nio-8080-exec-10] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T13:42:24.782+02:00  INFO 16284 --- [http-nio-8080-exec-10] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T13:42:27.016+02:00  INFO 16284 --- [http-nio-8080-exec-1] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T13:42:27.042+02:00  INFO 16284 --- [http-nio-8080-exec-1] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T13:42:28.999+02:00  INFO 16284 --- [http-nio-8080-exec-2] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T13:42:29.025+02:00  INFO 16284 --- [http-nio-8080-exec-2] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T13:42:40.927+02:00  INFO 16284 --- [http-nio-8080-exec-3] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T13:42:40.952+02:00  INFO 16284 --- [http-nio-8080-exec-3] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T13:44:14.752+02:00  INFO 16284 --- [http-nio-8080-exec-6] com.tfg.backend_gymrat.util.Log          : Inserting routine process started...
+2023-09-29T13:44:14.813+02:00  INFO 16284 --- [http-nio-8080-exec-6] com.tfg.backend_gymrat.util.Log          : Routine insertion has been successfully made!
+2023-09-29T13:44:16.138+02:00  INFO 16284 --- [http-nio-8080-exec-7] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T13:44:16.164+02:00  INFO 16284 --- [http-nio-8080-exec-7] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T13:44:24.653+02:00  INFO 16284 --- [http-nio-8080-exec-8] com.tfg.backend_gymrat.util.Log          : Inserting routine process started...
+2023-09-29T13:44:24.683+02:00  INFO 16284 --- [http-nio-8080-exec-8] com.tfg.backend_gymrat.util.Log          : Routine insertion has been successfully made!
+2023-09-29T13:44:25.569+02:00  INFO 16284 --- [http-nio-8080-exec-9] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T13:44:25.596+02:00  INFO 16284 --- [http-nio-8080-exec-9] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T13:44:27.338+02:00  INFO 16284 --- [http-nio-8080-exec-10] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T13:44:27.363+02:00  INFO 16284 --- [http-nio-8080-exec-10] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T13:44:28.516+02:00  INFO 16284 --- [http-nio-8080-exec-2] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T13:44:28.542+02:00  INFO 16284 --- [http-nio-8080-exec-2] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T13:44:30.329+02:00  INFO 16284 --- [http-nio-8080-exec-3] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T13:44:30.355+02:00  INFO 16284 --- [http-nio-8080-exec-3] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T13:44:32.332+02:00  INFO 16284 --- [http-nio-8080-exec-4] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T13:44:32.358+02:00  INFO 16284 --- [http-nio-8080-exec-4] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T13:44:35.460+02:00  INFO 16284 --- [http-nio-8080-exec-6] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T13:44:35.486+02:00  INFO 16284 --- [http-nio-8080-exec-6] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T13:44:36.617+02:00  INFO 16284 --- [http-nio-8080-exec-7] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T13:44:36.643+02:00  INFO 16284 --- [http-nio-8080-exec-7] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T13:44:39.789+02:00  INFO 16284 --- [http-nio-8080-exec-8] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T13:44:39.814+02:00  INFO 16284 --- [http-nio-8080-exec-8] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T13:44:40.443+02:00  INFO 16284 --- [http-nio-8080-exec-9] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T13:44:40.469+02:00  INFO 16284 --- [http-nio-8080-exec-9] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T13:44:41.430+02:00  INFO 16284 --- [http-nio-8080-exec-1] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T13:44:41.456+02:00  INFO 16284 --- [http-nio-8080-exec-1] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T13:44:42.198+02:00  INFO 16284 --- [http-nio-8080-exec-3] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T13:44:42.223+02:00  INFO 16284 --- [http-nio-8080-exec-3] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T13:44:43.084+02:00  INFO 16284 --- [http-nio-8080-exec-4] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T13:44:43.110+02:00  INFO 16284 --- [http-nio-8080-exec-4] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T13:44:43.241+02:00  INFO 16284 --- [http-nio-8080-exec-5] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T13:44:43.266+02:00  INFO 16284 --- [http-nio-8080-exec-5] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T13:44:43.574+02:00  INFO 16284 --- [http-nio-8080-exec-6] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T13:44:43.601+02:00  INFO 16284 --- [http-nio-8080-exec-6] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T13:45:53.640+02:00  INFO 16284 --- [http-nio-8080-exec-8] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T13:45:53.666+02:00  INFO 16284 --- [http-nio-8080-exec-8] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T13:45:56.409+02:00  INFO 16284 --- [http-nio-8080-exec-9] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T13:45:56.434+02:00  INFO 16284 --- [http-nio-8080-exec-9] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T13:45:58.361+02:00  INFO 16284 --- [http-nio-8080-exec-10] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T13:45:58.386+02:00  INFO 16284 --- [http-nio-8080-exec-10] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T13:45:58.542+02:00  INFO 16284 --- [http-nio-8080-exec-1] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T13:45:58.568+02:00  INFO 16284 --- [http-nio-8080-exec-1] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T13:45:59.937+02:00  INFO 16284 --- [http-nio-8080-exec-2] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T13:45:59.964+02:00  INFO 16284 --- [http-nio-8080-exec-2] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T13:47:10.710+02:00  INFO 16284 --- [http-nio-8080-exec-6] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T13:47:10.737+02:00  INFO 16284 --- [http-nio-8080-exec-6] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T13:47:21.047+02:00  INFO 16284 --- [http-nio-8080-exec-7] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T13:47:21.072+02:00  INFO 16284 --- [http-nio-8080-exec-7] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T13:47:26.511+02:00  INFO 16284 --- [http-nio-8080-exec-8] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T13:47:26.537+02:00  INFO 16284 --- [http-nio-8080-exec-8] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T13:47:27.548+02:00  INFO 16284 --- [http-nio-8080-exec-9] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T13:47:27.574+02:00  INFO 16284 --- [http-nio-8080-exec-9] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T13:47:27.674+02:00  INFO 16284 --- [http-nio-8080-exec-10] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T13:47:27.699+02:00  INFO 16284 --- [http-nio-8080-exec-10] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T13:48:26.966+02:00  INFO 16284 --- [http-nio-8080-exec-1] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T13:48:26.992+02:00  INFO 16284 --- [http-nio-8080-exec-1] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T13:49:21.584+02:00  INFO 16284 --- [http-nio-8080-exec-2] com.tfg.backend_gymrat.util.Log          : User manufa01 login is in proccess...
+2023-09-29T13:49:21.680+02:00  INFO 16284 --- [http-nio-8080-exec-2] com.tfg.backend_gymrat.util.Log          : User manufa01 has been logged in succesfully!
+2023-09-29T13:49:27.190+02:00  INFO 16284 --- [http-nio-8080-exec-3] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T13:49:27.216+02:00  INFO 16284 --- [http-nio-8080-exec-3] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T13:49:37.546+02:00  INFO 16284 --- [http-nio-8080-exec-4] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T13:49:37.573+02:00  INFO 16284 --- [http-nio-8080-exec-4] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T13:53:39.688+02:00  INFO 16284 --- [http-nio-8080-exec-6] com.tfg.backend_gymrat.util.Log          : User manufa01 login is in proccess...
+2023-09-29T13:53:39.785+02:00  INFO 16284 --- [http-nio-8080-exec-6] com.tfg.backend_gymrat.util.Log          : User manufa01 has been logged in succesfully!
+2023-09-29T13:53:41.768+02:00  INFO 16284 --- [http-nio-8080-exec-7] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T13:53:41.794+02:00  INFO 16284 --- [http-nio-8080-exec-7] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T13:53:43.696+02:00  INFO 16284 --- [http-nio-8080-exec-8] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T13:53:43.721+02:00  INFO 16284 --- [http-nio-8080-exec-8] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T13:53:44.157+02:00  INFO 16284 --- [http-nio-8080-exec-9] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T13:53:44.182+02:00  INFO 16284 --- [http-nio-8080-exec-9] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T13:53:44.343+02:00  INFO 16284 --- [http-nio-8080-exec-10] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T13:53:44.368+02:00  INFO 16284 --- [http-nio-8080-exec-10] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T13:53:48.165+02:00  INFO 16284 --- [http-nio-8080-exec-1] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T13:53:48.191+02:00  INFO 16284 --- [http-nio-8080-exec-1] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T13:53:48.661+02:00  INFO 16284 --- [http-nio-8080-exec-2] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T13:53:48.687+02:00  INFO 16284 --- [http-nio-8080-exec-2] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T13:53:48.829+02:00  INFO 16284 --- [http-nio-8080-exec-3] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T13:53:48.853+02:00  INFO 16284 --- [http-nio-8080-exec-3] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T13:53:49.612+02:00  INFO 16284 --- [http-nio-8080-exec-4] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T13:53:49.637+02:00  INFO 16284 --- [http-nio-8080-exec-4] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T13:53:49.768+02:00  INFO 16284 --- [http-nio-8080-exec-5] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T13:53:49.794+02:00  INFO 16284 --- [http-nio-8080-exec-5] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T13:53:54.894+02:00  INFO 16284 --- [http-nio-8080-exec-6] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T13:53:54.920+02:00  INFO 16284 --- [http-nio-8080-exec-6] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T13:54:07.239+02:00  INFO 16284 --- [http-nio-8080-exec-7] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T13:54:07.265+02:00  INFO 16284 --- [http-nio-8080-exec-7] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T13:54:12.773+02:00  INFO 16284 --- [http-nio-8080-exec-8] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T13:54:12.799+02:00  INFO 16284 --- [http-nio-8080-exec-8] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T13:54:23.173+02:00  INFO 16284 --- [http-nio-8080-exec-9] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T13:54:23.198+02:00  INFO 16284 --- [http-nio-8080-exec-9] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T13:54:25.876+02:00  INFO 16284 --- [http-nio-8080-exec-10] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T13:54:25.901+02:00  INFO 16284 --- [http-nio-8080-exec-10] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T13:57:25.261+02:00  INFO 16284 --- [http-nio-8080-exec-2] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T13:57:25.287+02:00  INFO 16284 --- [http-nio-8080-exec-2] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T13:57:27.488+02:00  INFO 16284 --- [http-nio-8080-exec-3] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T13:57:27.513+02:00  INFO 16284 --- [http-nio-8080-exec-3] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T13:57:28.793+02:00  INFO 16284 --- [http-nio-8080-exec-4] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T13:57:28.819+02:00  INFO 16284 --- [http-nio-8080-exec-4] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T13:57:29.899+02:00  INFO 16284 --- [http-nio-8080-exec-5] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T13:57:29.924+02:00  INFO 16284 --- [http-nio-8080-exec-5] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T13:58:43.480+02:00  INFO 16284 --- [http-nio-8080-exec-7] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T13:58:43.505+02:00  INFO 16284 --- [http-nio-8080-exec-7] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T13:59:54.834+02:00  INFO 16284 --- [cluster-ClusterId{value='6516b80166c8a34baf4392b5', description='null'}-ac-40hupyr-shard-00-00.u8c4dcq.mongodb.net:27017] org.mongodb.driver.cluster               : Exception in monitor thread while connecting to server ac-40hupyr-shard-00-00.u8c4dcq.mongodb.net:27017
+
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.InternalStreamConnection.translateReadException(InternalStreamConnection.java:718) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.InternalStreamConnection.receiveMessageWithAdditionalTimeout(InternalStreamConnection.java:599) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.InternalStreamConnection.receiveCommandMessageResponse(InternalStreamConnection.java:440) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.InternalStreamConnection.receive(InternalStreamConnection.java:397) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitorRunnable.lookupServerDescription(DefaultServerMonitor.java:227) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitorRunnable.run(DefaultServerMonitor.java:159) ~[mongodb-driver-core-4.9.1.jar:na]
+	at java.base/java.lang.Thread.run(Thread.java:1623) ~[na:na]
+Caused by: java.net.SocketTimeoutException: Read timed out
+	at java.base/sun.nio.ch.NioSocketImpl.timedRead(NioSocketImpl.java:273) ~[na:na]
+	at java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:299) ~[na:na]
+	at java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:340) ~[na:na]
+	at java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:789) ~[na:na]
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:1025) ~[na:na]
+	at java.base/sun.security.ssl.SSLSocketInputRecord.read(SSLSocketInputRecord.java:483) ~[na:na]
+	at java.base/sun.security.ssl.SSLSocketInputRecord.readHeader(SSLSocketInputRecord.java:477) ~[na:na]
+	at java.base/sun.security.ssl.SSLSocketInputRecord.bytesInCompletePacket(SSLSocketInputRecord.java:70) ~[na:na]
+	at java.base/sun.security.ssl.SSLSocketImpl.readApplicationRecord(SSLSocketImpl.java:1461) ~[na:na]
+	at java.base/sun.security.ssl.SSLSocketImpl$AppInputStream.read(SSLSocketImpl.java:1066) ~[na:na]
+	at com.mongodb.internal.connection.SocketStream.read(SocketStream.java:113) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.SocketStream.read(SocketStream.java:138) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.InternalStreamConnection.receiveResponseBuffers(InternalStreamConnection.java:735) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.InternalStreamConnection.receiveMessageWithAdditionalTimeout(InternalStreamConnection.java:596) ~[mongodb-driver-core-4.9.1.jar:na]
+	... 5 common frames omitted
+
+2023-09-29T13:59:55.036+02:00  INFO 16284 --- [cluster-ClusterId{value='6516b80166c8a34baf4392b5', description='null'}-ac-40hupyr-shard-00-02.u8c4dcq.mongodb.net:27017] org.mongodb.driver.cluster               : Exception in monitor thread while connecting to server ac-40hupyr-shard-00-02.u8c4dcq.mongodb.net:27017
+
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.InternalStreamConnection.translateReadException(InternalStreamConnection.java:718) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.InternalStreamConnection.receiveMessageWithAdditionalTimeout(InternalStreamConnection.java:599) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.InternalStreamConnection.receiveCommandMessageResponse(InternalStreamConnection.java:440) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.InternalStreamConnection.receive(InternalStreamConnection.java:397) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitorRunnable.lookupServerDescription(DefaultServerMonitor.java:227) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitorRunnable.run(DefaultServerMonitor.java:159) ~[mongodb-driver-core-4.9.1.jar:na]
+	at java.base/java.lang.Thread.run(Thread.java:1623) ~[na:na]
+Caused by: java.net.SocketTimeoutException: Read timed out
+	at java.base/sun.nio.ch.NioSocketImpl.timedRead(NioSocketImpl.java:273) ~[na:na]
+	at java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:299) ~[na:na]
+	at java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:340) ~[na:na]
+	at java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:789) ~[na:na]
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:1025) ~[na:na]
+	at java.base/sun.security.ssl.SSLSocketInputRecord.read(SSLSocketInputRecord.java:483) ~[na:na]
+	at java.base/sun.security.ssl.SSLSocketInputRecord.readHeader(SSLSocketInputRecord.java:477) ~[na:na]
+	at java.base/sun.security.ssl.SSLSocketInputRecord.bytesInCompletePacket(SSLSocketInputRecord.java:70) ~[na:na]
+	at java.base/sun.security.ssl.SSLSocketImpl.readApplicationRecord(SSLSocketImpl.java:1461) ~[na:na]
+	at java.base/sun.security.ssl.SSLSocketImpl$AppInputStream.read(SSLSocketImpl.java:1066) ~[na:na]
+	at com.mongodb.internal.connection.SocketStream.read(SocketStream.java:113) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.SocketStream.read(SocketStream.java:138) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.InternalStreamConnection.receiveResponseBuffers(InternalStreamConnection.java:735) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.InternalStreamConnection.receiveMessageWithAdditionalTimeout(InternalStreamConnection.java:596) ~[mongodb-driver-core-4.9.1.jar:na]
+	... 5 common frames omitted
+
+2023-09-29T13:59:55.036+02:00  INFO 16284 --- [cluster-ClusterId{value='6516b80166c8a34baf4392b5', description='null'}-ac-40hupyr-shard-00-01.u8c4dcq.mongodb.net:27017] org.mongodb.driver.cluster               : Exception in monitor thread while connecting to server ac-40hupyr-shard-00-01.u8c4dcq.mongodb.net:27017
+
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.InternalStreamConnection.translateReadException(InternalStreamConnection.java:718) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.InternalStreamConnection.receiveMessageWithAdditionalTimeout(InternalStreamConnection.java:599) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.InternalStreamConnection.receiveCommandMessageResponse(InternalStreamConnection.java:440) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.InternalStreamConnection.receive(InternalStreamConnection.java:397) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitorRunnable.lookupServerDescription(DefaultServerMonitor.java:227) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitorRunnable.run(DefaultServerMonitor.java:159) ~[mongodb-driver-core-4.9.1.jar:na]
+	at java.base/java.lang.Thread.run(Thread.java:1623) ~[na:na]
+Caused by: java.net.SocketTimeoutException: Read timed out
+	at java.base/sun.nio.ch.NioSocketImpl.timedRead(NioSocketImpl.java:273) ~[na:na]
+	at java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:299) ~[na:na]
+	at java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:340) ~[na:na]
+	at java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:789) ~[na:na]
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:1025) ~[na:na]
+	at java.base/sun.security.ssl.SSLSocketInputRecord.read(SSLSocketInputRecord.java:483) ~[na:na]
+	at java.base/sun.security.ssl.SSLSocketInputRecord.readHeader(SSLSocketInputRecord.java:477) ~[na:na]
+	at java.base/sun.security.ssl.SSLSocketInputRecord.bytesInCompletePacket(SSLSocketInputRecord.java:70) ~[na:na]
+	at java.base/sun.security.ssl.SSLSocketImpl.readApplicationRecord(SSLSocketImpl.java:1461) ~[na:na]
+	at java.base/sun.security.ssl.SSLSocketImpl$AppInputStream.read(SSLSocketImpl.java:1066) ~[na:na]
+	at com.mongodb.internal.connection.SocketStream.read(SocketStream.java:113) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.SocketStream.read(SocketStream.java:138) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.InternalStreamConnection.receiveResponseBuffers(InternalStreamConnection.java:735) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.InternalStreamConnection.receiveMessageWithAdditionalTimeout(InternalStreamConnection.java:596) ~[mongodb-driver-core-4.9.1.jar:na]
+	... 5 common frames omitted
+
+2023-09-29T13:59:55.076+02:00  INFO 16284 --- [cluster-ClusterId{value='6516b80166c8a34baf4392b5', description='null'}-ac-40hupyr-shard-00-00.u8c4dcq.mongodb.net:27017] org.mongodb.driver.cluster               : Exception in monitor thread while connecting to server ac-40hupyr-shard-00-00.u8c4dcq.mongodb.net:27017
+
+com.mongodb.MongoSocketWriteException: Exception sending message
+	at com.mongodb.internal.connection.InternalStreamConnection.translateWriteException(InternalStreamConnection.java:706) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.InternalStreamConnection.sendMessage(InternalStreamConnection.java:580) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.InternalStreamConnection.sendCommandMessage(InternalStreamConnection.java:411) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.InternalStreamConnection.sendAndReceive(InternalStreamConnection.java:357) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.CommandHelper.sendAndReceive(CommandHelper.java:102) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.CommandHelper.executeCommand(CommandHelper.java:49) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.InternalStreamConnectionInitializer.initializeConnectionDescription(InternalStreamConnectionInitializer.java:129) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.InternalStreamConnectionInitializer.startHandshake(InternalStreamConnectionInitializer.java:77) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.InternalStreamConnection.open(InternalStreamConnection.java:206) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitorRunnable.lookupServerDescription(DefaultServerMonitor.java:199) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitorRunnable.run(DefaultServerMonitor.java:159) ~[mongodb-driver-core-4.9.1.jar:na]
+	at java.base/java.lang.Thread.run(Thread.java:1623) ~[na:na]
+Caused by: javax.net.ssl.SSLException: Received fatal alert: internal_error
+	at java.base/sun.security.ssl.Alert.createSSLException(Alert.java:132) ~[na:na]
+	at java.base/sun.security.ssl.Alert.createSSLException(Alert.java:117) ~[na:na]
+	at java.base/sun.security.ssl.TransportContext.fatal(TransportContext.java:365) ~[na:na]
+	at java.base/sun.security.ssl.Alert$AlertConsumer.consume(Alert.java:287) ~[na:na]
+	at java.base/sun.security.ssl.TransportContext.dispatch(TransportContext.java:204) ~[na:na]
+	at java.base/sun.security.ssl.SSLTransport.decode(SSLTransport.java:172) ~[na:na]
+	at java.base/sun.security.ssl.SSLSocketImpl.decode(SSLSocketImpl.java:1506) ~[na:na]
+	at java.base/sun.security.ssl.SSLSocketImpl.readHandshakeRecord(SSLSocketImpl.java:1421) ~[na:na]
+	at java.base/sun.security.ssl.SSLSocketImpl.startHandshake(SSLSocketImpl.java:455) ~[na:na]
+	at java.base/sun.security.ssl.SSLSocketImpl.ensureNegotiated(SSLSocketImpl.java:922) ~[na:na]
+	at java.base/sun.security.ssl.SSLSocketImpl$AppOutputStream.write(SSLSocketImpl.java:1291) ~[na:na]
+	at com.mongodb.internal.connection.SocketStream.write(SocketStream.java:102) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.InternalStreamConnection.sendMessage(InternalStreamConnection.java:577) ~[mongodb-driver-core-4.9.1.jar:na]
+	... 10 common frames omitted
+
+2023-09-29T13:59:55.258+02:00  INFO 16284 --- [cluster-ClusterId{value='6516b80166c8a34baf4392b5', description='null'}-ac-40hupyr-shard-00-01.u8c4dcq.mongodb.net:27017] org.mongodb.driver.cluster               : Exception in monitor thread while connecting to server ac-40hupyr-shard-00-01.u8c4dcq.mongodb.net:27017
+
+com.mongodb.MongoSocketWriteException: Exception sending message
+	at com.mongodb.internal.connection.InternalStreamConnection.translateWriteException(InternalStreamConnection.java:706) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.InternalStreamConnection.sendMessage(InternalStreamConnection.java:580) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.InternalStreamConnection.sendCommandMessage(InternalStreamConnection.java:411) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.InternalStreamConnection.sendAndReceive(InternalStreamConnection.java:357) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.CommandHelper.sendAndReceive(CommandHelper.java:102) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.CommandHelper.executeCommand(CommandHelper.java:49) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.InternalStreamConnectionInitializer.initializeConnectionDescription(InternalStreamConnectionInitializer.java:129) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.InternalStreamConnectionInitializer.startHandshake(InternalStreamConnectionInitializer.java:77) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.InternalStreamConnection.open(InternalStreamConnection.java:206) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitorRunnable.lookupServerDescription(DefaultServerMonitor.java:199) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitorRunnable.run(DefaultServerMonitor.java:159) ~[mongodb-driver-core-4.9.1.jar:na]
+	at java.base/java.lang.Thread.run(Thread.java:1623) ~[na:na]
+Caused by: javax.net.ssl.SSLException: Received fatal alert: internal_error
+	at java.base/sun.security.ssl.Alert.createSSLException(Alert.java:132) ~[na:na]
+	at java.base/sun.security.ssl.Alert.createSSLException(Alert.java:117) ~[na:na]
+	at java.base/sun.security.ssl.TransportContext.fatal(TransportContext.java:365) ~[na:na]
+	at java.base/sun.security.ssl.Alert$AlertConsumer.consume(Alert.java:287) ~[na:na]
+	at java.base/sun.security.ssl.TransportContext.dispatch(TransportContext.java:204) ~[na:na]
+	at java.base/sun.security.ssl.SSLTransport.decode(SSLTransport.java:172) ~[na:na]
+	at java.base/sun.security.ssl.SSLSocketImpl.decode(SSLSocketImpl.java:1506) ~[na:na]
+	at java.base/sun.security.ssl.SSLSocketImpl.readHandshakeRecord(SSLSocketImpl.java:1421) ~[na:na]
+	at java.base/sun.security.ssl.SSLSocketImpl.startHandshake(SSLSocketImpl.java:455) ~[na:na]
+	at java.base/sun.security.ssl.SSLSocketImpl.ensureNegotiated(SSLSocketImpl.java:922) ~[na:na]
+	at java.base/sun.security.ssl.SSLSocketImpl$AppOutputStream.write(SSLSocketImpl.java:1291) ~[na:na]
+	at com.mongodb.internal.connection.SocketStream.write(SocketStream.java:102) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.InternalStreamConnection.sendMessage(InternalStreamConnection.java:577) ~[mongodb-driver-core-4.9.1.jar:na]
+	... 10 common frames omitted
+
+2023-09-29T13:59:55.295+02:00  INFO 16284 --- [cluster-ClusterId{value='6516b80166c8a34baf4392b5', description='null'}-ac-40hupyr-shard-00-02.u8c4dcq.mongodb.net:27017] org.mongodb.driver.cluster               : Exception in monitor thread while connecting to server ac-40hupyr-shard-00-02.u8c4dcq.mongodb.net:27017
+
+com.mongodb.MongoSocketWriteException: Exception sending message
+	at com.mongodb.internal.connection.InternalStreamConnection.translateWriteException(InternalStreamConnection.java:706) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.InternalStreamConnection.sendMessage(InternalStreamConnection.java:580) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.InternalStreamConnection.sendCommandMessage(InternalStreamConnection.java:411) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.InternalStreamConnection.sendAndReceive(InternalStreamConnection.java:357) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.CommandHelper.sendAndReceive(CommandHelper.java:102) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.CommandHelper.executeCommand(CommandHelper.java:49) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.InternalStreamConnectionInitializer.initializeConnectionDescription(InternalStreamConnectionInitializer.java:129) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.InternalStreamConnectionInitializer.startHandshake(InternalStreamConnectionInitializer.java:77) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.InternalStreamConnection.open(InternalStreamConnection.java:206) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitorRunnable.lookupServerDescription(DefaultServerMonitor.java:199) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitorRunnable.run(DefaultServerMonitor.java:159) ~[mongodb-driver-core-4.9.1.jar:na]
+	at java.base/java.lang.Thread.run(Thread.java:1623) ~[na:na]
+Caused by: javax.net.ssl.SSLException: Received fatal alert: internal_error
+	at java.base/sun.security.ssl.Alert.createSSLException(Alert.java:132) ~[na:na]
+	at java.base/sun.security.ssl.Alert.createSSLException(Alert.java:117) ~[na:na]
+	at java.base/sun.security.ssl.TransportContext.fatal(TransportContext.java:365) ~[na:na]
+	at java.base/sun.security.ssl.Alert$AlertConsumer.consume(Alert.java:287) ~[na:na]
+	at java.base/sun.security.ssl.TransportContext.dispatch(TransportContext.java:204) ~[na:na]
+	at java.base/sun.security.ssl.SSLTransport.decode(SSLTransport.java:172) ~[na:na]
+	at java.base/sun.security.ssl.SSLSocketImpl.decode(SSLSocketImpl.java:1506) ~[na:na]
+	at java.base/sun.security.ssl.SSLSocketImpl.readHandshakeRecord(SSLSocketImpl.java:1421) ~[na:na]
+	at java.base/sun.security.ssl.SSLSocketImpl.startHandshake(SSLSocketImpl.java:455) ~[na:na]
+	at java.base/sun.security.ssl.SSLSocketImpl.ensureNegotiated(SSLSocketImpl.java:922) ~[na:na]
+	at java.base/sun.security.ssl.SSLSocketImpl$AppOutputStream.write(SSLSocketImpl.java:1291) ~[na:na]
+	at com.mongodb.internal.connection.SocketStream.write(SocketStream.java:102) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.InternalStreamConnection.sendMessage(InternalStreamConnection.java:577) ~[mongodb-driver-core-4.9.1.jar:na]
+	... 10 common frames omitted
+
+2023-09-29T14:03:47.244+02:00  INFO 16284 --- [http-nio-8080-exec-9] org.mongodb.driver.cluster               : No server chosen by com.mongodb.client.internal.MongoClientDelegate$$Lambda$974/0x00000008015128d0@1c9fa5c0 from cluster description ClusterDescription{type=REPLICA_SET, connectionMode=MULTIPLE, serverDescriptions=[ServerDescription{address=ac-40hupyr-shard-00-01.u8c4dcq.mongodb.net:27017, type=UNKNOWN, state=CONNECTING, exception={com.mongodb.MongoSocketWriteException: Exception sending message}, caused by {javax.net.ssl.SSLException: Received fatal alert: internal_error}}, ServerDescription{address=ac-40hupyr-shard-00-00.u8c4dcq.mongodb.net:27017, type=UNKNOWN, state=CONNECTING, exception={com.mongodb.MongoSocketWriteException: Exception sending message}, caused by {javax.net.ssl.SSLException: Received fatal alert: internal_error}}, ServerDescription{address=ac-40hupyr-shard-00-02.u8c4dcq.mongodb.net:27017, type=UNKNOWN, state=CONNECTING, exception={com.mongodb.MongoSocketWriteException: Exception sending message}, caused by {javax.net.ssl.SSLException: Received fatal alert: internal_error}}]}. Waiting for 30000 ms before timing out
+2023-09-29T14:03:52.556+02:00  INFO 16284 --- [http-nio-8080-exec-10] org.mongodb.driver.cluster               : No server chosen by com.mongodb.client.internal.MongoClientDelegate$$Lambda$974/0x00000008015128d0@6e9dff10 from cluster description ClusterDescription{type=REPLICA_SET, connectionMode=MULTIPLE, serverDescriptions=[ServerDescription{address=ac-40hupyr-shard-00-01.u8c4dcq.mongodb.net:27017, type=UNKNOWN, state=CONNECTING, exception={com.mongodb.MongoSocketWriteException: Exception sending message}, caused by {javax.net.ssl.SSLException: Received fatal alert: internal_error}}, ServerDescription{address=ac-40hupyr-shard-00-00.u8c4dcq.mongodb.net:27017, type=UNKNOWN, state=CONNECTING, exception={com.mongodb.MongoSocketWriteException: Exception sending message}, caused by {javax.net.ssl.SSLException: Received fatal alert: internal_error}}, ServerDescription{address=ac-40hupyr-shard-00-02.u8c4dcq.mongodb.net:27017, type=UNKNOWN, state=CONNECTING, exception={com.mongodb.MongoSocketWriteException: Exception sending message}, caused by {javax.net.ssl.SSLException: Received fatal alert: internal_error}}]}. Waiting for 30000 ms before timing out
+2023-09-29T14:04:03.495+02:00  INFO 16284 --- [cluster-ClusterId{value='6516b80166c8a34baf4392b5', description='null'}-ac-40hupyr-shard-00-00.u8c4dcq.mongodb.net:27017] org.mongodb.driver.cluster               : Exception in monitor thread while connecting to server ac-40hupyr-shard-00-00.u8c4dcq.mongodb.net:27017
+
+com.mongodb.MongoSocketOpenException: Exception opening socket
+	at com.mongodb.internal.connection.SocketStream.open(SocketStream.java:73) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.InternalStreamConnection.open(InternalStreamConnection.java:204) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitorRunnable.lookupServerDescription(DefaultServerMonitor.java:199) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitorRunnable.run(DefaultServerMonitor.java:159) ~[mongodb-driver-core-4.9.1.jar:na]
+	at java.base/java.lang.Thread.run(Thread.java:1623) ~[na:na]
+Caused by: java.net.SocketException: Network is unreachable: no further information
+	at java.base/sun.nio.ch.Net.pollConnect(Native Method) ~[na:na]
+	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:673) ~[na:na]
+	at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:535) ~[na:na]
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:585) ~[na:na]
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327) ~[na:na]
+	at java.base/java.net.Socket.connect(Socket.java:666) ~[na:na]
+	at java.base/sun.security.ssl.SSLSocketImpl.connect(SSLSocketImpl.java:304) ~[na:na]
+	at com.mongodb.internal.connection.SocketStreamHelper.initialize(SocketStreamHelper.java:107) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.SocketStream.initializeSocket(SocketStream.java:82) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.SocketStream.open(SocketStream.java:68) ~[mongodb-driver-core-4.9.1.jar:na]
+	... 4 common frames omitted
+
+2023-09-29T14:04:03.515+02:00  INFO 16284 --- [cluster-ClusterId{value='6516b80166c8a34baf4392b5', description='null'}-ac-40hupyr-shard-00-02.u8c4dcq.mongodb.net:27017] org.mongodb.driver.cluster               : Exception in monitor thread while connecting to server ac-40hupyr-shard-00-02.u8c4dcq.mongodb.net:27017
+
+com.mongodb.MongoSocketOpenException: Exception opening socket
+	at com.mongodb.internal.connection.SocketStream.open(SocketStream.java:73) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.InternalStreamConnection.open(InternalStreamConnection.java:204) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitorRunnable.lookupServerDescription(DefaultServerMonitor.java:199) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitorRunnable.run(DefaultServerMonitor.java:159) ~[mongodb-driver-core-4.9.1.jar:na]
+	at java.base/java.lang.Thread.run(Thread.java:1623) ~[na:na]
+Caused by: java.net.SocketException: Network is unreachable: no further information
+	at java.base/sun.nio.ch.Net.pollConnect(Native Method) ~[na:na]
+	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:673) ~[na:na]
+	at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:535) ~[na:na]
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:585) ~[na:na]
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327) ~[na:na]
+	at java.base/java.net.Socket.connect(Socket.java:666) ~[na:na]
+	at java.base/sun.security.ssl.SSLSocketImpl.connect(SSLSocketImpl.java:304) ~[na:na]
+	at com.mongodb.internal.connection.SocketStreamHelper.initialize(SocketStreamHelper.java:107) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.SocketStream.initializeSocket(SocketStream.java:82) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.SocketStream.open(SocketStream.java:68) ~[mongodb-driver-core-4.9.1.jar:na]
+	... 4 common frames omitted
+
+2023-09-29T14:04:03.548+02:00  INFO 16284 --- [cluster-ClusterId{value='6516b80166c8a34baf4392b5', description='null'}-ac-40hupyr-shard-00-01.u8c4dcq.mongodb.net:27017] org.mongodb.driver.cluster               : Exception in monitor thread while connecting to server ac-40hupyr-shard-00-01.u8c4dcq.mongodb.net:27017
+
+com.mongodb.MongoSocketOpenException: Exception opening socket
+	at com.mongodb.internal.connection.SocketStream.open(SocketStream.java:73) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.InternalStreamConnection.open(InternalStreamConnection.java:204) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitorRunnable.lookupServerDescription(DefaultServerMonitor.java:199) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitorRunnable.run(DefaultServerMonitor.java:159) ~[mongodb-driver-core-4.9.1.jar:na]
+	at java.base/java.lang.Thread.run(Thread.java:1623) ~[na:na]
+Caused by: java.net.SocketException: Network is unreachable: no further information
+	at java.base/sun.nio.ch.Net.pollConnect(Native Method) ~[na:na]
+	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:673) ~[na:na]
+	at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:535) ~[na:na]
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:585) ~[na:na]
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327) ~[na:na]
+	at java.base/java.net.Socket.connect(Socket.java:666) ~[na:na]
+	at java.base/sun.security.ssl.SSLSocketImpl.connect(SSLSocketImpl.java:304) ~[na:na]
+	at com.mongodb.internal.connection.SocketStreamHelper.initialize(SocketStreamHelper.java:107) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.SocketStream.initializeSocket(SocketStream.java:82) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.SocketStream.open(SocketStream.java:68) ~[mongodb-driver-core-4.9.1.jar:na]
+	... 4 common frames omitted
+
+2023-09-29T14:04:07.622+02:00  INFO 16284 --- [cluster-ClusterId{value='6516b80166c8a34baf4392b5', description='null'}-ac-40hupyr-shard-00-00.u8c4dcq.mongodb.net:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=ac-40hupyr-shard-00-00.u8c4dcq.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=17, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=91567300, setName='atlas-5qggkf-shard-0', canonicalAddress=ac-40hupyr-shard-00-00.u8c4dcq.mongodb.net:27017, hosts=[ac-40hupyr-shard-00-00.u8c4dcq.mongodb.net:27017, ac-40hupyr-shard-00-02.u8c4dcq.mongodb.net:27017, ac-40hupyr-shard-00-01.u8c4dcq.mongodb.net:27017], passives=[], arbiters=[], primary='ac-40hupyr-shard-00-02.u8c4dcq.mongodb.net:27017', tagSet=TagSet{[Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='EU_WEST_3'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=2, topologyVersion=TopologyVersion{processId=650c37f09015af2581216c5a, counter=4}, lastWriteDate=Fri Sep 29 14:04:07 CEST 2023, lastUpdateTimeNanos=183782776853600}
+2023-09-29T14:04:07.623+02:00  INFO 16284 --- [http-nio-8080-exec-9] org.mongodb.driver.cluster               : No server chosen by ReadPreferenceServerSelector{readPreference=primary} from cluster description ClusterDescription{type=REPLICA_SET, connectionMode=MULTIPLE, serverDescriptions=[ServerDescription{address=ac-40hupyr-shard-00-01.u8c4dcq.mongodb.net:27017, type=UNKNOWN, state=CONNECTING, exception={com.mongodb.MongoSocketOpenException: Exception opening socket}, caused by {java.net.SocketException: Network is unreachable: no further information}}, ServerDescription{address=ac-40hupyr-shard-00-00.u8c4dcq.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=17, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=91567300, setName='atlas-5qggkf-shard-0', canonicalAddress=ac-40hupyr-shard-00-00.u8c4dcq.mongodb.net:27017, hosts=[ac-40hupyr-shard-00-00.u8c4dcq.mongodb.net:27017, ac-40hupyr-shard-00-02.u8c4dcq.mongodb.net:27017, ac-40hupyr-shard-00-01.u8c4dcq.mongodb.net:27017], passives=[], arbiters=[], primary='ac-40hupyr-shard-00-02.u8c4dcq.mongodb.net:27017', tagSet=TagSet{[Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='EU_WEST_3'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=2, topologyVersion=TopologyVersion{processId=650c37f09015af2581216c5a, counter=4}, lastWriteDate=Fri Sep 29 14:04:07 CEST 2023, lastUpdateTimeNanos=183782776853600}, ServerDescription{address=ac-40hupyr-shard-00-02.u8c4dcq.mongodb.net:27017, type=UNKNOWN, state=CONNECTING, exception={com.mongodb.MongoSocketOpenException: Exception opening socket}, caused by {java.net.SocketException: Network is unreachable: no further information}}]}. Waiting for 30000 ms before timing out
+2023-09-29T14:04:07.623+02:00  INFO 16284 --- [http-nio-8080-exec-10] org.mongodb.driver.cluster               : No server chosen by ReadPreferenceServerSelector{readPreference=primary} from cluster description ClusterDescription{type=REPLICA_SET, connectionMode=MULTIPLE, serverDescriptions=[ServerDescription{address=ac-40hupyr-shard-00-01.u8c4dcq.mongodb.net:27017, type=UNKNOWN, state=CONNECTING, exception={com.mongodb.MongoSocketOpenException: Exception opening socket}, caused by {java.net.SocketException: Network is unreachable: no further information}}, ServerDescription{address=ac-40hupyr-shard-00-00.u8c4dcq.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=17, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=91567300, setName='atlas-5qggkf-shard-0', canonicalAddress=ac-40hupyr-shard-00-00.u8c4dcq.mongodb.net:27017, hosts=[ac-40hupyr-shard-00-00.u8c4dcq.mongodb.net:27017, ac-40hupyr-shard-00-02.u8c4dcq.mongodb.net:27017, ac-40hupyr-shard-00-01.u8c4dcq.mongodb.net:27017], passives=[], arbiters=[], primary='ac-40hupyr-shard-00-02.u8c4dcq.mongodb.net:27017', tagSet=TagSet{[Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='EU_WEST_3'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=2, topologyVersion=TopologyVersion{processId=650c37f09015af2581216c5a, counter=4}, lastWriteDate=Fri Sep 29 14:04:07 CEST 2023, lastUpdateTimeNanos=183782776853600}, ServerDescription{address=ac-40hupyr-shard-00-02.u8c4dcq.mongodb.net:27017, type=UNKNOWN, state=CONNECTING, exception={com.mongodb.MongoSocketOpenException: Exception opening socket}, caused by {java.net.SocketException: Network is unreachable: no further information}}]}. Waiting for 30000 ms before timing out
+2023-09-29T14:04:07.658+02:00  INFO 16284 --- [cluster-ClusterId{value='6516b80166c8a34baf4392b5', description='null'}-ac-40hupyr-shard-00-02.u8c4dcq.mongodb.net:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=ac-40hupyr-shard-00-02.u8c4dcq.mongodb.net:27017, type=REPLICA_SET_PRIMARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=17, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=91413700, setName='atlas-5qggkf-shard-0', canonicalAddress=ac-40hupyr-shard-00-02.u8c4dcq.mongodb.net:27017, hosts=[ac-40hupyr-shard-00-00.u8c4dcq.mongodb.net:27017, ac-40hupyr-shard-00-02.u8c4dcq.mongodb.net:27017, ac-40hupyr-shard-00-01.u8c4dcq.mongodb.net:27017], passives=[], arbiters=[], primary='ac-40hupyr-shard-00-02.u8c4dcq.mongodb.net:27017', tagSet=TagSet{[Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='EU_WEST_3'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=7fffffff0000000000000073, setVersion=2, topologyVersion=TopologyVersion{processId=650c38fa4a45b2a6044b57b8, counter=6}, lastWriteDate=Fri Sep 29 14:04:07 CEST 2023, lastUpdateTimeNanos=183782813700100}
+2023-09-29T14:04:07.658+02:00  INFO 16284 --- [cluster-ClusterId{value='6516b80166c8a34baf4392b5', description='null'}-ac-40hupyr-shard-00-02.u8c4dcq.mongodb.net:27017] org.mongodb.driver.cluster               : Discovered replica set primary ac-40hupyr-shard-00-02.u8c4dcq.mongodb.net:27017 with max election id 7fffffff0000000000000073 and max set version 2
+2023-09-29T14:04:07.672+02:00  INFO 16284 --- [cluster-ClusterId{value='6516b80166c8a34baf4392b5', description='null'}-ac-40hupyr-shard-00-01.u8c4dcq.mongodb.net:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=ac-40hupyr-shard-00-01.u8c4dcq.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=17, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=90822100, setName='atlas-5qggkf-shard-0', canonicalAddress=ac-40hupyr-shard-00-01.u8c4dcq.mongodb.net:27017, hosts=[ac-40hupyr-shard-00-00.u8c4dcq.mongodb.net:27017, ac-40hupyr-shard-00-02.u8c4dcq.mongodb.net:27017, ac-40hupyr-shard-00-01.u8c4dcq.mongodb.net:27017], passives=[], arbiters=[], primary='ac-40hupyr-shard-00-02.u8c4dcq.mongodb.net:27017', tagSet=TagSet{[Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='EU_WEST_3'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=2, topologyVersion=TopologyVersion{processId=650c3a08aa68184dad294cca, counter=3}, lastWriteDate=Fri Sep 29 14:04:07 CEST 2023, lastUpdateTimeNanos=183782827646800}
+2023-09-29T14:04:08.030+02:00  INFO 16284 --- [http-nio-8080-exec-2] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T14:04:08.066+02:00  INFO 16284 --- [http-nio-8080-exec-2] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T14:09:18.818+02:00  INFO 16284 --- [http-nio-8080-exec-5] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T14:09:18.844+02:00  INFO 16284 --- [http-nio-8080-exec-5] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T14:10:19.535+02:00  INFO 16284 --- [http-nio-8080-exec-7] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T14:10:19.561+02:00  INFO 16284 --- [http-nio-8080-exec-7] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T14:33:35.306+02:00  INFO 16284 --- [http-nio-8080-exec-10] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T14:33:35.332+02:00  INFO 16284 --- [http-nio-8080-exec-10] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T14:34:27.857+02:00  INFO 16284 --- [http-nio-8080-exec-2] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T14:34:27.882+02:00  INFO 16284 --- [http-nio-8080-exec-2] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T14:35:07.546+02:00  INFO 16284 --- [http-nio-8080-exec-4] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T14:35:07.571+02:00  INFO 16284 --- [http-nio-8080-exec-4] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T14:35:16.268+02:00  INFO 16284 --- [http-nio-8080-exec-6] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T14:35:16.292+02:00  INFO 16284 --- [http-nio-8080-exec-6] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T14:35:30.921+02:00  INFO 16284 --- [http-nio-8080-exec-8] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T14:35:30.946+02:00  INFO 16284 --- [http-nio-8080-exec-8] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T14:35:37.045+02:00  INFO 16284 --- [http-nio-8080-exec-10] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T14:35:37.070+02:00  INFO 16284 --- [http-nio-8080-exec-10] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T14:35:41.169+02:00  INFO 16284 --- [http-nio-8080-exec-2] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T14:35:41.194+02:00  INFO 16284 --- [http-nio-8080-exec-2] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T14:35:50.886+02:00  INFO 16284 --- [http-nio-8080-exec-4] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T14:35:50.911+02:00  INFO 16284 --- [http-nio-8080-exec-4] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T14:36:52.128+02:00  INFO 16284 --- [http-nio-8080-exec-7] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T14:36:52.153+02:00  INFO 16284 --- [http-nio-8080-exec-7] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T14:39:06.856+02:00  INFO 16284 --- [http-nio-8080-exec-9] com.tfg.backend_gymrat.util.Log          : Inserting routine process started...
+2023-09-29T14:39:06.894+02:00  INFO 16284 --- [http-nio-8080-exec-9] com.tfg.backend_gymrat.util.Log          : Routine insertion has been successfully made!
+2023-09-29T14:39:08.066+02:00  INFO 16284 --- [http-nio-8080-exec-10] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T14:39:08.090+02:00  INFO 16284 --- [http-nio-8080-exec-10] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T14:39:10.290+02:00  INFO 16284 --- [http-nio-8080-exec-1] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T14:39:10.315+02:00  INFO 16284 --- [http-nio-8080-exec-1] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T14:40:22.381+02:00  INFO 16284 --- [http-nio-8080-exec-4] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T14:40:22.407+02:00  INFO 16284 --- [http-nio-8080-exec-4] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T14:46:40.614+02:00  INFO 16284 --- [http-nio-8080-exec-8] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T14:46:40.639+02:00  INFO 16284 --- [http-nio-8080-exec-8] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T14:46:53.957+02:00  INFO 16284 --- [http-nio-8080-exec-10] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T14:46:53.982+02:00  INFO 16284 --- [http-nio-8080-exec-10] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!
+2023-09-29T14:47:17.623+02:00  INFO 16284 --- [http-nio-8080-exec-1] com.tfg.backend_gymrat.util.Log          : Routine obtainment process has started...
+2023-09-29T14:47:17.649+02:00  INFO 16284 --- [http-nio-8080-exec-1] com.tfg.backend_gymrat.util.Log          : Routine obtainment has been successfully made!

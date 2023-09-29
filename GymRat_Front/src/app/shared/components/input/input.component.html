@@ -31,7 +31,7 @@
   "
   *ngIf="this.inputType === 'select'"
 >
-  <option class="bg-violet-200" *ngFor="let type of this.gymExperienceTypes">
-    {{ type }}
+  <option class="bg-violet-200" *ngFor="let type of this.selectorTypes">
+    {{ type | titlecase | replace : "_" : " " }}
   </option>
 </select>

@@ -6,12 +6,18 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { SimpleExercise, ModalData, Routine } from '../../interfaces';
+import {
+  SimpleExercise,
+  ModalData,
+  Routine,
+  ExerciseForm,
+} from '../../interfaces';
 import { SupersetComponent } from '../superset/superset.component';
 import { Superset } from '../../interfaces/superset.interface';
 import { Exercise } from '../../interfaces/exercise.interface';
 import { RoutinesService } from '../../services/routines.service';
 import { AuthService } from 'src/app/auth/services/auth.service';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'routines-modal',
@@ -33,6 +39,8 @@ export class ModalComponent {
   public exercisesNumber: number = 1;
 
   public componentReferences: ComponentRef<SupersetComponent>[] = [];
+
+  private muscularGroup: string[] = [];
 
   public addExercise(): void {
     const actualRef: ComponentRef<SupersetComponent> =
@@ -82,12 +90,17 @@ export class ModalComponent {
         let superset: Superset = {
           series: instance.exercisesForms[0].value.series!, //Save series in superset
           exercises: instance.exercisesForms.map((y) => {
+            //Save muscular group in routine
+            if (!this.muscularGroup.includes(y.value.muscle!)) {
+              this.muscularGroup.push(y.value.muscle!);
+            }
+
             let exercise: SimpleExercise = {
               name: y.value.exerciseName!,
-              muscle: 'dummy',
-              type: 'dummy',
+              muscle: y.value.muscle!,
+              type: y.value.type!,
               series: y.value.series!,
-              difficulty: 'dummy',
+              difficulty: y.value.difficulty!,
               reps: Object.values(y.value.reps!).map((r) => parseInt(r!)),
               weights: Object.values(y.value.weights!).map((w) => parseInt(w!)),
             };
@@ -97,17 +110,22 @@ export class ModalComponent {
         exercise = superset;
       } else {
         //Simple exercise
+        const exerciseInstace = instance.exercisesForms[0].value;
+
+        //Save muscular group in routine
+        if (!this.muscularGroup.includes(exerciseInstace.muscle!)) {
+          this.muscularGroup.push(exerciseInstace.muscle!);
+        }
+
         let simpleExercise: SimpleExercise = {
-          name: instance.exercisesForms[0].value.exerciseName!,
-          muscle: 'dummy',
-          type: 'dummy',
-          series: instance.exercisesForms[0].value.series!,
-          difficulty: 'dummy',
-          reps: Object.values(instance.exercisesForms[0].value.reps!).map((r) =>
-            parseInt(r!)
-          ),
-          weights: Object.values(instance.exercisesForms[0].value.weights!).map(
-            (w) => parseInt(w!)
+          name: exerciseInstace.exerciseName!,
+          muscle: exerciseInstace.muscle!,
+          type: exerciseInstace.type!,
+          series: exerciseInstace.series!,
+          difficulty: exerciseInstace.difficulty!,
+          reps: Object.values(exerciseInstace.reps!).map((r) => parseInt(r!)),
+          weights: Object.values(exerciseInstace.weights!).map((w) =>
+            parseInt(w!)
           ),
         };
         exercise = simpleExercise;
@@ -123,7 +141,7 @@ export class ModalComponent {
     if (exercises) {
       let routine: Routine = {
         realizationDate: this.dialogRef._containerInstance._config.data.date,
-        muscularGroup: ['biceps', 'back'],
+        muscularGroup: this.muscularGroup,
         users: [this.authService.currentUser()!.username],
         exercises: exercises,
       };

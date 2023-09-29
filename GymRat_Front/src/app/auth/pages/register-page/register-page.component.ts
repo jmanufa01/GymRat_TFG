@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
+import { Difficulty } from 'src/app/main/routines/interfaces';
 
 @Component({
   templateUrl: './register-page.component.html',
@@ -20,6 +21,8 @@ export class RegisterPageComponent {
     private router: Router,
     private fb: FormBuilder
   ) {}
+
+  public difficulties = Object.values(Difficulty);
 
   //TODO: Add validators
   public registerForm = this.fb.group({

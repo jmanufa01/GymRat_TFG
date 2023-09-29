@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { ExerciseForm } from '../../interfaces';
+import { Difficulty, ExerciseForm, Muscle, Type } from '../../interfaces';
 
 @Component({
   selector: 'routines-exercise',
@@ -24,9 +24,17 @@ export class ExerciseComponent {
 
   public series: number[] = [];
 
+  public difficulties = Object.values(Difficulty);
+
+  public muscles = Object.values(Muscle);
+
+  public types = Object.values(Type);
+
   public exerciseForm: FormGroup<ExerciseForm> = this.fb.group({
     exerciseName: [''],
-    muscle: [''],
+    muscle: [Muscle.BICEPS],
+    type: [Type.CARDIO],
+    difficulty: [Difficulty.BEGINNER],
     series: [0],
     reps: this.fb.group({}),
     weights: this.fb.group({}),
