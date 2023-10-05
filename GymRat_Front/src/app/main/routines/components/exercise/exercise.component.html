@@ -1,71 +1,81 @@
-<form [formGroup]="exerciseForm" ngClass="flex flex-col">
-  <div ngClass="w-3/5 self-center" class="grid grid-cols-1 p-4">
-    <h1 class="p-4 text-center text-lg" *ngIf="this.exerciseNumber > 0">
-      Exercise {{ this.exerciseNumber }}
-    </h1>
-    <div class="grid grid-cols-2">
+<form
+  [formGroup]="exerciseForm"
+  class="m-auto p-4 w-3/5 flex flex-col items-center"
+>
+  <h1 class="p-4 text-center text-lg" *ngIf="this.exerciseNumber > 0">
+    Exercise {{ this.exerciseNumber }}
+  </h1>
+  <div class="grid grid-cols-2">
+    <shared-input
+      class="p-2"
+      inputType="text"
+      inputPlaceholder="Name"
+      ngDefaultControl
+      formControlName="exerciseName"
+      [inputValue]="this.exercise?.name ? this.exercise!.name : ''"
+    />
+    <shared-input
+      class="p-2"
+      inputType="number"
+      inputPlaceholder="Series"
+      ngDefaultControl
+      formControlName="series"
+      [inputValue]="this.exercise?.series ? this.exercise!.series : ''"
+    />
+    <shared-input
+      class="p-2"
+      inputType="select"
+      inputPlaceholder="Muscle"
+      [selectorTypes]="this.muscles"
+      ngDefaultControl
+      formControlName="muscle"
+      [inputValue]="this.exercise?.muscle ? this.exercise!.muscle : ''"
+    />
+    <shared-input
+      class="p-2"
+      inputType="select"
+      inputPlaceholder="Type"
+      [selectorTypes]="this.types"
+      ngDefaultControl
+      formControlName="type"
+      [inputValue]="this.exercise?.type ? this.exercise!.type : ''"
+    />
+    <shared-input
+      class="p-2"
+      inputType="select"
+      inputPlaceholder="Difficulty"
+      [selectorTypes]="this.difficulties"
+      ngDefaultControl
+      formControlName="difficulty"
+      [inputValue]="this.exercise?.difficulty ? this.exercise!.difficulty : ''"
+    />
+  </div>
+
+  <div *ngIf="this.series.length > 0">
+    <div class="flex" formGroupName="reps">
       <shared-input
-        class="p-2"
-        inputType="text"
-        inputPlaceholder="Name"
-        ngDefaultControl
-        formControlName="exerciseName"
-      />
-      <shared-input
+        *ngFor="let item of this.series"
         class="p-2"
         inputType="number"
-        inputPlaceholder="Series"
+        inputPlaceholder="Rep {{ item + 1 }}"
         ngDefaultControl
-        formControlName="series"
-      />
-      <shared-input
-        class="p-2"
-        inputType="select"
-        inputPlaceholder="Muscle"
-        [selectorTypes]="this.muscles"
-        ngDefaultControl
-        formControlName="muscle"
-      />
-      <shared-input
-        class="p-2"
-        inputType="select"
-        inputPlaceholder="Type"
-        [selectorTypes]="this.types"
-        ngDefaultControl
-        formControlName="type"
-      />
-      <shared-input
-        class="p-2"
-        inputType="select"
-        inputPlaceholder="Difficulty"
-        [selectorTypes]="this.difficulties"
-        ngDefaultControl
-        formControlName="difficulty"
+        formControlName="r{{ item }}"
+        [inputValue]="this.exercise?.reps ? this.exercise!.reps[item] : ''"
       />
     </div>
-
-    <div *ngIf="this.series.length > 0">
-      <div class="flex" formGroupName="reps">
-        <shared-input
-          *ngFor="let item of this.series"
-          class="p-2"
-          inputType="number"
-          inputPlaceholder="Rep {{ item + 1 }}"
-          ngDefaultControl
-          formControlName="r{{ item }}"
-        />
-      </div>
-      <div class="flex" formGroupName="weights">
-        <shared-input
-          *ngFor="let item of this.series"
-          class="p-2"
-          inputType="number"
-          inputStep="0.1"
-          inputPlaceholder="Weight {{ item + 1 }}"
-          ngDefaultControl
-          formControlName="w{{ item }}"
-        />
-      </div>
+    <div class="flex" formGroupName="weights">
+      <shared-input
+        *ngFor="let item of this.series"
+        class="p-2"
+        inputType="number"
+        inputStep="0.1"
+        inputPlaceholder="Weight {{ item + 1 }}"
+        ngDefaultControl
+        formControlName="w{{ item }}"
+        [inputValue]="
+          this.exercise?.weights ? this.exercise!.weights[item] : ''
+        "
+      />
     </div>
   </div>
 </form>

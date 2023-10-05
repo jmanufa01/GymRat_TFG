@@ -3,13 +3,16 @@ package com.tfg.backend_gymrat.persistence.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-@AllArgsConstructor
+@SuperBuilder
+@NoArgsConstructor
 @Document("simpleExercise")
 public class SimpleExercise extends Exercise{
     private String name;

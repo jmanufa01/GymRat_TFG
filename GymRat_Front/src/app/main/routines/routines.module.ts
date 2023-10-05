@@ -9,6 +9,7 @@ import { ExerciseComponent } from './components/exercise/exercise.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
 import { SupersetComponent } from './components/superset/superset.component';
+import { RoutineComponent } from './components/routine/routine.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { SupersetComponent } from './components/superset/superset.component';
     ModalComponent,
     ExerciseComponent,
     SupersetComponent,
+    RoutineComponent,
   ],
   imports: [
     CommonModule,

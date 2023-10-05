@@ -2,40 +2,46 @@
   class="w-full h-full bg-gradient-to-b from-violet-200 to-blue-400"
   (ngSubmit)="this.saveRoutine()"
 >
-  <div
-    *ngIf="!this.newRoutineView; else newRoutine"
-    class="p-2 flex justify-between items-center"
-  >
-    <shared-button ngClass="w-16 h-8" mat-dialog-close buttonType="button"
-      >Exit
-    </shared-button>
-    <h1 class="mr-2 text-xl font-bold text-center">
-      {{ this.data.date | date : "longDate" }}
-    </h1>
-    <img
-      class="w-10 h-10 hover:bg-gray-400 hover:cursor-pointer"
-      src="assets/add.png"
-      alt="add-icon"
-      (click)="this.changeView()"
-    />
-  </div>
+  <article class="w-full h-full" *ngIf="!this.newRoutineView; else newRoutine">
+    <div class="p-2 flex justify-between items-center">
+      <shared-button class="w-16 h-8" mat-dialog-close buttonType="button"
+        >Exit
+      </shared-button>
+      <h1 class="mr-2 text-xl font-bold text-center">
+        {{ this.data.date | date : "longDate" }}
+      </h1>
+      <img
+        class="w-10 h-10 hover:bg-gray-400 hover:cursor-pointer"
+        src="assets/add.png"
+        alt="add-icon"
+        (click)="this.changeView()"
+      />
+    </div>
+
+    <div class="mt-10 h-3/4 flex flex-col scrollable-div">
+      <routines-routine
+        *ngFor="let routine of this.data.routines; index as i"
+        [routine]="routine"
+        [routineNumber]="i"
+      />
+    </div>
+  </article>
 
   <ng-template #newRoutine>
     <article class="p-2 flex justify-between items-center">
-      <shared-button ngClass="w-16 h-8" mat-dialog-close buttonType="button">
+      <shared-button class="w-16 h-8" mat-dialog-close buttonType="button">
         Exit
       </shared-button>
       <h1 class="text-xl font-bold text-center">
         {{ this.data.date | date : "longDate" }}
       </h1>
       <shared-button
-        ngClass="w-12 h-10"
+        class="w-12 h-10"
         buttonStyle="flex justify-center"
         (onButtonClick)="this.changeView()"
         ><img class="pt-1 w-8 h-8" src="assets/back-icon.png" alt="back-icon"
       /></shared-button>
     </article>
-    <!-- TODO: Add exercises to routine -->
 
     <article class="h-4/5 flex flex-col p-2">
       <div class="h-16 w-32 self-center">
@@ -49,9 +55,9 @@
 
         <div
           *ngIf="this.componentReferences.length > 0"
-          ngClass="h-14 w-24 m-auto"
+          class="h-14 w-24 m-auto"
         >
-          <shared-button ngClass="mt-12" buttonType="submit">
+          <shared-button class="mt-12" buttonType="submit">
             Confirm
           </shared-button>
         </div>

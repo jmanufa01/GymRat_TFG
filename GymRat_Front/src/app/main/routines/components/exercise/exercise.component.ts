@@ -1,12 +1,24 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Difficulty, ExerciseForm, Muscle, Type } from '../../interfaces';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import {
+  Difficulty,
+  Exercise,
+  ExerciseForm,
+  Muscle,
+  SimpleExercise,
+  Type,
+} from '../../interfaces';
 
 @Component({
   selector: 'routines-exercise',
   templateUrl: './exercise.component.html',
 })
-export class ExerciseComponent {
+export class ExerciseComponent implements OnInit {
   constructor(private fb: FormBuilder) {
     this.exerciseForm.valueChanges.subscribe((value) => {
       this.form.emit(this.exerciseForm);
@@ -14,13 +26,19 @@ export class ExerciseComponent {
         .fill(0)
         .map((x, i) => i);
 
+      console.log('Series: ', this.series);
+
       if (this.series.length > 0) {
         this.changeControls();
       }
     });
   }
+
   @Input()
   public exerciseNumber: number = 0;
+
+  @Input()
+  public exercise?: SimpleExercise;
 
   public series: number[] = [];
 
@@ -32,7 +50,7 @@ export class ExerciseComponent {
 
   public exerciseForm: FormGroup<ExerciseForm> = this.fb.group({
     exerciseName: [''],
-    muscle: [Muscle.BICEPS],
+    muscle: [Muscle.ABDOMINALS],
     type: [Type.CARDIO],
     difficulty: [Difficulty.BEGINNER],
     series: [0],
@@ -62,10 +80,33 @@ export class ExerciseComponent {
     let formGroupWeights = new FormGroup({});
 
     this.series.forEach((serie) => {
-      formGroupReps.addControl(`r${serie}`, new FormControl(''));
-      formGroupWeights.addControl(`w${serie}`, new FormControl(''));
+      formGroupReps.addControl(
+        `r${serie}`,
+        new FormControl(this.exercise?.reps[serie] || '')
+      );
+      formGroupWeights.addControl(
+        `w${serie}`,
+        new FormControl(this.exercise?.weights[serie] || '')
+      );
     });
 
     return [formGroupReps, formGroupWeights];
+  }
+
+  ngOnInit(): void {
+    if (this.exercise) {
+      this.series = Array(Number(this.exercise.series))
+        .fill(0)
+        .map((x, i) => i);
+      console.log('Series: ', this.series);
+      this.exerciseForm.patchValue({
+        exerciseName: this.exercise.name,
+        muscle: this.exercise.muscle,
+        type: this.exercise.type,
+        difficulty: this.exercise.difficulty,
+        series: this.exercise.series,
+      });
+      this.changeControls();
+    }
   }
 }

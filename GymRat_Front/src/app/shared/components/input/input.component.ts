@@ -8,10 +8,10 @@ export class InputComponent {
   constructor(private elRef: ElementRef) {}
 
   @Input()
-  public inputClass: string = '';
+  public inputclass: string = '';
 
   @Input()
-  public listClass: string = '';
+  public listclass: string = '';
 
   @Input()
   public inputType: string = '';
@@ -27,4 +27,7 @@ export class InputComponent {
 
   @Input()
   public selectorTypes: any[] = [];
+
+  @Input()
+  public inputValue: any = '';
 }

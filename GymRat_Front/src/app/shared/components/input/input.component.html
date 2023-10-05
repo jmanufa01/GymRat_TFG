@@ -1,18 +1,19 @@
 <div *ngIf="this.inputType !== 'select'">
   <input
     [class]="
-      'w-full h-full p-2 border-b border-violet-700 bg-transparent outline-none hover:bg-violet-200 placeholder:text-gray-500 ' +
-      this.inputClass
+      'w-full h-full p-2 border-b border-violet-700 bg-transparent outline-none hover:bg-violet-200 placeholder:text-gray-500 text-center' +
+      this.inputclass
     "
     [placeholder]="this.inputPlaceholder"
     [type]="this.inputType"
     [step]="this.inputStep"
+    [defaultValue]="this.inputValue"
   />
 
   <ul
     [class]="
       'absolute m-1 rounded-md bg-gradient-to-b from-violet-200 to-violet-400 scrollable-div ' +
-      this.listClass
+      this.listclass
     "
   >
     <li
@@ -27,11 +28,16 @@
 <select
   [class]="
     'w-full h-full p-2 border-b border-violet-700 bg-transparent outline-none hover:bg-violet-200 placeholder:text-gray-500 ' +
-    this.inputClass
+    this.inputclass
   "
   *ngIf="this.inputType === 'select'"
+  [(ngModel)]="this.inputValue ? this.inputValue : this.selectorTypes[0]"
 >
-  <option class="bg-violet-200" *ngFor="let type of this.selectorTypes">
+  <option
+    class="bg-violet-200"
+    *ngFor="let type of this.selectorTypes"
+    [value]="type"
+  >
     {{ type | titlecase | replace : "_" : " " }}
   </option>
 </select>

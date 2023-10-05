@@ -8,6 +8,7 @@ import { ModalComponent } from '../../components/modal/modal.component';
 import { RoutinesService } from '../../services/routines.service';
 import { Routine } from '../../interfaces';
 import { FullCalendarComponent } from '@fullcalendar/angular';
+import { TitleCasePipe } from '@angular/common';
 
 @Component({
   templateUrl: './calendar-page.component.html',
@@ -32,6 +33,9 @@ export class CalendarPageComponent implements AfterViewInit {
     title: string;
     start: string;
   }[] = [];
+
+  private routines: Routine[] = [];
+
   @ViewChild('fullCalendar', { read: FullCalendarComponent })
   public calendarComponent!: FullCalendarComponent;
 
@@ -42,15 +46,6 @@ export class CalendarPageComponent implements AfterViewInit {
   public loadingCalendar = false;
 
   public onDateClick(arg: DateClickArg): void {
-    if (arg.date > new Date()) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'You cannot create a routine in the future!',
-      });
-      return;
-    }
-
     this.dialog.open(ModalComponent, {
       width: '60%',
       height: '70%',
@@ -60,6 +55,11 @@ export class CalendarPageComponent implements AfterViewInit {
       panelClass: 'modal',
       data: {
         date: arg.date,
+        routines: this.routines.filter(
+          (routine) =>
+            new Date(routine.realizationDate).toISOString() ===
+            arg.date?.toISOString()
+        ),
       },
     });
   }
@@ -74,6 +74,11 @@ export class CalendarPageComponent implements AfterViewInit {
       panelClass: 'modal',
       data: {
         date: arg.event.start,
+        routines: this.routines.filter(
+          (routine) =>
+            new Date(routine.realizationDate).toISOString() ===
+            arg.event.start?.toISOString()
+        ),
       },
     });
   }
@@ -81,7 +86,10 @@ export class CalendarPageComponent implements AfterViewInit {
   fillEvents(routines: Routine[]): void {
     routines.forEach((routine) => {
       this.events.push({
-        title: routine.muscularGroup.join(', '),
+        title: routine.muscularGroup
+          .map((exercise) => new TitleCasePipe().transform(exercise))
+          .join(', ')
+          .replace('_', ' '),
         start: new Date(routine.realizationDate).toISOString(),
       });
     });
@@ -90,27 +98,26 @@ export class CalendarPageComponent implements AfterViewInit {
   loadCalendar(): void {
     this.loadingCalendar = true;
     const calendarDate = this.calendarComponent.getApi().getDate();
+    console.log('Events: ', this.events);
     if (
       this.events.length < 1 ||
       calendarDate.getMonth() !== this.date.getMonth()
     ) {
       this.events = [];
       this.date = calendarDate;
-      this.routineService
-        .getRoutines(this.calendarComponent.getApi().getDate())
-        .subscribe({
-          next: (res) => {
-            this.fillEvents(res);
-            this.calendarOptions = {
-              ...this.calendarOptions,
-              events: this.events,
-            };
-            console.log(this.calendarOptions.events);
-          },
-          error: (err) => {
-            console.log(err);
-          },
-        });
+      this.routineService.getRoutines(calendarDate).subscribe({
+        next: (res) => {
+          this.fillEvents(res);
+          this.routines = res;
+          this.calendarOptions = {
+            ...this.calendarOptions,
+            events: this.events,
+          };
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
     }
     this.loadingCalendar = false;
   }

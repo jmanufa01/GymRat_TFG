@@ -14,15 +14,21 @@ public abstract class ExerciseMapper {
 
         public Exercise toExercise(ExerciseDTO exercise){
             if(exercise.getExercises() != null){ //Superset
-                return new Superset(exercise.getExercises().stream().map(this::toExercise).toList());
+                return Superset.builder()
+                        .series(exercise.getSeries())
+                        .exercises(toExercises(exercise.getExercises()))
+                        .build();
             }
 
-            return new SimpleExercise(exercise.getName(),
-                    exercise.getMuscle(),
-                    exercise.getType(),
-                    exercise.getDifficulty(),
-                    exercise.getReps(),
-                    exercise.getWeights());
+            return SimpleExercise.builder()
+                    .name(exercise.getName())
+                    .muscle(exercise.getMuscle())
+                    .type(exercise.getType())
+                    .difficulty(exercise.getDifficulty())
+                    .series(exercise.getSeries())
+                    .reps(exercise.getReps())
+                    .weights(exercise.getWeights())
+                    .build();
         }
         public abstract List<Exercise> toExercises(List<ExerciseDTO> exerciseDTOS);
 
@@ -43,6 +49,7 @@ public abstract class ExerciseMapper {
             exerciseDTO.setMuscle(simpleExercise.getMuscle());
             exerciseDTO.setReps(simpleExercise.getReps());
             exerciseDTO.setWeights(simpleExercise.getWeights());
+            exerciseDTO.setSeries(simpleExercise.getSeries());
             return exerciseDTO;
         }
         abstract List<ExerciseDTO> toExerciseDTOs(List<Exercise> exercises);

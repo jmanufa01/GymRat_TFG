@@ -32,7 +32,6 @@ export class AuthService {
   private setAuthentication(jwt: string): boolean {
     this._authStatus.set(AuthStatus.Authenticated);
     localStorage.setItem('jwt', jwt); //TODO: Use a cookie instead of localStorage
-    console.log(this.jwtService.decodeUsername(jwt));
     this._currentUser.set({
       username: this.jwtService.decodeUsername(jwt),
       role: 'user', //TODO: Call the API to get the role
@@ -68,7 +67,6 @@ export class AuthService {
   }
 
   checkAuthStatus(): Observable<boolean> {
-    console.log(this.authStatus());
     const url = `${this.apiUrl}/auth/check`;
     const jwt = localStorage.getItem('jwt');
 
@@ -82,7 +80,6 @@ export class AuthService {
     return this.http.get<CheckResponse>(url, { headers }).pipe(
       map(({ jwt }) => this.setAuthentication(jwt)),
       catchError((err) => {
-        console.log({ err });
         this._authStatus.set(AuthStatus.NotAuthenticated);
         localStorage.removeItem('jwt');
         return of(false);

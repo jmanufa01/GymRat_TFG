@@ -8,7 +8,6 @@ export class JwtService {
 
   decodeUsername(jwt: string): string {
     const decodedToken = this.jwtHelper.decodeToken(jwt);
-    console.log(decodedToken);
     return decodedToken.user;
   }
 }

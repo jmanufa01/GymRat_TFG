@@ -6,18 +6,12 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import {
-  SimpleExercise,
-  ModalData,
-  Routine,
-  ExerciseForm,
-} from '../../interfaces';
+import { SimpleExercise, ModalData, Routine } from '../../interfaces';
 import { SupersetComponent } from '../superset/superset.component';
 import { Superset } from '../../interfaces/superset.interface';
 import { Exercise } from '../../interfaces/exercise.interface';
 import { RoutinesService } from '../../services/routines.service';
 import { AuthService } from 'src/app/auth/services/auth.service';
-import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'routines-modal',

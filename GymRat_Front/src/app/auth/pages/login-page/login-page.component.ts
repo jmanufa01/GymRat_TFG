@@ -25,10 +25,7 @@ export class LoginPageComponent {
 
     this.authService.login(username!, password!).subscribe({
       next: () => this.router.navigateByUrl('/home'),
-      error: (err) => {
-        console.log({ err });
-        this.error = true;
-      },
+      error: (err) => (this.error = true),
     });
   }
 }

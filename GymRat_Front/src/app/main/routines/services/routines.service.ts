@@ -24,7 +24,6 @@ export class RoutinesService {
     };
     return this.http.post(url, body, options).pipe(
       map((res) => {
-        console.log(res);
         return true;
       }),
       catchError((err) => throwError(() => err.message))

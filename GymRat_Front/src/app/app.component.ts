@@ -17,7 +17,6 @@ export class AppComponent {
   }
 
   public authStatusEffect = effect(() => {
-    console.log(this.authService.authStatus());
     switch (this.authService.authStatus()) {
       case AuthStatus.Authenticated || AuthStatus.Checking:
         return;
