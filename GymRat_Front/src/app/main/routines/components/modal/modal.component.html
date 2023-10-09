@@ -14,11 +14,13 @@
         class="w-10 h-10 hover:bg-gray-400 hover:cursor-pointer"
         src="assets/add.png"
         alt="add-icon"
+        title="Add New Routine"
         (click)="this.changeView()"
       />
     </div>
 
     <div class="mt-10 h-3/4 flex flex-col scrollable-div">
+      <!-- TODO: Change routine creation and representation to routines-routine -->
       <routines-routine
         *ngFor="let routine of this.data.routines; index as i"
         [routine]="routine"
@@ -38,6 +40,7 @@
       <shared-button
         class="w-12 h-10"
         buttonStyle="flex justify-center"
+        title="Return to routines"
         (onButtonClick)="this.changeView()"
         ><img class="pt-1 w-8 h-8" src="assets/back-icon.png" alt="back-icon"
       /></shared-button>

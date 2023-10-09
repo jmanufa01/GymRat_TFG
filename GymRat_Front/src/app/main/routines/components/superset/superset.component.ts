@@ -10,9 +10,10 @@ export class SupersetComponent {
   @Input()
   public exerciseNumber: number = 0;
 
-  public exercises: number[] = [0];
-
+  @Input()
   public isSuperset: boolean = false;
+
+  public exercises: number[] = [0];
 
   public exercisesForms: FormGroup<ExerciseForm>[] = [];
 
@@ -37,9 +38,9 @@ export class SupersetComponent {
     if (!this.exercisesForms.includes(exerciseForm)) {
       this.exercisesForms.push(exerciseForm);
     } else {
-      this.exercisesForms.map((x) => {
-        if (x === exerciseForm) {
-          x = exerciseForm;
+      this.exercisesForms.map((form) => {
+        if (form === exerciseForm) {
+          form = exerciseForm;
         }
       });
     }

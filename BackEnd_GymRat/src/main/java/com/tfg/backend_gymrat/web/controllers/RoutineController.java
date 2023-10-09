@@ -1,7 +1,6 @@
 package com.tfg.backend_gymrat.web.controllers;
 
 import com.tfg.backend_gymrat.constants.AppConstants;
-import com.tfg.backend_gymrat.domain.dto.api.auth.response.AuthenticationResponse;
 import com.tfg.backend_gymrat.domain.dto.api.routines.request.UsernameHeader;
 import com.tfg.backend_gymrat.domain.dto.entity.RoutineDTO;
 import com.tfg.backend_gymrat.domain.service.RoutineService;
@@ -11,8 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import static org.springframework.http.ResponseEntity.ok;

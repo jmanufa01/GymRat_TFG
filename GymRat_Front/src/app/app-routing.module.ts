@@ -15,7 +15,7 @@ const routes: Routes = [
     loadChildren: () => import('./main/main.module').then((m) => m.MainModule),
   },
   {
-    path: 'error',
+    path: 'error', //TODO: route to error page
     component: ErrorPageComponent,
   },
   {

@@ -96,9 +96,7 @@ export class CalendarPageComponent implements AfterViewInit {
   }
 
   loadCalendar(): void {
-    this.loadingCalendar = true;
     const calendarDate = this.calendarComponent.getApi().getDate();
-    console.log('Events: ', this.events);
     if (
       this.events.length < 1 ||
       calendarDate.getMonth() !== this.date.getMonth()
@@ -107,6 +105,7 @@ export class CalendarPageComponent implements AfterViewInit {
       this.date = calendarDate;
       this.routineService.getRoutines(calendarDate).subscribe({
         next: (res) => {
+          this.loadingCalendar = false;
           this.fillEvents(res);
           this.routines = res;
           this.calendarOptions = {
@@ -125,6 +124,7 @@ export class CalendarPageComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     this.dialog.afterAllClosed.subscribe(() => {
       this.events = [];
+      this.loadingCalendar = true;
       this.loadCalendar();
     });
   }
