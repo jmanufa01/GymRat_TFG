@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { ExerciseForm } from '../../interfaces';
+import { ExerciseForm, SimpleExercise, Superset } from '../../interfaces';
 
 @Component({
   selector: 'routines-superset',
@@ -13,7 +13,11 @@ export class SupersetComponent {
   @Input()
   public isSuperset: boolean = false;
 
-  public exercises: number[] = [0];
+  @Input()
+  public hideItems = false;
+
+  @Input()
+  public exercises: SimpleExercise[] = Array(1).fill(null);
 
   public exercisesForms: FormGroup<ExerciseForm>[] = [];
 
@@ -22,13 +26,9 @@ export class SupersetComponent {
 
   public changeExerciseType(): void {
     if (this.isSuperset) {
-      this.exercises = Array(1)
-        .fill(0)
-        .map((x, i) => i);
+      this.exercises = Array(1).fill(null);
     } else {
-      this.exercises = Array(2)
-        .fill(0)
-        .map((x, i) => i + 1);
+      this.exercises = Array(2).fill(null);
     }
     this.exercisesForms = [];
     this.isSuperset = !this.isSuperset;

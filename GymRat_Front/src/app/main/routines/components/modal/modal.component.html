@@ -1,9 +1,6 @@
-<form
-  class="w-full h-full bg-gradient-to-b from-violet-200 to-blue-400"
-  (ngSubmit)="this.saveRoutine()"
->
-  <article class="w-full h-full" *ngIf="!this.newRoutineView; else newRoutine">
-    <div class="p-2 flex justify-between items-center">
+<div class="w-full h-full bg-gradient-to-b from-violet-200 to-blue-400">
+  <section class="h-4/5 w-full" *ngIf="!this.newRoutineView; else newRoutine">
+    <header class="p-2 flex justify-between items-center">
       <shared-button class="w-16 h-8" mat-dialog-close buttonType="button"
         >Exit
       </shared-button>
@@ -17,7 +14,7 @@
         title="Add New Routine"
         (click)="this.changeView()"
       />
-    </div>
+    </header>
 
     <div class="mt-10 h-3/4 flex flex-col scrollable-div">
       <!-- TODO: Change routine creation and representation to routines-routine -->
@@ -27,44 +24,31 @@
         [routineNumber]="i"
       />
     </div>
-  </article>
+  </section>
 
   <ng-template #newRoutine>
-    <article class="p-2 flex justify-between items-center">
-      <shared-button class="w-16 h-8" mat-dialog-close buttonType="button">
-        Exit
-      </shared-button>
-      <h1 class="text-xl font-bold text-center">
-        {{ this.data.date | date : "longDate" }}
-      </h1>
-      <shared-button
-        class="w-12 h-10"
-        buttonStyle="flex justify-center"
-        title="Return to routines"
-        (onButtonClick)="this.changeView()"
-        ><img class="pt-1 w-8 h-8" src="assets/back-icon.png" alt="back-icon"
-      /></shared-button>
-    </article>
-
-    <article class="h-4/5 flex flex-col p-2">
-      <div class="h-16 w-32 self-center">
-        <shared-button buttonType="button" (onButtonClick)="this.addExercise()"
-          >Add Exercise
+    <section ngClass="h-4/5 w-full flex flex-col">
+      <header class="p-2 flex justify-between items-center">
+        <shared-button class="w-16 h-8" mat-dialog-close buttonType="button">
+          Exit
         </shared-button>
+        <h1 class="text-xl font-bold text-center">
+          {{ this.data.date | date : "longDate" }}
+        </h1>
+        <shared-button
+          class="w-12 h-10"
+          buttonStyle="flex justify-center"
+          title="Return to routines"
+          (onButtonClick)="this.changeView()"
+          ><img class="pt-1 w-8 h-8" src="assets/back-icon.png" alt="back-icon"
+        /></shared-button>
+      </header>
+      <div class="h-full">
+        <routines-routine
+          class="h-full flex flex-col"
+          [dialogRef]="this.dialogRef"
+        />
       </div>
-
-      <div class="h-4/5 mt-6 scrollable-div pb-10">
-        <ng-template #supersetRef class="mb-4"></ng-template>
-
-        <div
-          *ngIf="this.componentReferences.length > 0"
-          class="h-14 w-24 m-auto"
-        >
-          <shared-button class="mt-12" buttonType="submit">
-            Confirm
-          </shared-button>
-        </div>
-      </div>
-    </article>
+    </section>
   </ng-template>
-</form>
+</div>

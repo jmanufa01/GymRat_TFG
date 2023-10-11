@@ -1,19 +1,47 @@
-<article class="m-auto w-3/4 flex flex-col">
-  <h1 class="text-xl">Routine {{ this.routineNumber + 1 }}</h1>
-  <div class="grid grid-cols-2">
-    <shared-input class="p-4" [inputValue]="this.routine.muscularGroup" />
-    <shared-input
-      class="p-4"
-      inputType="date"
-      [inputValue]="this.routine.realizationDate | date : 'yyyy-MM-dd'"
-    />
-  </div>
-
-  <div
-    class="mt-4 grid grid-cols-1 justify-items-center"
-    *ngFor="let exercise of this.exercises; index as i"
+<form class="h-full" (ngSubmit)="this.saveRoutine()">
+  <section
+    class="m-auto w-3/4 flex flex-col"
+    *ngIf="this.routine; else createNewRoutine"
   >
-    <h1>Exercise {{ i + 1 }}</h1>
-    <routines-exercise [exercise]="exercise" />
-  </div>
-</article>
+    <h1 class="text-xl">Routine {{ this.routineNumber + 1 }}</h1>
+    <div class="grid grid-cols-2">
+      <shared-input class="p-4" [inputValue]="this.routine.muscularGroup" />
+      <shared-input
+        class="p-4"
+        inputType="date"
+        [inputValue]="this.routine.realizationDate | date : 'yyyy-MM-dd'"
+      />
+    </div>
+
+    <routines-superset
+      *ngFor="let exercise of this.exercises; index as i"
+      [exerciseNumber]="i + 1"
+      [exercises]="exercise.exercises"
+      [isSuperset]="exercise.exercises.length > 1"
+      [hideItems]="true"
+    />
+  </section>
+
+  <ng-template #createNewRoutine>
+    <section class="h-full flex flex-col justify-around p-2">
+      <div class="h-16 w-32 self-center">
+        <shared-button buttonType="button" (onButtonClick)="this.addExercise()"
+          >Add Exercise
+        </shared-button>
+      </div>
+
+      <div class="h-full mt-6 grid grid-cols-1 scrollable-div pb-10">
+        <ng-template #supersetRef class="mb-4"></ng-template>
+
+        <div
+          *ngIf="this.componentReferences.length > 0"
+          class="h-14 w-24 m-auto"
+        >
+          <shared-button class="mt-24" buttonType="submit">
+            Confirm
+          </shared-button>
+        </div>
+      </div>
+    </section>
+  </ng-template>
+</form>
