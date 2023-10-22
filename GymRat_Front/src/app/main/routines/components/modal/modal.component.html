@@ -16,7 +16,7 @@
       />
     </header>
 
-    <div class="mt-10 h-3/4 flex flex-col scrollable-div">
+    <div class="mt-10 h-full flex flex-col scrollable-div">
       <!-- TODO: Change routine creation and representation to routines-routine -->
       <routines-routine
         *ngFor="let routine of this.data.routines; index as i"
@@ -27,7 +27,7 @@
   </section>
 
   <ng-template #newRoutine>
-    <section ngClass="h-4/5 w-full flex flex-col">
+    <section ngClass="h-5/6 w-full flex flex-col">
       <header class="p-2 flex justify-between items-center">
         <shared-button class="w-16 h-8" mat-dialog-close buttonType="button">
           Exit

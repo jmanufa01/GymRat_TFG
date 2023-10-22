@@ -13,7 +13,6 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 import { SupersetComponent } from '../superset/superset.component';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ModalComponent } from '../modal/modal.component';
-import { th } from 'date-fns/locale';
 
 @Component({
   selector: 'routines-routine',
