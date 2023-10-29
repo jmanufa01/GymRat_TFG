@@ -10,6 +10,8 @@
 body {
   width: 100vw;
   height: 100vh;
+  background-image: url("/assets/login-bg-violet.png");
+  background-size: 100% 100%;
 }
 
 body,
@@ -34,6 +36,10 @@ ng-component {
 .bg-image {
   background-image: url("/assets/login-bg-violet.png");
   background-size: 100% 100%;
+}
+
+.mat-mdc-dialog-surface {
+  background: transparent !important;
 }
 
 .fc .fc-day:hover {

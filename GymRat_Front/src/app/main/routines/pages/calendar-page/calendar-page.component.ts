@@ -32,6 +32,7 @@ export class CalendarPageComponent implements AfterViewInit {
   private events: {
     title: string;
     start: string;
+    color: string;
   }[] = [];
 
   private routines: Routine[] = [];
@@ -44,6 +45,35 @@ export class CalendarPageComponent implements AfterViewInit {
   private date: Date = new Date();
 
   public loadingCalendar = false;
+
+  private eventColors: String[] = [
+    '#004777',
+    '#FED766',
+    '#FED766 ',
+    '#BF1363',
+    '#C6E0FF',
+    '#B8B3BE',
+    '#D17A22',
+    '#FEC0AA',
+    '#020122',
+    '#11151C',
+  ];
+
+  private getRandomColor(
+    events: {
+      title: string;
+      start: string;
+      color: string;
+    }[],
+    index: number = 0
+  ): string {
+    const color = this.eventColors[index];
+    const colorExists = events.find((event) => event.color === color);
+    if (colorExists) {
+      return this.getRandomColor(events, index + 1);
+    }
+    return color.toString();
+  }
 
   public onDateClick(arg: DateClickArg): void {
     this.dialog.open(ModalComponent, {
@@ -91,6 +121,7 @@ export class CalendarPageComponent implements AfterViewInit {
           .join(', ')
           .replace('_', ' '),
         start: new Date(routine.realizationDate).toISOString(),
+        color: this.getRandomColor(this.events),
       });
     });
   }

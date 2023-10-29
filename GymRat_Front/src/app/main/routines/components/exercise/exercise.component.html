@@ -5,13 +5,14 @@
   <h1 class="p-4 text-center text-lg" *ngIf="this.exerciseNumber > 0">
     Exercise {{ this.exerciseNumber }}
   </h1>
-  <div class="grid grid-cols-2">
+  <div class="grid md:grid-cols-2 sm:grid-cols-1">
     <shared-input
       class="p-2"
       inputType="text"
       inputPlaceholder="Name"
       ngDefaultControl
       formControlName="exerciseName"
+      label="Exercise Name"
       [inputValue]="this.exercise?.name ? this.exercise!.name : ''"
     />
     <shared-input

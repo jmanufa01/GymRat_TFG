@@ -1,0 +1,54 @@
+<form
+  class="m-auto p-6 mt-32 h-4/6 w-2/5 flex flex-col bg-gradient-to-t from-pink-300/50 via-purple-300/50 to-indigo-400/50 backdrop-blur-sm rounded-md shadow-md"
+>
+  <div class="h-16 flex justify-center">
+    <h1 class="text-center text-2xl font-bold self-center">PROFILE</h1>
+  </div>
+
+  <div
+    class="mt-10 h-3/5 w-3/5 grid grid-cols-1 md:grid-cols-2 self-center justify-items-center"
+  >
+    <shared-input
+      ngClass="md:h-3/5 md:w-4/5 self-center"
+      label="Username"
+      inputPlaceholder="Username"
+      inputType="text"
+      [inputValue]="this.profile.userName"
+    />
+    <shared-input
+      ngClass="md:h-3/5 md:w-4/5 self-center"
+      label="Email"
+      inputPlaceholder="Email"
+      inputType="text"
+      [inputValue]="this.profile.email"
+    />
+    <shared-input
+      ngClass="md:h-3/5 md:w-4/5 self-center"
+      label="Gym Experience"
+      inputPlaceholder="Gym Experience"
+      inputType="text"
+      [inputValue]="this.profile.gymExperience"
+    />
+    <shared-input
+      ngClass="md:h-3/5 md:w-4/5 self-center"
+      inputType="date"
+      label="Birth Date"
+      inputPlaceholder="Birth Date"
+      [inputValue]="this.profile.birthDate | date : 'yyyy-MM-dd'"
+    />
+    <shared-input
+      ngClass="md:h-3/5 md:w-4/5 self-center"
+      inputType="number"
+      label="Height"
+      inputPlaceholder="Height"
+      [inputValue]="this.profile.height"
+    />
+    <shared-input
+      ngClass="md:h-3/5 md:w-4/5 self-center"
+      inputType="number"
+      label="Weight"
+      inputPlaceholder="Weight"
+      [inputValue]="this.profile.weight"
+    />
+  </div>
+</form>

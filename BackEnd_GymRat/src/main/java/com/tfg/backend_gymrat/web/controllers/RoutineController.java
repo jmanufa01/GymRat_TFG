@@ -40,8 +40,7 @@ public class RoutineController {
     }
 
     @GetMapping("/{date}")
-    public ResponseEntity<List<RoutineDTO>> obtainRoutinesByMonth(@PathVariable String date, @RequestHeader UsernameHeader usernameHeader) throws Exception
-    {
+    public ResponseEntity<List<RoutineDTO>> obtainRoutinesByMonth(@PathVariable String date, @RequestHeader UsernameHeader usernameHeader) throws Exception {
         try{
             log.log(AppConstants.OBTAINING_ROUTINES);
 

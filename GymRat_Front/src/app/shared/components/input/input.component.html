@@ -1,43 +1,52 @@
-<div *ngIf="this.inputType !== 'select'">
-  <input
+<div class="h-full w-full flex flex-col">
+  <h1
+    class="pb-2 text-center text-l font-bold"
+    *ngIf="this.label && this.inputValue !== ''"
+  >
+    {{ this.label }}
+  </h1>
+  <div class="w-full h-full" *ngIf="this.inputType !== 'select'">
+    <input
+      [class]="
+        'w-full h-full md:p-2 sm:p-1 border-b border-violet-700 bg-transparent outline-none hover:bg-violet-200 placeholder:text-gray-500 text-center' +
+        this.inputclass
+      "
+      [placeholder]="this.inputPlaceholder"
+      [type]="this.inputType"
+      [step]="this.inputStep"
+      [defaultValue]="this.inputValue"
+      (input)="this.onInput($event)"
+    />
+
+    <ul
+      [class]="
+        'absolute m-1 rounded-md bg-gradient-to-b from-violet-200 to-violet-400 scrollable-div ' +
+        this.listclass
+      "
+    >
+      <li
+        class="p-4 hover:bg-violet-200 hover:rounded-md hover:cursor-pointer"
+        *ngFor="let item of this.hints"
+      >
+        {{ item }}
+      </li>
+    </ul>
+  </div>
+
+  <select
     [class]="
-      'w-full h-full p-2 border-b border-violet-700 bg-transparent outline-none hover:bg-violet-200 placeholder:text-gray-500 text-center' +
+      'w-full h-full p-2 border-b border-violet-700 bg-transparent outline-none hover:bg-violet-200 placeholder:text-gray-500 ' +
       this.inputclass
     "
-    [placeholder]="this.inputPlaceholder"
-    [type]="this.inputType"
-    [step]="this.inputStep"
-    [defaultValue]="this.inputValue"
-  />
-
-  <ul
-    [class]="
-      'absolute m-1 rounded-md bg-gradient-to-b from-violet-200 to-violet-400 scrollable-div ' +
-      this.listclass
-    "
+    *ngIf="this.inputType === 'select'"
+    [(ngModel)]="this.inputValue ? this.inputValue : this.selectorTypes[0]"
   >
-    <li
-      class="p-4 hover:bg-violet-200 hover:rounded-md hover:cursor-pointer"
-      *ngFor="let item of this.hints"
+    <option
+      class="bg-violet-200"
+      *ngFor="let type of this.selectorTypes"
+      [value]="type"
     >
-      {{ item }}
-    </li>
-  </ul>
+      {{ type | titlecase | replace : "_" : " " }}
+    </option>
+  </select>
 </div>
-
-<select
-  [class]="
-    'w-full h-full p-2 border-b border-violet-700 bg-transparent outline-none hover:bg-violet-200 placeholder:text-gray-500 ' +
-    this.inputclass
-  "
-  *ngIf="this.inputType === 'select'"
-  [(ngModel)]="this.inputValue ? this.inputValue : this.selectorTypes[0]"
->
-  <option
-    class="bg-violet-200"
-    *ngFor="let type of this.selectorTypes"
-    [value]="type"
-  >
-    {{ type | titlecase | replace : "_" : " " }}
-  </option>
-</select>

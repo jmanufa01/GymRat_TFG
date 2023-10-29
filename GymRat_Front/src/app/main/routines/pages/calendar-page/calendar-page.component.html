@@ -4,10 +4,10 @@
 ></shared-loading>
 
 <ng-template #calendar>
-  <div class="mt-20 grid h-full w-full align-middle">
+  <div class="flex h-full w-full align-middle">
     <full-calendar
       #fullCalendar
-      class="mx-auto xzxpy-14 w-3/4 h-4/5"
+      class="m-auto p-6 mt-20 w-3/4 h-5/6 bg-gradient-to-t from-pink-300/50 via-purple-300/50 to-indigo-400/50 backdrop-blur-sm rounded-md shadow-md"
       [options]="this.calendarOptions"
       (click)="this.loadCalendar()"
     ></full-calendar>

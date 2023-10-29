@@ -1,4 +1,10 @@
-import { Component, ElementRef, Input } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Input,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 
 @Component({
   selector: 'shared-input',
@@ -23,6 +29,9 @@ export class InputComponent {
   public inputStep: string = '';
 
   @Input()
+  public label: string = '';
+
+  @Input()
   public hints: string[] = [];
 
   @Input()
@@ -30,4 +39,8 @@ export class InputComponent {
 
   @Input()
   public inputValue: any = '';
+
+  onInput(event: any) {
+    this.inputValue = event.target.value;
+  }
 }
