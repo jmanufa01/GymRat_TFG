@@ -1,9 +1,8 @@
-import { AfterViewInit, Component, ViewChild, effect } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CalendarOptions, EventClickArg } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin, { DateClickArg } from '@fullcalendar/interaction';
-import Swal from 'sweetalert2';
 import { ModalComponent } from '../../components/modal/modal.component';
 import { RoutinesService } from '../../services/routines.service';
 import { Routine } from '../../interfaces';
@@ -136,7 +135,6 @@ export class CalendarPageComponent implements AfterViewInit {
       this.date = calendarDate;
       this.routineService.getRoutines(calendarDate).subscribe({
         next: (res) => {
-          this.loadingCalendar = false;
           this.fillEvents(res);
           this.routines = res;
           this.calendarOptions = {

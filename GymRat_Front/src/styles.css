@@ -63,3 +63,9 @@ ng-component {
 .scrollable-div {
   overflow-y: auto;
 }
+
+@media (max-width: 768px) {
+  .fc-event-title {
+    display: none !important;
+  }
+}
