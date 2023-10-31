@@ -15,8 +15,17 @@ import {
 export class ExerciseComponent implements OnInit {
   constructor(private fb: FormBuilder) {
     this.exerciseForm.valueChanges.subscribe((value) => {
+      let seriesValue = Number(this.exerciseForm.get('series')!.value);
+      if (seriesValue > 10) {
+        seriesValue = 10;
+        this.exerciseForm.patchValue({ series: 10 });
+      } else if (seriesValue < 0) {
+        seriesValue = 0;
+        this.exerciseForm.patchValue({ series: 0 });
+      }
+
       this.form.emit(this.exerciseForm);
-      this.series = Array(Number(this.exerciseForm.get('series')!.value))
+      this.series = Array(seriesValue)
         .fill(0)
         .map((x, i) => i);
 

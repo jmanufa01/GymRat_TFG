@@ -1,15 +1,19 @@
 package com.tfg.backend_gymrat.domain.service;
 
-import com.tfg.backend_gymrat.constants.ErrorConstants;
+import com.tfg.backend_gymrat.constants.AuthConstants;
+import com.tfg.backend_gymrat.domain.dto.api.auth.request.UserRegistrationRequest;
+import com.tfg.backend_gymrat.domain.dto.entity.Role;
 import com.tfg.backend_gymrat.domain.dto.entity.UserDTO;
-import com.tfg.backend_gymrat.exceptions.IncorrectRegistrationException;
-import com.tfg.backend_gymrat.exceptions.MissingRequestDataException;
+import com.tfg.backend_gymrat.util.Log;
 import com.tfg.backend_gymrat.util.UtilClass;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.MissingRequestValueException;
+
+import static com.tfg.backend_gymrat.exceptions.AppExceptions.*;
+
 
 @Service
 public class AuthService {
@@ -23,43 +27,75 @@ public class AuthService {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    public String registerUser(UserDTO user) throws Exception{
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
-        if(user.getEmail().trim().equals("")
-                || user.getPassword().trim().equals("")
-                || user.getUsername().trim().equals(""))
-            throw new MissingRequestDataException();
+    private final Log log = new Log();
 
-        if(!UtilClass.isEmailValid(user.getEmail()))
-            throw new IncorrectRegistrationException();
 
-        userService.createNewUser(user);
-        return jwtService.generateToken(user.getUsername());
+    public String registerUser(UserRegistrationRequest request) throws Exception {
+
+        try {
+            UserDTO user = new UserDTO(request.username(),
+                    request.email(),
+                    passwordEncoder.encode(request.password()),
+                    request.gymExperience(),
+                    request.birthDate(),
+                    request.height(),
+                    request.weight(),
+                    Role.USER);
+
+            log.log(AuthConstants.REGISTRATION_IN_PROCCESS, user.username());
+            if(user.email().trim().equals("")
+                    || user.password().trim().equals("")
+                    || user.username().trim().equals(""))
+                throw new MissingRequestDataException();
+
+            if(!UtilClass.isEmailValid(user.email()))
+                throw new IncorrectRegistrationException();
+
+            userService.createNewUser(user);
+            final var token = jwtService.generateToken(user.username());
+            log.log(AuthConstants.REGISTRATION_SUCCESSFUL, user.username());
+            return token;
+        }catch (Exception e) {
+            log.log(AuthConstants.REGISTRATION_FAILED, request.username());
+            throw e;
+        }
+
     }
 
 
     public String login(String username, String password) throws Exception {
+        try{
+            log.log(AuthConstants.LOGIN_IN_PROCCESS, username);
 
-        if(username.trim().equals("") || password.trim().equals("")){
-            throw new MissingRequestDataException();
+            if(username.trim().equals("") || password.trim().equals("")){
+                throw new MissingRequestDataException();
+            }
+
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            username,
+                            password
+                    )
+            );
+
+            final var token = jwtService.generateToken(username);
+            log.log(AuthConstants.LOGIN_SUCCESSFUL, username);
+            return token;
+        }catch (Exception e){
+            log.log(AuthConstants.LOGIN_FAILED, username);
+            throw e;
         }
 
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        username,
-                        password
-                )
-        );
-
-        return jwtService.generateToken(username);
     }
 
-    public String check(String authorization) throws Exception{
+    public String check(String authorization) throws Exception {
         String jwt = authorization.split(" ")[1];
         if(!jwtService.isTokenValid(jwt)){
-            throw new Exception("jwt expired"); //TODO: change this to appropiate exception
+            throw new ExpiredTokenException();
         }
-
         return jwt;
     }
 

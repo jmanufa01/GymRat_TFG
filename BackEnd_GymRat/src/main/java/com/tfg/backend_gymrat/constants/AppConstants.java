@@ -10,4 +10,6 @@ public class AppConstants {
     public static final String OBTAINING_PROFILE = "Profile obtainment process has started...";
     public static final String PROFILE_OBTAINMENT_SUCCESS = "Profile obtainment has been successfully made!";
     public static final String PROFILE_OBTAINMENT_FAILURE = "Profile obtainment has failed";
+    public static final String OBTAINING_USERS_CONTAINING = "User obtainment containing username process has started...";
+    public static final String USERS_CONTAINING_OBTAINMENT_SUCCESS = "User obtainment containing username has been successfully made!";
 }

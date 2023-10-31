@@ -1,4 +1,4 @@
-package com.tfg.backend_gymrat.domain.dto.api.user;
+package com.tfg.backend_gymrat.domain.dto.api.user.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

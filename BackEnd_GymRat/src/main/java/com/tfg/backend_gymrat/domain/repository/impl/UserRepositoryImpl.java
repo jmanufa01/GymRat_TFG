@@ -46,4 +46,9 @@ public class UserRepositoryImpl implements UserRepository {
     public List<UserDTO> findAllUsers() {
         return mapper.toUsersDTO(userMongo.findAll());
     }
+
+    @Override
+    public List<UserDTO> findAllUsersByUsernameContaining(String username) {
+        return mapper.toUsersDTO(userMongo.findAllByUsernameContaining(username));
+    }
 }

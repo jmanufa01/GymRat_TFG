@@ -14,19 +14,18 @@ public class UtilClass {
 
         boolean validExercises = true;
 
-        /*for(ExerciseDTO exerciseDTO: routine.exercises()){
-            if (exerciseDTO.getReps().size() != exerciseDTO.series()
-                    && exerciseDTO.weights().size() != exerciseDTO.series()) {
+        for(ExerciseDTO exerciseDTO: routine.exercises()){
+            if (exerciseDTO.getReps().size() != exerciseDTO.getSeries()
+                    && exerciseDTO.getWeights().size() != exerciseDTO.getSeries()) {
                 validExercises = false;
                 break;
             }
-        }*/
+        }
 
-        return //!routine.getId().equals("")
-                 routine.getExercises().size() > 0
-                && routine.getMuscularGroup().size() > 0
-                && routine.getUsers().size() > 0;
-                //&& validExercises;
+        return routine.exercises().size() > 0
+                && routine.muscularGroup().size() > 0
+                && routine.users().size() > 0
+                && validExercises;
     }
 
 }

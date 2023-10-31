@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public class RoutineRepositoryImpl implements RoutineRepository {
@@ -25,8 +24,8 @@ public class RoutineRepositoryImpl implements RoutineRepository {
     }
 
     @Override
-    public Optional<List<RoutineDTO>> findAllRoutinesByUsernameAndDateBetween(String username, Date start, Date finish) {
-        return mongo.findAllByUsersContainingAndRealizationDateBetween(username,start,finish)
-                .map(routines -> mapper.toRoutineDTOs(routines));
+    public List<RoutineDTO> findAllRoutinesByUsernameAndDateBetween(String username, Date start, Date finish) {
+        return mongo.findAllByUsersContainingAndRealizationDateBetween(username,start,finish).stream()
+                .map(routines -> mapper.toRoutineDTO(routines)).toList();
     }
 }

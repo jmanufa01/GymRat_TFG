@@ -5,10 +5,15 @@
   >
     <h1 class="text-xl">Routine {{ this.routineNumber + 1 }}</h1>
     <div class="grid md:grid-cols-2 sm:grid-cols-1">
-      <shared-input class="p-4" [inputValue]="this.routine.muscularGroup" />
+      <shared-input
+        class="p-4"
+        label="Muscular Group"
+        [inputValue]="this.routine.muscularGroup"
+      />
       <shared-input
         class="p-4"
         inputType="date"
+        label="Realization Date"
         [inputValue]="this.routine.realizationDate | date : 'yyyy-MM-dd'"
       />
     </div>

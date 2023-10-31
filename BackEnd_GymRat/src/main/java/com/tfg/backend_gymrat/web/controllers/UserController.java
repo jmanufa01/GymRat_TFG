@@ -1,15 +1,15 @@
 package com.tfg.backend_gymrat.web.controllers;
 
 import com.tfg.backend_gymrat.constants.AppConstants;
-import com.tfg.backend_gymrat.domain.dto.api.user.UserProfileDTO;
+import com.tfg.backend_gymrat.domain.dto.api.user.response.UserNameDTO;
+import com.tfg.backend_gymrat.domain.dto.api.user.response.UserProfileDTO;
 import com.tfg.backend_gymrat.domain.service.UserService;
 import com.tfg.backend_gymrat.util.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 import static org.springframework.http.ResponseEntity.ok;
 
@@ -18,18 +18,15 @@ import static org.springframework.http.ResponseEntity.ok;
 public class UserController {
     @Autowired
     private UserService userService;
-    private final Log log = new Log();
-    @GetMapping("profile/{username}")
-    public ResponseEntity<UserProfileDTO> obtainUserProfile(@PathVariable String username){
-        try{
-            log.log(AppConstants.OBTAINING_PROFILE);
-            final var profile = userService.obtainUserProfile(username);
-            log.log(AppConstants.PROFILE_OBTAINMENT_SUCCESS);
-            return ok(profile);
-        }catch (Exception e){
-            log.log(AppConstants.PROFILE_OBTAINMENT_FAILURE);
-            throw e;
-        }
 
+    @GetMapping
+    public ResponseEntity<List<UserNameDTO>> findAllUsersByUsernameContaining(@RequestHeader String string){
+        final var users = userService.findAllUsersByUsernameContaining(string);
+        return ok(users);
+    }
+    @GetMapping("profile/{username}")
+    public ResponseEntity<UserProfileDTO> obtainUserProfile(@PathVariable String username) throws Exception{
+        final var profile = userService.obtainUserProfile(username);
+        return ok(profile);
     }
 }

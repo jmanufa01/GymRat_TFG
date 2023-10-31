@@ -27,16 +27,16 @@ public abstract class RoutineMapper {
                 routine.getUsers(),
                 mapper.toExerciseDTOs(routine.getExercises()));
     }
-    public abstract List<RoutineDTO> toRoutineDTOs(List<Routine> routines);
+    public abstract List<RoutineDTO> toRoutinesDTO(List<Routine> routines);
 
 
     @InheritInverseConfiguration
     public Routine toRoutine(RoutineDTO routineDTO){
         return new Routine(
-                routineDTO.getRealizationDate(),
-                routineDTO.getMuscularGroup(),
-                routineDTO.getUsers(),
-                mapper.toExercises(routineDTO.getExercises()));
+                routineDTO.realizationDate(),
+                routineDTO.muscularGroup(),
+                routineDTO.users(),
+                mapper.toExercises(routineDTO.exercises()));
     }
     public abstract List<Routine> toRoutines(List<RoutineDTO> routineDTOs);
 }

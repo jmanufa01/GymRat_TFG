@@ -10,4 +10,5 @@ public interface UserRepository {
     Optional<UserDTO> findByUserName(String userName);
     boolean existsUser(String userName);
     List<UserDTO> findAllUsers();
+    List<UserDTO> findAllUsersByUsernameContaining(String username);
 }

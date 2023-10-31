@@ -10,6 +10,7 @@ import com.tfg.backend_gymrat.domain.service.AuthService;
 import com.tfg.backend_gymrat.util.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -27,9 +28,6 @@ public class AuthController {
 
     @Autowired
     private AuthService authService;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-    private final Log log = new Log();
 
     /**
      *
@@ -40,27 +38,8 @@ public class AuthController {
      */
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(@RequestBody UserRegistrationRequest request) throws Exception {
-            try{
-                log.log(AuthConstants.REGISTRATION_IN_PROCCESS, request.username());
-
-                UserDTO user = new UserDTO(request.username(),
-                        request.email(),
-                        passwordEncoder.encode(request.password()),
-                        request.gymExperience(),
-                        request.birthDate(),
-                        request.height(),
-                        request.weight(),
-                        Role.USER);
-
-                String jwt = authService.registerUser(user);
-                log.log(AuthConstants.REGISTRATION_SUCCESSFUL, request.username());
-
-                return ok(new AuthenticationResponse(jwt));
-            } catch (Exception e){
-                log.log(AuthConstants.REGISTRATION_FAILED, request.username());
-                throw e;
-            }
-
+                String jwt = authService.registerUser(request);
+                return new ResponseEntity<>(new AuthenticationResponse(jwt), HttpStatus.CREATED);
     }
 
     /**
@@ -71,21 +50,8 @@ public class AuthController {
      */
     @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> login(@RequestBody UserLoginRequest request) throws Exception {
-
-        try {
-
-            log.log(AuthConstants.LOGIN_IN_PROCCESS, request.username());
-
-            String jwt = authService.login(request.username(),request.password());
-
-            log.log(AuthConstants.LOGIN_SUCCESSFUL, request.username());
-
-            return ok(new AuthenticationResponse(jwt));
-        }catch (Exception e){
-            log.log(AuthConstants.LOGIN_FAILED, request.username());
-            throw e;
-        }
-
+            String token = authService.login(request.username(),request.password());
+            return ok(new AuthenticationResponse(token));
     }
 
     @GetMapping("/check")
