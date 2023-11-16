@@ -1,0 +1,11 @@
+<div
+  class="h-full w-full flex flex-col items-center bg-gradient-to-t from-pink-300/90 via-purple-300/90 to-indigo-400/90 backdrop-blur-sm"
+>
+  <h1 class="m-8 text-xl font-bold">New Friend</h1>
+  <shared-input
+    ngClass="w-40 h-10"
+    inputType="search"
+    inputPlaceholder="type user..."
+    (keyUp)="this.onKeyPress($event)"
+  />
+</div>

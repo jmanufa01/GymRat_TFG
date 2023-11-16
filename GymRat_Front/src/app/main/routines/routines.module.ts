@@ -7,7 +7,6 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import { ModalComponent } from './components/modal/modal.component';
 import { ExerciseComponent } from './components/exercise/exercise.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatDialogModule } from '@angular/material/dialog';
 import { SupersetComponent } from './components/superset/superset.component';
 import { RoutineComponent } from './components/routine/routine.component';
 
@@ -25,7 +24,6 @@ import { RoutineComponent } from './components/routine/routine.component';
     SharedModule,
     FullCalendarModule,
     MatCheckboxModule,
-    MatDialogModule,
   ],
 })
 export class RoutinesModule {}

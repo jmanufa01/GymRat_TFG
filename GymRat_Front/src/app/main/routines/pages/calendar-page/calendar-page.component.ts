@@ -1,4 +1,10 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import {
+  AfterViewChecked,
+  AfterViewInit,
+  Component,
+  OnDestroy,
+  ViewChild,
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CalendarOptions, EventClickArg } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -8,6 +14,7 @@ import { RoutinesService } from '../../services/routines.service';
 import { Routine } from '../../interfaces';
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import { TitleCasePipe } from '@angular/common';
+import { preventDefault } from '@fullcalendar/core/internal';
 
 @Component({
   templateUrl: './calendar-page.component.html',
@@ -28,6 +35,7 @@ export class CalendarPageComponent implements AfterViewInit {
       displayEventTime: false,
     };
   }
+
   private events: {
     title: string;
     start: string;
@@ -75,41 +83,54 @@ export class CalendarPageComponent implements AfterViewInit {
   }
 
   public onDateClick(arg: DateClickArg): void {
-    this.dialog.open(ModalComponent, {
-      width: '60%',
-      height: '70%',
-      enterAnimationDuration: '200ms',
-      exitAnimationDuration: '200ms',
-      autoFocus: true,
-      panelClass: 'modal',
-      data: {
-        date: arg.date,
-        routines: this.routines.filter(
-          (routine) =>
-            new Date(routine.realizationDate).toISOString() ===
-            arg.date?.toISOString()
-        ),
-      },
-    });
+    this.dialog
+      .open(ModalComponent, {
+        id: 'modal',
+        width: '60%',
+        height: '70%',
+        enterAnimationDuration: '200ms',
+        exitAnimationDuration: '200ms',
+        autoFocus: true,
+        panelClass: 'modal',
+        data: {
+          date: arg.date,
+          routines: this.routines.filter(
+            (routine) =>
+              new Date(routine.realizationDate).toISOString() ===
+              arg.date?.toISOString()
+          ),
+        },
+      })
+      .afterClosed()
+      .subscribe(() => {
+        this.events = [];
+        this.loadCalendar();
+      });
   }
 
   public onEventClick(arg: EventClickArg): void {
-    this.dialog.open(ModalComponent, {
-      width: '60%',
-      height: '70%',
-      enterAnimationDuration: '200ms',
-      exitAnimationDuration: '200ms',
-      autoFocus: true,
-      panelClass: 'modal',
-      data: {
-        date: arg.event.start,
-        routines: this.routines.filter(
-          (routine) =>
-            new Date(routine.realizationDate).toISOString() ===
-            arg.event.start?.toISOString()
-        ),
-      },
-    });
+    this.dialog
+      .open(ModalComponent, {
+        width: '60%',
+        height: '70%',
+        enterAnimationDuration: '200ms',
+        exitAnimationDuration: '200ms',
+        autoFocus: true,
+        panelClass: 'modal',
+        data: {
+          date: arg.event.start,
+          routines: this.routines.filter(
+            (routine) =>
+              new Date(routine.realizationDate).toISOString() ===
+              arg.event.start?.toISOString()
+          ),
+        },
+      })
+      .afterClosed()
+      .subscribe(() => {
+        this.events = [];
+        this.loadCalendar();
+      });
   }
 
   fillEvents(routines: Routine[]): void {
@@ -131,8 +152,9 @@ export class CalendarPageComponent implements AfterViewInit {
       this.events.length < 1 ||
       calendarDate.getMonth() !== this.date.getMonth()
     ) {
-      this.events = [];
       this.date = calendarDate;
+      this.loadingCalendar = true;
+      this.events = [];
       this.routineService.getRoutines(calendarDate).subscribe({
         next: (res) => {
           this.fillEvents(res);
@@ -141,20 +163,20 @@ export class CalendarPageComponent implements AfterViewInit {
             ...this.calendarOptions,
             events: this.events,
           };
+          this.loadingCalendar = false;
+          setTimeout(() => {
+            this.calendarComponent.getApi().gotoDate(this.date);
+          }, 0);
         },
         error: (err) => {
           console.log(err);
+          this.loadingCalendar = false;
         },
       });
     }
-    this.loadingCalendar = false;
   }
 
   ngAfterViewInit(): void {
-    this.dialog.afterAllClosed.subscribe(() => {
-      this.events = [];
-      this.loadingCalendar = true;
-      this.loadCalendar();
-    });
+    this.loadCalendar();
   }
 }

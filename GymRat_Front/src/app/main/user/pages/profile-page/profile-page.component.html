@@ -5,12 +5,13 @@
     <div></div>
     <h1 class="ml-10 text-center text-2xl font-bold self-center">PROFILE</h1>
     <img
+      #imgRef
       class="p-1 w-12 h-12 hover:cursor-pointer hover:bg-gray-400"
       src="assets/add-friend.png"
       alt="add-friend"
+      (click)="this.onAddUserClick()"
     />
   </header>
-
   <div
     class="mt-10 h-3/5 w-3/5 grid grid-cols-1 md:grid-cols-2 self-center justify-items-center"
   >

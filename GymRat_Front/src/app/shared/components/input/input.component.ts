@@ -1,8 +1,10 @@
 import {
   Component,
   ElementRef,
+  EventEmitter,
   Input,
   OnChanges,
+  Output,
   SimpleChanges,
 } from '@angular/core';
 
@@ -40,7 +42,14 @@ export class InputComponent {
   @Input()
   public inputValue: any = '';
 
+  @Output()
+  public keyUp = new EventEmitter<any>();
+
   onInput(event: any) {
     this.inputValue = event.target.value;
+  }
+
+  onKeyUp(event: any) {
+    this.keyUp.emit(event.target.value);
   }
 }
