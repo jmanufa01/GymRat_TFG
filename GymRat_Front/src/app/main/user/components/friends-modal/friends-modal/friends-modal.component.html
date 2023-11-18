@@ -8,4 +8,13 @@
     inputPlaceholder="type user..."
     (keyUp)="this.onKeyPress($event)"
   />
+
+  <ul class="mt-10 flex flex-col overflow-y-scroll">
+    <li *ngFor="let user of this.filteredUsernames">
+      <div class="flex flex-row items-center">
+        <h1 class="ml-4">{{ user.username }}</h1>
+        <shared-button buttonType="button" class="ml-4"> Add </shared-button>
+      </div>
+    </li>
+  </ul>
 </div>

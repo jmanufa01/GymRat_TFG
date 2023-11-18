@@ -19,9 +19,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping
-    public ResponseEntity<List<UserNameDTO>> findAllUsersByUsernameContaining(@RequestHeader String string){
-        final var users = userService.findAllUsersByUsernameContaining(string);
+    @GetMapping(params = "username")
+    public ResponseEntity<List<UserNameDTO>> findAllUsersByUsernameContaining(@RequestParam String username){
+        final var users = userService.findAllUsersByUsernameContaining(username);
         return ok(users);
     }
     @GetMapping("profile/{username}")

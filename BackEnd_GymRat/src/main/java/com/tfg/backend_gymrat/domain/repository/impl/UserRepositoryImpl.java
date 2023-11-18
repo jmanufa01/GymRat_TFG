@@ -2,7 +2,6 @@ package com.tfg.backend_gymrat.domain.repository.impl;
 
 import com.tfg.backend_gymrat.domain.dto.entity.UserDTO;
 import com.tfg.backend_gymrat.domain.repository.UserRepository;
-import com.tfg.backend_gymrat.persistence.entity.User;
 import com.tfg.backend_gymrat.persistence.mapper.UserMapper;
 import com.tfg.backend_gymrat.persistence.mongo.UserMongo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,11 +43,11 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public List<UserDTO> findAllUsers() {
-        return mapper.toUsersDTO(userMongo.findAll());
+        return mapper.toUserDTOs(userMongo.findAll());
     }
 
     @Override
     public List<UserDTO> findAllUsersByUsernameContaining(String username) {
-        return mapper.toUsersDTO(userMongo.findAllByUsernameContaining(username));
+        return mapper.toUserDTOs(userMongo.findAllByUsernameContaining(username));
     }
 }

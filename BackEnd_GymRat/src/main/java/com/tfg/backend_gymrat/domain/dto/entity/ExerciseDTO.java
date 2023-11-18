@@ -9,15 +9,14 @@ import lombok.NonNull;
 
 import java.util.List;
 
-@Data
 @JsonInclude(Include.NON_NULL)
-public class ExerciseDTO {
-    private String name;
-    private String muscle;
-    private String type;
-    private String difficulty;
-    private Integer series;
-    private List<Integer> reps;
-    private List<Integer> weights;
-    private List<ExerciseDTO> exercises;
-}
+public record ExerciseDTO (
+        String name,
+        String muscle,
+        String type,
+        String difficulty,
+        Integer series,
+        List<Integer> reps,
+        List<Integer> weights,
+        List<ExerciseDTO> exercises
+) {}

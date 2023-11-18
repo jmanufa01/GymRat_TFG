@@ -11,17 +11,15 @@ import java.util.List;
 
 @Mapper
 public interface UserMapper {
-
-
     @Mappings({
             @Mapping(source = "username",target = "username"),
             @Mapping(source = "gym_experience", target = "gymExperience"),
             @Mapping(source = "birth_date", target = "birthDate")
     })
     UserDTO toUserDTO(User user);
-    List<UserDTO> toUsersDTO(List<User> users);
+    List<UserDTO> toUserDTOs(List<User> users);
 
     @InheritInverseConfiguration
     User toUser(UserDTO userDTO);
-
+    List<User> toUsers(List<UserDTO> userDTOs);
 }

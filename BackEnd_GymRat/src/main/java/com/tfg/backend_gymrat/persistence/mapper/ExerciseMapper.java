@@ -13,44 +13,52 @@ import java.util.List;
 public abstract class ExerciseMapper {
 
         public Exercise toExercise(ExerciseDTO exercise){
-            if(exercise.getExercises() != null){ //Superset
+            if(exercise.exercises() != null){ //Superset
                 return Superset.builder()
-                        .series(exercise.getSeries())
-                        .exercises(toExercises(exercise.getExercises()))
+                        .series(exercise.series())
+                        .exercises(toExercises(exercise.exercises()))
                         .build();
             }
 
             return SimpleExercise.builder()
-                    .name(exercise.getName())
-                    .muscle(exercise.getMuscle())
-                    .type(exercise.getType())
-                    .difficulty(exercise.getDifficulty())
-                    .series(exercise.getSeries())
-                    .reps(exercise.getReps())
-                    .weights(exercise.getWeights())
+                    .name(exercise.name())
+                    .muscle(exercise.muscle())
+                    .type(exercise.type())
+                    .difficulty(exercise.difficulty())
+                    .series(exercise.series())
+                    .reps(exercise.reps())
+                    .weights(exercise.weights())
                     .build();
         }
         public abstract List<Exercise> toExercises(List<ExerciseDTO> exerciseDTOS);
 
         @InheritInverseConfiguration
         public ExerciseDTO toExerciseDTO(Exercise exercise){
-            ExerciseDTO exerciseDTO = new ExerciseDTO();
             if(exercise.getClass().getName().equals(Superset.class.getName())){
                 Superset superset = (Superset) exercise;
-                exerciseDTO.setSeries(superset.getSeries());
-                exerciseDTO.setExercises(superset.getExercises().stream().map(this::toExerciseDTO).toList());
-                return exerciseDTO;
+                return new ExerciseDTO(
+                        null,
+                        null,
+                        null,
+                        null,
+                        superset.getSeries(),
+                        null,
+                        null,
+                        superset.getExercises().stream().map(this::toExerciseDTO).toList()
+                );
             }
 
             SimpleExercise simpleExercise = (SimpleExercise) exercise;
-            exerciseDTO.setName(simpleExercise.getName());
-            exerciseDTO.setType(simpleExercise.getType());
-            exerciseDTO.setDifficulty(simpleExercise.getDifficulty());
-            exerciseDTO.setMuscle(simpleExercise.getMuscle());
-            exerciseDTO.setReps(simpleExercise.getReps());
-            exerciseDTO.setWeights(simpleExercise.getWeights());
-            exerciseDTO.setSeries(simpleExercise.getSeries());
-            return exerciseDTO;
+            return new ExerciseDTO(
+                    simpleExercise.getName(),
+                    simpleExercise.getMuscle(),
+                    simpleExercise.getType(),
+                    simpleExercise.getDifficulty(),
+                    simpleExercise.getSeries(),
+                    simpleExercise.getReps(),
+                    simpleExercise.getWeights(),
+                    null
+            );
         }
         abstract List<ExerciseDTO> toExerciseDTOs(List<Exercise> exercises);
 }

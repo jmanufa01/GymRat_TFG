@@ -18,13 +18,20 @@
       />
     </div>
 
-    <routines-superset
-      *ngFor="let exercise of this.exercises; index as i"
-      [exerciseNumber]="i + 1"
-      [exercises]="exercise.exercises"
-      [isSuperset]="exercise.exercises.length > 1"
-      [hideItems]="true"
+    <img
+      class="w-10 h-10 m-4 self-center cursor-pointer hover:scale-125 transition-all duration-500 ease-out delay-150"
+      src="assets/dropdown.png"
+      (click)="this.changeShowExercises()"
     />
+    <div [@fadeInFromTop] [@fadeOutToTop] *ngIf="this.showExercises">
+      <routines-superset
+        *ngFor="let exercise of this.exercises; index as i"
+        [exerciseNumber]="i + 1"
+        [exercises]="exercise.exercises"
+        [isSuperset]="exercise.exercises.length > 1"
+        [hideItems]="true"
+      />
+    </div>
   </section>
 
   <ng-template #createNewRoutine>

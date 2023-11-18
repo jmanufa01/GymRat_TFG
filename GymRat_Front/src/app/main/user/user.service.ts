@@ -28,4 +28,23 @@ export class UserService {
       catchError((err) => throwError(() => err.message))
     );
   }
+
+  public getUsersByUserName(
+    userName: string
+  ): Observable<{ username: string }[]> {
+    const url = `${environment.apiUrl}/users?username=${userName}`;
+    const options = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + localStorage.getItem('jwt'),
+      },
+    };
+    return this.http.get(url, options).pipe(
+      map((res) => {
+        console.log(res as string[]);
+        return res as { username: string }[];
+      }),
+      catchError((err) => throwError(() => err.message))
+    );
+  }
 }

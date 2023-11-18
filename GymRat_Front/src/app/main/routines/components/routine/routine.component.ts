@@ -13,10 +13,30 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 import { SupersetComponent } from '../superset/superset.component';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ModalComponent } from '../modal/modal.component';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'routines-routine',
   templateUrl: './routine.component.html',
+  animations: [
+    trigger('fadeInFromTop', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(-16px)' }),
+        animate(
+          '500ms ease-out',
+          style({ opacity: 1, transform: 'translateY(0)' })
+        ),
+      ]),
+    ]),
+    trigger('fadeOutToTop', [
+      transition(':leave', [
+        animate(
+          '500ms ease-out',
+          style({ opacity: 0, transform: 'translateY(-16px)' })
+        ),
+      ]),
+    ]),
+  ],
 })
 export class RoutineComponent implements OnInit {
   constructor(
@@ -42,6 +62,8 @@ export class RoutineComponent implements OnInit {
   public componentReferences: ComponentRef<SupersetComponent>[] = [];
 
   private muscularGroup: string[] = [];
+
+  public showExercises: boolean = false;
 
   public addExercise(): void {
     const actualRef: ComponentRef<SupersetComponent> =
@@ -144,6 +166,10 @@ export class RoutineComponent implements OnInit {
         },
       });
     }
+  }
+
+  public changeShowExercises(): void {
+    this.showExercises = !this.showExercises;
   }
 
   ngOnInit(): void {

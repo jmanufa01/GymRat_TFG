@@ -15,8 +15,8 @@ public class UtilClass {
         boolean validExercises = true;
 
         for(ExerciseDTO exerciseDTO: routine.exercises()){
-            if (exerciseDTO.getReps().size() != exerciseDTO.getSeries()
-                    && exerciseDTO.getWeights().size() != exerciseDTO.getSeries()) {
+            if (exerciseDTO.reps().size() != exerciseDTO.series()
+                    && exerciseDTO.weights().size() != exerciseDTO.series()) {
                 validExercises = false;
                 break;
             }

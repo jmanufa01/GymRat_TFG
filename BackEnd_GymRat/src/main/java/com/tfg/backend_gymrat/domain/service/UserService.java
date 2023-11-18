@@ -6,6 +6,7 @@ import com.tfg.backend_gymrat.domain.dto.api.user.response.UserNameDTO;
 import com.tfg.backend_gymrat.domain.dto.api.user.response.UserProfileDTO;
 import com.tfg.backend_gymrat.domain.dto.entity.UserDTO;
 import com.tfg.backend_gymrat.domain.repository.UserRepository;
+import com.tfg.backend_gymrat.persistence.mongo.UserMongo;
 import com.tfg.backend_gymrat.util.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,6 +23,9 @@ public class UserService {
 
     @Autowired
     private UserRepository repository;
+
+    @Autowired
+    private UserMongo mongo;
 
     private final Log log = new Log();
     public void createNewUser(UserDTO user){
@@ -73,9 +77,12 @@ public class UserService {
     }
 
 
-/*    public void addFriend(String userName, String friendName){
-        repository.addFriend(userName, friendName);
-    }*/
+    public void addFriend(String loggedUsername, String friendUsername) throws UserNotFoundException {
+        final var user = mongo.findUserByUsername(loggedUsername).orElseThrow(UserNotFoundException::new);
+        user.getFriends().add(friendUsername);
+        mongo.save(user);
+
+    }
 
 
 }
