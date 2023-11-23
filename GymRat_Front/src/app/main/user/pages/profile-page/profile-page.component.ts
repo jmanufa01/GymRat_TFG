@@ -31,7 +31,7 @@ export class ProfilePageComponent {
   public onAddUserClick(): void {
     console.log('click');
     this.dialog.open(FriendsModalComponent, {
-      width: '30%',
+      width: window.innerWidth > 300 ? '30%' : '80%',
       height: '50%',
       enterAnimationDuration: '200ms',
       exitAnimationDuration: '200ms',

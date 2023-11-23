@@ -26,16 +26,9 @@ public class UserService {
     private UserRepository repository;
 
     @Autowired
-    private UserMongo mongo;
-
-    @Autowired
     private NotificationMongo notificationMongo;
 
     private final Log log = new Log();
-    public void createNewUser(UserDTO user){
-        repository.createUser(user);
-    }
-
     public List<UserDTO> findAllUsersInDB(){
         return repository.findAllUsers();
     }
@@ -81,5 +74,8 @@ public class UserService {
         return users;
     }
 
+    public void createNewUser(UserDTO user){
+        repository.createUser(user);
+    }
 
 }

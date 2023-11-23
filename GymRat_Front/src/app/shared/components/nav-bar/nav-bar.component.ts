@@ -25,8 +25,23 @@ export class NavBarComponent implements OnInit {
     this.authService.logout();
   }
 
+  handleAcceptFriendRequest(notification: Notification): void {
+    this.notificationService
+      .acceptFriendRequest(notification)
+      .subscribe((res) => {
+        this.notifications = this.notifications.filter(
+          (n) => n.id !== notification.id
+        );
+      });
+  }
+
+  handleRejectFriendRequest(notification: Notification): void {
+    this.notificationService.rejectFriendRequest(notification).subscribe();
+  }
+
   ngOnInit(): void {
     this.notificationService.getNotifications().subscribe((res) => {
+      console.log(res);
       this.notifications = res;
     });
   }

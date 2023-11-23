@@ -23,10 +23,12 @@ public class NotificationRestController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> createNewNotification(@RequestBody NotificationDTO notificationDTO) throws Exception {
-        notificationService.createNewNotification(notificationDTO);
+    public ResponseEntity<Void> manageNotification(@RequestBody NotificationDTO notificationDTO) throws Exception {
+        notificationService.manageNotification(notificationDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
+
 
 
 

@@ -12,6 +12,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 import static com.tfg.backend_gymrat.exceptions.AppExceptions.*;
 
 
@@ -43,7 +45,8 @@ public class AuthService {
                     request.birthDate(),
                     request.height(),
                     request.weight(),
-                    Role.USER);
+                    Role.USER,
+                    null);
 
             log.log(AuthConstants.REGISTRATION_IN_PROCCESS, user.username());
             if(user.email().trim().equals("")

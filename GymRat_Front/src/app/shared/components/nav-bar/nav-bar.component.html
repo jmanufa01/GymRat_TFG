@@ -33,9 +33,29 @@
 
     <ul
       *ngIf="this.isNotificationsOpen"
-      class="absolute flex flex-col overflow-y-scroll top-full -left-20 w-full h-96 bg-white rounded-lg shadow-lg"
+      [class]="
+        'absolute w-full h-96 mt-2 flex flex-col overflow-y-scroll top-full -left-20 ' +
+        'bg-white rounded-lg shadow-lg bg-gradient-to-b from-pink-300/90 via-purple-300/90 to-indigo-400/90 backdrop-blur-sm'
+      "
     >
-      <li class="flex" *ngFor="let item of this."></li>
+      <li
+        class="flex items-center justify-between p-2"
+        *ngFor="let notification of this.notifications"
+      >
+        <p>{{ notification.sender }}</p>
+        <div class="flex items-center">
+          <img
+            class="h-8 w-8 cursor-pointer"
+            src="assets/accept.png"
+            (click)="this.handleAcceptFriendRequest(notification)"
+          />
+          <img
+            class="h-8 w-8 ml-1 cursor-pointer"
+            src="assets/reject.png"
+            (click)="this.handleRejectFriendRequest(notification)"
+          />
+        </div>
+      </li>
     </ul>
   </div>
 </nav>

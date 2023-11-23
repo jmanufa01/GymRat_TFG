@@ -2,6 +2,8 @@ package com.tfg.backend_gymrat.persistence.entity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -14,7 +16,9 @@ import java.util.Date;
 import java.util.List;
 
 @Data
+@SuperBuilder
 @EqualsAndHashCode
+@NoArgsConstructor
 @Document("user")
 public class User implements UserDetails {
     @Id

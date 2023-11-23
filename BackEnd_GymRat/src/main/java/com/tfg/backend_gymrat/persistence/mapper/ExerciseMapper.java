@@ -10,7 +10,7 @@ import org.mapstruct.Mapper;
 import java.util.List;
 
 @Mapper
-public abstract class ExerciseMapper {
+public class ExerciseMapper {
 
         public Exercise toExercise(ExerciseDTO exercise){
             if(exercise.exercises() != null){ //Superset
@@ -30,9 +30,7 @@ public abstract class ExerciseMapper {
                     .weights(exercise.weights())
                     .build();
         }
-        public abstract List<Exercise> toExercises(List<ExerciseDTO> exerciseDTOS);
 
-        @InheritInverseConfiguration
         public ExerciseDTO toExerciseDTO(Exercise exercise){
             if(exercise.getClass().getName().equals(Superset.class.getName())){
                 Superset superset = (Superset) exercise;
@@ -60,5 +58,12 @@ public abstract class ExerciseMapper {
                     null
             );
         }
-        abstract List<ExerciseDTO> toExerciseDTOs(List<Exercise> exercises);
+
+        public List<Exercise> toExercises(List<ExerciseDTO> exerciseDTOS){
+            return exerciseDTOS.stream().map(this::toExercise).toList();
+        }
+
+        public List<ExerciseDTO> toExerciseDTOs(List<Exercise> exercises){
+            return exercises.stream().map(this::toExerciseDTO).toList();
+        }
 }

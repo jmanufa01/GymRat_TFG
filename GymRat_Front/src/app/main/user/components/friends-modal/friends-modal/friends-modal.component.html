@@ -9,7 +9,7 @@
     (keyUp)="this.onKeyPress($event)"
   />
 
-  <ul class="mt-10 flex flex-col overflow-y-scroll">
+  <ul class="w-full h-full mt-10 flex flex-col items-center overflow-y-scroll">
     <li *ngFor="let user of this.filteredUsernames">
       <div class="flex flex-row items-center">
         <h1 class="ml-4">{{ user.username }}</h1>

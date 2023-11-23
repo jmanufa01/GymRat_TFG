@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Mapper
-public abstract class RoutineMapper {
+public class RoutineMapper {
 
     @Autowired
     private ExerciseMapper mapper;
@@ -27,16 +27,21 @@ public abstract class RoutineMapper {
                 routine.getUsers(),
                 mapper.toExerciseDTOs(routine.getExercises()));
     }
-    public abstract List<RoutineDTO> toRoutinesDTO(List<Routine> routines);
 
-
-    @InheritInverseConfiguration
     public Routine toRoutine(RoutineDTO routineDTO){
-        return new Routine(
-                routineDTO.realizationDate(),
-                routineDTO.muscularGroup(),
-                routineDTO.users(),
-                mapper.toExercises(routineDTO.exercises()));
+        return Routine.builder()
+                .realizationDate(routineDTO.realizationDate())
+                .muscularGroup(routineDTO.muscularGroup())
+                .users(routineDTO.users())
+                .exercises(mapper.toExercises(routineDTO.exercises()))
+                .build();
     }
-    public abstract List<Routine> toRoutines(List<RoutineDTO> routineDTOs);
+
+    public List<Routine> toRoutines(List<RoutineDTO> routineDTOs){
+        return routineDTOs.stream().map(this::toRoutine).collect(Collectors.toList());
+    }
+
+    public List<RoutineDTO> toRoutineDTOs(List<Routine> routines){
+        return routines.stream().map(this::toRoutineDTO).collect(Collectors.toList());
+    }
 }

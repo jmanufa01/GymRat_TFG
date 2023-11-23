@@ -11,6 +11,24 @@ import { HttpClient } from '@angular/common/http';
 export class NotificationService {
   constructor(private http: HttpClient, private authService: AuthService) {}
 
+  public getNotifications(): Observable<Notification[]> {
+    const userName = this.authService.currentUser()!.username;
+    const url = `${environment.apiUrl}/notifications/${userName}`;
+    const options = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + localStorage.getItem('jwt'),
+      },
+    };
+
+    return this.http.get(url, options).pipe(
+      map((res) => {
+        return res as Notification[];
+      }),
+      catchError((err) => throwError(() => err.message))
+    );
+  }
+
   public sendFriendRequest(friendUserName: string): Observable<boolean> {
     const url = `${environment.apiUrl}/notifications`;
     const options = {
@@ -34,9 +52,8 @@ export class NotificationService {
     );
   }
 
-  public getNotifications(): Observable<Notification[]> {
-    const userName = this.authService.currentUser()!.username;
-    const url = `${environment.apiUrl}/notifications?username=${userName}`;
+  public acceptFriendRequest(notification: Notification): Observable<boolean> {
+    const url = `${environment.apiUrl}/notifications`;
     const options = {
       headers: {
         'Content-Type': 'application/json',
@@ -44,9 +61,30 @@ export class NotificationService {
       },
     };
 
-    return this.http.get(url, options).pipe(
+    notification.status = 'ACCEPTED';
+
+    return this.http.post(url, notification, options).pipe(
       map((res) => {
-        return res as Notification[];
+        return true;
+      }),
+      catchError((err) => throwError(() => err.message))
+    );
+  }
+
+  public rejectFriendRequest(notification: Notification): Observable<boolean> {
+    const url = `${environment.apiUrl}/notifications`;
+    const options = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + localStorage.getItem('jwt'),
+      },
+    };
+
+    notification.status = 'REJECTED';
+
+    return this.http.post(url, notification, options).pipe(
+      map((res) => {
+        return true;
       }),
       catchError((err) => throwError(() => err.message))
     );
