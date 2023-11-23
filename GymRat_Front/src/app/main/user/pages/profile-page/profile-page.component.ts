@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
-import { UserService } from '../../user.service';
+import { UserService } from '../../services/user.service';
 import { Profile } from '../../interfaces/profile.interface';
 import { MatDialog } from '@angular/material/dialog';
 import { FriendsModalComponent } from '../../components/friends-modal/friends-modal/friends-modal.component';

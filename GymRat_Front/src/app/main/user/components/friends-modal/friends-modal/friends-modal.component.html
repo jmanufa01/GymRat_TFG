@@ -13,7 +13,13 @@
     <li *ngFor="let user of this.filteredUsernames">
       <div class="flex flex-row items-center">
         <h1 class="ml-4">{{ user.username }}</h1>
-        <shared-button buttonType="button" class="ml-4"> Add </shared-button>
+        <shared-button
+          buttonType="button"
+          class="ml-4"
+          (onButtonClick)="this.onAddFriendClick(user.username)"
+        >
+          Add
+        </shared-button>
       </div>
     </li>
   </ul>

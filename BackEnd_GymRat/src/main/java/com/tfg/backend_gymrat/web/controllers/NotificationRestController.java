@@ -1,0 +1,33 @@
+package com.tfg.backend_gymrat.web.controllers;
+
+import com.tfg.backend_gymrat.domain.dto.entity.NotificationDTO;
+import com.tfg.backend_gymrat.domain.service.NotificationService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+import static org.springframework.http.ResponseEntity.ok;
+
+@RestController
+@RequestMapping("v1/notifications")
+public class NotificationRestController {
+    @Autowired
+    private NotificationService notificationService;
+
+    @GetMapping("{username}")
+    public ResponseEntity<List<NotificationDTO>> obtainAllNotifications(@PathVariable String username){
+        return ok(notificationService.obtainAllNotifications(username));
+    }
+
+    @PostMapping
+    public ResponseEntity<Void> createNewNotification(@RequestBody NotificationDTO notificationDTO) throws Exception {
+        notificationService.createNewNotification(notificationDTO);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+
+
+}

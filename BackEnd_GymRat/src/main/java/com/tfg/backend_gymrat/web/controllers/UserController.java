@@ -1,10 +1,9 @@
 package com.tfg.backend_gymrat.web.controllers;
 
-import com.tfg.backend_gymrat.constants.AppConstants;
+
 import com.tfg.backend_gymrat.domain.dto.api.user.response.UserNameDTO;
 import com.tfg.backend_gymrat.domain.dto.api.user.response.UserProfileDTO;
 import com.tfg.backend_gymrat.domain.service.UserService;
-import com.tfg.backend_gymrat.util.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

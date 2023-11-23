@@ -8,6 +8,7 @@ import { LoadingComponent } from './components/loading/loading.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ReplacePipe } from './pipes/replace.pipe';
+import { UserModule } from '../main/user/user.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,13 @@ import { ReplacePipe } from './pipes/replace.pipe';
     LoadingComponent,
     ReplacePipe,
   ],
-  imports: [CommonModule, RouterModule, ReactiveFormsModule, FormsModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    ReactiveFormsModule,
+    FormsModule,
+    UserModule,
+  ],
   exports: [
     InputComponent,
     ButtonComponent,

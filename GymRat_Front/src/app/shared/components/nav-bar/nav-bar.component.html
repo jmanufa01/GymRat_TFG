@@ -10,7 +10,14 @@
       <li routerLink="/routines">Routines</li>
     </ul>
   </div>
-  <div class="flex items-center mr-2">
+  <div class="relative flex items-center mr-2">
+    <img
+      class="mr-2 w-10 h-10 hover:cursor-pointer"
+      src="assets/notification-icon.png"
+      alt="notifications-icon"
+      (click)="this.isNotificationsOpen = !this.isNotificationsOpen"
+    />
+
     <img
       class="mr-2 w-10 h-10 hover:cursor-pointer"
       src="assets/profile-icon.png"
@@ -23,5 +30,12 @@
       (click)="this.logout()"
       >Log Out</shared-button
     >
+
+    <ul
+      *ngIf="this.isNotificationsOpen"
+      class="absolute flex flex-col overflow-y-scroll top-full -left-20 w-full h-96 bg-white rounded-lg shadow-lg"
+    >
+      <li class="flex" *ngFor="let item of this."></li>
+    </ul>
   </div>
 </nav>

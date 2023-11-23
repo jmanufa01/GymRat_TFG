@@ -6,6 +6,7 @@ import com.tfg.backend_gymrat.domain.dto.api.user.response.UserNameDTO;
 import com.tfg.backend_gymrat.domain.dto.api.user.response.UserProfileDTO;
 import com.tfg.backend_gymrat.domain.dto.entity.UserDTO;
 import com.tfg.backend_gymrat.domain.repository.UserRepository;
+import com.tfg.backend_gymrat.persistence.mongo.NotificationMongo;
 import com.tfg.backend_gymrat.persistence.mongo.UserMongo;
 import com.tfg.backend_gymrat.util.Log;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,9 @@ public class UserService {
 
     @Autowired
     private UserMongo mongo;
+
+    @Autowired
+    private NotificationMongo notificationMongo;
 
     private final Log log = new Log();
     public void createNewUser(UserDTO user){
@@ -70,18 +74,11 @@ public class UserService {
         log.log(AppConstants.OBTAINING_USERS_CONTAINING);
         final var loggedUser = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         final var users = repository.findAllUsersByUsernameContaining(string).stream()
-                .filter(user -> !Objects.equals(user.username(), loggedUser.getUsername()))
+                .filter(user -> !Objects.equals(user.username(), loggedUser.getUsername())
+                        && !notificationMongo.existsNotificationBySenderAndReceiver(loggedUser.getUsername(), user.username()))
                 .map(user -> new UserNameDTO(user.username())).toList();
         log.log(AppConstants.USERS_CONTAINING_OBTAINMENT_SUCCESS);
         return users;
-    }
-
-
-    public void addFriend(String loggedUsername, String friendUsername) throws UserNotFoundException {
-        final var user = mongo.findUserByUsername(loggedUsername).orElseThrow(UserNotFoundException::new);
-        user.getFriends().add(friendUsername);
-        mongo.save(user);
-
     }
 
 

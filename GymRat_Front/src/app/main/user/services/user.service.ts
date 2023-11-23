@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthService } from 'src/app/auth/services/auth.service';
-import { environment } from '../../../environment/environment';
+import { environment } from '../../../../environment/environment';
 import { Observable, catchError, map, throwError } from 'rxjs';
-import { Profile } from './interfaces/profile.interface';
+import { Profile } from '../interfaces/profile.interface';
+import { Notification } from '../interfaces';
 
 @Injectable({
   providedIn: 'root',
