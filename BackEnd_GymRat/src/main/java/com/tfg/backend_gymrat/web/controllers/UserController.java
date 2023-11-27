@@ -19,7 +19,7 @@ public class UserController {
     private UserService userService;
 
     @GetMapping(params = "username")
-    public ResponseEntity<List<UserNameDTO>> findAllUsersByUsernameContaining(@RequestParam String username){
+    public ResponseEntity<List<UserNameDTO>> findAllUsersByUsernameContaining(@RequestParam String username) throws Exception {
         final var users = userService.findAllUsersByUsernameContaining(username);
         return ok(users);
     }

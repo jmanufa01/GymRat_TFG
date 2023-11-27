@@ -11,15 +11,13 @@
 
   <ul class="w-full h-full mt-10 flex flex-col items-center overflow-y-scroll">
     <li *ngFor="let user of this.filteredUsernames">
-      <div class="flex flex-row items-center">
+      <div class="p-4 flex flex-row items-center">
         <h1 class="ml-4">{{ user.username }}</h1>
-        <shared-button
-          buttonType="button"
-          class="ml-4"
-          (onButtonClick)="this.onAddFriendClick(user.username)"
-        >
-          Add
-        </shared-button>
+        <img
+          class="w-6 h-6 ml-4 cursor-pointer"
+          src="assets/add-green.png"
+          (click)="this.onAddFriendClick(user.username)"
+        />
       </div>
     </li>
   </ul>

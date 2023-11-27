@@ -65,6 +65,8 @@ export class RoutineComponent implements OnInit {
 
   public showExercises: boolean = false;
 
+  public isShareRoutineOpen: boolean = false;
+
   public addExercise(): void {
     const actualRef: ComponentRef<SupersetComponent> =
       this.vcr.createComponent(SupersetComponent);

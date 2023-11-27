@@ -9,4 +9,6 @@ public interface NotificationMongo extends MongoRepository<Notification, String>
     List<Notification> findAllByReceiver(String receiver);
 
     boolean existsNotificationBySenderAndReceiver(String sender, String receiver);
+
+    boolean existsNotificationByReceiverAndSender(String receiver, String sender);
 }
