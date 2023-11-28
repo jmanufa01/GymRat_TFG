@@ -49,6 +49,7 @@
         <routines-routine
           class="h-full flex flex-col"
           [dialogRef]="this.dialogRef"
+          (submitEvent)="this.addRoutine($event.routine)"
         />
       </div>
     </section>

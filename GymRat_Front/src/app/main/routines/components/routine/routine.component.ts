@@ -5,6 +5,8 @@ import {
   ViewContainerRef,
   ViewChild,
   ComponentRef,
+  ElementRef,
+  EventEmitter,
 } from '@angular/core';
 import { Routine, Superset } from '../../interfaces';
 import { SimpleExercise } from '../../interfaces/simple-exercise.interface';
@@ -15,6 +17,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { ModalComponent } from '../modal/modal.component';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { UserService } from 'src/app/main/user/services/user.service';
+import { Output } from '@angular/core';
 
 @Component({
   selector: 'routines-routine',
@@ -54,10 +57,16 @@ export class RoutineComponent implements OnInit {
   @Input()
   public dialogRef!: MatDialogRef<ModalComponent>;
 
+  @Output()
+  public submitEvent: EventEmitter<{ routine: Routine }> = new EventEmitter();
+
   public exercises: Superset[] = [];
 
   @ViewChild('supersetRef', { read: ViewContainerRef })
   public vcr!: ViewContainerRef;
+
+  @ViewChild('shareRef')
+  public shareIconRef!: ElementRef;
 
   public exercisesNumber: number = 1;
 
@@ -170,7 +179,12 @@ export class RoutineComponent implements OnInit {
         exercises: exercises,
       };
       this.routinesService.insertRoutine(routine).subscribe({
-        next: () => this.dialogRef.componentInstance.changeView(),
+        next: () => {
+          this.submitEvent.emit({
+            routine: routine,
+          });
+          this.dialogRef.close();
+        },
         error: (err) => {
           console.log(err);
         },
@@ -208,6 +222,14 @@ export class RoutineComponent implements OnInit {
         this.updateFriendsToShare();
       },
     });
+  }
+
+  public onOpenCloseDropdown(): void {
+    this.isShareRoutineOpen = !this.isShareRoutineOpen;
+  }
+
+  public onCloseDropdown(): void {
+    this.isShareRoutineOpen = false;
   }
 
   ngOnInit(): void {

@@ -6,7 +6,8 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { ModalData } from '../../interfaces';
+import { ModalData, Routine } from '../../interfaces';
+import { RoutinesService } from '../../services/routines.service';
 
 @Component({
   selector: 'routines-modal',
@@ -15,6 +16,7 @@ import { ModalData } from '../../interfaces';
 export class ModalComponent {
   constructor(
     public dialogRef: MatDialogRef<ModalComponent>,
+    private routineService: RoutinesService,
     @Inject(MAT_DIALOG_DATA) public data: ModalData
   ) {}
 
@@ -26,5 +28,9 @@ export class ModalComponent {
 
   public closeModal(): void {
     this.dialogRef.close();
+  }
+
+  public addRoutine(routine: Routine): void {
+    this.data.routines.push(routine);
   }
 }

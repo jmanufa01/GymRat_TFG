@@ -53,33 +53,15 @@ export class CalendarPageComponent implements AfterViewInit {
 
   public loadingCalendar = false;
 
-  private eventColors: String[] = [
-    '#004777',
-    '#FED766',
-    '#FED766 ',
-    '#BF1363',
-    '#C6E0FF',
-    '#B8B3BE',
-    '#D17A22',
-    '#FEC0AA',
-    '#020122',
-    '#11151C',
-  ];
+  private getRandomColor(): string {
+    const r = Math.floor(Math.random() * 256); // Valor entre 0 y 255
+    const g = Math.floor(Math.random() * 256);
+    const b = Math.floor(Math.random() * 256);
 
-  private getRandomColor(
-    events: {
-      title: string;
-      start: string;
-      color: string;
-    }[],
-    index: number = 0
-  ): string {
-    const color = this.eventColors[index];
-    const colorExists = events.find((event) => event.color === color);
-    if (colorExists) {
-      return this.getRandomColor(events, index + 1);
-    }
-    return color.toString();
+    // Convertir los valores a formato hexadecimal y concatenar
+    const colorHex = `#${r.toString(16)}${g.toString(16)}${b.toString(16)}`;
+
+    return colorHex;
   }
 
   public onDateClick(arg: DateClickArg): void {
@@ -141,7 +123,7 @@ export class CalendarPageComponent implements AfterViewInit {
           .join(', ')
           .replace('_', ' '),
         start: new Date(routine.realizationDate).toISOString(),
-        color: this.getRandomColor(this.events),
+        color: this.getRandomColor(),
       });
     });
   }

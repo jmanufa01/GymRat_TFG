@@ -8,6 +8,7 @@ import { LoadingComponent } from './components/loading/loading.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ReplacePipe } from './pipes/replace.pipe';
+import { DropdownComponent } from './components/dropdown/dropdown.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { ReplacePipe } from './pipes/replace.pipe';
     ButtonComponent,
     NavBarComponent,
     LoadingComponent,
+    DropdownComponent,
     ReplacePipe,
   ],
   imports: [CommonModule, RouterModule, ReactiveFormsModule, FormsModule],
@@ -26,6 +28,7 @@ import { ReplacePipe } from './pipes/replace.pipe';
     NavBarComponent,
     ReactiveFormsModule,
     FormsModule,
+    DropdownComponent,
   ],
 })
 export class SharedModule {}

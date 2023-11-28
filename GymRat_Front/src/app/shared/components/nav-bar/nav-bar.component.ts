@@ -1,4 +1,12 @@
-import { Component, computed, OnInit } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  computed,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import { C } from '@fullcalendar/core/internal-common';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { Notification } from 'src/app/main/user/interfaces';
 import { NotificationService } from 'src/app/main/user/services/notification.service';
@@ -13,9 +21,12 @@ export class NavBarComponent implements OnInit {
     private notificationService: NotificationService
   ) {}
 
-  public isNotificationsOpen = false;
+  public isNotificationsDropdownOpen = false;
 
   public notifications: Notification[] = [];
+
+  @ViewChild('notificationsIcon')
+  public notificationsIconRef!: ElementRef;
 
   get userName(): string {
     return this.authService.currentUser()!.username;
@@ -23,6 +34,14 @@ export class NavBarComponent implements OnInit {
 
   logout() {
     this.authService.logout();
+  }
+
+  public onOpenCloseDropdown(): void {
+    this.isNotificationsDropdownOpen = !this.isNotificationsDropdownOpen;
+  }
+
+  public onCloseDropdown(): void {
+    this.isNotificationsDropdownOpen = false;
   }
 
   handleAcceptFriendRequest(notification: Notification): void {

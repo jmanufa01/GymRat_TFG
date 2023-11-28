@@ -6,17 +6,18 @@
     <div class="relative flex">
       <h1 class="text-xl">Routine {{ this.routineNumber + 1 }}</h1>
       <img
+        #shareRef
         class="ml-4 w-6 h-6 cursor-pointer"
         src="assets/share-icon.png"
         (click)="this.changeShareRoutine()"
       />
       <!-- TODO: Encapsulate below html in component, as well as in navbar -->
-      <ul
+      <shared-dropdown
+        dropdownClassNames="md:w-1/5 sm:w-full h-44 left-0"
         *ngIf="this.isShareRoutineOpen"
-        [class]="
-          'absolute z-50 md:w-1/5 sm:w-full h-44 mt-2 flex flex-col overflow-y-scroll top-full ' +
-          'bg-white rounded-lg shadow-lg bg-gradient-to-b from-pink-300/90 via-purple-300/90 to-indigo-400/90 backdrop-blur-sm'
-        "
+        [openComponentRef]="this.shareIconRef"
+        (onClickOutise)="this.onCloseDropdown()"
+        (onEscape)="this.onCloseDropdown()"
       >
         <li
           class="flex items-center justify-between p-2"
@@ -29,7 +30,7 @@
             (click)="this.onShareRoutineClick(friend.username)"
           />
         </li>
-      </ul>
+      </shared-dropdown>
     </div>
 
     <div class="grid md:grid-cols-2 sm:grid-cols-1">
