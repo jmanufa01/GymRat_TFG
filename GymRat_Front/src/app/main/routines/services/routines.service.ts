@@ -4,6 +4,7 @@ import { Routine } from '../interfaces';
 import { Observable, catchError, map, throwError } from 'rxjs';
 import { environment } from 'src/environment/environment';
 import { AuthService } from 'src/app/auth/services/auth.service';
+import { co } from '@fullcalendar/core/internal-common';
 
 @Injectable({
   providedIn: 'root',
@@ -12,23 +13,6 @@ export class RoutinesService {
   constructor(private http: HttpClient, private authService: AuthService) {}
 
   private readonly apiUrl: string = environment.apiUrl;
-
-  public insertRoutine(routine: Routine): Observable<boolean> {
-    const url = `${this.apiUrl}/routines/save`;
-    const body = routine;
-    const options = {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + localStorage.getItem('jwt'),
-      },
-    };
-    return this.http.post(url, body, options).pipe(
-      map((res) => {
-        return true;
-      }),
-      catchError((err) => throwError(() => err.message))
-    );
-  }
 
   public getRoutines(date: Date): Observable<Routine[]> {
     const formattedDate =
@@ -48,6 +32,41 @@ export class RoutinesService {
 
     return this.http.get<Routine[]>(url, options).pipe(
       map((res) => res),
+      catchError((err) => throwError(() => err.message))
+    );
+  }
+
+  public insertRoutine(routine: Routine): Observable<boolean> {
+    const url = `${this.apiUrl}/routines/save`;
+    const body = routine;
+    const options = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + localStorage.getItem('jwt'),
+      },
+    };
+    return this.http.post(url, body, options).pipe(
+      map((res) => {
+        return true;
+      }),
+      catchError((err) => throwError(() => err.message))
+    );
+  }
+
+  public updateRoutine(routine: Routine): Observable<boolean> {
+    console.log(routine);
+    const url = `${this.apiUrl}/routines`;
+    const body = routine;
+    const options = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + localStorage.getItem('jwt'),
+      },
+    };
+    return this.http.put(url, body, options).pipe(
+      map((res) => {
+        return true;
+      }),
       catchError((err) => throwError(() => err.message))
     );
   }

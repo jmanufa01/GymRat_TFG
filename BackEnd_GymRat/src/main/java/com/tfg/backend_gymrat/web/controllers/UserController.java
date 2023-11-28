@@ -28,4 +28,9 @@ public class UserController {
         final var profile = userService.obtainUserProfile(username);
         return ok(profile);
     }
+    @GetMapping(value = "friends", params = "routineId")
+    public ResponseEntity<List<UserNameDTO>> obtainFriendsByRoutineId(@RequestParam String routineId) throws Exception{
+        final var friends = userService.findAllFriendsNotHavingRoutine(routineId);
+        return ok(friends);
+    }
 }

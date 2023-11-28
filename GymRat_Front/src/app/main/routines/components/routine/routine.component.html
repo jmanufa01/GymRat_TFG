@@ -8,22 +8,26 @@
       <img
         class="ml-4 w-6 h-6 cursor-pointer"
         src="assets/share-icon.png"
-        (click)="this.isShareRoutineOpen = !this.isShareRoutineOpen"
+        (click)="this.changeShareRoutine()"
       />
       <!-- TODO: Encapsulate below html in component, as well as in navbar -->
       <ul
         *ngIf="this.isShareRoutineOpen"
         [class]="
-          'absolute z-50 w-1/5 h-44 mt-2 flex flex-col overflow-y-scroll top-full ' +
+          'absolute z-50 md:w-1/5 sm:w-full h-44 mt-2 flex flex-col overflow-y-scroll top-full ' +
           'bg-white rounded-lg shadow-lg bg-gradient-to-b from-pink-300/90 via-purple-300/90 to-indigo-400/90 backdrop-blur-sm'
         "
       >
-        <li class="flex items-center justify-between p-2">
-          <!-- <p>{{ notification.sender }}</p> -->
-          <div class="flex items-center">
-            <img class="h-8 w-8 cursor-pointer" src="assets/accept.png" />
-            <img class="h-8 w-8 ml-1 cursor-pointer" src="assets/reject.png" />
-          </div>
+        <li
+          class="flex items-center justify-between p-2"
+          *ngFor="let friend of this.friendsToShare"
+        >
+          <p>{{ friend.username }}</p>
+          <img
+            class="h-8 w-8 ml-2 cursor-pointer"
+            src="assets/share-icon.png"
+            (click)="this.onShareRoutineClick(friend.username)"
+          />
         </li>
       </ul>
     </div>
@@ -43,7 +47,10 @@
     </div>
 
     <img
-      class="w-10 h-10 m-4 self-center cursor-pointer hover:scale-125 transition-all duration-500 ease-out delay-150"
+      [class]="
+        'w-10 h-10 m-4 self-center cursor-pointer hover:scale-125 transition-all duration-500 ease-out delay-150 ' +
+        (this.showExercises ? 'rotate-180' : '')
+      "
       src="assets/dropdown.png"
       (click)="this.changeShowExercises()"
     />

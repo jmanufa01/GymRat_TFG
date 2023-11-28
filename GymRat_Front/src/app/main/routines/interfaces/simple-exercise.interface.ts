@@ -1,8 +1,7 @@
-import { Exercise } from './exercise.interface';
-
-export interface SimpleExercise extends Exercise {
+export interface SimpleExercise {
   name: string;
   muscle: Muscle;
+  series: number;
   type: Type;
   difficulty: Difficulty;
   reps: number[];

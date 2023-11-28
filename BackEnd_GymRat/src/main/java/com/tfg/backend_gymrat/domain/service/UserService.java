@@ -6,6 +6,7 @@ import com.tfg.backend_gymrat.domain.dto.api.user.response.UserProfileDTO;
 import com.tfg.backend_gymrat.domain.dto.entity.UserDTO;
 import com.tfg.backend_gymrat.domain.repository.UserRepository;
 import com.tfg.backend_gymrat.persistence.mongo.NotificationMongo;
+import com.tfg.backend_gymrat.persistence.mongo.RoutineMongo;
 import com.tfg.backend_gymrat.util.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,6 +26,9 @@ public class UserService {
     @Autowired
     private NotificationMongo notificationMongo;
 
+    @Autowired
+    private RoutineMongo routineMongo;
+
     private final Log log = new Log();
     public List<UserDTO> findAllUsersInDB(){
         return repository.findAllUsers();
@@ -38,6 +42,41 @@ public class UserService {
         return repository.findByUserName(userName)
                 .orElseThrow(UserNotFoundException::new);
     }
+
+    public List<UserNameDTO> findAllUsersByUsernameContaining(String string) throws Exception {
+        log.log(AppConstants.OBTAINING_USERS_CONTAINING);
+        final var userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        final var loggedUser = findUserByUsername(userDetails.getUsername());
+        final var friendsList = loggedUser.friends() != null ? loggedUser.friends() : List.of();
+        final var users = repository.findAllUsersByUsernameContaining(string).stream()
+                .filter(user -> !Objects.equals(user.username(), loggedUser.username())
+                        && !notificationMongo.existsNotificationBySenderAndReceiver(loggedUser.username(), user.username())
+                        && !notificationMongo.existsNotificationByReceiverAndSender(loggedUser.username(), user.username())
+                        && !friendsList.contains(user.username()))
+                .map(user -> new UserNameDTO(user.username())).toList();
+        log.log(AppConstants.USERS_CONTAINING_OBTAINMENT_SUCCESS);
+        return users;
+    }
+
+    public List<UserNameDTO> findAllFriendsNotHavingRoutine(String routineId) throws Exception {
+        try{
+            log.log(AppConstants.OBTAINING_FRIENDS_WITHOUT_ROUTINE);
+            final var routine = routineMongo.findById(routineId).orElseThrow(RoutineNotFoundException::new);
+            final var userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            final var loggedUser = findUserByUsername(userDetails.getUsername());
+            List<String> friendsList = loggedUser.friends() != null ? loggedUser.friends() : List.of();
+            return friendsList.stream()
+                    .filter(friend -> !routine.getUsers().contains(friend))
+                    .map(UserNameDTO::new)
+                    .toList();
+        }catch (Exception e) {
+            log.log("Error: " + e.getMessage());
+            log.log(AppConstants.OBTAINING_FRIENDS_WITHOUT_ROUTINE_FAILURE);
+            throw e;
+        }
+    }
+
+
 
     public UserProfileDTO obtainUserProfile(String userName) throws Exception {
             try{
@@ -58,21 +97,6 @@ public class UserService {
                 log.log(AppConstants.PROFILE_OBTAINMENT_FAILURE);
                 throw e;
             }
-    }
-
-    public List<UserNameDTO> findAllUsersByUsernameContaining(String string) throws Exception {
-        log.log(AppConstants.OBTAINING_USERS_CONTAINING);
-        final var userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        final var loggedUser = findUserByUsername(userDetails.getUsername());
-        final var friendsList = loggedUser.friends() != null ? loggedUser.friends() : List.of();
-        final var users = repository.findAllUsersByUsernameContaining(string).stream()
-                .filter(user -> !Objects.equals(user.username(), loggedUser.username())
-                        && !notificationMongo.existsNotificationBySenderAndReceiver(loggedUser.username(), user.username())
-                        && !notificationMongo.existsNotificationByReceiverAndSender(loggedUser.username(), user.username())
-                        && !friendsList.contains(user.username()))
-                .map(user -> new UserNameDTO(user.username())).toList();
-        log.log(AppConstants.USERS_CONTAINING_OBTAINMENT_SUCCESS);
-        return users;
     }
 
     public void createNewUser(UserDTO user){

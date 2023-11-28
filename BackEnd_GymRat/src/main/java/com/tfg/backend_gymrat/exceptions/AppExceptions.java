@@ -18,6 +18,10 @@ public class AppExceptions {
         public UserNotFoundException() { super(ErrorConstants.USER_NOT_FOUND); }
     }
 
+    public static class RoutineNotFoundException extends Exception {
+        public RoutineNotFoundException() { super(ErrorConstants.ROUTINE_NOT_FOUND); }
+    }
+
     public static class ExpiredTokenException extends Exception {
         public ExpiredTokenException() { super(ErrorConstants.EXPIRED_TOKEN); }
     }

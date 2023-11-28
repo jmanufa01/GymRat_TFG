@@ -9,4 +9,7 @@ public class ErrorConstants {
     public static final String INCORRECT_EMAIL = "Introduced email is incorrect";
     public static final String MISSING_DATA = "Missing data in request";
     public static final String INVALID_DATE = "Provided date is invalid";
+
+    //Routine exceptions
+    public static final String ROUTINE_NOT_FOUND = "Provided routine was not found in database";
 }

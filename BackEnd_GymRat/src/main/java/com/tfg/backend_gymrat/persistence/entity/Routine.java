@@ -15,6 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @Document("routine")
 public class Routine{
+    private String id;
     private Date realizationDate;
     private List<String> muscularGroup;
     private List<String> users;

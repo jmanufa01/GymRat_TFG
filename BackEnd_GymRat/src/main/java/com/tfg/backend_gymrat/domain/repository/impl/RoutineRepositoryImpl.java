@@ -19,13 +19,23 @@ public class RoutineRepositoryImpl implements RoutineRepository {
     private RoutineMapper mapper;
 
     @Override
+    public List<RoutineDTO> findAllRoutinesByUsernameAndDateBetween(String username, Date start, Date finish) {
+        return mongo.findAllByUsersContainingAndRealizationDateBetween(username,start,finish).stream()
+                .map(routines -> mapper.toRoutineDTO(routines)).toList();
+    }
+
+    @Override
     public void insertRoutine(RoutineDTO routineDTO) {
         mongo.insert(mapper.toRoutine(routineDTO));
     }
 
     @Override
-    public List<RoutineDTO> findAllRoutinesByUsernameAndDateBetween(String username, Date start, Date finish) {
-        return mongo.findAllByUsersContainingAndRealizationDateBetween(username,start,finish).stream()
-                .map(routines -> mapper.toRoutineDTO(routines)).toList();
+    public void updateRoutine(RoutineDTO routineDTO) {
+        mongo.save(mapper.toRoutine(routineDTO));
+    }
+
+    @Override
+    public boolean existsRoutineById(String routineId) {
+        return mongo.existsById(routineId);
     }
 }

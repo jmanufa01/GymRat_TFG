@@ -6,7 +6,7 @@ import {
   ViewChild,
   ComponentRef,
 } from '@angular/core';
-import { Exercise, Routine, Superset } from '../../interfaces';
+import { Routine, Superset } from '../../interfaces';
 import { SimpleExercise } from '../../interfaces/simple-exercise.interface';
 import { RoutinesService } from '../../services/routines.service';
 import { AuthService } from 'src/app/auth/services/auth.service';
@@ -14,6 +14,7 @@ import { SupersetComponent } from '../superset/superset.component';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ModalComponent } from '../modal/modal.component';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { UserService } from 'src/app/main/user/services/user.service';
 
 @Component({
   selector: 'routines-routine',
@@ -41,7 +42,8 @@ import { animate, style, transition, trigger } from '@angular/animations';
 export class RoutineComponent implements OnInit {
   constructor(
     private routinesService: RoutinesService,
-    private authService: AuthService
+    private authService: AuthService,
+    private userService: UserService
   ) {}
 
   @Input()
@@ -66,6 +68,8 @@ export class RoutineComponent implements OnInit {
   public showExercises: boolean = false;
 
   public isShareRoutineOpen: boolean = false;
+
+  public friendsToShare: { username: string }[] = [];
 
   public addExercise(): void {
     const actualRef: ComponentRef<SupersetComponent> =
@@ -97,62 +101,66 @@ export class RoutineComponent implements OnInit {
   }
 
   //Change !
-  public obtainExercises(): Exercise[] | null {
-    let exercises: Exercise[] = this.componentReferences.map((x) => {
-      let instance = x.instance;
-      let exercise: Exercise;
-      if (instance.exercisesForms.length > 1) {
-        //Superset
-        let superset: Superset = {
-          series: instance.exercisesForms[0].value.series!, //Save series in superset
-          exercises: instance.exercisesForms.map((y) => {
-            //Save muscular group in routine
-            if (!this.muscularGroup.includes(y.value.muscle!)) {
-              this.muscularGroup.push(y.value.muscle!);
-            }
+  public obtainExercises(): (Superset | SimpleExercise)[] | null {
+    let exercises: (Superset | SimpleExercise)[] = this.componentReferences.map(
+      (x) => {
+        let instance = x.instance;
+        let exercise: Superset | SimpleExercise;
+        if (instance.exercisesForms.length > 1) {
+          //Superset
+          let superset: Superset = {
+            exercises: instance.exercisesForms.map((y) => {
+              //Save muscular group in routine
+              if (!this.muscularGroup.includes(y.value.muscle!)) {
+                this.muscularGroup.push(y.value.muscle!);
+              }
 
-            let exercise: SimpleExercise = {
-              name: y.value.exerciseName!,
-              muscle: y.value.muscle!,
-              type: y.value.type!,
-              series: y.value.series!,
-              difficulty: y.value.difficulty!,
-              reps: Object.values(y.value.reps!).map((r) => parseInt(r!)),
-              weights: Object.values(y.value.weights!).map((w) => parseInt(w!)),
-            };
-            return exercise;
-          }),
-        };
-        exercise = superset;
-      } else {
-        //Simple exercise
-        const exerciseInstace = instance.exercisesForms[0].value;
+              let exercise: SimpleExercise = {
+                name: y.value.exerciseName!,
+                muscle: y.value.muscle!,
+                type: y.value.type!,
+                series: y.value.series!,
+                difficulty: y.value.difficulty!,
+                reps: Object.values(y.value.reps!).map((r) => parseInt(r!)),
+                weights: Object.values(y.value.weights!).map((w) =>
+                  parseInt(w!)
+                ),
+              };
+              return exercise;
+            }),
+          };
+          exercise = superset;
+        } else {
+          //Simple exercise
+          const exerciseInstace = instance.exercisesForms[0].value;
 
-        //Save muscular group in routine
-        if (!this.muscularGroup.includes(exerciseInstace.muscle!)) {
-          this.muscularGroup.push(exerciseInstace.muscle!);
+          //Save muscular group in routine
+          if (!this.muscularGroup.includes(exerciseInstace.muscle!)) {
+            this.muscularGroup.push(exerciseInstace.muscle!);
+          }
+
+          let simpleExercise: SimpleExercise = {
+            name: exerciseInstace.exerciseName!,
+            muscle: exerciseInstace.muscle!,
+            type: exerciseInstace.type!,
+            series: exerciseInstace.series!,
+            difficulty: exerciseInstace.difficulty!,
+            reps: Object.values(exerciseInstace.reps!).map((r) => parseInt(r!)),
+            weights: Object.values(exerciseInstace.weights!).map((w) =>
+              parseInt(w!)
+            ),
+          };
+          exercise = simpleExercise;
         }
-
-        let simpleExercise: SimpleExercise = {
-          name: exerciseInstace.exerciseName!,
-          muscle: exerciseInstace.muscle!,
-          type: exerciseInstace.type!,
-          series: exerciseInstace.series!,
-          difficulty: exerciseInstace.difficulty!,
-          reps: Object.values(exerciseInstace.reps!).map((r) => parseInt(r!)),
-          weights: Object.values(exerciseInstace.weights!).map((w) =>
-            parseInt(w!)
-          ),
-        };
-        exercise = simpleExercise;
+        return exercise!;
       }
-      return exercise!;
-    });
+    );
     return exercises;
   }
 
   public saveRoutine(): void {
-    let exercises: Exercise[] | null = this.obtainExercises();
+    let exercises: (Superset | SimpleExercise)[] | null =
+      this.obtainExercises();
 
     if (exercises) {
       let routine: Routine = {
@@ -174,19 +182,46 @@ export class RoutineComponent implements OnInit {
     this.showExercises = !this.showExercises;
   }
 
+  public changeShareRoutine(): void {
+    this.isShareRoutineOpen = !this.isShareRoutineOpen;
+  }
+
+  public updateFriendsToShare(): void {
+    this.userService.getFriendsNotHavingRoutine(this.routine.id!).subscribe({
+      next: (friends) => {
+        this.friendsToShare = friends;
+      },
+    });
+  }
+
+  public onShareRoutineClick(friendUserName: string): void {
+    this.routine.users.push(friendUserName);
+    this.routine.exercises = this.exercises.map((exercise) => {
+      if (exercise.exercises.length > 1) {
+        return exercise;
+      } else {
+        return exercise.exercises[0];
+      }
+    });
+    this.routinesService.updateRoutine(this.routine).subscribe({
+      next: () => {
+        this.updateFriendsToShare();
+      },
+    });
+  }
+
   ngOnInit(): void {
     if (this.routine) {
+      this.updateFriendsToShare();
       this.exercises = this.routine.exercises.map((exercise) => {
-        let superset: Superset = exercise as Superset;
-
-        if (superset.exercises) {
-          return superset;
+        if ((exercise as Superset).exercises) {
+          return exercise as Superset;
+        } else {
+          return {
+            exercises: [exercise as SimpleExercise],
+          };
         }
-        superset.exercises = [exercise as SimpleExercise];
-        return superset;
       });
-
-      console.log('Exercises: ', this.exercises);
     }
   }
 }

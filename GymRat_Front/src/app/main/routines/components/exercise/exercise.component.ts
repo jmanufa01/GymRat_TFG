@@ -29,8 +29,6 @@ export class ExerciseComponent implements OnInit {
         .fill(0)
         .map((x, i) => i);
 
-      console.log('Series: ', this.series);
-
       if (this.series.length > 0) {
         this.changeControls();
       }
@@ -101,7 +99,6 @@ export class ExerciseComponent implements OnInit {
       this.series = Array(Number(this.exercise.series))
         .fill(0)
         .map((x, i) => i);
-      console.log('Series: ', this.series);
       this.exerciseForm.patchValue({
         exerciseName: this.exercise.name,
         muscle: this.exercise.muscle,

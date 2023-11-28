@@ -9,6 +9,6 @@ import java.util.Optional;
 
 public interface RoutineMongo extends MongoRepository<Routine,String> {
     //Optional<List<Routine>> findAllByUsersContaining(String username);
-
+    Optional<Routine> findById(String id);
     List<Routine> findAllByUsersContainingAndRealizationDateBetween(String username, Date start, Date finish);
 }

@@ -1,3 +1,1 @@
-export interface Exercise {
-  series: number;
-}
+export interface Exercise {}

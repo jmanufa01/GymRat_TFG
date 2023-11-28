@@ -22,6 +22,7 @@ public class RoutineMapper {
 
     public RoutineDTO toRoutineDTO(Routine routine){
         return new RoutineDTO(
+                routine.getId(),
                 routine.getRealizationDate(),
                 routine.getMuscularGroup(),
                 routine.getUsers(),
