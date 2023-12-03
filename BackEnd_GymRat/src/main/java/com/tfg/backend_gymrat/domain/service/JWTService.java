@@ -2,27 +2,23 @@ package com.tfg.backend_gymrat.domain.service;
 
 
 import com.tfg.backend_gymrat.constants.AuthConstants;
-import com.tfg.backend_gymrat.domain.service.UserService;
 import com.tfg.backend_gymrat.web.security.Payload;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtParserBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import jakarta.xml.bind.DatatypeConverter;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import javax.crypto.spec.SecretKeySpec;
 import java.io.Serializable;
-import java.security.Key;
 import java.util.Date;
 
 
 @Service
+@RequiredArgsConstructor
 public class JWTService implements Serializable {
 
-    @Autowired
-    private UserService userService;
+
+    private final UserService userService;
 
     /**
      * Método que genera un JWT encriptado que contiene el email, el tipo de usuario y el ID de usuario, añadiéndole una

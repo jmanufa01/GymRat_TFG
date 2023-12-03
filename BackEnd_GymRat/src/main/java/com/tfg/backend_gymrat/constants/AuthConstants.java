@@ -2,7 +2,6 @@ package com.tfg.backend_gymrat.constants;
 
 import io.jsonwebtoken.SignatureAlgorithm;
 import jakarta.xml.bind.DatatypeConverter;
-
 import javax.crypto.spec.SecretKeySpec;
 import java.security.Key;
 

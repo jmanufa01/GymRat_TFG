@@ -3,7 +3,7 @@ package com.tfg.backend_gymrat.config;
 import com.tfg.backend_gymrat.persistence.mongo.UserMongo;
 import com.tfg.backend_gymrat.web.security.JWTAuthenticationFilter;
 import lombok.NonNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -26,12 +26,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class WebSecurityConfig{
 
-    @Autowired
-    private JWTAuthenticationFilter jwtAuthenticationFilter;
-    @Autowired
-    private UserMongo userMongo;
+    private final JWTAuthenticationFilter jwtAuthenticationFilter;
+
+    private final UserMongo userMongo;
 
     @Bean
     public WebMvcConfigurer corsConfigurer(){

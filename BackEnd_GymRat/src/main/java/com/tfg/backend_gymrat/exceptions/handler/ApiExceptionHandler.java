@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import static com.tfg.backend_gymrat.exceptions.AppExceptions.*;
 
-import java.util.Arrays;
-
 @ControllerAdvice
 public class ApiExceptionHandler {
 

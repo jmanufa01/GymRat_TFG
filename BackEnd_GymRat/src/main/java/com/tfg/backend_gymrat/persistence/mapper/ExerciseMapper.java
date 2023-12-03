@@ -4,7 +4,6 @@ import com.tfg.backend_gymrat.domain.dto.entity.ExerciseDTO;
 import com.tfg.backend_gymrat.persistence.entity.Exercise;
 import com.tfg.backend_gymrat.persistence.entity.SimpleExercise;
 import com.tfg.backend_gymrat.persistence.entity.Superset;
-import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 
 import java.util.List;

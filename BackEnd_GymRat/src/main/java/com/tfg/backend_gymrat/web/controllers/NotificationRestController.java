@@ -2,7 +2,7 @@ package com.tfg.backend_gymrat.web.controllers;
 
 import com.tfg.backend_gymrat.domain.dto.entity.NotificationDTO;
 import com.tfg.backend_gymrat.domain.service.NotificationService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,9 +13,10 @@ import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
 @RequestMapping("v1/notifications")
+@RequiredArgsConstructor
 public class NotificationRestController {
-    @Autowired
-    private NotificationService notificationService;
+
+    private final NotificationService notificationService;
 
     @GetMapping("{username}")
     public ResponseEntity<List<NotificationDTO>> obtainAllNotifications(@PathVariable String username){

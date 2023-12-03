@@ -7,9 +7,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.Getter;
-import lombok.NonNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.*;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,18 +17,18 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-
 import java.io.IOException;
 import java.util.List;
 
 @Component
-@Getter
+@Data
+@EqualsAndHashCode(callSuper = true)
+@RequiredArgsConstructor
 public class JWTAuthenticationFilter extends OncePerRequestFilter {
 
-    @Autowired
-    private  JWTService jwtService;
-    @Autowired
-    private UserMongo userMongo;
+    private final JWTService jwtService;
+
+    private final UserMongo userMongo;
 
     private final RequestMatcher ignoredPaths = new AntPathRequestMatcher("/v1/auth/**");
 

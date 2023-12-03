@@ -29,11 +29,11 @@ public class NotificationMapper {
                 .build();
     }
 
-    public List<NotificationDTO> toNotificationDTO(List<Notification> notifications) {
+    public List<NotificationDTO> toNotificationDTOs(List<Notification> notifications) {
         return notifications.stream().map(this::toNotificationDTO).toList();
     }
 
-    public List<Notification> toNotification(List<NotificationDTO> notificationDTOs) {
+    public List<Notification> toNotifications(List<NotificationDTO> notificationDTOs) {
         return notificationDTOs.stream().map(this::toNotification).toList();
     }
 

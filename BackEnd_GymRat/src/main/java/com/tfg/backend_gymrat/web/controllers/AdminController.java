@@ -2,7 +2,7 @@ package com.tfg.backend_gymrat.web.controllers;
 
 import com.tfg.backend_gymrat.domain.dto.entity.UserDTO;
 import com.tfg.backend_gymrat.domain.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,11 +16,10 @@ import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
 @RequestMapping("/v1/admin")
+@RequiredArgsConstructor
 public class AdminController {
 
-    @Autowired
-    private UserService userService;
-
+    private final UserService userService;
 
     @GetMapping("/users")
     public ResponseEntity<List<UserDTO>> getAllUsers(){

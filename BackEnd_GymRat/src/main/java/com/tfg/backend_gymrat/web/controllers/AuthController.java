@@ -1,18 +1,14 @@
 package com.tfg.backend_gymrat.web.controllers;
 
-import com.tfg.backend_gymrat.constants.AuthConstants;
+
 import com.tfg.backend_gymrat.domain.dto.api.auth.request.UserLoginRequest;
 import com.tfg.backend_gymrat.domain.dto.api.auth.request.UserRegistrationRequest;
 import com.tfg.backend_gymrat.domain.dto.api.auth.response.AuthenticationResponse;
-import com.tfg.backend_gymrat.domain.dto.entity.Role;
-import com.tfg.backend_gymrat.domain.dto.entity.UserDTO;
 import com.tfg.backend_gymrat.domain.service.AuthService;
-import com.tfg.backend_gymrat.util.Log;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -24,10 +20,10 @@ import static org.springframework.http.ResponseEntity.ok;
  */
 @RestController
 @RequestMapping("/v1/auth")
+@RequiredArgsConstructor
 public class AuthController {
 
-    @Autowired
-    private AuthService authService;
+    private final AuthService authService;
 
     /**
      *

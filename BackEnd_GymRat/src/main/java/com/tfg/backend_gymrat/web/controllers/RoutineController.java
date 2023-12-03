@@ -3,7 +3,7 @@ package com.tfg.backend_gymrat.web.controllers;
 import com.tfg.backend_gymrat.domain.dto.api.routines.request.UsernameHeader;
 import com.tfg.backend_gymrat.domain.dto.entity.RoutineDTO;
 import com.tfg.backend_gymrat.domain.service.RoutineService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,10 +15,10 @@ import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
 @RequestMapping("/v1/routines")
+@RequiredArgsConstructor
 public class RoutineController {
 
-    @Autowired
-    private RoutineService routineService;
+    private final RoutineService routineService;
 
     @GetMapping("/{date}")
     public ResponseEntity<List<RoutineDTO>> obtainRoutinesByMonth(@PathVariable String date, @RequestHeader UsernameHeader usernameHeader) throws Exception{

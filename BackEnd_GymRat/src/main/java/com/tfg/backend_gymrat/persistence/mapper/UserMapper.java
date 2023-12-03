@@ -5,7 +5,6 @@ import com.tfg.backend_gymrat.domain.dto.entity.Role;
 import com.tfg.backend_gymrat.domain.dto.entity.UserDTO;
 import com.tfg.backend_gymrat.persistence.entity.User;
 import org.mapstruct.Mapper;
-
 import java.util.List;
 
 
