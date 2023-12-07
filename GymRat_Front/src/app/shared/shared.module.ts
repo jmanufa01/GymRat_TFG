@@ -9,6 +9,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ReplacePipe } from './pipes/replace.pipe';
 import { DropdownComponent } from './components/dropdown/dropdown.component';
+import { MatBadgeModule } from '@angular/material/badge';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,13 @@ import { DropdownComponent } from './components/dropdown/dropdown.component';
     DropdownComponent,
     ReplacePipe,
   ],
-  imports: [CommonModule, RouterModule, ReactiveFormsModule, FormsModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatBadgeModule,
+  ],
   exports: [
     InputComponent,
     ButtonComponent,

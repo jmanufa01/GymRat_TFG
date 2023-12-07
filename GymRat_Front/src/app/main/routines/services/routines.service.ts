@@ -70,4 +70,21 @@ export class RoutinesService {
       catchError((err) => throwError(() => err.message))
     );
   }
+
+  public deleteRoutine(routine: Routine): Observable<boolean> {
+    const username = this.authService.currentUser()!.username;
+    const url = `${this.apiUrl}/routines/${routine.id}?username=${username}`;
+    const options = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + localStorage.getItem('jwt'),
+      },
+    };
+    return this.http.delete(url, options).pipe(
+      map((res) => {
+        return true;
+      }),
+      catchError((err) => throwError(() => err.message))
+    );
+  }
 }

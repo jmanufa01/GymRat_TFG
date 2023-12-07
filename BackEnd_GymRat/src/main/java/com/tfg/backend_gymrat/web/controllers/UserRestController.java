@@ -13,9 +13,9 @@ import java.util.List;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
-@RequestMapping("/v1/users")
+@RequestMapping("v1/users")
 @RequiredArgsConstructor
-public class UserController {
+public class UserRestController {
 
     private final UserService userService;
 

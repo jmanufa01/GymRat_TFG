@@ -1,12 +1,5 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  computed,
-  ElementRef,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
-import { C } from '@fullcalendar/core/internal-common';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { MatBadgeModule } from '@angular/material/badge';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { Notification } from 'src/app/main/user/interfaces';
 import { NotificationService } from 'src/app/main/user/services/notification.service';

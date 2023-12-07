@@ -3,6 +3,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+
 * {
   font-family: "Nunito", sans-serif;
   font-size: 16px;

@@ -39,6 +39,7 @@ public class NotificationService {
                 final var notification = Notification.builder()
                         .sender(notificationDTO.sender())
                         .receiver(notificationDTO.receiver())
+                        .message(notificationDTO.message())
                         .status(notificationDTO.status().name())
                         .build();
 

@@ -60,6 +60,9 @@ export class RoutineComponent implements OnInit {
   @Output()
   public submitEvent: EventEmitter<{ routine: Routine }> = new EventEmitter();
 
+  @Output()
+  public deleteEvent: EventEmitter<{ routine: Routine }> = new EventEmitter();
+
   public exercises: Superset[] = [];
 
   @ViewChild('supersetRef', { read: ViewContainerRef })
@@ -168,6 +171,7 @@ export class RoutineComponent implements OnInit {
   }
 
   public saveRoutine(): void {
+    //TODO: Vaidate Exercise fields
     let exercises: (Superset | SimpleExercise)[] | null =
       this.obtainExercises();
 
@@ -183,13 +187,23 @@ export class RoutineComponent implements OnInit {
           this.submitEvent.emit({
             routine: routine,
           });
-          this.dialogRef.close();
+          this.dialogRef.componentInstance.changeView();
         },
         error: (err) => {
           console.log(err);
         },
       });
     }
+  }
+
+  public onRemoveRoutineClick(routine: Routine): void {
+    this.routinesService.deleteRoutine(routine).subscribe({
+      next: () => {
+        this.deleteEvent.emit({
+          routine: routine,
+        });
+      },
+    });
   }
 
   public changeShowExercises(): void {

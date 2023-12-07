@@ -5,6 +5,7 @@ import com.tfg.backend_gymrat.domain.dto.entity.RoutineDTO;
 import com.tfg.backend_gymrat.persistence.mapper.ExerciseMapper;
 import com.tfg.backend_gymrat.persistence.mapper.RoutineMapper;
 import com.tfg.backend_gymrat.persistence.mongo.RoutineMongo;
+import com.tfg.backend_gymrat.persistence.mongo.UserMongo;
 import com.tfg.backend_gymrat.util.Log;
 import com.tfg.backend_gymrat.util.UtilClass;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,7 @@ import static com.tfg.backend_gymrat.exceptions.AppExceptions.*;
 public class RoutineService {
 
     private final RoutineMongo repository;
+    private final UserMongo userRepository;
 
     private final RoutineMapper mapper;
 
@@ -79,6 +81,33 @@ public class RoutineService {
         } catch (Exception e) {
             log.log("Error: " + e.getMessage());
             log.log(AppConstants.ROUTINE_UPDATE_FAILURE);
+            throw e;
+        }
+    }
+
+    public void deleteRoutine(String routineId, String username) throws Exception {
+        try {
+            log.log(AppConstants.DELETING_ROUTINE);
+            final var routine = repository.findById(routineId).orElseThrow(RoutineNotFoundException::new);
+
+            if(!userRepository.existsUserByUsername(username)) {
+                throw new UserNotFoundException();
+            }
+
+            if(!routine.getUsers().contains(username)) {
+                throw new UserNotInRoutineException();
+            }
+
+            if(routine.getUsers().size() > 1) {
+                routine.getUsers().remove(username);
+                repository.save(routine);
+            }else{
+                repository.deleteById(routineId);
+            }
+            log.log(AppConstants.ROUTINE_DELETION_SUCCESS);
+        } catch (Exception e) {
+            log.log("Error: " + e.getMessage());
+            log.log(AppConstants.ROUTINE_DELETION_FAILURE);
             throw e;
         }
     }

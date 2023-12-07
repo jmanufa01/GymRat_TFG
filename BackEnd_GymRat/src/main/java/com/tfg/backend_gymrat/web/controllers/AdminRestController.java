@@ -15,13 +15,13 @@ import static org.springframework.http.ResponseEntity.ok;
 
 
 @RestController
-@RequestMapping("/v1/admin")
+@RequestMapping("v1/admin")
 @RequiredArgsConstructor
-public class AdminController {
+public class AdminRestController {
 
     private final UserService userService;
 
-    @GetMapping("/users")
+    @GetMapping("users")
     public ResponseEntity<List<UserDTO>> getAllUsers(){
         return ok(userService.findAllUsersInDB());   //TODO: Improve this part (now are just tests)
     }

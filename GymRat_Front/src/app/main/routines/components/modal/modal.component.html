@@ -24,6 +24,7 @@
         *ngFor="let routine of this.data.routines; index as i"
         [routine]="routine"
         [routineNumber]="i"
+        (deleteEvent)="this.deleteRoutine($event.routine)"
       />
     </div>
   </section>

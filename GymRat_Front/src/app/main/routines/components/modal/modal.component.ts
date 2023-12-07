@@ -33,4 +33,8 @@ export class ModalComponent {
   public addRoutine(routine: Routine): void {
     this.data.routines.push(routine);
   }
+
+  public deleteRoutine(routine: Routine): void {
+    this.data.routines = this.data.routines.filter((r) => r.id !== routine.id);
+  }
 }

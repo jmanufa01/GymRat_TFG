@@ -13,8 +13,13 @@ import static com.tfg.backend_gymrat.exceptions.AppExceptions.*;
 
 @ControllerAdvice
 public class ApiExceptionHandler {
-
-    @ExceptionHandler(AuthenticationException.class)
+    //TODO: MANAGE ALL EXCEPTIONS
+    @ExceptionHandler({
+            AuthenticationException.class,
+            RoutineNotFoundException.class,
+            UserNotFoundException.class,
+            UserNotInRoutineException.class
+    })
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody
     public Error sendNotFoundError(Exception e){
@@ -30,6 +35,16 @@ public class ApiExceptionHandler {
     @ResponseBody
     public Error sendBadRequestError(Exception e){
         return new Error(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase(), e.getMessage());
+    }
+
+    @ExceptionHandler({
+            ExpiredTokenException.class,
+            InvalidProvidedDateException.class
+    })
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ResponseBody
+    public Error sendUnauthorizedError(Exception e){
+        return new Error(HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.getReasonPhrase(), e.getMessage());
     }
 
 }

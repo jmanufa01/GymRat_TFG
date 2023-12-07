@@ -19,5 +19,8 @@ public class AppConstants {
     public static final String UPDATING_ROUTINE = "Updating routine process has started...";
     public static final String ROUTINE_UPDATE_SUCCESS = "Routine update has been successfully made!";
     public static final String ROUTINE_UPDATE_FAILURE = "Routine update has failed";
+    public static final String DELETING_ROUTINE = "Deleting routine process has started...";
+    public static final String ROUTINE_DELETION_SUCCESS = "Routine deletion has been successfully made!";
+    public static final String ROUTINE_DELETION_FAILURE = "Routine deletion has failed";
 
 }

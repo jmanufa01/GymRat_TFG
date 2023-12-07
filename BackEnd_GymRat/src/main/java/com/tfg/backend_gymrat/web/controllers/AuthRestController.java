@@ -19,9 +19,9 @@ import static org.springframework.http.ResponseEntity.ok;
  *
  */
 @RestController
-@RequestMapping("/v1/auth")
+@RequestMapping("v1/auth")
 @RequiredArgsConstructor
-public class AuthController {
+public class AuthRestController {
 
     private final AuthService authService;
 
@@ -32,7 +32,7 @@ public class AuthController {
      * @param request
      * @return
      */
-    @PostMapping("/register")
+    @PostMapping("register")
     public ResponseEntity<AuthenticationResponse> register(@RequestBody UserRegistrationRequest request) throws Exception {
                 String jwt = authService.registerUser(request);
                 return new ResponseEntity<>(new AuthenticationResponse(jwt), HttpStatus.CREATED);
@@ -44,13 +44,13 @@ public class AuthController {
      * @param request Login request (username and password)
      * @return returns the jwt token
      */
-    @PostMapping("/login")
+    @PostMapping("login")
     public ResponseEntity<AuthenticationResponse> login(@RequestBody UserLoginRequest request) throws Exception {
             String token = authService.login(request.username(),request.password());
             return ok(new AuthenticationResponse(token));
     }
 
-    @GetMapping("/check")
+    @GetMapping("check")
     public ResponseEntity<AuthenticationResponse> check(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorization) throws Exception {
         String jwt = authService.check(authorization);
         return ok(new AuthenticationResponse(jwt));

@@ -4,14 +4,24 @@
     *ngIf="this.routine; else createNewRoutine"
   >
     <div class="relative flex">
-      <h1 class="text-xl">Routine {{ this.routineNumber + 1 }}</h1>
-      <img
-        #shareRef
-        class="ml-4 w-6 h-6 cursor-pointer"
-        src="assets/share-icon.png"
-        (click)="this.changeShareRoutine()"
-      />
-      <!-- TODO: Encapsulate below html in component, as well as in navbar -->
+      <div class="w-full flex justify-between">
+        <div class="flex items-center">
+          <h1 class="text-xl">Routine {{ this.routineNumber + 1 }}</h1>
+          <img
+            #shareRef
+            class="ml-4 w-6 h-6 cursor-pointer"
+            src="assets/share-icon.png"
+            alt="share icon"
+            (click)="this.changeShareRoutine()"
+          />
+        </div>
+        <img
+          class="w-8 h-8 cursor-pointer"
+          src="assets/trash-icon.png"
+          alt="trash-icon"
+          (click)="this.onRemoveRoutineClick(routine)"
+        />
+      </div>
       <shared-dropdown
         dropdownClassNames="md:w-1/5 sm:w-full h-44 left-0"
         *ngIf="this.isShareRoutineOpen"

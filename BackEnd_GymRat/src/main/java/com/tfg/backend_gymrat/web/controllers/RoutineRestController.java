@@ -14,19 +14,19 @@ import java.util.List;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
-@RequestMapping("/v1/routines")
+@RequestMapping("v1/routines")
 @RequiredArgsConstructor
-public class RoutineController {
+public class RoutineRestController {
 
     private final RoutineService routineService;
 
-    @GetMapping("/{date}")
+    @GetMapping("{date}")
     public ResponseEntity<List<RoutineDTO>> obtainRoutinesByMonth(@PathVariable String date, @RequestHeader UsernameHeader usernameHeader) throws Exception{
         final var routines = routineService.findRoutineByUserAndMonth(usernameHeader.username(),date);
         return ok(routines);
     }
 
-    @PostMapping("/save")
+    @PostMapping("save")
     public ResponseEntity<Void> insertNewRoutine(@RequestBody RoutineDTO routine) throws Exception{
             routineService.insertRoutine(routine);
             return new ResponseEntity<>(HttpStatus.CREATED);
@@ -35,6 +35,12 @@ public class RoutineController {
     @PutMapping
     public ResponseEntity<Void> updateRoutine(@RequestBody RoutineDTO routine) throws Exception{
             routineService.updateRoutine(routine);
-            return new ResponseEntity<>(HttpStatus.OK);
+            return ok().build();
+    }
+
+    @DeleteMapping(value = "{id}", params = "username")
+    public ResponseEntity<Void> deleteRoutine(@PathVariable String id, @RequestParam("username") String username) throws Exception{
+            routineService.deleteRoutine(id, username);
+            return ok().build();
     }
 }
