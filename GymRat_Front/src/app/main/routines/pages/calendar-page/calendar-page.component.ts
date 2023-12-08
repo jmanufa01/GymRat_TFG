@@ -20,22 +20,6 @@ import { preventDefault } from '@fullcalendar/core/internal';
   templateUrl: './calendar-page.component.html',
 })
 export class CalendarPageComponent implements AfterViewInit {
-  constructor(
-    private dialog: MatDialog,
-    private routineService: RoutinesService
-  ) {
-    this.calendarOptions = {
-      initialView: 'dayGridMonth',
-      plugins: [dayGridPlugin, interactionPlugin],
-      dateClick: this.onDateClick.bind(this),
-      eventClick: this.onEventClick.bind(this),
-      showNonCurrentDates: false,
-      eventDisplay: 'list-item',
-      weekNumberCalculation: 'ISO',
-      displayEventTime: false,
-    };
-  }
-
   private events: {
     title: string;
     start: string;
@@ -52,6 +36,22 @@ export class CalendarPageComponent implements AfterViewInit {
   private date: Date = new Date();
 
   public loadingCalendar = false;
+
+  constructor(
+    private dialog: MatDialog,
+    private routineService: RoutinesService
+  ) {
+    this.calendarOptions = {
+      initialView: 'dayGridMonth',
+      plugins: [dayGridPlugin, interactionPlugin],
+      dateClick: this.onDateClick.bind(this),
+      eventClick: this.onEventClick.bind(this),
+      showNonCurrentDates: false,
+      eventDisplay: 'list-item',
+      weekNumberCalculation: 'ISO',
+      displayEventTime: false,
+    };
+  }
 
   private getRandomColor(): string {
     const r = Math.floor(Math.random() * 256); // Valor entre 0 y 255

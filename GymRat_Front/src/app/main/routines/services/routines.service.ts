@@ -10,9 +10,9 @@ import { co } from '@fullcalendar/core/internal-common';
   providedIn: 'root',
 })
 export class RoutinesService {
-  constructor(private http: HttpClient, private authService: AuthService) {}
-
   private readonly apiUrl: string = environment.apiUrl;
+
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   public getRoutines(date: Date): Observable<Routine[]> {
     const formattedDate =

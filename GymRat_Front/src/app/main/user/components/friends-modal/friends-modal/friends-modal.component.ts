@@ -9,15 +9,15 @@ import { NotificationService } from '../../../services/notification.service';
   templateUrl: './friends-modal.component.html',
 })
 export class FriendsModalComponent implements OnInit, OnDestroy {
+  private debouncer: Subject<string> = new Subject();
+  private debouncerSubscription?: Subscription;
+  public filteredUsernames: { username: string }[] = [];
+
   constructor(
     public dialogRef: MatDialogRef<FriendsModalComponent>,
     private userService: UserService,
     private notificationService: NotificationService
   ) {}
-
-  private debouncer: Subject<string> = new Subject();
-  private debouncerSubscription?: Subscription;
-  public filteredUsernames: { username: string }[] = [];
 
   public closeModal(): void {
     this.dialogRef.close();

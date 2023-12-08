@@ -43,12 +43,6 @@ import { Output } from '@angular/core';
   ],
 })
 export class RoutineComponent implements OnInit {
-  constructor(
-    private routinesService: RoutinesService,
-    private authService: AuthService,
-    private userService: UserService
-  ) {}
-
   @Input()
   public routineNumber!: number;
   @Input()
@@ -82,6 +76,12 @@ export class RoutineComponent implements OnInit {
   public isShareRoutineOpen: boolean = false;
 
   public friendsToShare: { username: string }[] = [];
+
+  constructor(
+    private routinesService: RoutinesService,
+    private authService: AuthService,
+    private userService: UserService
+  ) {}
 
   public addExercise(): void {
     const actualRef: ComponentRef<SupersetComponent> =
@@ -184,6 +184,7 @@ export class RoutineComponent implements OnInit {
       };
       this.routinesService.insertRoutine(routine).subscribe({
         next: () => {
+          //TODO: Improve this to obtain routine id
           this.submitEvent.emit({
             routine: routine,
           });

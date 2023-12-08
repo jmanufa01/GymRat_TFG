@@ -18,6 +18,11 @@ const routes: Routes = [
           import('./routines/routines.module').then((m) => m.RoutinesModule),
       },
       {
+        path: 'progress',
+        loadChildren: () =>
+          import('./progress/progress.module').then((m) => m.ProgressModule),
+      },
+      {
         path: ':user',
         loadChildren: () =>
           import('./user/user.module').then((m) => m.UserModule),

@@ -16,12 +16,6 @@ import { Difficulty } from 'src/app/main/routines/interfaces';
   ],
 })
 export class RegisterPageComponent {
-  constructor(
-    private authService: AuthService,
-    private router: Router,
-    private fb: FormBuilder
-  ) {}
-
   public difficulties = Object.values(Difficulty);
 
   //TODO: Add validators
@@ -34,6 +28,12 @@ export class RegisterPageComponent {
     weight: [0.0],
     gymExperience: [''],
   });
+
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private fb: FormBuilder
+  ) {}
 
   register(): void {
     this.authService.register(this.registerForm).subscribe({

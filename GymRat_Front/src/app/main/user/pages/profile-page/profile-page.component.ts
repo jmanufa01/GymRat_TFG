@@ -8,12 +8,6 @@ import { FriendsModalComponent } from '../../components/friends-modal/friends-mo
   templateUrl: './profile-page.component.html',
 })
 export class ProfilePageComponent {
-  constructor(private dialog: MatDialog, private userService: UserService) {
-    this.userService.getProfile().subscribe((res) => {
-      this.profile = res;
-      console.log(this.profile);
-    });
-  }
   @ViewChild('imgRef', { static: true })
   public el!: ElementRef;
 
@@ -27,6 +21,13 @@ export class ProfilePageComponent {
   };
 
   public hints = ['pedro', 'pablo', 'juan'];
+
+  constructor(private dialog: MatDialog, private userService: UserService) {
+    this.userService.getProfile().subscribe((res) => {
+      this.profile = res;
+      console.log(this.profile);
+    });
+  }
 
   public onAddUserClick(): void {
     console.log('click');

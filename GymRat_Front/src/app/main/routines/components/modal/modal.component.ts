@@ -14,13 +14,13 @@ import { RoutinesService } from '../../services/routines.service';
   templateUrl: './modal.component.html',
 })
 export class ModalComponent {
+  public newRoutineView: boolean = false;
+
   constructor(
     public dialogRef: MatDialogRef<ModalComponent>,
     private routineService: RoutinesService,
     @Inject(MAT_DIALOG_DATA) public data: ModalData
   ) {}
-
-  public newRoutineView: boolean = false;
 
   public changeView(): void {
     this.newRoutineView = !this.newRoutineView;

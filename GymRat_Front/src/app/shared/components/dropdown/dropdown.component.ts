@@ -21,8 +21,6 @@ import { is } from 'date-fns/locale';
   templateUrl: './dropdown.component.html',
 })
 export class DropdownComponent {
-  constructor(private ref: ElementRef, private cdr: ChangeDetectorRef) {}
-
   @Input()
   public dropdownClassNames: string = '';
 
@@ -40,6 +38,8 @@ export class DropdownComponent {
 
   @Output()
   public onEscape: EventEmitter<KeyboardEvent> = new EventEmitter();
+
+  constructor(private ref: ElementRef, private cdr: ChangeDetectorRef) {}
 
   @HostListener('document:click', ['$event'])
   handleClickOutside(event: MouseEvent): void {

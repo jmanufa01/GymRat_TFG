@@ -7,18 +7,18 @@ import { Router } from '@angular/router';
   templateUrl: './login-page.component.html',
 })
 export class LoginPageComponent {
-  constructor(
-    private authService: AuthService,
-    private fb: FormBuilder,
-    private router: Router
-  ) {}
-
   public myForm = this.fb.group({
     username: [''],
     password: [''],
   });
 
   public error: boolean = false;
+
+  constructor(
+    private authService: AuthService,
+    private fb: FormBuilder,
+    private router: Router
+  ) {}
 
   login(): void {
     const { username, password } = this.myForm.value;

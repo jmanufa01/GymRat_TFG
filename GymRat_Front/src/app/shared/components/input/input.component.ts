@@ -13,8 +13,6 @@ import {
   templateUrl: './input.component.html',
 })
 export class InputComponent {
-  constructor(private elRef: ElementRef) {}
-
   @Input()
   public inputclass: string = '';
 

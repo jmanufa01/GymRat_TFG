@@ -13,33 +13,14 @@ import {
   templateUrl: './exercise.component.html',
 })
 export class ExerciseComponent implements OnInit {
-  constructor(private fb: FormBuilder) {
-    this.exerciseForm.valueChanges.subscribe((value) => {
-      let seriesValue = Number(this.exerciseForm.get('series')!.value);
-      if (seriesValue > 10) {
-        seriesValue = 10;
-        this.exerciseForm.patchValue({ series: 10 });
-      } else if (seriesValue < 0) {
-        seriesValue = 0;
-        this.exerciseForm.patchValue({ series: 0 });
-      }
-
-      this.form.emit(this.exerciseForm);
-      this.series = Array(seriesValue)
-        .fill(0)
-        .map((x, i) => i);
-
-      if (this.series.length > 0) {
-        this.changeControls();
-      }
-    });
-  }
-
   @Input()
   public exerciseNumber: number = 0;
 
   @Input()
   public exercise?: SimpleExercise;
+
+  @Output()
+  public form: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
 
   public series: number[] = [];
 
@@ -59,8 +40,25 @@ export class ExerciseComponent implements OnInit {
     weights: this.fb.group({}),
   });
 
-  @Output()
-  public form: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
+  constructor(private fb: FormBuilder) {
+    this.exerciseForm.valueChanges.subscribe((value) => {
+      let seriesValue = Number(this.exerciseForm.get('series')!.value);
+      if (seriesValue > 10) {
+        this.exerciseForm.patchValue({ series: 10 });
+      } else if (seriesValue < 0) {
+        this.exerciseForm.patchValue({ series: 0 });
+      }
+
+      this.form.emit(this.exerciseForm);
+      this.series = Array(seriesValue)
+        .fill(0)
+        .map((x, i) => i);
+
+      if (this.series.length > 0) {
+        this.changeControls();
+      }
+    });
+  }
 
   public changeControls(): void {
     let controls = this.loadControls();
@@ -76,6 +74,7 @@ export class ExerciseComponent implements OnInit {
       });
     }
   }
+
   public loadControls(): [FormGroup<{}>, FormGroup<{}>] {
     let formGroupReps = new FormGroup({});
     let formGroupWeights = new FormGroup({});

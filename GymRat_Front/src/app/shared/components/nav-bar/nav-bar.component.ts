@@ -9,17 +9,17 @@ import { NotificationService } from 'src/app/main/user/services/notification.ser
   templateUrl: './nav-bar.component.html',
 })
 export class NavBarComponent implements OnInit {
-  constructor(
-    private authService: AuthService,
-    private notificationService: NotificationService
-  ) {}
-
   public isNotificationsDropdownOpen = false;
 
   public notifications: Notification[] = [];
 
   @ViewChild('notificationsIcon')
   public notificationsIconRef!: ElementRef;
+
+  constructor(
+    private authService: AuthService,
+    private notificationService: NotificationService
+  ) {}
 
   get userName(): string {
     return this.authService.currentUser()!.username;
