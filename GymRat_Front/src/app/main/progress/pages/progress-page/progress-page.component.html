@@ -1,4 +1,9 @@
-<div class="w-full h-full">
+<div class="m-auto mt-28 w-4/6 h-3/6 flex flex-col justify-center">
+  <div class="flex w-2/5 self-center justify-center">
+    <shared-input inputType="select" [selectorTypes]="this.filters" />
+    <shared-input inputclass="ml-10" inputType="text" />
+  </div>
+
   <apx-chart
     #chart
     [series]="this.chartOptions.series!"

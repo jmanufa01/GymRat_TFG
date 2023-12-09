@@ -183,10 +183,9 @@ export class RoutineComponent implements OnInit {
         exercises: exercises,
       };
       this.routinesService.insertRoutine(routine).subscribe({
-        next: () => {
-          //TODO: Improve this to obtain routine id
+        next: (res) => {
           this.submitEvent.emit({
-            routine: routine,
+            routine: res,
           });
           this.dialogRef.componentInstance.changeView();
         },

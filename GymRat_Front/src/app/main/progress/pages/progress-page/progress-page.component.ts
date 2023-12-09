@@ -6,6 +6,7 @@ import {
   ApexXAxis,
   ChartComponent,
 } from 'ng-apexcharts';
+import { FilterType } from 'src/app/main/interfaces/filters.interface';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -21,6 +22,8 @@ export type ChartOptions = {
 export class ProgressPageComponent {
   @ViewChild('chart') chart!: ChartComponent;
   public chartOptions: Partial<ChartOptions>;
+
+  public filters = Object.values(FilterType);
 
   constructor() {
     this.chartOptions = {

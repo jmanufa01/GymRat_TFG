@@ -44,7 +44,7 @@ public class RoutineService {
         }
     }
 
-    public void insertRoutine(RoutineDTO routineDTO) throws Exception {
+    public RoutineDTO insertRoutine(RoutineDTO routineDTO) throws Exception {
         try {
             //TODO: Insert validations
             log.log(AppConstants.INSERTING_ROUTINE);
@@ -55,8 +55,8 @@ public class RoutineService {
 
             final var routine = mapper.toRoutine(routineDTO);
 
-            repository.insert(routine);
             log.log(AppConstants.ROUTINE_INSERTION_SUCCESS);
+            return mapper.toRoutineDTO(repository.insert(routine));
         } catch (Exception e) {
             log.log("Error: " + e.getMessage());
             log.log(AppConstants.ROUTINE_INSERTION_FAILURE);

@@ -36,8 +36,8 @@ export class RoutinesService {
     );
   }
 
-  public insertRoutine(routine: Routine): Observable<boolean> {
-    const url = `${this.apiUrl}/routines/save`;
+  public insertRoutine(routine: Routine): Observable<Routine> {
+    const url = `${this.apiUrl}/routines`;
     const body = routine;
     const options = {
       headers: {
@@ -45,9 +45,9 @@ export class RoutinesService {
         Authorization: 'Bearer ' + localStorage.getItem('jwt'),
       },
     };
-    return this.http.post(url, body, options).pipe(
+    return this.http.post<Routine>(url, body, options).pipe(
       map((res) => {
-        return true;
+        return res;
       }),
       catchError((err) => throwError(() => err.message))
     );

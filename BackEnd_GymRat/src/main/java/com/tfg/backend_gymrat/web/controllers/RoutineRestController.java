@@ -26,10 +26,10 @@ public class RoutineRestController {
         return ok(routines);
     }
 
-    @PostMapping("save")
-    public ResponseEntity<Void> insertNewRoutine(@RequestBody RoutineDTO routine) throws Exception{
-            routineService.insertRoutine(routine);
-            return new ResponseEntity<>(HttpStatus.CREATED);
+    @PostMapping
+    public ResponseEntity<RoutineDTO> insertNewRoutine(@RequestBody RoutineDTO routineDTO) throws Exception{
+            final var routine = routineService.insertRoutine(routineDTO);
+            return new ResponseEntity<>(routine, HttpStatus.CREATED);
     }
 
     @PutMapping
