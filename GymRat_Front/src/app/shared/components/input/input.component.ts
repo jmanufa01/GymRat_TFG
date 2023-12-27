@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   Component,
   ElementRef,
   EventEmitter,
@@ -43,11 +44,18 @@ export class InputComponent {
   @Output()
   public keyUp = new EventEmitter<any>();
 
+  @Output()
+  public selectorChange = new EventEmitter<any>();
+
   onInput(event: any) {
     this.inputValue = event.target.value;
   }
 
   onKeyUp(event: any) {
     this.keyUp.emit(event.target.value);
+  }
+
+  onSelectorChange(event: any) {
+    this.selectorChange.emit(event.target.value);
   }
 }

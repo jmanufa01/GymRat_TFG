@@ -14,7 +14,7 @@ export class RoutinesService {
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
-  public getRoutines(date: Date): Observable<Routine[]> {
+  public getRoutinesByDate(date: Date): Observable<Routine[]> {
     const formattedDate =
       date.getFullYear() +
       '-' +
@@ -22,6 +22,42 @@ export class RoutinesService {
       '-' +
       date.getDate();
     const url = `${this.apiUrl}/routines/${formattedDate}`;
+    const options = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + localStorage.getItem('jwt'),
+        usernameHeader: this.authService.currentUser()!.username,
+      },
+    };
+
+    return this.http.get<Routine[]>(url, options).pipe(
+      map((res) => res),
+      catchError((err) => throwError(() => err.message))
+    );
+  }
+
+  public getRoutinesByMuscle(muscle: string): Observable<Routine[]> {
+    const username = this.authService.currentUser()!.username;
+    const url = `${this.apiUrl}/routines?username=${username}&muscle=${muscle}`;
+    const options = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + localStorage.getItem('jwt'),
+        usernameHeader: this.authService.currentUser()!.username,
+      },
+    };
+
+    return this.http.get<Routine[]>(url, options).pipe(
+      map((res) => res),
+      catchError((err) => throwError(() => err.message))
+    );
+  }
+
+  public getRoutinesByExerciseName(
+    exerciseName: string
+  ): Observable<Routine[]> {
+    const username = this.authService.currentUser()!.username;
+    const url = `${this.apiUrl}/routines?username=${username}&exerciseName=${exerciseName}`;
     const options = {
       headers: {
         'Content-Type': 'application/json',

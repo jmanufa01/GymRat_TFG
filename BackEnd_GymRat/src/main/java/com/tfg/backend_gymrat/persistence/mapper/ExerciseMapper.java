@@ -14,7 +14,6 @@ public class ExerciseMapper {
         public Exercise toExercise(ExerciseDTO exercise){
             if(exercise.exercises() != null){ //Superset
                 return Superset.builder()
-                        .series(exercise.series())
                         .exercises(toExercises(exercise.exercises()))
                         .build();
             }
@@ -38,7 +37,7 @@ public class ExerciseMapper {
                         null,
                         null,
                         null,
-                        superset.getSeries(),
+                        null,
                         null,
                         null,
                         superset.getExercises().stream().map(this::toExerciseDTO).toList()

@@ -4,7 +4,7 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'replace',
 })
 export class ReplacePipe implements PipeTransform {
-  transform(value: any, ...args: any[]) {
-    return value.replace(args[0], args[1]);
+  transform(value: string, ...args: string[]) {
+    return value.replaceAll(args[0], args[1]);
   }
 }

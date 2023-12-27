@@ -137,7 +137,7 @@ export class CalendarPageComponent implements AfterViewInit {
       this.date = calendarDate;
       this.loadingCalendar = true;
       this.events = [];
-      this.routineService.getRoutines(calendarDate).subscribe({
+      this.routineService.getRoutinesByDate(calendarDate).subscribe({
         next: (res) => {
           this.fillEvents(res);
           this.routines = res;

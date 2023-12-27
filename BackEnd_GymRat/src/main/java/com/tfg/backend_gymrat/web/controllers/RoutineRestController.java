@@ -20,9 +20,21 @@ public class RoutineRestController {
 
     private final RoutineService routineService;
 
+    @GetMapping(params = {"username","muscle"})
+    public ResponseEntity<List<RoutineDTO>> obtainRoutinesByMuscle(@RequestParam String username, @RequestParam String muscle) throws Exception{
+        final var routines = routineService.findRoutinesByUserAndMuscle(username, muscle);
+        return ok(routines);
+    }
+
+    @GetMapping(params = {"username","exerciseName"})
+    public ResponseEntity<List<RoutineDTO>> obtainRoutinesByExerciseName(@RequestParam String username, @RequestParam String exerciseName) throws Exception{
+        final var routines = routineService.findRoutinesByUsernameAndExerciseName(username, exerciseName);
+        return ok(routines);
+    }
+
     @GetMapping("{date}")
     public ResponseEntity<List<RoutineDTO>> obtainRoutinesByMonth(@PathVariable String date, @RequestHeader UsernameHeader usernameHeader) throws Exception{
-        final var routines = routineService.findRoutineByUserAndMonth(usernameHeader.username(),date);
+        final var routines = routineService.findRoutinesByUserAndMonth(usernameHeader.username(),date);
         return ok(routines);
     }
 

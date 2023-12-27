@@ -18,6 +18,7 @@ public class SimpleExercise extends Exercise{
     private String muscle;
     private String type;
     private String difficulty;
+    private Integer series;
     private List<Integer> reps;
     private List<Integer> weights;
 }

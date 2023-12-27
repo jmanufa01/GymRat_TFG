@@ -1,5 +1,5 @@
 <form
-  [formGroup]="exerciseForm"
+  [formGroup]="this.exerciseForm"
   class="m-auto p-4 w-3/5 flex flex-col items-center"
 >
   <h1 class="p-4 text-center text-lg" *ngIf="this.exerciseNumber > 0">
@@ -68,6 +68,7 @@
           class="p-2 w-full"
           inputType="number"
           inputPlaceholder="Rep {{ item + 1 }}"
+          label="Rep {{ item + 1 }}"
           ngDefaultControl
           formControlName="r{{ item }}"
           [inputValue]="this.exercise?.reps ? this.exercise!.reps[item] : ''"
@@ -86,6 +87,7 @@
           inputType="number"
           inputStep="0.1"
           inputPlaceholder="Weight {{ item + 1 }}"
+          label="Weight {{ item + 1 }}"
           ngDefaultControl
           formControlName="w{{ item }}"
           [inputValue]="

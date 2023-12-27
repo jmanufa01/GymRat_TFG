@@ -1,14 +1,49 @@
-<div class="m-auto mt-28 w-4/6 h-3/6 flex flex-col justify-center">
-  <div class="flex w-2/5 self-center justify-center">
-    <shared-input inputType="select" [selectorTypes]="this.filters" />
-    <shared-input inputclass="ml-10" inputType="text" />
-  </div>
+<div class="m-auto mt-36 w-4/6 h-3/6 flex flex-col justify-center">
+  <form
+    class="flex flex-col w-1/5 self-center justify-center"
+    [formGroup]="this.filterForm"
+  >
+    <shared-input
+      inputType="select"
+      label="Filter by"
+      [selectorTypes]="this.filters"
+      formControlName="filter"
+      ngDefaultControl
+    />
+    <shared-input
+      *ngIf="
+        this.filterForm.get('filter')?.value !== this.filters[0];
+        else selectInput
+      "
+      ngClass="mt-4"
+      inputType="text"
+      label="Value"
+      inputPlaceholder="Value"
+      formControlName="value"
+      ngDefaultControl
+      (keyUp)="this.onKeyPress($event)"
+    />
+    <ng-template #selectInput>
+      <shared-input
+        ngClass="mt-4"
+        inputType="select"
+        label="Value"
+        inputPlaceholder="Value"
+        formControlName="value"
+        ngDefaultControl
+        [selectorTypes]="this.muscles"
+        (selectorChange)="this.onMuscleSelect($event)"
+      />
+    </ng-template>
+  </form>
 
   <apx-chart
     #chart
+    ngClass="mt-10"
     [series]="this.chartOptions.series!"
     [chart]="this.chartOptions.chart!"
     [xaxis]="this.chartOptions.xaxis!"
     [title]="this.chartOptions.title!"
+    [theme]="this.chartOptions.theme!"
   ></apx-chart>
 </div>

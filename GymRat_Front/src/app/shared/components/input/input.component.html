@@ -39,14 +39,15 @@
       this.inputclass
     "
     *ngIf="this.inputType === 'select'"
-    [(ngModel)]="this.inputValue ? this.inputValue : this.selectorTypes[0]"
+    [ngModel]="this.inputValue || this.selectorTypes[0]"
+    (change)="this.onSelectorChange($event)"
   >
     <option
       class="bg-violet-200"
       *ngFor="let type of this.selectorTypes"
       [value]="type"
     >
-      {{ type | titlecase | replace : "_" : " " }}
+      {{ type | replace : "_" : " " | titlecase }}
     </option>
   </select>
 </div>

@@ -26,6 +26,15 @@ public class ApiExceptionHandler {
         return new Error(HttpStatus.NOT_FOUND.value(), HttpStatus.NOT_FOUND.getReasonPhrase(), e.getMessage());
     }
 
+    @ExceptionHandler({
+            ExpiredTokenException.class,
+            InvalidProvidedDateException.class
+    })
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ResponseBody
+    public Error sendUnauthorizedError(Exception e){
+        return new Error(HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.getReasonPhrase(), e.getMessage());
+    }
 
     @ExceptionHandler({
             MissingRequestDataException.class,
@@ -35,16 +44,6 @@ public class ApiExceptionHandler {
     @ResponseBody
     public Error sendBadRequestError(Exception e){
         return new Error(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase(), e.getMessage());
-    }
-
-    @ExceptionHandler({
-            ExpiredTokenException.class,
-            InvalidProvidedDateException.class
-    })
-    @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    @ResponseBody
-    public Error sendUnauthorizedError(Exception e){
-        return new Error(HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.getReasonPhrase(), e.getMessage());
     }
 
 }

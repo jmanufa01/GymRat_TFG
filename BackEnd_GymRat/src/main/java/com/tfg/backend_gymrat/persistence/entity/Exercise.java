@@ -12,5 +12,4 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @NoArgsConstructor
 @Document("exercise")
 public class Exercise {
-    private Integer series;
 }

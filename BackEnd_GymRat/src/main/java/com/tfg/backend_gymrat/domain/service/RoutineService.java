@@ -2,6 +2,9 @@ package com.tfg.backend_gymrat.domain.service;
 
 import com.tfg.backend_gymrat.constants.AppConstants;
 import com.tfg.backend_gymrat.domain.dto.entity.RoutineDTO;
+import com.tfg.backend_gymrat.persistence.entity.Routine;
+import com.tfg.backend_gymrat.persistence.entity.SimpleExercise;
+import com.tfg.backend_gymrat.persistence.entity.Superset;
 import com.tfg.backend_gymrat.persistence.mapper.ExerciseMapper;
 import com.tfg.backend_gymrat.persistence.mapper.RoutineMapper;
 import com.tfg.backend_gymrat.persistence.mongo.RoutineMongo;
@@ -29,7 +32,63 @@ public class RoutineService {
     private final ExerciseMapper exerciseMapper;
     private final Log log = new Log();
 
-    public List<RoutineDTO> findRoutineByUserAndMonth(String username, String date) throws Exception {
+    public List<RoutineDTO> findRoutinesByUserAndMuscle(String username, String muscle) throws Exception {
+        try {
+            log.log(AppConstants.OBTAINING_ROUTINES);
+            final var routines = repository.findAllByUsersContainingAndMuscularGroupContaining(username, muscle);
+            log.log(AppConstants.ROUTINE_OBTAINMENT_SUCCESS);
+            return mapper.toRoutineDTOs(routines);
+        }catch (Exception e) {
+            log.log("Error: " + e.getMessage());
+            log.log(AppConstants.ROUTINE_OBTAINMENT_FAILURE);
+            throw e;
+        }
+    }
+
+    public List<RoutineDTO> findRoutinesByUsernameAndExerciseName(String username, String exerciseName) throws Exception {
+        try {
+            log.log(AppConstants.OBTAINING_ROUTINES);
+            final var routines = repository.findAllByUsersContaining(username);
+
+            /*routines.forEach(
+                    routine -> routine.getExercises().removeIf(
+                            exercise -> {
+                                if(exercise instanceof SimpleExercise) {
+                                    return !((SimpleExercise) exercise).getName().equals(exerciseName);
+                                }
+                                else {
+                                    return ((Superset) exercise).getExercises().stream().noneMatch(
+                                            simpleExercise -> ((SimpleExercise) simpleExercise).getName().equals(exerciseName)
+                                    );
+                            }}
+                    )
+            );*/
+
+            routines.removeIf(
+                    routine -> routine.getExercises().stream().noneMatch(
+                            exercise -> {
+                                if(exercise instanceof SimpleExercise) {
+                                    return ((SimpleExercise) exercise).getName().toLowerCase().contains(exerciseName.toLowerCase());
+                                }
+                                else {
+                                    return ((Superset) exercise).getExercises().stream().anyMatch(
+                                            simpleExercise -> ((SimpleExercise) simpleExercise).getName().toLowerCase().contains(exerciseName.toLowerCase())
+                                    );
+                                }
+                            }
+                    )
+            );
+
+            log.log(AppConstants.ROUTINE_OBTAINMENT_SUCCESS);
+            return mapper.toRoutineDTOs(routines);
+        }catch (Exception e) {
+            log.log("Error: " + e.getMessage());
+            log.log(AppConstants.ROUTINE_OBTAINMENT_FAILURE);
+            throw e;
+        }
+    }
+
+    public List<RoutineDTO> findRoutinesByUserAndMonth(String username, String date) throws Exception {
         try {
             log.log(AppConstants.OBTAINING_ROUTINES);
             Date firstDayOfMonth = new SimpleDateFormat("yyyy-MM-dd").parse(date.substring(0,8) + "01");
