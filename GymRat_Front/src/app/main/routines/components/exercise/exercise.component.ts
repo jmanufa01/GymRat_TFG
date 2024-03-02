@@ -3,11 +3,17 @@ import {
   ElementRef,
   EventEmitter,
   Input,
+  OnDestroy,
   OnInit,
   Output,
   ViewChild,
 } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import {
   Difficulty,
   ExerciseForm,
@@ -15,12 +21,14 @@ import {
   SimpleExercise,
   Type,
 } from '../../interfaces';
+import { Subject, Subscription, debounceTime } from 'rxjs';
+import { ExercisesService } from '../../services/exercises.service';
 
 @Component({
   selector: 'routines-exercise',
   templateUrl: './exercise.component.html',
 })
-export class ExerciseComponent implements OnInit {
+export class ExerciseComponent implements OnInit, OnDestroy {
   @Input()
   public exerciseNumber: number = 0;
 
@@ -43,17 +51,24 @@ export class ExerciseComponent implements OnInit {
   @ViewChild('searchRef')
   public searchDivRef!: ElementRef;
 
+  private debouncer: Subject<string> = new Subject();
+  private debouncerSubscription?: Subscription;
+  public filteredExercises: SimpleExercise[] = [];
+
   public exerciseForm: FormGroup<ExerciseForm> = this.fb.group({
-    exerciseName: [''],
+    exerciseName: ['', [Validators.required]],
     muscle: [Muscle.ABDOMINALS],
     type: [Type.CARDIO],
     difficulty: [Difficulty.BEGINNER],
-    series: [0],
+    series: [0, [Validators.required, Validators.min(0), Validators.max(10)]],
     reps: this.fb.group({}),
     weights: this.fb.group({}),
   });
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private exercisesService: ExercisesService
+  ) {
     this.exerciseForm.valueChanges.subscribe((value) => {
       let seriesValue = Number(this.exerciseForm.get('series')!.value);
       if (seriesValue > 10) {
@@ -95,15 +110,35 @@ export class ExerciseComponent implements OnInit {
     this.series.forEach((serie) => {
       formGroupReps.addControl(
         `r${serie}`,
-        new FormControl(this.exercise?.reps[serie] || '')
+        new FormControl(this.exercise?.reps![serie] || '')
       );
       formGroupWeights.addControl(
         `w${serie}`,
-        new FormControl(this.exercise?.weights[serie] || '')
+        new FormControl(this.exercise?.weights![serie] || '')
       );
     });
 
     return [formGroupReps, formGroupWeights];
+  }
+
+  public onCloseDropdown(): void {
+    this.isExerciseSearchOpen = false;
+  }
+
+  public onKeyPress(searchTerm: string): void {
+    if (this.isExerciseSearchOpen) {
+      this.debouncer.next(searchTerm);
+    }
+  }
+
+  public onFilteredExerciseClick(exercise: SimpleExercise): void {
+    this.exerciseForm.patchValue({
+      exerciseName: exercise.name,
+      muscle: exercise.muscle,
+      type: exercise.type,
+      difficulty: exercise.difficulty,
+    });
+    this.isExerciseSearchOpen = false;
   }
 
   ngOnInit(): void {
@@ -120,5 +155,18 @@ export class ExerciseComponent implements OnInit {
       });
       this.changeControls();
     }
+
+    this.debouncerSubscription = this.debouncer
+      .pipe(debounceTime(200))
+      .subscribe((value) => {
+        this.exercisesService.findExercisesByName(value).subscribe((res) => {
+          this.filteredExercises = res;
+          console.log(this.filteredExercises);
+        });
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.debouncerSubscription?.unsubscribe();
   }
 }

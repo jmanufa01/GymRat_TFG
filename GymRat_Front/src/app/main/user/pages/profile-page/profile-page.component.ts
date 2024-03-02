@@ -2,7 +2,7 @@ import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { Profile } from '../../interfaces/profile.interface';
 import { MatDialog } from '@angular/material/dialog';
-import { FriendsModalComponent } from '../../components/friends-modal/friends-modal/friends-modal.component';
+import { FriendsModalComponent } from '../../components/friends-modal/friends-modal.component';
 
 @Component({
   templateUrl: './profile-page.component.html',

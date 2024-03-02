@@ -13,7 +13,7 @@ import static com.tfg.backend_gymrat.exceptions.AppExceptions.*;
 
 @ControllerAdvice
 public class ApiExceptionHandler {
-    //TODO: MANAGE ALL EXCEPTIONS
+
     @ExceptionHandler({
             AuthenticationException.class,
             RoutineNotFoundException.class,

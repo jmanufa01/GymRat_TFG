@@ -4,8 +4,8 @@ export interface SimpleExercise {
   series: number;
   type: Type;
   difficulty: Difficulty;
-  reps: number[];
-  weights: number[];
+  reps?: number[];
+  weights?: number[];
 }
 
 export enum Type {

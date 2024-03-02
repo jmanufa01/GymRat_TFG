@@ -1,8 +1,8 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Subject, Subscription, debounceTime } from 'rxjs';
-import { UserService } from '../../../services/user.service';
-import { NotificationService } from '../../../services/notification.service';
+import { UserService } from '../../services/user.service';
+import { NotificationService } from '../../services/notification.service';
 
 @Component({
   selector: 'user-friends-modal',

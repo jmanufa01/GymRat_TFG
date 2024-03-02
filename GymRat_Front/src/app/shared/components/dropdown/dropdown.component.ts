@@ -1,20 +1,7 @@
 import { CommonModule } from '@angular/common';
-import {
-  AfterViewInit,
-  ViewChild,
-  ChangeDetectorRef,
-  Output,
-  EventEmitter,
-} from '@angular/core';
+import { ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { co } from '@fullcalendar/core/internal-common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  ElementRef,
-  HostListener,
-  Input,
-} from '@angular/core';
-import { is } from 'date-fns/locale';
+import { Component, ElementRef, HostListener, Input } from '@angular/core';
 
 @Component({
   selector: 'shared-dropdown',
@@ -56,7 +43,7 @@ export class DropdownComponent {
 
   @HostListener('document:keydown', ['$event'])
   handleEscape(event: KeyboardEvent): void {
-    if (event.keyCode === 27) {
+    if (event.key === 'Escape' && this.isOpen) {
       this.onEscape.emit(event);
     }
   }

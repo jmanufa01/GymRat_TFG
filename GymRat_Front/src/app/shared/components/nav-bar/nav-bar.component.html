@@ -54,7 +54,7 @@
 
     <shared-dropdown
       dropdownClassNames="w-full h-96 -left-20"
-      *ngIf="this.isNotificationsDropdownOpen"
+      [isOpen]="this.isNotificationsDropdownOpen"
       [openComponentRef]="this.notificationsIconRef"
       (onClickOutise)="this.onCloseDropdown()"
       (onEscape)="this.onCloseDropdown()"

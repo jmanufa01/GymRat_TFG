@@ -15,7 +15,8 @@
           ngDefaultControl
           formControlName="exerciseName"
           label="Exercise Name"
-          [inputValue]="this.exercise?.name ? this.exercise!.name : ''"
+          [inputValue]="this.exerciseForm.get('exerciseName')?.value"
+          (keyUp)="this.onKeyPress($event)"
         />
         <img
           class="w-10 h-10 hover:cursor-pointer"
@@ -26,10 +27,19 @@
       </div>
 
       <shared-dropdown
-        dropdownClassNames="md:w-3/5 sm:w-2/4 h-44 left-0"
+        dropdownClassNames="w-full h-44 left-0"
         [openComponentRef]="this.searchDivRef"
-        *ngIf="this.isExerciseSearchOpen"
-      />
+        [isOpen]="this.isExerciseSearchOpen"
+        (onClickOutise)="this.onCloseDropdown()"
+      >
+        <li
+          class="w-full p-2 flex justify-between hover:bg-gray-200 cursor-pointer"
+          *ngFor="let filteredExercises of this.filteredExercises"
+          (click)="this.onFilteredExerciseClick(filteredExercises)"
+        >
+          <p>{{ filteredExercises.name }}</p>
+        </li>
+      </shared-dropdown>
     </div>
 
     <shared-input
@@ -39,7 +49,7 @@
       label="Series"
       ngDefaultControl
       formControlName="series"
-      [inputValue]="this.exercise?.series ? this.exercise!.series : ''"
+      [inputValue]="this.exerciseForm.get('series')?.value"
     />
     <shared-input
       class="p-2"
@@ -49,7 +59,7 @@
       [selectorTypes]="this.muscles"
       ngDefaultControl
       formControlName="muscle"
-      [inputValue]="this.exercise?.muscle ? this.exercise!.muscle : ''"
+      [inputValue]="this.exerciseForm.get('muscle')?.value"
     />
     <shared-input
       class="p-2"
@@ -59,7 +69,7 @@
       [selectorTypes]="this.types"
       ngDefaultControl
       formControlName="type"
-      [inputValue]="this.exercise?.type ? this.exercise!.type : ''"
+      [inputValue]="this.exerciseForm.get('type')?.value"
     />
     <shared-input
       class="p-2"
@@ -69,7 +79,7 @@
       [selectorTypes]="this.difficulties"
       ngDefaultControl
       formControlName="difficulty"
-      [inputValue]="this.exercise?.difficulty ? this.exercise!.difficulty : ''"
+      [inputValue]="this.exerciseForm.get('difficulty')?.value"
     />
   </div>
 
@@ -77,7 +87,11 @@
     <div class="flex flex-col">
       <p class="text-center font-bold">Repetitions</p>
       <div
-        [class]="this.series.length < 5 ? 'flex' : 'grid grid-cols-2'"
+        [class]="
+          this.series.length < 5
+            ? 'flex'
+            : 'grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1'
+        "
         formGroupName="reps"
       >
         <shared-input
@@ -88,14 +102,18 @@
           label="Rep {{ item + 1 }}"
           ngDefaultControl
           formControlName="r{{ item }}"
-          [inputValue]="this.exercise?.reps ? this.exercise!.reps[item] : ''"
+          [inputValue]="this.exercise?.reps ? (this.exercise?.reps)![item] : ''"
         />
       </div>
     </div>
     <div class="flex flex-col">
       <p class="text-center font-bold">Weights</p>
       <div
-        [class]="this.series.length < 5 ? 'flex' : 'grid grid-cols-2'"
+        [class]="
+          this.series.length < 5
+            ? 'flex'
+            : 'grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1'
+        "
         formGroupName="weights"
       >
         <shared-input
@@ -103,12 +121,12 @@
           class="p-2"
           inputType="number"
           inputStep="0.1"
-          inputPlaceholder="Weight {{ item + 1 }}"
-          label="Weight {{ item + 1 }}"
+          inputPlaceholder="Weight {{ item + 1 }} (kg)"
+          label="Weight {{ item + 1 }} (kg)"
           ngDefaultControl
           formControlName="w{{ item }}"
           [inputValue]="
-            this.exercise?.weights ? this.exercise!.weights[item] : ''
+            this.exercise?.weights ? (this.exercise?.weights)![item] : ''
           "
         />
       </div>

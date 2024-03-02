@@ -95,7 +95,7 @@ export class ProgressPageComponent implements OnInit, OnDestroy {
               .getDate()
               .toString()
               .padStart(2, '0')} GMT`,
-            y: Math.max(...simpleExercise.weights),
+            y: Math.max(...simpleExercise.weights!),
           });
 
           console.log(this.data);

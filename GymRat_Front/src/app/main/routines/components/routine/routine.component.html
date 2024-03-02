@@ -12,6 +12,7 @@
             class="ml-4 w-6 h-6 cursor-pointer"
             src="assets/share-icon.png"
             alt="share icon"
+            title="Share Routine"
             (click)="this.changeShareRoutine()"
           />
         </div>
@@ -19,12 +20,13 @@
           class="w-8 h-8 cursor-pointer"
           src="assets/trash-icon.png"
           alt="trash-icon"
+          title="Remove Routine"
           (click)="this.onRemoveRoutineClick(routine)"
         />
       </div>
       <shared-dropdown
         dropdownClassNames="md:w-1/5 sm:w-2/4 h-44 left-0"
-        *ngIf="this.isShareRoutineOpen"
+        [isOpen]="this.isShareRoutineOpen"
         [openComponentRef]="this.shareIconRef"
         (onClickOutise)="this.onCloseDropdown()"
         (onEscape)="this.onCloseDropdown()"
@@ -78,13 +80,19 @@
 
   <ng-template #createNewRoutine>
     <section class="h-full flex flex-col justify-around p-2">
-      <div class="h-16 w-32 self-center drop-shadow-lg">
-        <shared-button buttonType="button" (onButtonClick)="this.addExercise()"
-          >Add Exercise
-        </shared-button>
+      <div
+        class="exercise-bar-shadow w-full h-16 flex items-center justify-center"
+      >
+        <div class="w-24 h-full">
+          <shared-button
+            buttonType="button"
+            (onButtonClick)="this.addExercise()"
+            >Add Exercise
+          </shared-button>
+        </div>
       </div>
 
-      <div class="h-full mt-6 grid grid-cols-1 scrollable-div pb-10">
+      <div class="h-full p-4 mt-6 grid grid-cols-1 scrollable-div pb-10">
         <ng-template #supersetRef class="mb-4"></ng-template>
 
         <div
