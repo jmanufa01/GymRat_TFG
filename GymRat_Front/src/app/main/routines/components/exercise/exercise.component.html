@@ -6,15 +6,32 @@
     Exercise {{ this.exerciseNumber }}
   </h1>
   <div class="grid md:grid-cols-2 sm:grid-cols-1">
-    <shared-input
-      class="p-2"
-      inputType="text"
-      inputPlaceholder="Name"
-      ngDefaultControl
-      formControlName="exerciseName"
-      label="Exercise Name"
-      [inputValue]="this.exercise?.name ? this.exercise!.name : ''"
-    />
+    <div class="relative">
+      <div class="flex items-end" #searchRef>
+        <shared-input
+          class="p-2 relative"
+          inputType="text"
+          inputPlaceholder="Name"
+          ngDefaultControl
+          formControlName="exerciseName"
+          label="Exercise Name"
+          [inputValue]="this.exercise?.name ? this.exercise!.name : ''"
+        />
+        <img
+          class="w-10 h-10 hover:cursor-pointer"
+          src="assets/search-icon.png"
+          alt="search"
+          (click)="this.isExerciseSearchOpen = !this.isExerciseSearchOpen"
+        />
+      </div>
+
+      <shared-dropdown
+        dropdownClassNames="md:w-3/5 sm:w-2/4 h-44 left-0"
+        [openComponentRef]="this.searchDivRef"
+        *ngIf="this.isExerciseSearchOpen"
+      />
+    </div>
+
     <shared-input
       class="p-2"
       inputType="number"

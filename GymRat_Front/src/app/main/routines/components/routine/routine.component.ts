@@ -22,6 +22,7 @@ import { Output } from '@angular/core';
 @Component({
   selector: 'routines-routine',
   templateUrl: './routine.component.html',
+  styleUrls: ['./routine.component.css'],
   animations: [
     trigger('fadeInFromTop', [
       transition(':enter', [

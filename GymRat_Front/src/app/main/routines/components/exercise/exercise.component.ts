@@ -1,4 +1,12 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import {
   Difficulty,
@@ -29,6 +37,11 @@ export class ExerciseComponent implements OnInit {
   public muscles = Object.values(Muscle);
 
   public types = Object.values(Type);
+
+  public isExerciseSearchOpen: boolean = false;
+
+  @ViewChild('searchRef')
+  public searchDivRef!: ElementRef;
 
   public exerciseForm: FormGroup<ExerciseForm> = this.fb.group({
     exerciseName: [''],
