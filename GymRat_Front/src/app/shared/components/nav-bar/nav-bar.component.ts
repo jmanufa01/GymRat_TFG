@@ -53,7 +53,6 @@ export class NavBarComponent implements OnInit {
 
   ngOnInit(): void {
     this.notificationService.getNotifications().subscribe((res) => {
-      console.log(res);
       this.notifications = res;
     });
   }

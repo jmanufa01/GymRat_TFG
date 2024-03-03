@@ -25,7 +25,6 @@ export class ProfilePageComponent {
   constructor(private dialog: MatDialog, private userService: UserService) {
     this.userService.getProfile().subscribe((res) => {
       this.profile = res;
-      console.log(this.profile);
     });
   }
 

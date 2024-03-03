@@ -70,6 +70,7 @@ export class ExerciseComponent implements OnInit, OnDestroy {
     private exercisesService: ExercisesService
   ) {
     this.exerciseForm.valueChanges.subscribe((value) => {
+      console.log(value);
       let seriesValue = Number(this.exerciseForm.get('series')!.value);
       if (seriesValue > 10) {
         this.exerciseForm.patchValue({ series: 10 });
@@ -161,7 +162,6 @@ export class ExerciseComponent implements OnInit, OnDestroy {
       .subscribe((value) => {
         this.exercisesService.findExercisesByName(value).subscribe((res) => {
           this.filteredExercises = res;
-          console.log(this.filteredExercises);
         });
       });
   }

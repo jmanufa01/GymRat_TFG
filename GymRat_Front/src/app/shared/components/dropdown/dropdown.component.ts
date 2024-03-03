@@ -36,7 +36,6 @@ export class DropdownComponent {
       !this.openComponentRef.nativeElement.contains(event.target as Node) &&
       !this.ref.nativeElement.contains(event.target as Node)
     ) {
-      console.log(this.isOpen);
       this.onClickOutise.emit(event);
     }
   }
