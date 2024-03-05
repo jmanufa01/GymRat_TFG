@@ -46,6 +46,7 @@ import { Output } from '@angular/core';
 export class RoutineComponent implements OnInit {
   @Input()
   public routineNumber!: number;
+
   @Input()
   public routine!: Routine;
 
@@ -70,6 +71,8 @@ export class RoutineComponent implements OnInit {
 
   public componentReferences: ComponentRef<SupersetComponent>[] = [];
 
+  public superSetComponents: SupersetComponent[] = [];
+
   private muscularGroup: string[] = [];
 
   public showExercises: boolean = false;
@@ -77,6 +80,10 @@ export class RoutineComponent implements OnInit {
   public isShareRoutineOpen: boolean = false;
 
   public friendsToShare: { username: string }[] = [];
+
+  public isError: boolean = false;
+
+  public editingRoutine: boolean = false;
 
   constructor(
     private routinesService: RoutinesService,
@@ -90,11 +97,21 @@ export class RoutineComponent implements OnInit {
     const currentComponent: SupersetComponent = actualRef.instance;
     currentComponent.exerciseNumber = this.exercisesNumber;
     currentComponent.trash.subscribe((x) => this.deleteComponent(x));
+    currentComponent.editing = true;
     this.componentReferences.push(actualRef);
     this.exercisesNumber++;
   }
 
   public deleteComponent(exerciseNumber: number): void {
+    if (this.superSetComponents.length > 0) {
+      this.superSetComponents = this.superSetComponents.filter(
+        (x) => x.exerciseNumber !== exerciseNumber
+      );
+
+      let index = this.exercises.indexOf(this.exercises[exerciseNumber - 1])!;
+      this.exercises.splice(index, 1);
+    }
+
     if (this.vcr.length < 1) return;
     const ref: ComponentRef<SupersetComponent> = this.componentReferences.find(
       (x) => x.instance.exerciseNumber === exerciseNumber
@@ -113,87 +130,126 @@ export class RoutineComponent implements OnInit {
     this.exercisesNumber--;
   }
 
-  //Change !
-  public obtainExercises(): (Superset | SimpleExercise)[] | null {
-    let exercises: (Superset | SimpleExercise)[] = this.componentReferences.map(
-      (x) => {
-        let instance = x.instance;
-        let exercise: Superset | SimpleExercise;
-        if (instance.exercisesForms.length > 1) {
-          //Superset
-          let superset: Superset = {
-            exercises: instance.exercisesForms.map((y) => {
-              //Save muscular group in routine
-              if (!this.muscularGroup.includes(y.value.muscle!)) {
-                this.muscularGroup.push(y.value.muscle!);
-              }
+  public obtainExercises(
+    supersetComponent: SupersetComponent
+  ): Superset | SimpleExercise {
+    let exercise: Superset | SimpleExercise;
+    if (supersetComponent.exercisesForms.length > 1) {
+      supersetComponent.exercisesForms.map((form) => {
+        if (!form.valid) {
+          throw new Error('Invalid form');
+        }
+      });
 
-              let exercise: SimpleExercise = {
-                name: y.value.exerciseName!,
-                muscle: y.value.muscle!,
-                type: y.value.type!,
-                series: y.value.series!,
-                difficulty: y.value.difficulty!,
-                reps: Object.values(y.value.reps!).map((r) => parseInt(r!)),
-                weights: Object.values(y.value.weights!).map((w) =>
-                  parseInt(w!)
-                ),
-              };
-              return exercise;
-            }),
-          };
-          exercise = superset;
-        } else {
-          //Simple exercise
-          const exerciseInstace = instance.exercisesForms[0].value;
-
+      //Superset
+      let superset: Superset = {
+        exercises: supersetComponent.exercisesForms.map((y) => {
           //Save muscular group in routine
-          if (!this.muscularGroup.includes(exerciseInstace.muscle!)) {
-            this.muscularGroup.push(exerciseInstace.muscle!);
+          if (!this.muscularGroup.includes(y.value.muscle!)) {
+            this.muscularGroup.push(y.value.muscle!);
           }
 
-          let simpleExercise: SimpleExercise = {
-            name: exerciseInstace.exerciseName!,
-            muscle: exerciseInstace.muscle!,
-            type: exerciseInstace.type!,
-            series: exerciseInstace.series!,
-            difficulty: exerciseInstace.difficulty!,
-            reps: Object.values(exerciseInstace.reps!).map((r) => parseInt(r!)),
-            weights: Object.values(exerciseInstace.weights!).map((w) =>
-              parseInt(w!)
-            ),
+          let exercise: SimpleExercise = {
+            name: y.value.exerciseName!,
+            muscle: y.value.muscle!,
+            type: y.value.type!,
+            series: y.value.series!,
+            difficulty: y.value.difficulty!,
+            reps: Object.values(y.value.reps!).map((r) => parseInt(r!)),
+            weights: Object.values(y.value.weights!).map((w) => parseInt(w!)),
           };
-          exercise = simpleExercise;
-        }
-        return exercise!;
+          return exercise;
+        }),
+      };
+      exercise = superset;
+    } else {
+      //Simple exercise
+      const exerciseInstace = supersetComponent.exercisesForms[0].value;
+
+      //Save muscular group in routine
+      if (!this.muscularGroup.includes(exerciseInstace.muscle!)) {
+        this.muscularGroup.push(exerciseInstace.muscle!);
+      }
+
+      let simpleExercise: SimpleExercise = {
+        name: exerciseInstace.exerciseName!,
+        muscle: exerciseInstace.muscle!,
+        type: exerciseInstace.type!,
+        series: exerciseInstace.series!,
+        difficulty: exerciseInstace.difficulty!,
+        reps: Object.values(exerciseInstace.reps!).map((r) => parseInt(r!)),
+        weights: Object.values(exerciseInstace.weights!).map((w) =>
+          parseInt(w!)
+        ),
+      };
+      exercise = simpleExercise;
+    }
+    return exercise!;
+  }
+
+  public obtainCreatedExercises(): (Superset | SimpleExercise)[] | null {
+    let exercises: (Superset | SimpleExercise)[] = this.componentReferences.map(
+      (x) => {
+        let supersetComponent = x.instance;
+        return this.obtainExercises(supersetComponent);
+      }
+    );
+    return exercises;
+  }
+
+  public obtainUpdatedExercises(): (Superset | SimpleExercise)[] | null {
+    let exercises: (Superset | SimpleExercise)[] = this.superSetComponents.map(
+      (supersetComponent) => {
+        return this.obtainExercises(supersetComponent);
       }
     );
     return exercises;
   }
 
   public saveRoutine(): void {
-    //TODO: Vaidate Exercise fields
-    let exercises: (Superset | SimpleExercise)[] | null =
-      this.obtainExercises();
+    try {
+      if (this.routine) {
+        this.routine.muscularGroup = this.muscularGroup;
+        if (this.superSetComponents.length > 0) {
+          this.routine.exercises = this.obtainUpdatedExercises()!;
+        }
+        if (this.componentReferences.length > 0) {
+          this.routine.exercises.push(...this.obtainCreatedExercises()!);
+        }
 
-    if (exercises) {
-      let routine: Routine = {
-        realizationDate: this.dialogRef._containerInstance._config.data.date,
-        muscularGroup: this.muscularGroup,
-        users: [this.authService.currentUser()!.username],
-        exercises: exercises,
-      };
-      this.routinesService.insertRoutine(routine).subscribe({
-        next: (res) => {
-          this.submitEvent.emit({
-            routine: res,
+        console.log(this.routine);
+        this.routinesService.updateRoutine(this.routine).subscribe({
+          next: () => {
+            this.editingRoutine = false;
+          },
+        });
+      } else {
+        let exercises: (Superset | SimpleExercise)[] | null =
+          this.obtainCreatedExercises();
+
+        if (exercises) {
+          let routine: Routine = {
+            realizationDate:
+              this.dialogRef._containerInstance._config.data.date,
+            muscularGroup: this.muscularGroup,
+            users: [this.authService.currentUser()!.username],
+            exercises: exercises,
+          };
+          this.routinesService.insertRoutine(routine).subscribe({
+            next: (res) => {
+              this.submitEvent.emit({
+                routine: res,
+              });
+              this.dialogRef.componentInstance.changeView();
+            },
+            error: (err) => {
+              console.log(err);
+            },
           });
-          this.dialogRef.componentInstance.changeView();
-        },
-        error: (err) => {
-          console.log(err);
-        },
-      });
+        }
+      }
+    } catch (err) {
+      this.isError = true;
     }
   }
 
@@ -245,6 +301,14 @@ export class RoutineComponent implements OnInit {
 
   public onCloseDropdown(): void {
     this.isShareRoutineOpen = false;
+  }
+
+  public onEditRoutineClick(): void {
+    this.editingRoutine = true;
+  }
+
+  public addComponent(superSet: SupersetComponent): void {
+    this.superSetComponents.push(superSet);
   }
 
   ngOnInit(): void {

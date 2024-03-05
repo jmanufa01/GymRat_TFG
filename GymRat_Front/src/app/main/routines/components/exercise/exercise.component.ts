@@ -35,6 +35,9 @@ export class ExerciseComponent implements OnInit, OnDestroy {
   @Input()
   public exercise?: SimpleExercise;
 
+  @Input()
+  public editing: boolean = false;
+
   @Output()
   public form: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
 

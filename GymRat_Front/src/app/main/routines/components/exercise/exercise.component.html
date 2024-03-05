@@ -16,6 +16,7 @@
           formControlName="exerciseName"
           label="Exercise Name"
           [inputValue]="this.exerciseForm.get('exerciseName')?.value"
+          [editable]="this.editing"
           (keyUp)="this.onKeyPress($event)"
         />
         <img
@@ -23,6 +24,7 @@
           src="assets/search-icon.png"
           alt="search"
           (click)="this.isExerciseSearchOpen = !this.isExerciseSearchOpen"
+          *ngIf="this.editing"
         />
       </div>
 
@@ -50,6 +52,7 @@
       ngDefaultControl
       formControlName="series"
       [inputValue]="this.exerciseForm.get('series')?.value"
+      [editable]="this.editing"
     />
     <shared-input
       class="p-2"
@@ -60,6 +63,7 @@
       ngDefaultControl
       formControlName="muscle"
       [inputValue]="this.exerciseForm.get('muscle')?.value"
+      [editable]="this.editing"
     />
     <shared-input
       class="p-2"
@@ -70,6 +74,7 @@
       ngDefaultControl
       formControlName="type"
       [inputValue]="this.exerciseForm.get('type')?.value"
+      [editable]="this.editing"
     />
     <shared-input
       class="p-2"
@@ -80,6 +85,7 @@
       ngDefaultControl
       formControlName="difficulty"
       [inputValue]="this.exerciseForm.get('difficulty')?.value"
+      [editable]="this.editing"
     />
   </div>
 
@@ -103,6 +109,7 @@
           ngDefaultControl
           formControlName="r{{ item }}"
           [inputValue]="this.exercise?.reps ? (this.exercise?.reps)![item] : ''"
+          [editable]="this.editing"
         />
       </div>
     </div>
@@ -128,6 +135,7 @@
           [inputValue]="
             this.exercise?.weights ? (this.exercise?.weights)![item] : ''
           "
+          [editable]="this.editing"
         />
       </div>
     </div>

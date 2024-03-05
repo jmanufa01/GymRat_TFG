@@ -15,6 +15,11 @@
             title="Share Routine"
             (click)="this.changeShareRoutine()"
           />
+          <img
+            class="ml-4 w-6 h-6 cursor-pointer"
+            src="assets/pencil-icon.png"
+            (click)="this.onEditRoutineClick()"
+          />
         </div>
         <img
           class="w-8 h-8 cursor-pointer"
@@ -68,13 +73,37 @@
       (click)="this.changeShowExercises()"
     />
     <div [@fadeInFromTop] [@fadeOutToTop] *ngIf="this.showExercises">
+      <div
+        class="w-full h-16 flex items-center justify-center"
+        *ngIf="this.editingRoutine"
+      >
+        <div class="w-24 h-full">
+          <shared-button
+            buttonType="button"
+            (onButtonClick)="this.addExercise()"
+            >Add Exercise
+          </shared-button>
+        </div>
+      </div>
       <routines-superset
         *ngFor="let exercise of this.exercises; index as i"
         [exerciseNumber]="i + 1"
         [exercises]="exercise.exercises"
         [isSuperset]="exercise.exercises.length > 1"
         [hideItems]="true"
+        [editing]="this.editingRoutine"
+        (creationEvent)="this.addComponent($event)"
+        (trash)="this.deleteComponent($event)"
       />
+      <ng-template #supersetRef class="mb-4"></ng-template>
+      <div class="h-14 w-24 m-auto" *ngIf="this.editingRoutine">
+        <shared-button class="mt-24" buttonType="submit">
+          Update
+        </shared-button>
+      </div>
+      <p class="w-full mt-4 text-center text-red-700" *ngIf="this.isError">
+        There are missing fields
+      </p>
     </div>
   </section>
 
@@ -100,10 +129,13 @@
           class="h-14 w-24 m-auto"
         >
           <shared-button class="mt-24" buttonType="submit">
-            Confirm
+            Create
           </shared-button>
         </div>
       </div>
+      <p class="w-full mt-4 text-center text-red-700" *ngIf="this.isError">
+        There are missing fields
+      </p>
     </section>
   </ng-template>
 </form>

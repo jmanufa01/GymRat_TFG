@@ -13,6 +13,7 @@
       [type]="this.inputType"
       [step]="this.inputStep"
       [value]="this.inputValue"
+      [disabled]="!this.editable"
       (input)="this.onInput($event)"
       (keyup)="this.onKeyUp($event)"
     />
@@ -40,6 +41,7 @@
     "
     *ngIf="this.inputType === 'select'"
     [ngModel]="this.inputValue || this.selectorTypes[0]"
+    [disabled]="!this.editable"
     (change)="this.onSelectorChange($event)"
   >
     <option

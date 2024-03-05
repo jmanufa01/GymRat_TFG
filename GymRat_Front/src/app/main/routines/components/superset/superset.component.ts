@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  ComponentRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ExerciseForm, SimpleExercise, Superset } from '../../interfaces';
 
@@ -6,7 +13,7 @@ import { ExerciseForm, SimpleExercise, Superset } from '../../interfaces';
   selector: 'routines-superset',
   templateUrl: './superset.component.html',
 })
-export class SupersetComponent {
+export class SupersetComponent implements OnInit {
   @Input()
   public exerciseNumber: number = 0;
 
@@ -19,10 +26,16 @@ export class SupersetComponent {
   @Input()
   public exercises: SimpleExercise[] = Array(1).fill(null);
 
-  public exercisesForms: FormGroup<ExerciseForm>[] = [];
+  @Input()
+  public editing: boolean = false;
 
   @Output()
   public trash: EventEmitter<number> = new EventEmitter();
+
+  @Output()
+  public creationEvent: EventEmitter<SupersetComponent> = new EventEmitter();
+
+  public exercisesForms: FormGroup<ExerciseForm>[] = [];
 
   public changeExerciseType(): void {
     if (this.isSuperset) {
@@ -48,5 +61,9 @@ export class SupersetComponent {
 
   public trashClick(): void {
     this.trash.emit(this.exerciseNumber);
+  }
+
+  public ngOnInit(): void {
+    this.creationEvent.emit(this);
   }
 }

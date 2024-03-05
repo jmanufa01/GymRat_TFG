@@ -99,6 +99,7 @@ export class RoutinesService {
         Authorization: 'Bearer ' + localStorage.getItem('jwt'),
       },
     };
+    console.log(body);
     return this.http.put(url, body, options).pipe(
       map((res) => {
         return true;

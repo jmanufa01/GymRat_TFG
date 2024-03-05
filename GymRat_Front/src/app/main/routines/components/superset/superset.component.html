@@ -5,16 +5,17 @@
   <h1 class="text-xl" *ngIf="this.isSuperset">
     Superset {{ this.exerciseNumber }}
   </h1>
-  <button *ngIf="!this.hideItems" type="button" (click)="this.trashClick()">
+  <button *ngIf="this.editing" type="button" (click)="this.trashClick()">
     <img class="w-10 h-10" src="assets/trash-icon.png" alt="trash-icon" />
   </button>
 </div>
-<mat-checkbox *ngIf="!this.hideItems" (change)="this.changeExerciseType()"
+<mat-checkbox *ngIf="this.editing" (change)="this.changeExerciseType()"
   >Superset?</mat-checkbox
 >
 <routines-exercise
   *ngFor="let exercise of exercises; index as i"
   [exerciseNumber]="!this.isSuperset ? 0 : i + 1"
   [exercise]="exercise"
+  [editing]="this.editing"
   (form)="this.addExercise($event)"
 />

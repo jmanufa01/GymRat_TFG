@@ -41,6 +41,9 @@ export class InputComponent {
   @Input()
   public inputValue: any = '';
 
+  @Input()
+  public editable: boolean = true;
+
   @Output()
   public keyUp = new EventEmitter<any>();
 
