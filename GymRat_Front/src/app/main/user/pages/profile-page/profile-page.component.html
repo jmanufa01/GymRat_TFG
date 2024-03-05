@@ -21,6 +21,7 @@
       inputPlaceholder="Username"
       inputType="text"
       [inputValue]="this.profile.userName"
+      [editable]="false"
     />
     <shared-input
       ngClass="md:h-3/5 md:w-4/5 self-center"
@@ -28,6 +29,7 @@
       inputPlaceholder="Email"
       inputType="text"
       [inputValue]="this.profile.email"
+      [editable]="false"
     />
     <shared-input
       ngClass="md:h-3/5 md:w-4/5 self-center"
@@ -35,6 +37,7 @@
       inputPlaceholder="Gym Experience"
       inputType="text"
       [inputValue]="this.profile.gymExperience"
+      [editable]="false"
     />
     <shared-input
       ngClass="md:h-3/5 md:w-4/5 self-center"
@@ -42,6 +45,7 @@
       label="Birth Date"
       inputPlaceholder="Birth Date"
       [inputValue]="this.profile.birthDate | date : 'yyyy-MM-dd'"
+      [editable]="false"
     />
     <shared-input
       ngClass="md:h-3/5 md:w-4/5 self-center"
@@ -49,6 +53,7 @@
       label="Height"
       inputPlaceholder="Height"
       [inputValue]="this.profile.height"
+      [editable]="false"
     />
     <shared-input
       ngClass="md:h-3/5 md:w-4/5 self-center"
@@ -56,6 +61,7 @@
       label="Weight"
       inputPlaceholder="Weight"
       [inputValue]="this.profile.weight"
+      [editable]="false"
     />
   </div>
 </form>

@@ -55,12 +55,14 @@
         class="p-4"
         label="Muscular Group"
         [inputValue]="this.routine.muscularGroup"
+        [editable]="false"
       />
       <shared-input
         class="p-4"
         inputType="date"
         label="Realization Date"
         [inputValue]="this.routine.realizationDate | date : 'yyyy-MM-dd'"
+        [editable]="false"
       />
     </div>
 

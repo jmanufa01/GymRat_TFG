@@ -82,32 +82,39 @@ export class ProgressPageComponent implements OnInit, OnDestroy {
 
   private fillData(res: Routine[], filterValue: string): void {
     this.data = [];
-    res.forEach((routine) => {
-      routine.exercises.forEach((exercise) => {
-        let simpleExercise: SimpleExercise = exercise as SimpleExercise;
-        if (simpleExercise.series) {
-          let date: Date = new Date(routine.realizationDate);
+    if (res.length > 0) {
+      res.forEach((routine) => {
+        routine.exercises.forEach((exercise) => {
+          let simpleExercise: SimpleExercise = exercise as SimpleExercise;
+          if (simpleExercise.series) {
+            let date: Date = new Date(routine.realizationDate);
 
-          this.data.push({
-            x: `${date.getFullYear()}-${(date.getMonth() + 1)
-              .toString()
-              .padStart(2, '0')}-${date
-              .getDate()
-              .toString()
-              .padStart(2, '0')} GMT`,
-            y: Math.max(...simpleExercise.weights!),
-          });
-
-          console.log(this.data);
-        }
-        this.chart.updateSeries([
-          {
-            name: filterValue,
-            data: this.data,
-          },
-        ]);
+            this.data.push({
+              x: `${date.getFullYear()}-${(date.getMonth() + 1)
+                .toString()
+                .padStart(2, '0')}-${date
+                .getDate()
+                .toString()
+                .padStart(2, '0')} GMT`,
+              y: Math.max(...simpleExercise.weights!),
+            });
+          }
+          this.chart.updateSeries([
+            {
+              name: filterValue,
+              data: this.data,
+            },
+          ]);
+        });
       });
-    });
+    } else {
+      this.chart.updateSeries([
+        {
+          name: filterValue,
+          data: this.data,
+        },
+      ]);
+    }
   }
 
   onMuscleSelect(muscle: string): void {
