@@ -11,7 +11,9 @@ import { NotificationService } from '../../services/notification.service';
 export class FriendsModalComponent implements OnInit, OnDestroy {
   private debouncer: Subject<string> = new Subject();
   private debouncerSubscription?: Subscription;
+  public friendsUsernames: { username: string }[] = [];
   public filteredUsernames: { username: string }[] = [];
+  public friendsView: boolean = true;
 
   constructor(
     public dialogRef: MatDialogRef<FriendsModalComponent>,
@@ -23,30 +25,55 @@ export class FriendsModalComponent implements OnInit, OnDestroy {
     this.dialogRef.close();
   }
 
-  onKeyPress(searchTerm: string): void {
+  public onKeyPress(searchTerm: string): void {
     this.debouncer.next(searchTerm);
   }
 
-  onAddFriendClick(friendUserName: string): void {
+  public onAddFriendClick(friendUserName: string): void {
     this.notificationService
       .sendFriendRequest(friendUserName)
       .subscribe((res) => {
         this.filteredUsernames = this.filteredUsernames.filter(
           (username) => username.username !== friendUserName
         );
+        this.obtainFriends();
       });
   }
 
-  ngOnInit(): void {
-    this.userService.getUsersByUserName('').subscribe((res) => {
+  public onDeleteFriendClick(friendUserName: string): void {
+    this.userService.deleteFriend(friendUserName).subscribe((res) => {
+      this.friendsUsernames = this.friendsUsernames.filter(
+        (username) => username.username !== friendUserName
+      );
+      this.searchFriends('');
+    });
+  }
+
+  public onChangeViewClick(): void {
+    this.friendsView = !this.friendsView;
+  }
+
+  private obtainFriends(): void {
+    this.friendsUsernames = [];
+    this.userService.getFriendsUsernames().subscribe((res) => {
+      this.friendsUsernames = res;
+    });
+  }
+
+  private searchFriends(searchTerm: string): void {
+    this.filteredUsernames = [];
+    this.userService.getUsersByUserName(searchTerm).subscribe((res) => {
       this.filteredUsernames = res;
     });
+  }
+
+  ngOnInit(): void {
+    this.obtainFriends();
+    this.searchFriends('');
     this.debouncerSubscription = this.debouncer
       .pipe(debounceTime(200))
       .subscribe((value) => {
-        this.userService.getUsersByUserName(value).subscribe((res) => {
-          this.filteredUsernames = res;
-        });
+        this.searchFriends(value);
       });
   }
 

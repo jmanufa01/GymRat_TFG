@@ -90,7 +90,6 @@ export class RoutinesService {
   }
 
   public updateRoutine(routine: Routine): Observable<boolean> {
-    console.log(routine);
     const url = `${this.apiUrl}/routines`;
     const body = routine;
     const options = {
@@ -99,7 +98,6 @@ export class RoutinesService {
         Authorization: 'Bearer ' + localStorage.getItem('jwt'),
       },
     };
-    console.log(body);
     return this.http.put(url, body, options).pipe(
       map((res) => {
         return true;

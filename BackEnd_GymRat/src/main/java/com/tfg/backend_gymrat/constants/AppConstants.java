@@ -7,6 +7,10 @@ public class AppConstants {
     public static final String OBTAINING_PROFILE = "Profile obtainment process has started...";
     public static final String PROFILE_OBTAINMENT_SUCCESS = "Profile obtainment has been successfully made!";
     public static final String PROFILE_OBTAINMENT_FAILURE = "Profile obtainment has failed";
+    public static final String OBTAINING_FRIENDS = "Friends obtainment process has started...";
+    public static final String FRIENDS_OBTAINMENT_SUCCESS = "Friends obtainment has been successfully made!";
+
+    public static final String FRIENDS_OBTAINMENT_FAILURE = "Friends obtainment has failed";
     public static final String OBTAINING_FRIENDS_WITHOUT_ROUTINE = "Friends without routine obtainment process has started...";
     public static final String OBTAINING_FRIENDS_WITHOUT_ROUTINE_FAILURE = "Friends without routine obtainment has failed";
     //Routine constants

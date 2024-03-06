@@ -3,6 +3,7 @@ import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 import { Difficulty } from 'src/app/main/routines/interfaces';
+import { throwError } from 'rxjs';
 
 @Component({
   templateUrl: './register-page.component.html',
@@ -38,7 +39,7 @@ export class RegisterPageComponent {
   register(): void {
     this.authService.register(this.registerForm).subscribe({
       next: () => this.router.navigateByUrl('/home'),
-      error: (err) => console.log(err),
+      error: (err) => throwError(() => err),
     });
   }
 }

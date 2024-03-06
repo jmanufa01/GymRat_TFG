@@ -29,7 +29,6 @@ export class ProfilePageComponent {
   }
 
   public onAddUserClick(): void {
-    console.log('click');
     this.dialog.open(FriendsModalComponent, {
       width: window.innerWidth > 300 ? '30%' : '80%',
       height: '50%',

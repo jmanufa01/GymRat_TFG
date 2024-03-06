@@ -35,6 +35,7 @@ export enum Muscle {
   QUADRICEPS = 'quadriceps',
   TRAPS = 'traps',
   TRICEPS = 'triceps',
+  SHOULDERS = 'shoulders',
 }
 
 export enum Difficulty {

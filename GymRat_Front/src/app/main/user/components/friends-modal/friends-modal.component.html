@@ -1,24 +1,70 @@
 <div
-  class="h-full w-full flex flex-col items-center bg-gradient-to-t from-pink-300/90 via-purple-300/90 to-indigo-400/90 backdrop-blur-sm"
+  class="h-full w-full bg-gradient-to-t from-pink-300/90 via-purple-300/90 to-indigo-400/90 backdrop-blur-sm"
 >
-  <h1 class="m-8 text-xl font-bold">New Friend</h1>
-  <shared-input
-    ngClass="w-40 h-10"
-    inputType="search"
-    inputPlaceholder="type user..."
-    (keyUp)="this.onKeyPress($event)"
-  />
-
-  <ul class="w-full h-full mt-10 flex flex-col items-center overflow-y-scroll">
-    <li *ngFor="let user of this.filteredUsernames">
-      <div class="p-4 flex flex-row items-center">
+  <section
+    class="h-full w-full flex flex-col items-center"
+    *ngIf="this.friendsView; else newFriendView"
+  >
+    <div class="w-full flex items-center justify-around">
+      <div></div>
+      <h1 class="m-8 text-xl font-bold">Friends</h1>
+      <img
+        src="assets/add.png"
+        class="w-8 h-8 cursor-pointer"
+        (click)="this.onChangeViewClick()"
+      />
+    </div>
+    <ul
+      class="w-full h-full mt-10 flex flex-col items-center overflow-y-scroll"
+    >
+      <li
+        class="w-2/4 flex justify-between hover:bg-gray-200 p-4"
+        *ngFor="let user of this.friendsUsernames"
+      >
         <h1 class="ml-4">{{ user.username }}</h1>
         <img
           class="w-6 h-6 ml-4 cursor-pointer"
-          src="assets/add-green.png"
-          (click)="this.onAddFriendClick(user.username)"
+          src="assets/trash-icon.png"
+          (click)="this.onDeleteFriendClick(user.username)"
         />
+      </li>
+    </ul>
+  </section>
+
+  <ng-template #newFriendView>
+    <section class="h-full w-full flex flex-col items-center">
+      <div class="w-full flex items-center justify-around">
+        <div></div>
+        <h1 class="m-8 text-xl font-bold">New Friend</h1>
+        <shared-button
+          ngClass="w-12 h-10"
+          (onButtonClick)="this.onChangeViewClick()"
+        >
+          <img class="w-full h-full" src="assets/back-icon.png" />
+        </shared-button>
       </div>
-    </li>
-  </ul>
+      <shared-input
+        ngClass="w-40 h-10"
+        inputType="search"
+        inputPlaceholder="type user..."
+        (keyUp)="this.onKeyPress($event)"
+      />
+
+      <ul
+        class="w-full h-full mt-10 flex flex-col items-center overflow-y-scroll"
+      >
+        <li
+          class="w-2/4 flex justify-between hover:bg-gray-200 p-4"
+          *ngFor="let user of this.filteredUsernames"
+        >
+          <h1 class="ml-4">{{ user.username }}</h1>
+          <img
+            class="w-6 h-6 ml-4 cursor-pointer"
+            src="assets/add-green.png"
+            (click)="this.onAddFriendClick(user.username)"
+          />
+        </li>
+      </ul>
+    </section>
+  </ng-template>
 </div>

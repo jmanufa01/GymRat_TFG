@@ -60,6 +60,23 @@ public class UserService {
         return users;
     }
 
+    public List<UserNameDTO> findAllFriends() throws Exception {
+        try{
+            log.log(AppConstants.OBTAINING_FRIENDS);
+            final var userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            final var loggedUser = findUserByUsername(userDetails.getUsername());
+            List<String> friendsList = loggedUser.friends() != null ? loggedUser.friends() : List.of();
+            log.log(AppConstants.FRIENDS_OBTAINMENT_SUCCESS);
+            return friendsList.stream()
+                    .map(UserNameDTO::new)
+                    .toList();
+        }catch (Exception e) {
+            log.log("Error: " + e.getMessage());
+            log.log(AppConstants.FRIENDS_OBTAINMENT_FAILURE);
+            throw e;
+        }
+    }
+
     public List<UserNameDTO> findAllFriendsNotHavingRoutine(String routineId) throws Exception {
         try{
             log.log(AppConstants.OBTAINING_FRIENDS_WITHOUT_ROUTINE);
@@ -117,6 +134,26 @@ public class UserService {
                 .build();
 
         repository.insert(user);
+    }
+
+    public void deleteFriend(String friendUsername) throws Exception {
+        try{
+            final var userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            final var loggedUser = repository.findUserByUsername(userDetails.getUsername()).orElseThrow(UserNotFoundException::new);
+            final var friend = repository.findUserByUsername(friendUsername).orElseThrow(UserNotFoundException::new);
+
+            if(!loggedUser.getFriends().contains(friend.getUsername()) || !friend.getFriends().contains(loggedUser.getUsername())) {
+                throw new UserNotFoundException();
+            }
+
+            loggedUser.getFriends().remove(friend.getUsername());
+            friend.getFriends().remove(loggedUser.getUsername());
+            repository.save(loggedUser);
+            repository.save(friend);
+        }catch (Exception e) {
+            log.log("Error: " + e.getMessage());
+            throw e;
+        }
     }
 
 }

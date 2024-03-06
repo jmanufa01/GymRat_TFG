@@ -30,17 +30,17 @@
         />
       </div>
       <shared-dropdown
-        dropdownClassNames="md:w-1/5 sm:w-2/4 h-44 left-0"
+        dropdownClassNames="md:w-2/5 sm:w-2/4 h-44 left-0"
         [isOpen]="this.isShareRoutineOpen"
         [openComponentRef]="this.shareIconRef"
         (onClickOutise)="this.onCloseDropdown()"
         (onEscape)="this.onCloseDropdown()"
       >
         <li
-          class="flex items-center justify-around p-2"
+          class="w-full flex items-center justify-between p-2 hover:bg-gray-200"
           *ngFor="let friend of this.friendsToShare"
         >
-          <p>{{ friend.username }}</p>
+          <p class="text-right">{{ friend.username }}</p>
           <img
             class="h-8 w-8 ml-2 cursor-pointer"
             src="assets/share-icon.png"

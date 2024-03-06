@@ -29,9 +29,23 @@ public class UserRestController {
         final var profile = userService.obtainUserProfile(username);
         return ok(profile);
     }
+
+    @GetMapping("friends")
+    public ResponseEntity<List<UserNameDTO>> obtainFriends() throws Exception{
+        final var friends = userService.findAllFriends();
+        return ok(friends);
+    }
+
+
     @GetMapping(value = "friends", params = "routineId")
     public ResponseEntity<List<UserNameDTO>> obtainFriendsByRoutineId(@RequestParam String routineId) throws Exception{
         final var friends = userService.findAllFriendsNotHavingRoutine(routineId);
         return ok(friends);
+    }
+
+    @DeleteMapping(value = "friends", params = "friendUsername")
+    public ResponseEntity<Void> deleteFriend(@RequestParam String friendUsername) throws Exception{
+        userService.deleteFriend(friendUsername);
+        return ok().build();
     }
 }

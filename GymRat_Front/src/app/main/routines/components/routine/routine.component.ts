@@ -18,6 +18,8 @@ import { ModalComponent } from '../modal/modal.component';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { UserService } from 'src/app/main/user/services/user.service';
 import { Output } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { throwError } from 'rxjs';
 
 @Component({
   selector: 'routines-routine',
@@ -136,7 +138,7 @@ export class RoutineComponent implements OnInit {
     let exercise: Superset | SimpleExercise;
     if (supersetComponent.exercisesForms.length > 1) {
       supersetComponent.exercisesForms.map((form) => {
-        if (!form.valid) {
+        if (!this.isFormValid(form)) {
           throw new Error('Invalid form');
         }
       });
@@ -163,8 +165,14 @@ export class RoutineComponent implements OnInit {
       };
       exercise = superset;
     } else {
+      let form = supersetComponent.exercisesForms[0];
+
+      if (!this.isFormValid(form)) {
+        throw new Error('Invalid form');
+      }
+
       //Simple exercise
-      const exerciseInstace = supersetComponent.exercisesForms[0].value;
+      const exerciseInstace = form.value;
 
       //Save muscular group in routine
       if (!this.muscularGroup.includes(exerciseInstace.muscle!)) {
@@ -217,7 +225,6 @@ export class RoutineComponent implements OnInit {
           this.routine.exercises.push(...this.obtainCreatedExercises()!);
         }
 
-        console.log(this.routine);
         this.routinesService.updateRoutine(this.routine).subscribe({
           next: () => {
             this.editingRoutine = false;
@@ -242,12 +249,11 @@ export class RoutineComponent implements OnInit {
               });
               this.dialogRef.componentInstance.changeView();
             },
-            error: (err) => {
-              console.log(err);
-            },
+            error: (err) => throwError(() => err),
           });
         }
       }
+      this.isError = false;
     } catch (err) {
       this.isError = true;
     }
@@ -309,6 +315,10 @@ export class RoutineComponent implements OnInit {
 
   public addComponent(superSet: SupersetComponent): void {
     this.superSetComponents.push(superSet);
+  }
+
+  public isFormValid(form: FormGroup): boolean {
+    return form.valid && form.get('weights')!.valid && form.get('reps')!.valid;
   }
 
   ngOnInit(): void {

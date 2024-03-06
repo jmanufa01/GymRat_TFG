@@ -15,6 +15,7 @@ import { Routine } from '../../interfaces';
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import { TitleCasePipe } from '@angular/common';
 import { preventDefault } from '@fullcalendar/core/internal';
+import { throwError } from 'rxjs';
 
 @Component({
   templateUrl: './calendar-page.component.html',
@@ -86,7 +87,7 @@ export class CalendarPageComponent implements AfterViewInit {
       .afterClosed()
       .subscribe(() => {
         this.events = [];
-        this.loadCalendar();
+        this.reloadCalendar(arg.date);
       });
   }
 
@@ -111,7 +112,7 @@ export class CalendarPageComponent implements AfterViewInit {
       .afterClosed()
       .subscribe(() => {
         this.events = [];
-        this.loadCalendar();
+        this.reloadCalendar(arg.event.start!);
       });
   }
 
@@ -128,33 +129,34 @@ export class CalendarPageComponent implements AfterViewInit {
     });
   }
 
+  reloadCalendar(calendarDate: Date): void {
+    this.date = calendarDate;
+    this.loadingCalendar = true;
+    this.events = [];
+    this.routineService.getRoutinesByDate(calendarDate).subscribe({
+      next: (res) => {
+        this.fillEvents(res);
+        this.routines = res;
+        this.calendarOptions = {
+          ...this.calendarOptions,
+          events: this.events,
+        };
+        this.loadingCalendar = false;
+        setTimeout(() => {
+          this.calendarComponent.getApi().gotoDate(this.date);
+        }, 0);
+      },
+      error: (err) => {
+        throwError(() => err);
+        this.loadingCalendar = false;
+      },
+    });
+  }
+
   loadCalendar(): void {
     const calendarDate = this.calendarComponent.getApi().getDate();
-    if (
-      this.events.length < 1 ||
-      calendarDate.getMonth() !== this.date.getMonth()
-    ) {
-      this.date = calendarDate;
-      this.loadingCalendar = true;
-      this.events = [];
-      this.routineService.getRoutinesByDate(calendarDate).subscribe({
-        next: (res) => {
-          this.fillEvents(res);
-          this.routines = res;
-          this.calendarOptions = {
-            ...this.calendarOptions,
-            events: this.events,
-          };
-          this.loadingCalendar = false;
-          setTimeout(() => {
-            this.calendarComponent.getApi().gotoDate(this.date);
-          }, 0);
-        },
-        error: (err) => {
-          console.log(err);
-          this.loadingCalendar = false;
-        },
-      });
+    if (calendarDate.getMonth() !== this.date.getMonth()) {
+      this.reloadCalendar(calendarDate);
     }
   }
 

@@ -21,7 +21,6 @@ export class UserService {
         Authorization: 'Bearer ' + localStorage.getItem('jwt'),
       },
     };
-    console.log(url);
     return this.http.get(url, options).pipe(
       map((res) => {
         return res as Profile;
@@ -42,7 +41,22 @@ export class UserService {
     };
     return this.http.get(url, options).pipe(
       map((res) => {
-        console.log(res as string[]);
+        return res as { username: string }[];
+      }),
+      catchError((err) => throwError(() => err.message))
+    );
+  }
+
+  public getFriendsUsernames(): Observable<{ username: string }[]> {
+    const url = `${environment.apiUrl}/users/friends`;
+    const options = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + localStorage.getItem('jwt'),
+      },
+    };
+    return this.http.get(url, options).pipe(
+      map((res) => {
         return res as { username: string }[];
       }),
       catchError((err) => throwError(() => err.message))
@@ -61,8 +75,23 @@ export class UserService {
     };
     return this.http.get(url, options).pipe(
       map((res) => {
-        console.log(res as string[]);
         return res as { username: string }[];
+      }),
+      catchError((err) => throwError(() => err.message))
+    );
+  }
+
+  public deleteFriend(friendUserName: string): Observable<any> {
+    const url = `${environment.apiUrl}/users/friends?friendUsername=${friendUserName}`;
+    const options = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + localStorage.getItem('jwt'),
+      },
+    };
+    return this.http.delete(url, options).pipe(
+      map((res) => {
+        return res;
       }),
       catchError((err) => throwError(() => err.message))
     );

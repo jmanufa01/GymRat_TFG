@@ -73,7 +73,6 @@ export class ExerciseComponent implements OnInit, OnDestroy {
     private exercisesService: ExercisesService
   ) {
     this.exerciseForm.valueChanges.subscribe((value) => {
-      console.log(value);
       let seriesValue = Number(this.exerciseForm.get('series')!.value);
       if (seriesValue > 10) {
         this.exerciseForm.patchValue({ series: 10 });
@@ -114,11 +113,17 @@ export class ExerciseComponent implements OnInit, OnDestroy {
     this.series.forEach((serie) => {
       formGroupReps.addControl(
         `r${serie}`,
-        new FormControl(this.exercise?.reps![serie] || '')
+        new FormControl(this.exercise?.reps![serie] || '', [
+          Validators.required,
+          Validators.min(0),
+        ])
       );
       formGroupWeights.addControl(
         `w${serie}`,
-        new FormControl(this.exercise?.weights![serie] || '')
+        new FormControl(this.exercise?.weights![serie] || '', [
+          Validators.required,
+          Validators.min(0),
+        ])
       );
     });
 
