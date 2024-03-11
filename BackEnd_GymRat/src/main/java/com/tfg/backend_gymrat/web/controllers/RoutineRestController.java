@@ -14,7 +14,7 @@ import java.util.List;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
-@RequestMapping("v1/routines")
+@RequestMapping("routines")
 @RequiredArgsConstructor
 public class RoutineRestController {
 

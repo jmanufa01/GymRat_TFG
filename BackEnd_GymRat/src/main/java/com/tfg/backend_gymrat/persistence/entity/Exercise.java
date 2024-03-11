@@ -1,5 +1,6 @@
 package com.tfg.backend_gymrat.persistence.entity;
 
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;

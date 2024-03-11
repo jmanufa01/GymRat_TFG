@@ -2,6 +2,7 @@ package com.tfg.backend_gymrat.domain.service;
 
 
 import com.tfg.backend_gymrat.constants.AuthConstants;
+import com.tfg.backend_gymrat.persistence.repository.UserRepository;
 import com.tfg.backend_gymrat.web.security.Payload;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtParserBuilder;
@@ -17,8 +18,7 @@ import java.util.Date;
 @RequiredArgsConstructor
 public class JWTService implements Serializable {
 
-
-    private final UserService userService;
+    private final UserRepository userRepository;
 
     /**
      * Método que genera un JWT encriptado que contiene el email, el tipo de usuario y el ID de usuario, añadiéndole una
@@ -77,7 +77,7 @@ public class JWTService implements Serializable {
      */
     public boolean isTokenValid(String jwt){
         Claims payload = getClaims(jwt);
-        return !isExpired(payload) && userService.existsUserByUserName(extractUserName(jwt));
+        return !isExpired(payload) && userRepository.existsUserByUsername(extractUserName(jwt));
     }
 
 }

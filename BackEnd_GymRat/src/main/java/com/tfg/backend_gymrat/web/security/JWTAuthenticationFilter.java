@@ -2,7 +2,7 @@ package com.tfg.backend_gymrat.web.security;
 
 
 import com.tfg.backend_gymrat.domain.service.JWTService;
-import com.tfg.backend_gymrat.persistence.mongo.UserMongo;
+import com.tfg.backend_gymrat.persistence.repository.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -28,9 +28,9 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
 
     private final JWTService jwtService;
 
-    private final UserMongo userMongo;
+    private final UserRepository userRepository;
 
-    private final RequestMatcher ignoredPaths = new AntPathRequestMatcher("/v1/auth/**");
+    private final RequestMatcher ignoredPaths = new AntPathRequestMatcher("auth/**");
 
 
     @Override
@@ -66,14 +66,14 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
         if((userName != null && SecurityContextHolder.getContext().getAuthentication() == null)
                 || !((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername().equals(userName)){
 
-            UserDetails userDetails = userMongo.findUserByUsername(userName)
+            UserDetails userDetails = userRepository.findUserByUsername(userName)
                     .orElseThrow(() -> new UsernameNotFoundException(""));;
 
             UsernamePasswordAuthenticationToken authenticationToken =
                     new UsernamePasswordAuthenticationToken(
                             userDetails,
                             null,
-                            userDetails == null ? List.of(): userDetails.getAuthorities()
+                            userDetails.getAuthorities()
                     );
 
             authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

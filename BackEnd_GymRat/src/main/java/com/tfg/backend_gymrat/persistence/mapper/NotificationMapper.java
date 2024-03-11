@@ -3,11 +3,11 @@ package com.tfg.backend_gymrat.persistence.mapper;
 import com.tfg.backend_gymrat.domain.dto.entity.NotificationDTO;
 import com.tfg.backend_gymrat.domain.dto.entity.NotificationStatus;
 import com.tfg.backend_gymrat.persistence.entity.Notification;
-import org.mapstruct.Mapper;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Mapper
+@Component
 public class NotificationMapper {
 
     public NotificationDTO toNotificationDTO(Notification notification) {

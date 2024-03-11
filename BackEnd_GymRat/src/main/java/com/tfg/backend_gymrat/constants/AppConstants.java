@@ -9,10 +9,11 @@ public class AppConstants {
     public static final String PROFILE_OBTAINMENT_FAILURE = "Profile obtainment has failed";
     public static final String OBTAINING_FRIENDS = "Friends obtainment process has started...";
     public static final String FRIENDS_OBTAINMENT_SUCCESS = "Friends obtainment has been successfully made!";
-
     public static final String FRIENDS_OBTAINMENT_FAILURE = "Friends obtainment has failed";
     public static final String OBTAINING_FRIENDS_WITHOUT_ROUTINE = "Friends without routine obtainment process has started...";
     public static final String OBTAINING_FRIENDS_WITHOUT_ROUTINE_FAILURE = "Friends without routine obtainment has failed";
+    public static final String USER_DELETION_STARTED = "User deletion process has started...";
+    public static final String USER_DELETION_SUCCESS = "User deletion has been successfully made!";
     //Routine constants
     public static final String INSERTING_ROUTINE = "Inserting routine process started...";
     public static final String ROUTINE_INSERTION_SUCCESS = "Routine insertion has been successfully made!";

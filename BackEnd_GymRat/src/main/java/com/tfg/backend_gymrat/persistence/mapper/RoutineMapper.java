@@ -2,16 +2,17 @@ package com.tfg.backend_gymrat.persistence.mapper;
 
 import com.tfg.backend_gymrat.domain.dto.entity.RoutineDTO;
 import com.tfg.backend_gymrat.persistence.entity.Routine;
-import org.mapstruct.Mapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Mapper
+@Component
+@RequiredArgsConstructor
 public class RoutineMapper {
 
-    @Autowired
-    private ExerciseMapper mapper;
+    private final ExerciseMapper mapper;
 
     public RoutineDTO toRoutineDTO(Routine routine){
         return new RoutineDTO(

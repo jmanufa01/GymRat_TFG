@@ -12,7 +12,7 @@ import java.util.List;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
-@RequestMapping("v1/notifications")
+@RequestMapping("notifications")
 @RequiredArgsConstructor
 public class NotificationRestController {
 

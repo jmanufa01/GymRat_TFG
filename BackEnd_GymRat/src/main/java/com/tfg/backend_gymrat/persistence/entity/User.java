@@ -1,12 +1,10 @@
 package com.tfg.backend_gymrat.persistence.entity;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,9 +14,10 @@ import java.util.Date;
 import java.util.List;
 
 @Data
-@SuperBuilder
+@Builder
 @EqualsAndHashCode
 @NoArgsConstructor
+@AllArgsConstructor
 @Document("user")
 public class User implements UserDetails {
     @Id
@@ -26,8 +25,10 @@ public class User implements UserDetails {
     @Indexed(unique = true)
     private String email;
     private String password;
-    private String gym_experience;
-    private Date birth_date;
+    @Field("gym_experience")
+    private String gymExperience;
+    @Field("birth_date")
+    private Date birthDate;
     private Double height;
     private Double weight;
     private String role;

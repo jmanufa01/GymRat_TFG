@@ -1,19 +1,15 @@
 package com.tfg.backend_gymrat.domain.service;
 
 import com.tfg.backend_gymrat.constants.AuthConstants;
-import com.tfg.backend_gymrat.domain.dto.api.auth.request.UserRegistrationRequest;
 import com.tfg.backend_gymrat.domain.dto.entity.Role;
 import com.tfg.backend_gymrat.domain.dto.entity.UserDTO;
+import com.tfg.backend_gymrat.persistence.repository.UserRepository;
 import com.tfg.backend_gymrat.util.Log;
 import com.tfg.backend_gymrat.util.UtilClass;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 import static com.tfg.backend_gymrat.exceptions.AppExceptions.*;
 
@@ -22,44 +18,41 @@ import static com.tfg.backend_gymrat.exceptions.AppExceptions.*;
 @RequiredArgsConstructor
 public class AuthService {
 
+    private final UserRepository userRepository;
     private final UserService userService;
-
     private final JWTService jwtService;
-
     private final AuthenticationManager authenticationManager;
-
-    private final PasswordEncoder passwordEncoder;
     private final Log log = new Log();
 
 
-    public String registerUser(UserRegistrationRequest request) throws Exception {
+    public String registerUser(UserDTO userDTO) throws Exception {
 
         try {
-            UserDTO user = new UserDTO(request.username(),
-                    request.email(),
-                    passwordEncoder.encode(request.password()),
-                    request.gymExperience(),
-                    request.birthDate(),
-                    request.height(),
-                    request.weight(),
-                    Role.USER,
-                    null);
 
-            log.log(AuthConstants.REGISTRATION_IN_PROCCESS, user.username());
-            if(user.email().trim().equals("")
-                    || user.password().trim().equals("")
-                    || user.username().trim().equals(""))
+            log.log(AuthConstants.REGISTRATION_IN_PROCCESS, userDTO.username());
+            if(userDTO.email().trim().equals("")
+                    || userDTO.password().trim().equals("")
+                    || userDTO.username().trim().equals(""))
                 throw new MissingRequestDataException();
 
-            if(!UtilClass.isEmailValid(user.email()))
+            if(!UtilClass.isEmailValid(userDTO.email()))
                 throw new IncorrectRegistrationException();
 
-            userService.createNewUser(user);
-            final var token = jwtService.generateToken(user.username());
-            log.log(AuthConstants.REGISTRATION_SUCCESSFUL, user.username());
+            final var user = userService.createNewUser(userDTO);
+
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            user.getUsername(),
+                            userDTO.password(),
+                            user.getAuthorities()
+                    )
+            );
+
+            final var token = jwtService.generateToken(user.getUsername());
+            log.log(AuthConstants.REGISTRATION_SUCCESSFUL, user.getUsername());
             return token;
         }catch (Exception e) {
-            log.log(AuthConstants.REGISTRATION_FAILED, request.username());
+            log.log(AuthConstants.REGISTRATION_FAILED, userDTO.username());
             throw e;
         }
 
@@ -74,10 +67,13 @@ public class AuthService {
                 throw new MissingRequestDataException();
             }
 
+            final var user = userRepository.findUserByUsername(username).orElseThrow(UserNotFoundException::new);
+
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             username,
-                            password
+                            password,
+                            user.getAuthorities()
                     )
             );
 

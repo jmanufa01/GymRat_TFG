@@ -1,8 +1,6 @@
 package com.tfg.backend_gymrat.persistence.entity;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -12,6 +10,7 @@ import java.util.List;
 @SuperBuilder
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
+@AllArgsConstructor
 @Document("superset")
 public class Superset extends Exercise {
     private List<Exercise> exercises;

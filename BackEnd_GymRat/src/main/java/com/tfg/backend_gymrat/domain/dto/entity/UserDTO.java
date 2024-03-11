@@ -10,7 +10,6 @@ import static com.fasterxml.jackson.annotation.JsonInclude.*;
 
 @JsonInclude(Include.NON_NULL)
 public record UserDTO (
-
     @NonNull String username,
     @NonNull String email,
     @NonNull String password,
@@ -18,7 +17,7 @@ public record UserDTO (
     @NonNull Date birthDate,
     @NonNull Double height,
     @NonNull Double weight,
-    @NonNull Role role,
+    Role role,
     List<String> friends
 
 ) {}

@@ -1,18 +1,20 @@
 package com.tfg.backend_gymrat.domain.service;
 
 import com.tfg.backend_gymrat.constants.AppConstants;
-import com.tfg.backend_gymrat.domain.dto.api.user.response.UserNameDTO;
 import com.tfg.backend_gymrat.domain.dto.api.user.response.UserProfileDTO;
+import com.tfg.backend_gymrat.domain.dto.api.user.response.UserNameDTO;
+import com.tfg.backend_gymrat.domain.dto.entity.Role;
 import com.tfg.backend_gymrat.domain.dto.entity.UserDTO;
 import com.tfg.backend_gymrat.persistence.entity.User;
 import com.tfg.backend_gymrat.persistence.mapper.UserMapper;
-import com.tfg.backend_gymrat.persistence.mongo.NotificationMongo;
-import com.tfg.backend_gymrat.persistence.mongo.RoutineMongo;
-import com.tfg.backend_gymrat.persistence.mongo.UserMongo;
+import com.tfg.backend_gymrat.persistence.repository.NotificationRepository;
+import com.tfg.backend_gymrat.persistence.repository.RoutineRepository;
+import com.tfg.backend_gymrat.persistence.repository.UserRepository;
 import com.tfg.backend_gymrat.util.Log;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,13 +25,11 @@ import static com.tfg.backend_gymrat.exceptions.AppExceptions.*;
 @RequiredArgsConstructor
 public class UserService {
 
-    private final UserMongo repository;
-
+    private final UserRepository repository;
     private final UserMapper mapper;
-
-    private final NotificationMongo notificationRepository;
-
-    private final RoutineMongo routineRepository;
+    private final NotificationRepository notificationRepository;
+    private final RoutineRepository routineRepository;
+    private final PasswordEncoder passwordEncoder;
 
     private final Log log = new Log();
     public List<UserDTO> findAllUsersInDB(){
@@ -118,22 +118,34 @@ public class UserService {
             }
     }
 
-    public void createNewUser(UserDTO userDTO){
-        //TODO: insert validations
+    public User createNewUser(UserDTO userDTO){
 
         final var user = User.builder()
                 .username(userDTO.username())
                 .email(userDTO.email())
-                .password(userDTO.password())
-                .gym_experience(userDTO.gymExperience())
-                .birth_date(userDTO.birthDate())
+                .password(passwordEncoder.encode(userDTO.password()))
+                .gymExperience(userDTO.gymExperience())
+                .birthDate(userDTO.birthDate())
                 .height(userDTO.height())
                 .weight(userDTO.weight())
-                .role(userDTO.role().name())
+                .role(Role.USER.name())
                 .friends(userDTO.friends())
                 .build();
 
-        repository.insert(user);
+        return repository.insert(user);
+    }
+
+
+    public void deleteUser(String username) throws Exception {
+        try{
+            log.log(AppConstants.USER_DELETION_STARTED);
+            final var user = repository.findUserByUsername(username).orElseThrow(UserNotFoundException::new);
+            repository.delete(user);
+            log.log(AppConstants.USER_DELETION_SUCCESS);
+        }catch (Exception e) {
+            log.log("Error: " + e.getMessage());
+            throw e;
+        }
     }
 
     public void deleteFriend(String friendUsername) throws Exception {

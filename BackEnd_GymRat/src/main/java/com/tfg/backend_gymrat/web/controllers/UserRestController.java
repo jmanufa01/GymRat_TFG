@@ -3,9 +3,11 @@ package com.tfg.backend_gymrat.web.controllers;
 
 import com.tfg.backend_gymrat.domain.dto.api.user.response.UserNameDTO;
 import com.tfg.backend_gymrat.domain.dto.api.user.response.UserProfileDTO;
+import com.tfg.backend_gymrat.domain.dto.entity.UserDTO;
 import com.tfg.backend_gymrat.domain.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,11 +15,17 @@ import java.util.List;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
-@RequestMapping("v1/users")
+@RequestMapping("users")
 @RequiredArgsConstructor
 public class UserRestController {
 
     private final UserService userService;
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping
+    public ResponseEntity<List<UserDTO>> obtainAllUsers() throws Exception {
+        return ok(userService.findAllUsersInDB());
+    }
 
     @GetMapping(params = "username")
     public ResponseEntity<List<UserNameDTO>> findAllUsersByUsernameContaining(@RequestParam String username) throws Exception {
@@ -46,6 +54,13 @@ public class UserRestController {
     @DeleteMapping(value = "friends", params = "friendUsername")
     public ResponseEntity<Void> deleteFriend(@RequestParam String friendUsername) throws Exception{
         userService.deleteFriend(friendUsername);
+        return ok().build();
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping("{username}")
+    public ResponseEntity<Void> deleteUser(@PathVariable String username) throws Exception {
+        userService.deleteUser(username);
         return ok().build();
     }
 }

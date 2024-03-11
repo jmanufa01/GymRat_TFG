@@ -4,8 +4,8 @@ import com.tfg.backend_gymrat.domain.dto.entity.NotificationDTO;
 import com.tfg.backend_gymrat.domain.dto.entity.NotificationStatus;
 import com.tfg.backend_gymrat.persistence.entity.Notification;
 import com.tfg.backend_gymrat.persistence.mapper.NotificationMapper;
-import com.tfg.backend_gymrat.persistence.mongo.NotificationMongo;
-import com.tfg.backend_gymrat.persistence.mongo.UserMongo;
+import com.tfg.backend_gymrat.persistence.repository.NotificationRepository;
+import com.tfg.backend_gymrat.persistence.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,11 +17,11 @@ import static com.tfg.backend_gymrat.exceptions.AppExceptions.*;
 @RequiredArgsConstructor
 public class NotificationService {
 
-    private final NotificationMongo repository;
+    private final NotificationRepository repository;
 
     private final NotificationMapper mapper;
 
-    private final UserMongo userRepository;
+    private final UserRepository userRepository;
 
     public List<NotificationDTO> obtainAllNotifications(String username){
          return mapper.toNotificationDTOs(repository.findAllByReceiver(username));

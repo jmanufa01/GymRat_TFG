@@ -1,6 +1,6 @@
 package com.tfg.backend_gymrat.config;
 
-import com.tfg.backend_gymrat.persistence.mongo.UserMongo;
+import com.tfg.backend_gymrat.persistence.repository.UserRepository;
 import com.tfg.backend_gymrat.web.security.JWTAuthenticationFilter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +10,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -26,12 +27,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 @RequiredArgsConstructor
 public class WebSecurityConfig{
 
     private final JWTAuthenticationFilter jwtAuthenticationFilter;
 
-    private final UserMongo userMongo;
+    private final UserRepository userRepository;
 
     @Bean
     public WebMvcConfigurer corsConfigurer(){
@@ -46,7 +48,7 @@ public class WebSecurityConfig{
 
     @Bean
     public UserDetailsService userDetailsService(){
-        return username -> userMongo.findUserByUsername(username)
+        return username -> userRepository.findUserByUsername(username)
                         .orElseThrow(() -> new UsernameNotFoundException(""));
     };
 
@@ -88,10 +90,8 @@ public class WebSecurityConfig{
                     sessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
                 })
                 .authorizeHttpRequests((requests) ->
-                        requests.requestMatchers("/v1/auth/**")
+                        requests.requestMatchers("auth/**")
                                 .permitAll()
-                                .requestMatchers("/v1/admin/**")
-                                .hasAuthority("ADMIN")
                                 .anyRequest()
                                 .authenticated()
                 )

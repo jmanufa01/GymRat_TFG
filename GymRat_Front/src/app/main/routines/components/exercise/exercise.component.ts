@@ -72,15 +72,15 @@ export class ExerciseComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private exercisesService: ExercisesService
   ) {
-    this.exerciseForm.valueChanges.subscribe((value) => {
-      let seriesValue = Number(this.exerciseForm.get('series')!.value);
-      if (seriesValue > 10) {
+    this.exerciseForm.valueChanges.subscribe((form) => {
+      let seriesValue = Number(form.series);
+      if (seriesValue! > 10) {
         this.exerciseForm.patchValue({ series: 10 });
-      } else if (seriesValue < 0) {
+        seriesValue = 10;
+      } else if (seriesValue! < 0) {
         this.exerciseForm.patchValue({ series: 0 });
+        seriesValue = 0;
       }
-
-      this.form.emit(this.exerciseForm);
       this.series = Array(seriesValue)
         .fill(0)
         .map((x, i) => i);
@@ -88,6 +88,8 @@ export class ExerciseComponent implements OnInit, OnDestroy {
       if (this.series.length > 0) {
         this.changeControls();
       }
+
+      this.form.emit(this.exerciseForm);
     });
   }
 

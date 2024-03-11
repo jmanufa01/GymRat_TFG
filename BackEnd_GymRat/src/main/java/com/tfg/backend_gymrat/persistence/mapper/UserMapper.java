@@ -4,11 +4,12 @@ package com.tfg.backend_gymrat.persistence.mapper;
 import com.tfg.backend_gymrat.domain.dto.entity.Role;
 import com.tfg.backend_gymrat.domain.dto.entity.UserDTO;
 import com.tfg.backend_gymrat.persistence.entity.User;
-import org.mapstruct.Mapper;
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 
 
-@Mapper
+@Component
 public class UserMapper {
 
     public UserDTO toUserDTO(User user) {
@@ -16,8 +17,8 @@ public class UserMapper {
                 user.getUsername(),
                 user.getEmail(),
                 user.getPassword(),
-                user.getGym_experience(),
-                user.getBirth_date(),
+                user.getGymExperience(),
+                user.getBirthDate(),
                 user.getHeight(),
                 user.getWeight(),
                 Role.valueOf(user.getRole()),
@@ -30,8 +31,8 @@ public class UserMapper {
                 .username(userDTO.username())
                 .email(userDTO.email())
                 .password(userDTO.password())
-                .gym_experience(userDTO.gymExperience())
-                .birth_date(userDTO.birthDate())
+                .gymExperience(userDTO.gymExperience())
+                .birthDate(userDTO.birthDate())
                 .height(userDTO.height())
                 .weight(userDTO.weight())
                 .role(userDTO.role().name())

@@ -2,8 +2,8 @@ package com.tfg.backend_gymrat.web.controllers;
 
 
 import com.tfg.backend_gymrat.domain.dto.api.auth.request.UserLoginRequest;
-import com.tfg.backend_gymrat.domain.dto.api.auth.request.UserRegistrationRequest;
 import com.tfg.backend_gymrat.domain.dto.api.auth.response.AuthenticationResponse;
+import com.tfg.backend_gymrat.domain.dto.entity.UserDTO;
 import com.tfg.backend_gymrat.domain.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -19,7 +19,7 @@ import static org.springframework.http.ResponseEntity.ok;
  *
  */
 @RestController
-@RequestMapping("v1/auth")
+@RequestMapping("auth")
 @RequiredArgsConstructor
 public class AuthRestController {
 
@@ -33,8 +33,8 @@ public class AuthRestController {
      * @return
      */
     @PostMapping("register")
-    public ResponseEntity<AuthenticationResponse> register(@RequestBody UserRegistrationRequest request) throws Exception {
-                String jwt = authService.registerUser(request);
+    public ResponseEntity<AuthenticationResponse> register(@RequestBody UserDTO userDTO) throws Exception {
+                String jwt = authService.registerUser(userDTO);
                 return new ResponseEntity<>(new AuthenticationResponse(jwt), HttpStatus.CREATED);
     }
 
