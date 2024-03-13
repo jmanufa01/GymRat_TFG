@@ -1,4 +1,6 @@
 import {
+  AfterViewInit,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
@@ -28,7 +30,7 @@ import { ExercisesService } from '../../services/exercises.service';
   selector: 'routines-exercise',
   templateUrl: './exercise.component.html',
 })
-export class ExerciseComponent implements OnInit, OnDestroy {
+export class ExerciseComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input()
   public exerciseNumber: number = 0;
 
@@ -70,7 +72,8 @@ export class ExerciseComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
-    private exercisesService: ExercisesService
+    private exercisesService: ExercisesService,
+    private cdr: ChangeDetectorRef
   ) {
     this.exerciseForm.valueChanges.subscribe((form) => {
       let seriesValue = Number(form.series);
@@ -178,5 +181,9 @@ export class ExerciseComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.debouncerSubscription?.unsubscribe();
+  }
+
+  ngAfterViewInit(): void {
+    this.cdr.detectChanges();
   }
 }

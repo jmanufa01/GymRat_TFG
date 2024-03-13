@@ -48,7 +48,7 @@ public class AuthService {
                     )
             );
 
-            final var token = jwtService.generateToken(user.getUsername());
+            final var token = jwtService.generateToken(user);
             log.log(AuthConstants.REGISTRATION_SUCCESSFUL, user.getUsername());
             return token;
         }catch (Exception e) {
@@ -77,7 +77,7 @@ public class AuthService {
                     )
             );
 
-            final var token = jwtService.generateToken(username);
+            final var token = jwtService.generateToken(user);
             log.log(AuthConstants.LOGIN_SUCCESSFUL, username);
             return token;
         }catch (Exception e){

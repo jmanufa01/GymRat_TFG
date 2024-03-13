@@ -18,12 +18,12 @@
       class="w-full h-full mt-10 flex flex-col items-center overflow-y-scroll"
     >
       <li
-        class="w-2/4 flex justify-between hover:bg-gray-200 p-4"
+        class="w-2/4 flex justify-between items-center hover:bg-gray-200 p-4"
         *ngFor="let user of this.friendsUsernames"
       >
         <h1 class="ml-4">{{ user.username }}</h1>
         <img
-          class="w-6 h-6 ml-4 cursor-pointer"
+          class="w-8 h-8 ml-4 cursor-pointer"
           src="assets/trash-icon.png"
           (click)="this.onDeleteFriendClick(user.username)"
         />
@@ -54,12 +54,12 @@
         class="w-full h-full mt-10 flex flex-col items-center overflow-y-scroll"
       >
         <li
-          class="w-2/4 flex justify-between hover:bg-gray-200 p-4"
+          class="w-2/4 flex justify-between hover:bg-gray-200 p-4 items-center"
           *ngFor="let user of this.filteredUsernames"
         >
           <h1 class="ml-4">{{ user.username }}</h1>
           <img
-            class="w-6 h-6 ml-4 cursor-pointer"
+            class="w-8 h-8 ml-4 cursor-pointer"
             src="assets/add-green.png"
             (click)="this.onAddFriendClick(user.username)"
           />

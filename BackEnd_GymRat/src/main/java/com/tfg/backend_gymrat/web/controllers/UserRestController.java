@@ -21,8 +21,8 @@ public class UserRestController {
 
     private final UserService userService;
 
-    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<List<UserDTO>> obtainAllUsers() throws Exception {
         return ok(userService.findAllUsersInDB());
     }
@@ -57,8 +57,8 @@ public class UserRestController {
         return ok().build();
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("{username}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Void> deleteUser(@PathVariable String username) throws Exception {
         userService.deleteUser(username);
         return ok().build();

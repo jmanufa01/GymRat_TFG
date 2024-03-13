@@ -128,7 +128,7 @@ public class UserService {
                 .birthDate(userDTO.birthDate())
                 .height(userDTO.height())
                 .weight(userDTO.weight())
-                .role(Role.USER.name())
+                .role(Role.ROLE_USER.name())
                 .friends(userDTO.friends())
                 .build();
 
@@ -140,6 +140,16 @@ public class UserService {
         try{
             log.log(AppConstants.USER_DELETION_STARTED);
             final var user = repository.findUserByUsername(username).orElseThrow(UserNotFoundException::new);
+
+            routineRepository.findAllByUsersContaining(username).forEach(routine -> {
+                if(routine.getUsers().size() <= 1){
+                    routineRepository.delete(routine);
+                }else{
+                    routine.getUsers().remove(username);
+                    routineRepository.save(routine);
+                }
+            });
+
             repository.delete(user);
             log.log(AppConstants.USER_DELETION_SUCCESS);
         }catch (Exception e) {

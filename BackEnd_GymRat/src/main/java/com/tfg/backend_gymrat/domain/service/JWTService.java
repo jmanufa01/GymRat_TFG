@@ -2,6 +2,7 @@ package com.tfg.backend_gymrat.domain.service;
 
 
 import com.tfg.backend_gymrat.constants.AuthConstants;
+import com.tfg.backend_gymrat.persistence.entity.User;
 import com.tfg.backend_gymrat.persistence.repository.UserRepository;
 import com.tfg.backend_gymrat.web.security.Payload;
 import io.jsonwebtoken.Claims;
@@ -9,9 +10,11 @@ import io.jsonwebtoken.JwtParserBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 
 @Service
@@ -26,9 +29,10 @@ public class JWTService implements Serializable {
      * @param username user's username registered with
      * @return JWT
      */
-    public String generateToken(String username){
+    public String generateToken(User user){
         Payload payload = new Payload();
-        payload.put("user",username);
+        payload.put("user",user.getUsername());
+        payload.put("role", user.getRole());
         return Jwts.builder()
                     .setClaims(payload.getPayload())
                     .setIssuedAt(new Date())

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes, CanActivateFn } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { ErrorPageComponent } from './shared/pages/error-page/error-page.component';
-import { PrivateGuard, PublicGuard } from './auth/guards';
+import { AdminGuard, PrivateGuard, PublicGuard } from './auth/guards';
 
 const routes: Routes = [
   {

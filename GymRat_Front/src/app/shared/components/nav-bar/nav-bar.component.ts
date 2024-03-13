@@ -1,4 +1,11 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { MatBadgeModule } from '@angular/material/badge';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { Notification } from 'src/app/main/user/interfaces';
@@ -8,7 +15,7 @@ import { NotificationService } from 'src/app/main/user/services/notification.ser
   selector: 'shared-nav-bar',
   templateUrl: './nav-bar.component.html',
 })
-export class NavBarComponent implements OnInit {
+export class NavBarComponent implements OnInit, AfterViewInit {
   public isNotificationsDropdownOpen = false;
 
   public notifications: Notification[] = [];
@@ -18,11 +25,16 @@ export class NavBarComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   get userName(): string {
     return this.authService.currentUser()!.username;
+  }
+
+  get role(): string {
+    return this.authService.currentUser()!.role;
   }
 
   logout() {
@@ -55,5 +67,9 @@ export class NavBarComponent implements OnInit {
     this.notificationService.getNotifications().subscribe((res) => {
       this.notifications = res;
     });
+  }
+
+  ngAfterViewInit(): void {
+    this.cdr.detectChanges();
   }
 }

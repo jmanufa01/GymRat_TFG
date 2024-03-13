@@ -67,7 +67,7 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
                 || !((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername().equals(userName)){
 
             UserDetails userDetails = userRepository.findUserByUsername(userName)
-                    .orElseThrow(() -> new UsernameNotFoundException(""));;
+                    .orElseThrow(() -> new UsernameNotFoundException(""));
 
             UsernamePasswordAuthenticationToken authenticationToken =
                     new UsernamePasswordAuthenticationToken(

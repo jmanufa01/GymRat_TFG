@@ -1,0 +1,21 @@
+<section class="w-full h-full flex flex-col items-center">
+  <div
+    class="m-auto w-2/4 h-2/4 flex flex-col items-center bg-gradient-to-t from-pink-300/50 via-purple-300/50 to-indigo-400/50 backdrop-blur-sm rounded-md shadow-md"
+  >
+    <h1 class="mt-12 text-center text-xl font-black">USERS</h1>
+    <ul class="m-auto flex flex-col shrink-0 h-2/4 w-2/4 overflow-y-scroll">
+      <li
+        class="flex justify-between items-center hover:bg-gray-200 p-4"
+        *ngFor="let user of this.users"
+      >
+        <span class="w-10 text-center">{{ user.username }}</span>
+        <span class="w-10">{{ user.role }}</span>
+        <img
+          class="w-8 h-8 ml-4 cursor-pointer"
+          src="assets/trash-icon.png"
+          (click)="this.onDeleteUserClick(user.username)"
+        />
+      </li>
+    </ul>
+  </div>
+</section>

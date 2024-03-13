@@ -31,10 +31,11 @@ export class AuthService {
 
   private setAuthentication(jwt: string): boolean {
     this._authStatus.set(AuthStatus.Authenticated);
-    localStorage.setItem('jwt', jwt); //TODO: Use a cookie instead of localStorage
+    localStorage.setItem('jwt', jwt);
+    let user = this.jwtService.decodeToken(jwt);
     this._currentUser.set({
-      username: this.jwtService.decodeUsername(jwt),
-      role: 'user', //TODO: Call the API to get the role
+      username: user.username,
+      role: user.role,
     });
     return true;
   }
@@ -51,7 +52,6 @@ export class AuthService {
 
   register(body: FormGroup): Observable<boolean> {
     const url: string = `${this.apiUrl}/auth/register`;
-    //const { username, email, password, birthDate, height, weight } = body.value;
 
     return this.http.post<AuthResponse>(url, body.value).pipe(
       map(({ jwt }) => this.setAuthentication(jwt)),

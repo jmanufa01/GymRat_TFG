@@ -19,6 +19,13 @@
       >
         Progress
       </li>
+      <li
+        class="ml-4 cursor-pointer hover:text-blue-500"
+        routerLink="/admin"
+        *ngIf="this.role === 'ROLE_ADMIN'"
+      >
+        Admin
+      </li>
     </ul>
   </div>
   <div class="relative flex items-center mr-2">

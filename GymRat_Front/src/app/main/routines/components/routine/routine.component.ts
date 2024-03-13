@@ -7,6 +7,8 @@ import {
   ComponentRef,
   ElementRef,
   EventEmitter,
+  ChangeDetectorRef,
+  AfterViewInit,
 } from '@angular/core';
 import { Routine, Superset } from '../../interfaces';
 import { SimpleExercise } from '../../interfaces/simple-exercise.interface';
@@ -45,7 +47,7 @@ import { throwError } from 'rxjs';
     ]),
   ],
 })
-export class RoutineComponent implements OnInit {
+export class RoutineComponent implements OnInit, AfterViewInit {
   @Input()
   public routineNumber!: number;
 
@@ -90,7 +92,8 @@ export class RoutineComponent implements OnInit {
   constructor(
     private routinesService: RoutinesService,
     private authService: AuthService,
-    private userService: UserService
+    private userService: UserService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   public addExercise(): void {
@@ -334,5 +337,9 @@ export class RoutineComponent implements OnInit {
         }
       });
     }
+  }
+
+  ngAfterViewInit(): void {
+    this.cdr.detectChanges();
   }
 }
