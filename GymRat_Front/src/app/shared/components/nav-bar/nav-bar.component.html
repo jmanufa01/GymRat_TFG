@@ -1,12 +1,25 @@
 <nav class="fixed z-50 w-full h-16 flex items-center justify-between">
-  <div class="h-full flex items-center">
-    <img
-      class="mb-2 w-18 h-full hover:cursor-pointer"
-      src="assets/gymrat-logo.png"
-      alt="gymrat-logo"
-      routerLink="/home"
-    />
-    <ul class="flex">
+  <img
+    #menuIcon
+    class="menu-icon ml-2 w-10 h-10 hover:cursor-pointer"
+    src="assets/menu-icon.png"
+    alt="gymrat-logo"
+    (click)="this.onShowMenu()"
+  />
+
+  <div #navBarLeft id="nav-bar-left">
+    <div class="w-full flex justify-around items-center">
+      <div id="centering-div" class="w-10"></div>
+      <img
+        class="mb-2 hover:cursor-pointer"
+        src="assets/gymrat-logo.png"
+        alt="gymrat-logo"
+        routerLink="/home"
+      />
+      <h1 class="cursor-pointer text-xl" (click)="this.onHideMenu()">X</h1>
+    </div>
+
+    <ul class="flex links-list">
       <li
         class="ml-4 cursor-pointer hover:text-blue-500"
         routerLink="/routines"

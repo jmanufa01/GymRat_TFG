@@ -3,10 +3,10 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
+  HostListener,
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { MatBadgeModule } from '@angular/material/badge';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { Notification } from 'src/app/main/user/interfaces';
 import { NotificationService } from 'src/app/main/user/services/notification.service';
@@ -14,6 +14,7 @@ import { NotificationService } from 'src/app/main/user/services/notification.ser
 @Component({
   selector: 'shared-nav-bar',
   templateUrl: './nav-bar.component.html',
+  styleUrls: ['./nav-bar.component.css'],
 })
 export class NavBarComponent implements OnInit, AfterViewInit {
   public isNotificationsDropdownOpen = false;
@@ -22,6 +23,12 @@ export class NavBarComponent implements OnInit, AfterViewInit {
 
   @ViewChild('notificationsIcon')
   public notificationsIconRef!: ElementRef;
+
+  @ViewChild('menuIcon')
+  public menuIconRef!: ElementRef;
+
+  @ViewChild('navBarLeft')
+  public navBarLeftRef!: ElementRef;
 
   constructor(
     private authService: AuthService,
@@ -59,8 +66,37 @@ export class NavBarComponent implements OnInit, AfterViewInit {
       });
   }
 
+  onShowMenu(): void {
+    let navBarLeft = document.getElementById('nav-bar-left');
+    navBarLeft!.style.display = 'flex';
+  }
+
+  onHideMenu(): void {
+    let navBarLeft = document.getElementById('nav-bar-left');
+    navBarLeft!.style.display = 'none';
+  }
+
   handleRejectFriendRequest(notification: Notification): void {
     this.notificationService.rejectFriendRequest(notification).subscribe();
+  }
+
+  @HostListener('document:click', ['$event'])
+  handleClickOutside(event: MouseEvent): void {
+    if (
+      this.navBarLeftRef.nativeElement &&
+      this.menuIconRef.nativeElement &&
+      !this.menuIconRef.nativeElement.contains(event.target as Node) &&
+      !this.navBarLeftRef.nativeElement.contains(event.target as Node)
+    ) {
+      this.onHideMenu();
+    }
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  handleEscape(event: KeyboardEvent): void {
+    if (event.key === 'Escape') {
+      this.onHideMenu();
+    }
   }
 
   ngOnInit(): void {
