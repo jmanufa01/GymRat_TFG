@@ -12,6 +12,7 @@ import { RoutinesService } from '../../services/routines.service';
 @Component({
   selector: 'routines-modal',
   templateUrl: './modal.component.html',
+  styleUrls: ['./modal.component.css'],
 })
 export class ModalComponent {
   public newRoutineView: boolean = false;

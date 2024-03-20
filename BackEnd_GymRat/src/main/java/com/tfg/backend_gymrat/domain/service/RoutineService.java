@@ -86,6 +86,21 @@ public class RoutineService {
         }
     }
 
+    public List<RoutineDTO> findAllRoutinesByMonth(String date) throws Exception {
+        try {
+            log.log(AppConstants.OBTAINING_ROUTINES);
+            Date firstDayOfMonth = new SimpleDateFormat("yyyy-MM-dd").parse(date.substring(0,8) + "01");
+            Date lastDayOfMonth = new SimpleDateFormat("yyyy-MM-dd").parse(date.substring(0,8) + "31");
+            final var routines = routineRepository.findAllByRealizationDateBetween(firstDayOfMonth, lastDayOfMonth);
+            log.log(AppConstants.ROUTINE_OBTAINMENT_SUCCESS);
+            return mapper.toRoutineDTOs(routines);
+        }catch (Exception e) {
+            log.log("Error: " + e.getMessage());
+            log.log(AppConstants.ROUTINE_OBTAINMENT_FAILURE);
+            throw e;
+        }
+    }
+
     public RoutineDTO insertRoutine(RoutineDTO routineDTO) throws Exception {
         try {
             //TODO: Insert validations
@@ -127,10 +142,11 @@ public class RoutineService {
         }
     }
 
-    public void deleteRoutine(String routineId, String username) throws Exception {
+    public void deleteRoutineByUserName(String routineId, String username) throws Exception {
         try {
             log.log(AppConstants.DELETING_ROUTINE);
             final var routine = routineRepository.findById(routineId).orElseThrow(RoutineNotFoundException::new);
+
 
             if(!userRepository.existsUserByUsername(username)) {
                 throw new UserNotFoundException();
@@ -146,6 +162,19 @@ public class RoutineService {
             }else{
                 routineRepository.deleteById(routineId);
             }
+            log.log(AppConstants.ROUTINE_DELETION_SUCCESS);
+        } catch (Exception e) {
+            log.log("Error: " + e.getMessage());
+            log.log(AppConstants.ROUTINE_DELETION_FAILURE);
+            throw e;
+        }
+    }
+
+    public void deleteRoutine(String routineId) throws Exception {
+        try {
+            log.log(AppConstants.DELETING_ROUTINE);
+            final var routine = routineRepository.findById(routineId).orElseThrow(RoutineNotFoundException::new);
+            routineRepository.delete(routine);
             log.log(AppConstants.ROUTINE_DELETION_SUCCESS);
         } catch (Exception e) {
             log.log("Error: " + e.getMessage());

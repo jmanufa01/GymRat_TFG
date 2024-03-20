@@ -89,6 +89,8 @@ export class RoutineComponent implements OnInit, AfterViewInit {
 
   public editingRoutine: boolean = false;
 
+  public showRoutineUsers: boolean = false;
+
   constructor(
     private routinesService: RoutinesService,
     private authService: AuthService,
@@ -336,6 +338,10 @@ export class RoutineComponent implements OnInit, AfterViewInit {
           };
         }
       });
+
+      if (this.authService.currentUser()!.role === 'ROLE_ADMIN') {
+        this.showRoutineUsers = true;
+      }
     }
   }
 

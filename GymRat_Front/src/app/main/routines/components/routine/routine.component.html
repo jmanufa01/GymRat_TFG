@@ -18,6 +18,8 @@
           <img
             class="ml-4 w-6 h-6 cursor-pointer"
             src="assets/pencil-icon.png"
+            alt="pencil-icon"
+            title="Edit Routine"
             (click)="this.onEditRoutineClick()"
           />
         </div>
@@ -50,7 +52,16 @@
       </shared-dropdown>
     </div>
 
-    <div class="grid md:grid-cols-2 sm:grid-cols-1">
+    <div
+      class="m-auto flex sm:flex-col items-center"
+      *ngIf="this.showRoutineUsers"
+    >
+      <span class="font-bold">Users: </span>
+      <span class="ml-2" *ngFor="let user of this.routine.users">{{
+        user
+      }}</span>
+    </div>
+    <div class="grid grid-cols-2 sm:grid-cols-1">
       <shared-input
         class="p-4"
         label="Muscular Group"
@@ -110,11 +121,11 @@
   </section>
 
   <ng-template #createNewRoutine>
-    <section class="h-full flex flex-col justify-around p-2">
+    <section class="h-full flex flex-col justify-around">
       <div
         class="exercise-bar-shadow w-full h-16 flex items-center justify-center"
       >
-        <div class="w-24 h-full">
+        <div class="mb-4 w-24 h-full">
           <shared-button
             buttonType="button"
             (onButtonClick)="this.addExercise()"
@@ -123,7 +134,7 @@
         </div>
       </div>
 
-      <div class="h-full p-4 mt-6 grid grid-cols-1 scrollable-div pb-10">
+      <div class="h-full p-4 grid grid-cols-1 scrollable-div pb-10">
         <ng-template #supersetRef class="mb-4"></ng-template>
 
         <div

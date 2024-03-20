@@ -6,6 +6,7 @@ import com.tfg.backend_gymrat.domain.service.RoutineService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -38,6 +39,13 @@ public class RoutineRestController {
         return ok(routines);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("all/{date}")
+    public ResponseEntity<List<RoutineDTO>> obtainRoutinesByMonth(@PathVariable String date) throws Exception{
+        final var routines = routineService.findAllRoutinesByMonth(date);
+        return ok(routines);
+    }
+
     @PostMapping
     public ResponseEntity<RoutineDTO> insertNewRoutine(@RequestBody RoutineDTO routineDTO) throws Exception{
             final var routine = routineService.insertRoutine(routineDTO);
@@ -51,8 +59,15 @@ public class RoutineRestController {
     }
 
     @DeleteMapping(value = "{id}", params = "username")
-    public ResponseEntity<Void> deleteRoutine(@PathVariable String id, @RequestParam("username") String username) throws Exception{
-            routineService.deleteRoutine(id, username);
+    public ResponseEntity<Void> deleteRoutineByUserName(@PathVariable String id, @RequestParam("username") String username) throws Exception{
+            routineService.deleteRoutineByUserName(id, username);
+            return ok().build();
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @DeleteMapping("{id}")
+    public ResponseEntity<Void> deleteRoutine(@PathVariable String id) throws Exception{
+            routineService.deleteRoutine(id);
             return ok().build();
     }
 }

@@ -11,5 +11,6 @@ public interface RoutineRepository extends MongoRepository<Routine,String> {
     Optional<Routine> findById(String id);
     List<Routine> findAllByUsersContaining(String username);
     List<Routine> findAllByUsersContainingAndRealizationDateBetween(String username, Date start, Date finish);
+    List<Routine> findAllByRealizationDateBetween(Date start, Date finish);
     List<Routine> findAllByUsersContainingAndMuscularGroupContaining(String username, String muscle);
 }

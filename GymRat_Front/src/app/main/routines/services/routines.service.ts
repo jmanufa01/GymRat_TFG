@@ -21,14 +21,26 @@ export class RoutinesService {
       String(date.getMonth() + 1).padStart(2, '0') +
       '-' +
       date.getDate();
-    const url = `${this.apiUrl}/routines/${formattedDate}`;
-    const options = {
+    let url = `${this.apiUrl}/routines/${formattedDate}`;
+
+    let options: {
+      headers: {
+        'Content-Type': 'application/json';
+        Authorization: string;
+        usernameHeader?: string;
+      };
+    } = {
       headers: {
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + localStorage.getItem('jwt'),
         usernameHeader: this.authService.currentUser()!.username,
       },
     };
+
+    if (this.authService.currentUser()!.role === 'ROLE_ADMIN') {
+      url = `${this.apiUrl}/routines/all/${formattedDate}`;
+      delete options.headers.usernameHeader;
+    }
 
     return this.http.get<Routine[]>(url, options).pipe(
       map((res) => res),
@@ -108,13 +120,17 @@ export class RoutinesService {
 
   public deleteRoutine(routine: Routine): Observable<boolean> {
     const username = this.authService.currentUser()!.username;
-    const url = `${this.apiUrl}/routines/${routine.id}?username=${username}`;
+    const url =
+      this.authService.currentUser()?.role !== 'ROLE_ADMIN'
+        ? `${this.apiUrl}/routines/${routine.id}?username=${username}`
+        : `${this.apiUrl}/routines/${routine.id}`;
     const options = {
       headers: {
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + localStorage.getItem('jwt'),
       },
     };
+
     return this.http.delete(url, options).pipe(
       map((res) => {
         return true;

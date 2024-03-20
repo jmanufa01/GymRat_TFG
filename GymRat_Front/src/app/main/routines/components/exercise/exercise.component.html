@@ -5,7 +5,7 @@
   <h1 class="p-4 text-center text-lg" *ngIf="this.exerciseNumber > 0">
     Exercise {{ this.exerciseNumber }}
   </h1>
-  <div class="grid md:grid-cols-2 sm:grid-cols-1">
+  <div class="grid grid-cols-2 sm:grid-cols-1">
     <div class="relative">
       <div class="flex items-end" #searchRef>
         <shared-input
@@ -94,9 +94,7 @@
       <p class="text-center font-bold">Repetitions</p>
       <div
         [class]="
-          this.series.length < 5
-            ? 'flex'
-            : 'grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1'
+          this.series.length < 5 ? 'flex' : 'grid grid-cols-2 sm:grid-cols-1'
         "
         formGroupName="reps"
       >
@@ -117,9 +115,7 @@
       <p class="text-center font-bold">Weights</p>
       <div
         [class]="
-          this.series.length < 5
-            ? 'flex'
-            : 'grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1'
+          this.series.length < 5 ? 'flex' : 'grid grid-cols-2 sm:grid-cols-1'
         "
         formGroupName="weights"
       >

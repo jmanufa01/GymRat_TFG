@@ -10,6 +10,8 @@ export class ButtonComponent {
   public buttonStyle: String = '';
   @Input()
   public buttonType: String = '';
+  @Input()
+  public title: String = '';
   @Output()
   public onButtonClick: EventEmitter<MouseEvent> = new EventEmitter();
 
