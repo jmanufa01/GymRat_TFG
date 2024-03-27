@@ -9,14 +9,15 @@
       class="p-1 w-12 h-12 hover:cursor-pointer hover:bg-gray-400"
       src="assets/add-friend.png"
       alt="add-friend"
+      title="Friends"
       (click)="this.onAddUserClick()"
     />
   </header>
   <div
-    class="mt-10 h-3/5 w-3/5 grid grid-cols-1 md:grid-cols-2 self-center justify-items-center"
+    class="mt-10 h-3/5 w-3/5 grid grid-cols-2 sm:grid-cols-1 self-center justify-items-center"
   >
     <shared-input
-      ngClass="md:h-3/5 md:w-4/5 self-center"
+      ngClass="h-3/5 w-4/5 self-center"
       label="Username"
       inputPlaceholder="Username"
       inputType="text"
@@ -24,7 +25,7 @@
       [editable]="false"
     />
     <shared-input
-      ngClass="md:h-3/5 md:w-4/5 self-center"
+      ngClass="h-3/5 w-4/5 self-center"
       label="Email"
       inputPlaceholder="Email"
       inputType="text"
@@ -32,7 +33,7 @@
       [editable]="false"
     />
     <shared-input
-      ngClass="md:h-3/5 md:w-4/5 self-center"
+      ngClass="h-3/5 w-4/5 self-center"
       label="Gym Experience"
       inputPlaceholder="Gym Experience"
       inputType="text"
@@ -40,7 +41,7 @@
       [editable]="false"
     />
     <shared-input
-      ngClass="md:h-3/5 md:w-4/5 self-center"
+      ngClass="h-3/5 w-4/5 self-center"
       inputType="date"
       label="Birth Date"
       inputPlaceholder="Birth Date"
@@ -48,7 +49,7 @@
       [editable]="false"
     />
     <shared-input
-      ngClass="md:h-3/5 md:w-4/5 self-center"
+      ngClass="h-3/5 w-4/5 self-center"
       inputType="number"
       label="Height"
       inputPlaceholder="Height"
@@ -56,7 +57,7 @@
       [editable]="false"
     />
     <shared-input
-      ngClass="md:h-3/5 md:w-4/5 self-center"
+      ngClass="h-3/5 w-4/5 self-center"
       inputType="number"
       label="Weight"
       inputPlaceholder="Weight"

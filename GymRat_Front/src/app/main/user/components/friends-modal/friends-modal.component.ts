@@ -7,6 +7,7 @@ import { NotificationService } from '../../services/notification.service';
 @Component({
   selector: 'user-friends-modal',
   templateUrl: './friends-modal.component.html',
+  styleUrls: ['./friends-modal.component.css'],
 })
 export class FriendsModalComponent implements OnInit, OnDestroy {
   private debouncer: Subject<string> = new Subject();
