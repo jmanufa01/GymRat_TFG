@@ -15,6 +15,7 @@ export class FriendsModalComponent implements OnInit, OnDestroy {
   public friendsUsernames: { username: string }[] = [];
   public filteredUsernames: { username: string }[] = [];
   public friendsView: boolean = true;
+  public searchTerm: string = '';
 
   constructor(
     public dialogRef: MatDialogRef<FriendsModalComponent>,
@@ -26,7 +27,13 @@ export class FriendsModalComponent implements OnInit, OnDestroy {
     this.dialogRef.close();
   }
 
+  public onDeleteSearchTermClick(): void {
+    this.searchTerm = '';
+    this.searchFriends('');
+  }
+
   public onKeyPress(searchTerm: string): void {
+    this.searchTerm = searchTerm;
     this.debouncer.next(searchTerm);
   }
 

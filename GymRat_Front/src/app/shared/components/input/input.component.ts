@@ -50,6 +50,13 @@ export class InputComponent {
   @Output()
   public selectorChange = new EventEmitter<any>();
 
+  @Output()
+  public inputClick = new EventEmitter<any>();
+
+  onClick(event: any) {
+    this.inputClick.emit(event);
+  }
+
   onInput(event: any) {
     this.inputValue = event.target.value;
   }

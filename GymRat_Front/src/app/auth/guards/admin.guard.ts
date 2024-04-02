@@ -4,7 +4,7 @@ import { inject } from '@angular/core';
 import { AuthStatus } from '../interfaces';
 import { PrivateGuard } from './private.guard';
 
-export const AdminGuard: CanActivateFn = (route, state) => {
+export const AdminGuard: CanActivateFn = async (route, state) => {
   const authService = inject(AuthService);
 
   return (

@@ -27,11 +27,19 @@ public class UserRestController {
         return ok(userService.findAllUsersInDB());
     }
 
-    @GetMapping(params = "username")
-    public ResponseEntity<List<UserNameDTO>> findAllUsersByUsernameContaining(@RequestParam String username) throws Exception {
+    @GetMapping({"{username}"})
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<List<UserDTO>> findAllUsersByUsernameContaining(@PathVariable String username) throws Exception {
         final var users = userService.findAllUsersByUsernameContaining(username);
         return ok(users);
     }
+
+    @GetMapping(params = "username")
+    public ResponseEntity<List<UserNameDTO>> findAllUsersToAddAsFriendByUsernameContaining(@RequestParam String username) throws Exception {
+        final var users = userService.findAllUsersToAddAsFriendByUsernameContaining(username);
+        return ok(users);
+    }
+
     @GetMapping("profile/{username}")
     public ResponseEntity<UserProfileDTO> obtainUserProfile(@PathVariable String username) throws Exception{
         final var profile = userService.obtainUserProfile(username);

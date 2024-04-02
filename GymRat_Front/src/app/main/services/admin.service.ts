@@ -27,6 +27,22 @@ export class AdminService {
     );
   }
 
+  public getUsersByUsername(username: string): Observable<User[]> {
+    const url = `${this.apiUrl}/users/${username}`;
+    const options = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + localStorage.getItem('jwt'),
+      },
+    };
+    return this.httpClient.get<User[]>(url, options).pipe(
+      map((users) => {
+        return users;
+      }),
+      catchError((err) => throwError(() => err.message))
+    );
+  }
+
   public deleteUser(username: string): Observable<boolean> {
     const url = `${this.apiUrl}/users/${username}`;
     const options = {

@@ -36,6 +36,11 @@ public class UserService {
         return mapper.toUserDTOs(repository.findAll());
     }
 
+    public List<UserDTO> findAllUsersByUsernameContaining(String username){
+        return username.trim().equals("") ? this.findAllUsersInDB():
+                mapper.toUserDTOs(repository.findAllByUsernameContaining(username));
+    }
+
     public boolean existsUserByUserName(String userName){
         return repository.existsUserByUsername(userName);
     }
@@ -45,7 +50,7 @@ public class UserService {
                 .orElseThrow(UserNotFoundException::new));
     }
 
-    public List<UserNameDTO> findAllUsersByUsernameContaining(String string) throws Exception {
+    public List<UserNameDTO> findAllUsersToAddAsFriendByUsernameContaining(String string) throws Exception {
         log.log(AppConstants.OBTAINING_USERS_CONTAINING);
         final var userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         final var loggedUser = findUserByUsername(userDetails.getUsername());

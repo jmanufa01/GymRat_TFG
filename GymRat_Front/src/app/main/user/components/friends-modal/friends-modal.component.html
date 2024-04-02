@@ -44,15 +44,23 @@
           <img class="w-full h-full p-2" src="assets/back-icon.png" />
         </shared-button>
       </div>
-      <shared-input
-        ngClass="w-40 h-10"
-        inputType="search"
-        inputPlaceholder="type user..."
-        (keyUp)="this.onKeyPress($event)"
-      />
+      <div class="flex items-center">
+        <shared-input
+          ngClass="w-40 h-10"
+          inputType="search"
+          inputPlaceholder="type user..."
+          (keyUp)="this.onKeyPress($event)"
+          (inputClick)="this.onDeleteSearchTermClick()"
+        />
+        <img
+          class="mt-4 ml-2 w-8 h-8 cursor-pointer"
+          src="assets/search-icon.png"
+          (click)="this.onKeyPress(this.searchTerm)"
+        />
+      </div>
 
       <ul
-        class="w-full h-full mt-10 flex flex-col items-center overflow-y-scroll"
+        class="w-full h-full p-4 mt-10 flex flex-col items-center overflow-y-scroll"
       >
         <li
           class="w-2/4 flex justify-between hover:bg-gray-200 p-4 items-center"
