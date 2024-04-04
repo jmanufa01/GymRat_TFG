@@ -10,19 +10,39 @@
       formControlName="filter"
       ngDefaultControl
     />
-    <shared-input
-      *ngIf="
-        this.filterForm.get('filter')?.value !== this.filters[0];
-        else selectInput
-      "
-      ngClass="mt-4"
-      inputType="text"
-      label="Value"
-      inputPlaceholder="Value"
-      formControlName="value"
-      ngDefaultControl
-      (keyUp)="this.onKeyPress($event)"
-    />
+    <div class="mt-4 relative">
+      <div #searchDivRef>
+        <shared-input
+          *ngIf="
+            this.filterForm.get('filter')?.value !== this.filters[0];
+            else selectInput
+          "
+          inputType="text"
+          label="Value"
+          inputPlaceholder="Value"
+          formControlName="value"
+          ngDefaultControl
+          (keyUp)="this.onKeyPress($event)"
+          (inputClick)="this.isExerciseSearchOpen = !this.isExerciseSearchOpen"
+        />
+      </div>
+
+      <shared-dropdown
+        dropdownClassNames="w-full h-44 left-0"
+        [openComponentRef]="this.searchRef"
+        [isOpen]="this.isExerciseSearchOpen"
+        (onClickOutise)="this.onCloseDropdown()"
+      >
+        <li
+          class="w-full p-2 flex justify-between hover:bg-gray-200 cursor-pointer"
+          *ngFor="let filteredExercises of this.filteredExercises"
+          (click)="this.onFilteredExerciseClick(filteredExercises)"
+        >
+          <p>{{ filteredExercises.name }}</p>
+        </li>
+      </shared-dropdown>
+    </div>
+
     <ng-template #selectInput>
       <shared-input
         ngClass="mt-4"
@@ -43,6 +63,7 @@
     [series]="this.chartOptions.series!"
     [chart]="this.chartOptions.chart!"
     [xaxis]="this.chartOptions.xaxis!"
+    [yaxis]="this.chartOptions.yaxis!"
     [title]="this.chartOptions.title!"
     [theme]="this.chartOptions.theme!"
   ></apx-chart>

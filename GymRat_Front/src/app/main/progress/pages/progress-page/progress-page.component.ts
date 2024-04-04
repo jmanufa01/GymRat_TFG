@@ -1,4 +1,10 @@
-import { Component, OnDestroy, ViewChild, OnInit } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  ViewChild,
+  OnInit,
+  ElementRef,
+} from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import {
   ApexAxisChartSeries,
@@ -6,6 +12,7 @@ import {
   ApexTheme,
   ApexTitleSubtitle,
   ApexXAxis,
+  ApexYAxis,
   ChartComponent,
 } from 'ng-apexcharts';
 import {
@@ -19,11 +26,14 @@ import {
 } from 'src/app/main/routines/interfaces';
 import { RoutinesService } from '../../../routines/services/routines.service';
 import { Subject, Subscription, debounceTime } from 'rxjs';
+import { Data } from '@angular/router';
+import { ExercisesService } from 'src/app/main/routines/services/exercises.service';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
   chart: ApexChart;
   xaxis: ApexXAxis;
+  yaxis: ApexYAxis;
   title: ApexTitleSubtitle;
   theme: ApexTheme;
 };
@@ -45,12 +55,19 @@ export class ProgressPageComponent implements OnInit, OnDestroy {
     value: [this.muscles[0].toString()],
   });
 
+  @ViewChild('searchDivRef')
+  public searchRef!: ElementRef;
+  public isExerciseSearchOpen: boolean = false;
+  public filteredExercises: SimpleExercise[] = [];
+
   private debouncer: Subject<string> = new Subject();
   private debouncerSubscription?: Subscription;
   private data: { x: string; y: number }[] = [];
+  private dates: string[] = [];
 
   constructor(
     private routineService: RoutinesService,
+    private exercisesService: ExercisesService,
     private fb: FormBuilder
   ) {
     this.onMuscleSelect(this.muscles[0].toString());
@@ -72,6 +89,14 @@ export class ProgressPageComponent implements OnInit, OnDestroy {
       },
       xaxis: {
         type: 'datetime',
+        title: {
+          text: 'Date',
+        },
+      },
+      yaxis: {
+        title: {
+          text: 'Weight',
+        },
       },
       theme: {
         mode: 'light',
@@ -80,24 +105,55 @@ export class ProgressPageComponent implements OnInit, OnDestroy {
     };
   }
 
+  private addData(simpleExercise: SimpleExercise, date: Date) {
+    this.dates.push(date.toISOString());
+    this.data.push({
+      x: `${date.getFullYear()}-${(date.getMonth() + 1)
+        .toString()
+        .padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')} GMT`,
+      y: Math.max(...simpleExercise.weights!),
+    });
+  }
+
+  private chooseHigherWeight(simpleExercise: SimpleExercise, date: Date): void {
+    const formatedDate = `${date.getFullYear()}-${(date.getMonth() + 1)
+      .toString()
+      .padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')} GMT`;
+
+    this.data = this.data.map((data) => {
+      if (data.x === formatedDate) {
+        return {
+          ...data,
+          y: Math.max(data.y, Math.max(...simpleExercise.weights!)),
+        };
+      }
+      return data;
+    });
+  }
+
   private fillData(res: Routine[], filterValue: string): void {
     this.data = [];
+    this.dates = [];
     if (res.length > 0) {
+      res.sort((a, b) => {
+        return (
+          new Date(b.realizationDate).getTime() -
+          new Date(a.realizationDate).getTime()
+        );
+      });
+      console.log(res);
       res.forEach((routine) => {
         routine.exercises.forEach((exercise) => {
           let simpleExercise: SimpleExercise = exercise as SimpleExercise;
           if (simpleExercise.series) {
             let date: Date = new Date(routine.realizationDate);
 
-            this.data.push({
-              x: `${date.getFullYear()}-${(date.getMonth() + 1)
-                .toString()
-                .padStart(2, '0')}-${date
-                .getDate()
-                .toString()
-                .padStart(2, '0')} GMT`,
-              y: Math.max(...simpleExercise.weights!),
-            });
+            console.log('date:', date);
+            console.log('this.dates:', this.dates);
+
+            this.dates.includes(date.toISOString())
+              ? this.chooseHigherWeight(simpleExercise, date)
+              : this.addData(simpleExercise, date);
           }
           this.chart.updateSeries([
             {
@@ -127,14 +183,27 @@ export class ProgressPageComponent implements OnInit, OnDestroy {
     this.debouncer.next(searchTerm);
   }
 
+  onCloseDropdown(): void {
+    this.isExerciseSearchOpen = false;
+  }
+
+  onFilteredExerciseClick(exercise: SimpleExercise): void {
+    this.routineService
+      .getRoutinesByExerciseName(exercise.name)
+      .subscribe((res) => {
+        this.fillData(res, exercise.name);
+      });
+  }
+
   ngOnInit(): void {
     this.debouncerSubscription = this.debouncer
       .pipe(debounceTime(200))
       .subscribe((value) => {
-        this.routineService
-          .getRoutinesByExerciseName(value)
+        this.exercisesService
+          .findExercisesContainedInAnyRoutine(value)
           .subscribe((res) => {
-            this.fillData(res, value);
+            this.filteredExercises = res;
+            console.log(this.filteredExercises);
           });
       });
   }
