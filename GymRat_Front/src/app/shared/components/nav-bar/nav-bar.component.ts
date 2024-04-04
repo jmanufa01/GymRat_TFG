@@ -69,11 +69,12 @@ export class NavBarComponent implements OnInit, AfterViewInit {
   onShowMenu(): void {
     let navBarLeft = document.getElementById('nav-bar-left');
     navBarLeft!.style.display = 'flex';
+    navBarLeft?.classList.add('show-menu');
   }
 
   onHideMenu(): void {
     let navBarLeft = document.getElementById('nav-bar-left');
-    navBarLeft!.style.display = 'none';
+    navBarLeft?.classList.remove('show-menu');
   }
 
   handleRejectFriendRequest(notification: Notification): void {
