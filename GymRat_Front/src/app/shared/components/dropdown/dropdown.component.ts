@@ -2,10 +2,30 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { co } from '@fullcalendar/core/internal-common';
 import { Component, ElementRef, HostListener, Input } from '@angular/core';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'shared-dropdown',
   templateUrl: './dropdown.component.html',
+  animations: [
+    trigger('fadeInFromTop', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(-16px)' }),
+        animate(
+          '500ms ease-out',
+          style({ opacity: 1, transform: 'translateY(0)' })
+        ),
+      ]),
+    ]),
+    trigger('fadeOutToTop', [
+      transition(':leave', [
+        animate(
+          '500ms ease-out',
+          style({ opacity: 0, transform: 'translateY(-16px)' })
+        ),
+      ]),
+    ]),
+  ],
 })
 export class DropdownComponent {
   @Input()

@@ -1,7 +1,7 @@
 <article
-  class="w-3/6 h-4/6 grid m-auto mt-22 border rounded-md opacity-75 bg-image items-center drop-shadow-2xl"
+  class="w-3/6 h-4/6 grid m-auto mt-22 border rounded-md opacity-75 bg-image items-center drop-shadow-2xl md:flex md:flex-col"
 >
-  <div class="flex justify-around">
+  <div class="flex justify-around md:items-center md:flex-col">
     <h1 class="mx-6 text-6xl text-blue-700">Register</h1>
     <shared-button
       class="w-32 h-22"
@@ -18,7 +18,7 @@
     [formGroup]="this.registerForm"
     (submit)="this.register()"
   >
-    <div class="grid md:grid-cols-2 sm:grid-cols-1">
+    <div class="grid grid-cols-2 md:grid-cols-1">
       <shared-input
         class="mx-6 h-12"
         inputType="text"

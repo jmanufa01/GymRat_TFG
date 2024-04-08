@@ -1,0 +1,17 @@
+::ng-deep .friends-modal {
+  width: 30%;
+  height: 50%;
+  transition: 1s ease;
+}
+
+@media screen and (max-width: 768px) {
+  ::ng-deep .friends-modal {
+    width: 50%;
+  }
+}
+
+@media (max-width: 480px) {
+  ::ng-deep .friends-modal {
+    width: 70%;
+  }
+}

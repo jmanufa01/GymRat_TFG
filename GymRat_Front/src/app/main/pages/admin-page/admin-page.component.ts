@@ -1,15 +1,8 @@
-import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
-import { AdminService } from '../../services/admin.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject, Subscription, debounceTime } from 'rxjs';
 import { User } from 'src/app/auth/interfaces';
 import { AuthService } from 'src/app/auth/services/auth.service';
-import { Subject, Subscription, debounceTime } from 'rxjs';
-import { EventClickArg } from '@fullcalendar/core';
+import { AdminService } from '../../services/admin.service';
 
 @Component({
   selector: 'app-admin-page',
@@ -23,6 +16,7 @@ export class AdminPageComponent implements OnInit, OnDestroy {
 
   public users: User[] = [];
   public searchTerm: string = '';
+  public loading: boolean = false;
   private debouncer: Subject<string> = new Subject();
   private debouncerSubscription?: Subscription;
 
@@ -50,8 +44,10 @@ export class AdminPageComponent implements OnInit, OnDestroy {
   }
 
   findUsers(): void {
+    this.loading = true;
     this.adminService.getUsers().subscribe((users) => {
       this.fillUsers(users);
+      this.loading = false;
     });
   }
 
@@ -61,9 +57,14 @@ export class AdminPageComponent implements OnInit, OnDestroy {
     this.debouncerSubscription = this.debouncer
       .pipe(debounceTime(200))
       .subscribe((searchTerm) => {
+        this.loading = true;
+        if (searchTerm === '') {
+          this.findUsers();
+          return;
+        }
         this.adminService.getUsersByUsername(searchTerm).subscribe((users) => {
-          console.log(users);
           this.fillUsers(users);
+          this.loading = false;
         });
       });
   }

@@ -1,6 +1,6 @@
 <section class="w-full h-full flex flex-col items-center">
   <div
-    class="m-auto w-2/4 h-2/4 flex flex-col items-center bg-gradient-to-t from-pink-300/50 via-purple-300/50 to-indigo-400/50 backdrop-blur-sm rounded-md shadow-md"
+    class="m-auto w-2/4 h-2/4 md:w-4/5 flex flex-col items-center bg-gradient-to-t from-pink-300/50 via-purple-300/50 to-indigo-400/50 backdrop-blur-sm rounded-md shadow-md transition-all duration-300 ease-in-out"
   >
     <h1 class="mt-12 text-center text-xl font-black">USERS</h1>
     <div class="w-full flex items-center justify-center">
@@ -8,7 +8,6 @@
         inputPlaceholder="Username"
         inputType="search"
         (keyUp)="this.onKeyPress($event)"
-        (inputClick)="this.onDeleteSearchTermClick()"
       />
       <img
         class="ml-4 w-8 h-8 cursor-pointer"
@@ -17,21 +16,30 @@
       />
     </div>
 
-    <ul
-      class="w-3/4 h-2/4 sm:w-full p-4 m-auto flex flex-col shrink-0 overflow-y-scroll"
-    >
-      <li
-        class="flex justify-between items-center hover:bg-gray-200 p-4"
-        *ngFor="let user of this.users"
+    <shared-loading
+      ngClass="m-auto"
+      *ngIf="this.loading; else usersContainer"
+    ></shared-loading>
+
+    <ng-template #usersContainer>
+      <ul
+        class="w-3/4 h-2/4 sm:w-full p-4 m-auto flex flex-col shrink-0 overflow-y-scroll transition-all duration-300 ease-in-out"
       >
-        <span class="w-10 text-center">{{ user.username }}</span>
-        <span class="w-10 sm:hidden">{{ user.role }}</span>
-        <img
-          class="w-8 h-8 ml-4 cursor-pointer"
-          src="assets/trash-icon.png"
-          (click)="this.onDeleteUserClick(user.username)"
-        />
-      </li>
-    </ul>
+        <li
+          class="flex justify-between items-center hover:bg-gray-200 p-4"
+          *ngFor="let user of this.users"
+        >
+          <span class="w-10 text-center">{{ user.username }}</span>
+          <span class="w-10 text-center sm:pl-6">{{
+            user.role | replace : "ROLE_" : "" | titlecase
+          }}</span>
+          <img
+            class="w-8 h-8 ml-4 cursor-pointer"
+            src="assets/trash-icon.png"
+            (click)="this.onDeleteUserClick(user.username)"
+          />
+        </li>
+      </ul>
+    </ng-template>
   </div>
 </section>

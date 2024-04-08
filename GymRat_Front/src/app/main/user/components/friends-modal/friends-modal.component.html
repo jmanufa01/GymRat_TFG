@@ -15,9 +15,11 @@
         (click)="this.onChangeViewClick()"
       />
     </div>
-    <ul class="w-full h-full flex flex-col items-center overflow-y-scroll pt-4">
+    <ul
+      class="w-full h-full flex flex-col items-center overflow-y-scroll pt-4 md:p-0"
+    >
       <li
-        class="w-2/4 flex justify-between items-center hover:bg-gray-200 p-4"
+        class="w-full flex justify-between items-center hover:bg-gray-200 p-4"
         *ngFor="let user of this.friendsUsernames"
       >
         <h1 class="ml-4">{{ user.username }}</h1>
@@ -60,10 +62,10 @@
       </div>
 
       <ul
-        class="w-full h-full p-4 mt-10 flex flex-col items-center overflow-y-scroll"
+        class="w-full h-full p-4 mt-10 flex flex-col items-center overflow-y-scroll sm:p-0"
       >
         <li
-          class="w-2/4 flex justify-between hover:bg-gray-200 p-4 items-center"
+          class="w-full flex justify-between hover:bg-gray-200 p-4 items-center"
           *ngFor="let user of this.filteredUsernames"
         >
           <h1 class="ml-4">{{ user.username }}</h1>

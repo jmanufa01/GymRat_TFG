@@ -6,6 +6,7 @@ import { FriendsModalComponent } from '../../components/friends-modal/friends-mo
 
 @Component({
   templateUrl: './profile-page.component.html',
+  styleUrls: ['./profile-page.component.css'],
 })
 export class ProfilePageComponent {
   @ViewChild('imgRef', { static: true })
@@ -20,8 +21,6 @@ export class ProfilePageComponent {
     height: 0,
   };
 
-  public hints = ['pedro', 'pablo', 'juan'];
-
   constructor(private dialog: MatDialog, private userService: UserService) {
     this.userService.getProfile().subscribe((res) => {
       this.profile = res;
@@ -30,12 +29,10 @@ export class ProfilePageComponent {
 
   public onAddUserClick(): void {
     this.dialog.open(FriendsModalComponent, {
-      width: window.innerWidth > 300 ? '30%' : '80%',
-      height: '50%',
+      panelClass: 'friends-modal',
       enterAnimationDuration: '200ms',
       exitAnimationDuration: '200ms',
       autoFocus: true,
-      panelClass: 'modal',
       data: {},
     });
   }

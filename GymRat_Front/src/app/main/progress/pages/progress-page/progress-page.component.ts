@@ -1,9 +1,11 @@
 import {
+  AfterViewInit,
+  ChangeDetectorRef,
   Component,
-  OnDestroy,
-  ViewChild,
-  OnInit,
   ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import {
@@ -15,6 +17,7 @@ import {
   ApexYAxis,
   ChartComponent,
 } from 'ng-apexcharts';
+import { Subject, Subscription, debounceTime } from 'rxjs';
 import {
   FilterForm,
   FilterType,
@@ -24,10 +27,8 @@ import {
   Routine,
   SimpleExercise,
 } from 'src/app/main/routines/interfaces';
-import { RoutinesService } from '../../../routines/services/routines.service';
-import { Subject, Subscription, debounceTime } from 'rxjs';
-import { Data } from '@angular/router';
 import { ExercisesService } from 'src/app/main/routines/services/exercises.service';
+import { RoutinesService } from '../../../routines/services/routines.service';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -42,7 +43,7 @@ export type ChartOptions = {
   selector: 'progress-page',
   templateUrl: './progress-page.component.html',
 })
-export class ProgressPageComponent implements OnInit, OnDestroy {
+export class ProgressPageComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('chart') chart!: ChartComponent;
   public chartOptions: Partial<ChartOptions>;
 
@@ -66,6 +67,7 @@ export class ProgressPageComponent implements OnInit, OnDestroy {
   private dates: string[] = [];
 
   constructor(
+    private cdr: ChangeDetectorRef,
     private routineService: RoutinesService,
     private exercisesService: ExercisesService,
     private fb: FormBuilder
@@ -203,12 +205,15 @@ export class ProgressPageComponent implements OnInit, OnDestroy {
           .findExercisesContainedInAnyRoutine(value)
           .subscribe((res) => {
             this.filteredExercises = res;
-            console.log(this.filteredExercises);
           });
       });
   }
 
   ngOnDestroy(): void {
     this.debouncerSubscription?.unsubscribe();
+  }
+
+  ngAfterViewInit(): void {
+    this.cdr.detectChanges();
   }
 }

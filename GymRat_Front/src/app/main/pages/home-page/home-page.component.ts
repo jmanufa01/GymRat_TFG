@@ -3,6 +3,7 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 
 @Component({
   templateUrl: './home-page.component.html',
+  styleUrls: ['./home-page.component.css'],
 })
 export class HomePageComponent {
   public user = computed(() => this.authService.currentUser());

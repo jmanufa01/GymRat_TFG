@@ -1,15 +1,15 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ErrorPageComponent } from './pages/error-page/error-page.component';
-import { InputComponent } from './components/input/input.component';
-import { ButtonComponent } from './components/button/button.component';
-import { NavBarComponent } from './components/nav-bar/nav-bar.component';
-import { LoadingComponent } from './components/loading/loading.component';
-import { RouterModule } from '@angular/router';
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ReplacePipe } from './pipes/replace.pipe';
-import { DropdownComponent } from './components/dropdown/dropdown.component';
 import { MatBadgeModule } from '@angular/material/badge';
+import { RouterModule } from '@angular/router';
+import { ButtonComponent } from './components/button/button.component';
+import { DropdownComponent } from './components/dropdown/dropdown.component';
+import { InputComponent } from './components/input/input.component';
+import { LoadingComponent } from './components/loading/loading.component';
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { ErrorPageComponent } from './pages/error-page/error-page.component';
+import { ReplacePipe } from './pipes/replace.pipe';
 
 @NgModule({
   declarations: [
@@ -36,6 +36,7 @@ import { MatBadgeModule } from '@angular/material/badge';
     ReactiveFormsModule,
     FormsModule,
     DropdownComponent,
+    ReplacePipe,
   ],
 })
 export class SharedModule {}

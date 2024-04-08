@@ -1,12 +1,12 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 
-import { MainRoutingModule } from './main-routing.module';
-import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
-import { SharedModule } from '../shared/shared.module';
-import { HomePageComponent } from './pages/home-page/home-page.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { SharedModule } from '../shared/shared.module';
+import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
+import { MainRoutingModule } from './main-routing.module';
 import { AdminPageComponent } from './pages/admin-page/admin-page.component';
+import { HomePageComponent } from './pages/home-page/home-page.component';
 
 @NgModule({
   declarations: [HomePageComponent, AdminPageComponent, MainLayoutComponent],
