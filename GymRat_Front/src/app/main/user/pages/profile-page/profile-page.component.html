@@ -13,56 +13,64 @@
       (click)="this.onAddUserClick()"
     />
   </header>
-  <div
-    class="mt-10 h-3/5 w-3/5 grid grid-cols-2 sm:mt-0 sm:grid-cols-1 self-center justify-items-center"
-  >
-    <shared-input
-      ngClass="h-3/5 w-4/5 self-center"
-      label="Username"
-      inputPlaceholder="Username"
-      inputType="text"
-      [inputValue]="this.profile.userName"
-      [editable]="false"
-    />
-    <shared-input
-      ngClass="h-3/5 w-4/5 self-center"
-      label="Email"
-      inputPlaceholder="Email"
-      inputType="text"
-      [inputValue]="this.profile.email"
-      [editable]="false"
-    />
-    <shared-input
-      ngClass="h-3/5 w-4/5 self-center"
-      label="Gym Experience"
-      inputPlaceholder="Gym Experience"
-      inputType="text"
-      [inputValue]="this.profile.gymExperience"
-      [editable]="false"
-    />
-    <shared-input
-      ngClass="h-3/5 w-4/5 self-center"
-      inputType="date"
-      label="Birth Date"
-      inputPlaceholder="Birth Date"
-      [inputValue]="this.profile.birthDate | date : 'yyyy-MM-dd'"
-      [editable]="false"
-    />
-    <shared-input
-      ngClass="h-3/5 w-4/5 self-center"
-      inputType="number"
-      label="Height"
-      inputPlaceholder="Height"
-      [inputValue]="this.profile.height"
-      [editable]="false"
-    />
-    <shared-input
-      ngClass="h-3/5 w-4/5 self-center"
-      inputType="number"
-      label="Weight"
-      inputPlaceholder="Weight"
-      [inputValue]="this.profile.weight"
-      [editable]="false"
-    />
-  </div>
+
+  <shared-loading
+    ngClass="m-auto"
+    *ngIf="this.loadingProfile; else profileRef"
+  />
+
+  <ng-template #profileRef>
+    <div
+      class="mt-10 h-3/5 w-3/5 grid grid-cols-2 sm:mt-0 sm:grid-cols-1 self-center justify-items-center"
+    >
+      <shared-input
+        ngClass="h-3/5 w-4/5 self-center"
+        label="Username"
+        inputPlaceholder="Username"
+        inputType="text"
+        [inputValue]="this.profile.userName"
+        [editable]="false"
+      />
+      <shared-input
+        ngClass="h-3/5 w-4/5 self-center"
+        label="Email"
+        inputPlaceholder="Email"
+        inputType="text"
+        [inputValue]="this.profile.email"
+        [editable]="false"
+      />
+      <shared-input
+        ngClass="h-3/5 w-4/5 self-center"
+        label="Gym Experience"
+        inputPlaceholder="Gym Experience"
+        inputType="text"
+        [inputValue]="this.profile.gymExperience"
+        [editable]="false"
+      />
+      <shared-input
+        ngClass="h-3/5 w-4/5 self-center"
+        inputType="date"
+        label="Birth Date"
+        inputPlaceholder="Birth Date"
+        [inputValue]="this.profile.birthDate | date : 'yyyy-MM-dd'"
+        [editable]="false"
+      />
+      <shared-input
+        ngClass="h-3/5 w-4/5 self-center"
+        inputType="number"
+        label="Height"
+        inputPlaceholder="Height"
+        [inputValue]="this.profile.height"
+        [editable]="false"
+      />
+      <shared-input
+        ngClass="h-3/5 w-4/5 self-center"
+        inputType="number"
+        label="Weight"
+        inputPlaceholder="Weight"
+        [inputValue]="this.profile.weight"
+        [editable]="false"
+      />
+    </div>
+  </ng-template>
 </form>

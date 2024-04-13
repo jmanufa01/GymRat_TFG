@@ -1,8 +1,13 @@
-import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
-import { co } from '@fullcalendar/core/internal-common';
-import { Component, ElementRef, HostListener, Input } from '@angular/core';
 import { animate, style, transition, trigger } from '@angular/animations';
+import {
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter,
+  HostListener,
+  Input,
+  Output,
+} from '@angular/core';
 
 @Component({
   selector: 'shared-dropdown',

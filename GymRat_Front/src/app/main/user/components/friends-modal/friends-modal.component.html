@@ -15,22 +15,30 @@
         (click)="this.onChangeViewClick()"
       />
     </div>
-    <ul
-      class="w-full h-full flex flex-col items-center overflow-y-scroll pt-4 md:p-0"
-    >
-      <li
-        class="w-full flex justify-between items-center hover:bg-gray-200 p-4"
-        *ngFor="let user of this.friendsUsernames"
+
+    <shared-loading
+      ngClass="m-auto"
+      *ngIf="this.loadingFriends; else friendsList"
+    />
+
+    <ng-template #friendsList>
+      <ul
+        class="w-full h-full flex flex-col items-center overflow-y-scroll pt-4 md:p-0"
       >
-        <h1 class="ml-4">{{ user.username }}</h1>
-        <img
-          class="w-8 h-8 ml-4 cursor-pointer"
-          src="assets/trash-icon.png"
-          title="Delete Friend"
-          (click)="this.onDeleteFriendClick(user.username)"
-        />
-      </li>
-    </ul>
+        <li
+          class="w-full flex justify-between items-center hover:bg-gray-200 p-4"
+          *ngFor="let user of this.friendsUsernames"
+        >
+          <h1 class="ml-4">{{ user.username }}</h1>
+          <img
+            class="w-8 h-8 ml-4 cursor-pointer"
+            src="assets/trash-icon.png"
+            title="Delete Friend"
+            (click)="this.onDeleteFriendClick(user.username)"
+          />
+        </li>
+      </ul>
+    </ng-template>
   </section>
 
   <ng-template #newFriendView>
@@ -61,21 +69,28 @@
         />
       </div>
 
-      <ul
-        class="w-full h-full p-4 mt-10 flex flex-col items-center overflow-y-scroll sm:p-0"
-      >
-        <li
-          class="w-full flex justify-between hover:bg-gray-200 p-4 items-center"
-          *ngFor="let user of this.filteredUsernames"
+      <shared-loading
+        ngClass="m-auto"
+        *ngIf="this.loadingFriends; else addFriendsList"
+      />
+
+      <ng-template #addFriendsList>
+        <ul
+          class="w-full h-full p-4 mt-10 flex flex-col items-center overflow-y-scroll sm:p-0"
         >
-          <h1 class="ml-4">{{ user.username }}</h1>
-          <img
-            class="w-8 h-8 ml-4 cursor-pointer"
-            src="assets/add-green.png"
-            (click)="this.onAddFriendClick(user.username)"
-          />
-        </li>
-      </ul>
+          <li
+            class="w-full flex justify-between hover:bg-gray-200 p-4 items-center"
+            *ngFor="let user of this.filteredUsernames"
+          >
+            <h1 class="ml-4">{{ user.username }}</h1>
+            <img
+              class="w-8 h-8 ml-4 cursor-pointer"
+              src="assets/add-green.png"
+              (click)="this.onAddFriendClick(user.username)"
+            />
+          </li>
+        </ul>
+      </ng-template>
     </section>
   </ng-template>
 </div>

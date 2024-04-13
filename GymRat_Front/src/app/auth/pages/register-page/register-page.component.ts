@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { FormBuilder } from '@angular/forms';
-import { Difficulty } from 'src/app/main/routines/interfaces';
 import { throwError } from 'rxjs';
+import { Difficulty } from 'src/app/main/routines/interfaces';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   templateUrl: './register-page.component.html',
@@ -21,14 +21,18 @@ export class RegisterPageComponent {
 
   //TODO: Add validators
   public registerForm = this.fb.group({
-    username: [''],
-    password: [''],
-    email: [''],
-    birthDate: [],
+    username: ['', [Validators.required]],
+    password: ['', [Validators.required]],
+    confirmPassword: ['', [Validators.required]],
+    email: ['', [Validators.required, Validators.email]],
+    birthDate: [Validators.required],
     height: [0.0],
     weight: [0.0],
     gymExperience: [''],
   });
+
+  public passwordError: boolean = false;
+  public error: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -36,10 +40,30 @@ export class RegisterPageComponent {
     private fb: FormBuilder
   ) {}
 
+  validatePasswords(): boolean {
+    return (
+      this.registerForm.get('password')?.value ===
+      this.registerForm.get('confirmPassword')?.value
+    );
+  }
+
   register(): void {
+    if (!this.validatePasswords()) {
+      this.passwordError = true;
+      return;
+    }
+
+    if (this.registerForm.invalid) {
+      this.error = true;
+      return;
+    }
+
     this.authService.register(this.registerForm).subscribe({
       next: () => this.router.navigateByUrl('/home'),
-      error: (err) => throwError(() => err),
+      error: (err) => () => {
+        this.error = true;
+        return throwError(() => err);
+      },
     });
   }
 }

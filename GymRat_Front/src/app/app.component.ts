@@ -1,7 +1,7 @@
 import { Component, effect } from '@angular/core';
-import { AuthService } from './auth/services/auth.service';
-import { AuthStatus } from './auth/interfaces';
 import { Router } from '@angular/router';
+import { AuthStatus } from './auth/interfaces';
+import { AuthService } from './auth/services/auth.service';
 
 @Component({
   selector: 'app-root',

@@ -1,5 +1,5 @@
 <article
-  class="w-3/6 h-4/6 grid m-auto mt-22 border rounded-md opacity-75 bg-image items-center drop-shadow-2xl md:flex md:flex-col"
+  class="w-3/6 h-4/6 grid m-auto mt-22 border rounded-md opacity-75 bg-image items-center drop-shadow-2xl md:flex md:flex-col md:h-[90%] md:w-4/6 transition-all duration-500 ease-in-out"
 >
   <div class="flex justify-around md:items-center md:flex-col">
     <h1 class="mx-6 text-6xl text-blue-700">Register</h1>
@@ -18,10 +18,14 @@
     [formGroup]="this.registerForm"
     (submit)="this.register()"
   >
-    <div class="grid grid-cols-2 md:grid-cols-1">
+    <div
+      id="fields-container"
+      class="grid grid-cols-2 gap-8 md:grid-cols-1 md:gap-4"
+    >
       <shared-input
         class="mx-6 h-12"
         inputType="text"
+        label="Username"
         inputPlaceholder="Username"
         formControlName="username"
         ngDefaultControl
@@ -29,6 +33,7 @@
       <shared-input
         class="mx-6 h-12"
         inputType="text"
+        label="Email"
         inputPlaceholder="@example.com"
         formControlName="email"
         ngDefaultControl
@@ -36,6 +41,7 @@
       <shared-input
         class="mx-6 h-12"
         inputType="password"
+        label="Password"
         inputPlaceholder="Password"
         formControlName="password"
         ngDefaultControl
@@ -43,11 +49,13 @@
       <shared-input
         class="mx-6 h-12"
         inputType="password"
+        label="Repeat Password"
         inputPlaceholder="Repeat Password"
       />
       <shared-input
         class="mx-6 h-12"
         inputType="date"
+        label="Birth Date"
         inputPlaceholder="Birth Date"
         formControlName="birthDate"
         ngDefaultControl
@@ -55,6 +63,7 @@
       <shared-input
         class="mx-6 h-12"
         inputType="number"
+        label="Height"
         inputPlaceholder="Height"
         inputStep="0.1"
         formControlName="height"
@@ -63,6 +72,7 @@
       <shared-input
         class="mx-6 h-12"
         inputType="number"
+        label="Weight"
         inputPlaceholder="Weight"
         inputStep="0.1"
         formControlName="weight"
@@ -71,6 +81,7 @@
       <shared-input
         class="mx-6 h-12"
         inputType="select"
+        label="Gym Experience"
         inputPlaceholder="Gym Experience"
         [selectorTypes]="this.difficulties"
         formControlName="gymExperience"

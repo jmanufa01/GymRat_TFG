@@ -1,8 +1,8 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 import { Subject, Subscription, debounceTime } from 'rxjs';
-import { UserService } from '../../services/user.service';
 import { NotificationService } from '../../services/notification.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'user-friends-modal',
@@ -16,6 +16,8 @@ export class FriendsModalComponent implements OnInit, OnDestroy {
   public filteredUsernames: { username: string }[] = [];
   public friendsView: boolean = true;
   public searchTerm: string = '';
+
+  public loadingFriends: boolean = false;
 
   constructor(
     public dialogRef: MatDialogRef<FriendsModalComponent>,
@@ -63,15 +65,19 @@ export class FriendsModalComponent implements OnInit, OnDestroy {
 
   private obtainFriends(): void {
     this.friendsUsernames = [];
+    this.loadingFriends = true;
     this.userService.getFriendsUsernames().subscribe((res) => {
       this.friendsUsernames = res;
+      this.loadingFriends = false;
     });
   }
 
   private searchFriends(searchTerm: string): void {
     this.filteredUsernames = [];
+    this.loadingFriends = true;
     this.userService.getUsersByUserName(searchTerm).subscribe((res) => {
       this.filteredUsernames = res;
+      this.loadingFriends = false;
     });
   }
 

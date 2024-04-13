@@ -1,3 +1,4 @@
+import { animate, style, transition, trigger } from '@angular/animations';
 import {
   AfterViewInit,
   ChangeDetectorRef,
@@ -42,10 +43,31 @@ export type ChartOptions = {
 @Component({
   selector: 'progress-page',
   templateUrl: './progress-page.component.html',
+  animations: [
+    trigger('fadeInFromTop', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(-16px)' }),
+        animate(
+          '500ms ease-out',
+          style({ opacity: 1, transform: 'translateY(0)' })
+        ),
+      ]),
+    ]),
+    trigger('fadeOutToTop', [
+      transition(':leave', [
+        animate(
+          '500ms ease-out',
+          style({ opacity: 0, transform: 'translateY(-16px)' })
+        ),
+      ]),
+    ]),
+  ],
 })
 export class ProgressPageComponent implements OnInit, OnDestroy, AfterViewInit {
-  @ViewChild('chart') chart!: ChartComponent;
+  @ViewChild('chartRef') chartRef!: ChartComponent;
   public chartOptions: Partial<ChartOptions>;
+
+  @ViewChild('chart') chart!: ElementRef;
 
   public muscles = Object.values(Muscle);
 
@@ -55,6 +77,8 @@ export class ProgressPageComponent implements OnInit, OnDestroy, AfterViewInit {
     filter: [FilterType.BY_MUSCLE],
     value: [this.muscles[0].toString()],
   });
+
+  public loadingGraph: boolean = false;
 
   @ViewChild('searchDivRef')
   public searchRef!: ElementRef;
@@ -72,8 +96,6 @@ export class ProgressPageComponent implements OnInit, OnDestroy, AfterViewInit {
     private exercisesService: ExercisesService,
     private fb: FormBuilder
   ) {
-    this.onMuscleSelect(this.muscles[0].toString());
-
     this.chartOptions = {
       series: [
         {
@@ -157,7 +179,7 @@ export class ProgressPageComponent implements OnInit, OnDestroy, AfterViewInit {
               ? this.chooseHigherWeight(simpleExercise, date)
               : this.addData(simpleExercise, date);
           }
-          this.chart.updateSeries([
+          this.chartRef.updateSeries([
             {
               name: filterValue,
               data: this.data,
@@ -166,7 +188,7 @@ export class ProgressPageComponent implements OnInit, OnDestroy, AfterViewInit {
         });
       });
     } else {
-      this.chart.updateSeries([
+      this.chartRef.updateSeries([
         {
           name: filterValue,
           data: this.data,
@@ -175,10 +197,14 @@ export class ProgressPageComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
-  onMuscleSelect(muscle: string): void {
-    this.routineService.getRoutinesByMuscle(muscle).subscribe((res) => {
-      this.fillData(res, muscle);
-    });
+  hideGraph(): void {
+    this.loadingGraph = true;
+    this.chart.nativeElement.style.display = 'none';
+  }
+
+  showGraph(): void {
+    this.loadingGraph = false;
+    this.chart.nativeElement.style.display = 'flex';
   }
 
   onKeyPress(searchTerm: string): void {
@@ -189,11 +215,19 @@ export class ProgressPageComponent implements OnInit, OnDestroy, AfterViewInit {
     this.isExerciseSearchOpen = false;
   }
 
+  onMuscleSelect(muscle: string): void {
+    this.routineService.getRoutinesByMuscle(muscle).subscribe((res) => {
+      this.fillData(res, muscle);
+      this.showGraph();
+    });
+  }
+
   onFilteredExerciseClick(exercise: SimpleExercise): void {
     this.routineService
       .getRoutinesByExerciseName(exercise.name)
       .subscribe((res) => {
         this.fillData(res, exercise.name);
+        this.showGraph();
       });
   }
 
@@ -215,5 +249,7 @@ export class ProgressPageComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.cdr.detectChanges();
+    this.hideGraph();
+    this.onMuscleSelect(this.muscles[0].toString());
   }
 }

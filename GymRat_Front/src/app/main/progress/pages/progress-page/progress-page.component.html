@@ -1,6 +1,6 @@
-<div class="m-auto mt-36 w-4/6 h-3/6 flex flex-col justify-center">
+<div class="m-auto mt-36 w-4/6 h-3/6 flex flex-col justify-center items-center">
   <form
-    class="flex flex-col w-1/5 self-center justify-center"
+    class="flex flex-col w-1/5 md:w-3/5 self-center justify-center transition-all duration-500 ease-in-out"
     [formGroup]="this.filterForm"
   >
     <shared-input
@@ -57,14 +57,18 @@
     </ng-template>
   </form>
 
-  <apx-chart
-    #chart
-    ngClass="mt-10"
-    [series]="this.chartOptions.series!"
-    [chart]="this.chartOptions.chart!"
-    [xaxis]="this.chartOptions.xaxis!"
-    [yaxis]="this.chartOptions.yaxis!"
-    [title]="this.chartOptions.title!"
-    [theme]="this.chartOptions.theme!"
-  ></apx-chart>
+  <shared-loading ngClass="mt-20" *ngIf="this.loadingGraph" />
+
+  <div [@fadeInFromTop] [@fadeOutToTop] ngClass="w-3/4" #chart>
+    <apx-chart
+      #chartRef
+      ngClass="w-full mt-10"
+      [series]="this.chartOptions.series!"
+      [chart]="this.chartOptions.chart!"
+      [xaxis]="this.chartOptions.xaxis!"
+      [yaxis]="this.chartOptions.yaxis!"
+      [title]="this.chartOptions.title!"
+      [theme]="this.chartOptions.theme!"
+    />
+  </div>
 </div>
