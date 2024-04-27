@@ -22,6 +22,7 @@
           inputPlaceholder="Value"
           formControlName="value"
           ngDefaultControl
+          [inputValue]="this.filterForm.get('value')?.value"
           (keyUp)="this.onKeyPress($event)"
           (inputClick)="this.isExerciseSearchOpen = !this.isExerciseSearchOpen"
         />

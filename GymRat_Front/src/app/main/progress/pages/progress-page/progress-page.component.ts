@@ -228,6 +228,10 @@ export class ProgressPageComponent implements OnInit, OnDestroy, AfterViewInit {
       .subscribe((res) => {
         this.fillData(res, exercise.name);
         this.showGraph();
+        this.filterForm.patchValue({
+          filter: FilterType.BY_EXERCISE_NAME,
+          value: exercise.name,
+        });
       });
   }
 
