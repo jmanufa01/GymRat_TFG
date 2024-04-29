@@ -90,7 +90,7 @@ public class WebSecurityConfig{
                     sessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
                 })
                 .authorizeHttpRequests((requests) ->
-                        requests.requestMatchers("auth/**")
+                        requests.requestMatchers("auth/**", "swagger-ui/**","v3/api-docs/**")
                                 .permitAll()
                                 .anyRequest()
                                 .authenticated()

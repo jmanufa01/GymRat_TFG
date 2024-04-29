@@ -7,14 +7,7 @@ import { AuthService } from '../../services/auth.service';
 
 @Component({
   templateUrl: './register-page.component.html',
-  styles: [
-    `
-      .login-bg-image {
-        background-image: url('/assets/login-bg-violet.png');
-        background-size: 100% 100%;
-      }
-    `,
-  ],
+  styleUrls: ['./register-page.component.css'],
 })
 export class RegisterPageComponent {
   public difficulties = Object.values(Difficulty);
@@ -31,7 +24,9 @@ export class RegisterPageComponent {
     gymExperience: [''],
   });
 
+  public errorMessage: string = '';
   public passwordError: boolean = false;
+  public emailError: boolean = false;
   public error: boolean = false;
 
   constructor(
@@ -40,21 +35,32 @@ export class RegisterPageComponent {
     private fb: FormBuilder
   ) {}
 
-  validatePasswords(): boolean {
-    return (
-      this.registerForm.get('password')?.value ===
-      this.registerForm.get('confirmPassword')?.value
-    );
+  onEmailChange(): void {
+    if (this.registerForm['controls'].email.errors) {
+      this.emailError = true;
+      this.error = true;
+      this.errorMessage = 'Invalid email';
+    } else {
+      this.emailError = false;
+      this.error = false;
+    }
+  }
+
+  onConfirmPasswordChange(confirmPassword: string): void {
+    if (this.registerForm.value.password !== confirmPassword) {
+      this.passwordError = true;
+      this.error = true;
+      this.errorMessage = 'Passwords do not match';
+    } else {
+      this.passwordError = false;
+      this.error = false;
+    }
   }
 
   register(): void {
-    if (!this.validatePasswords()) {
-      this.passwordError = true;
-      return;
-    }
-
-    if (this.registerForm.invalid) {
+    if (this.registerForm.invalid || this.passwordError) {
       this.error = true;
+      this.errorMessage = 'All fields are required';
       return;
     }
 
@@ -62,6 +68,7 @@ export class RegisterPageComponent {
       next: () => this.router.navigateByUrl('/home'),
       error: (err) => () => {
         this.error = true;
+        this.errorMessage = err.error.message;
         return throwError(() => err);
       },
     });

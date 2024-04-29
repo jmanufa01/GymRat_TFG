@@ -103,7 +103,6 @@ public class RoutineService {
 
     public RoutineDTO insertRoutine(RoutineDTO routineDTO) throws Exception {
         try {
-            //TODO: Insert validations
             log.log(AppConstants.INSERTING_ROUTINE);
 
             if (!UtilClass.isRoutineRequestValid(routineDTO)) {

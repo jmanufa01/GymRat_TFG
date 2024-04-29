@@ -1,11 +1,11 @@
-import { Injectable, computed, signal } from '@angular/core';
-import { environment } from '../../../environment/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, catchError, map, of, tap, throwError } from 'rxjs';
+import { Injectable, computed, signal } from '@angular/core';
+import { Router } from '@angular/router';
+import { Observable, catchError, map, of, throwError } from 'rxjs';
+import { environment } from '../../../environment/environment';
 import { AuthResponse, AuthStatus, CheckResponse, User } from '../interfaces';
 import { JwtService } from './jwt.service';
-import { Router } from '@angular/router';
-import { Location } from '@angular/common';
+
 import { FormGroup } from '@angular/forms';
 
 @Injectable({

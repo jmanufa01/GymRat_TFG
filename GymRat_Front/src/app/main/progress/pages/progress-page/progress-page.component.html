@@ -9,6 +9,7 @@
       [selectorTypes]="this.filters"
       formControlName="filter"
       ngDefaultControl
+      (selectorChange)="this.onFilterChange()"
     />
     <div class="mt-4 relative">
       <div #searchDivRef>
@@ -24,7 +25,7 @@
           ngDefaultControl
           [inputValue]="this.filterForm.get('value')?.value"
           (keyUp)="this.onKeyPress($event)"
-          (inputClick)="this.isExerciseSearchOpen = !this.isExerciseSearchOpen"
+          (inputClick)="onInputClick()"
         />
       </div>
 

@@ -165,15 +165,11 @@ export class ProgressPageComponent implements OnInit, OnDestroy, AfterViewInit {
           new Date(a.realizationDate).getTime()
         );
       });
-      console.log(res);
       res.forEach((routine) => {
         routine.exercises.forEach((exercise) => {
           let simpleExercise: SimpleExercise = exercise as SimpleExercise;
           if (simpleExercise.series) {
             let date: Date = new Date(routine.realizationDate);
-
-            console.log('date:', date);
-            console.log('this.dates:', this.dates);
 
             this.dates.includes(date.toISOString())
               ? this.chooseHigherWeight(simpleExercise, date)
@@ -207,6 +203,14 @@ export class ProgressPageComponent implements OnInit, OnDestroy, AfterViewInit {
     this.chart.nativeElement.style.display = 'flex';
   }
 
+  onFilterChange(): void {
+    if (this.filterForm.value.filter === FilterType.BY_EXERCISE_NAME) {
+      this.filterForm.patchValue({
+        value: '',
+      });
+    }
+  }
+
   onKeyPress(searchTerm: string): void {
     this.debouncer.next(searchTerm);
   }
@@ -220,6 +224,10 @@ export class ProgressPageComponent implements OnInit, OnDestroy, AfterViewInit {
       this.fillData(res, muscle);
       this.showGraph();
     });
+  }
+
+  onInputClick(): void {
+    this.isExerciseSearchOpen = !this.isExerciseSearchOpen;
   }
 
   onFilteredExerciseClick(exercise: SimpleExercise): void {
@@ -252,8 +260,8 @@ export class ProgressPageComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.cdr.detectChanges();
     this.hideGraph();
     this.onMuscleSelect(this.muscles[0].toString());
+    this.cdr.detectChanges();
   }
 }

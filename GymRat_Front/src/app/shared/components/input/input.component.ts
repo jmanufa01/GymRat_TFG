@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 @Component({
   selector: 'shared-input',
   templateUrl: './input.component.html',
+  styleUrls: ['./input.component.css'],
 })
 export class InputComponent {
   @Input()

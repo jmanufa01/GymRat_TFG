@@ -29,7 +29,8 @@ public class NotificationService {
 
     public void manageNotification(NotificationDTO notificationDTO) throws Exception {
         try {
-            if(!userRepository.existsUserByUsername(notificationDTO.sender()) || !userRepository.existsUserByUsername(notificationDTO.receiver())) {
+            if(!userRepository.existsUserByUsername(notificationDTO.sender())
+                    || !userRepository.existsUserByUsername(notificationDTO.receiver())) {
                 throw new UserNotFoundException();
             }
 
@@ -58,8 +59,6 @@ public class NotificationService {
                 reciever.getFriends().add(sender.getUsername());
                 userRepository.save(sender);
                 userRepository.save(reciever);
-            }else{
-                //TODO: Send notification to sender that the request has been rejected
             }
 
             repository.deleteById(notificationDTO.id());
@@ -67,8 +66,5 @@ public class NotificationService {
             throw rte;
         }
     }
-
-
-
 
 }

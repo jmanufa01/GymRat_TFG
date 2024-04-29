@@ -8,12 +8,10 @@ import { DropdownComponent } from './components/dropdown/dropdown.component';
 import { InputComponent } from './components/input/input.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
-import { ErrorPageComponent } from './pages/error-page/error-page.component';
 import { ReplacePipe } from './pipes/replace.pipe';
 
 @NgModule({
   declarations: [
-    ErrorPageComponent,
     InputComponent,
     ButtonComponent,
     NavBarComponent,
