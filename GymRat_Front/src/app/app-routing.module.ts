@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ErrorPageComponent } from './shared/pages/error-page/error-page.component';
-import { AdminGuard, PrivateGuard, PublicGuard } from './auth/guards';
+import { PrivateGuard, PublicGuard } from './auth/guards';
 
 const routes: Routes = [
   {
@@ -13,10 +12,6 @@ const routes: Routes = [
     path: '',
     canActivate: [PrivateGuard],
     loadChildren: () => import('./main/main.module').then((m) => m.MainModule),
-  },
-  {
-    path: 'error', //TODO: route to error page
-    component: ErrorPageComponent,
   },
   {
     path: '**',

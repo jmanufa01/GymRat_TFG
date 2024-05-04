@@ -119,7 +119,7 @@ export class ProgressPageComponent implements OnInit, OnDestroy, AfterViewInit {
       },
       yaxis: {
         title: {
-          text: 'Weight',
+          text: 'Weight (kg)',
         },
       },
       theme: {

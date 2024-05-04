@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
-import { HomePageComponent } from './pages/home-page/home-page.component';
 import { AdminGuard } from '../auth/guards';
+import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
 import { AdminPageComponent } from './pages/admin-page/admin-page.component';
+import { HomePageComponent } from './pages/home-page/home-page.component';
 
 const routes: Routes = [
   {
@@ -36,7 +36,7 @@ const routes: Routes = [
       },
       {
         path: '**',
-        redirectTo: 'routines',
+        redirectTo: 'home',
       },
     ],
   },

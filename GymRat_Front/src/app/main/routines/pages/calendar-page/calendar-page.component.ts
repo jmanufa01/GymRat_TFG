@@ -1,21 +1,14 @@
-import {
-  AfterViewChecked,
-  AfterViewInit,
-  Component,
-  OnDestroy,
-  ViewChild,
-} from '@angular/core';
+import { TitleCasePipe } from '@angular/common';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { FullCalendarComponent } from '@fullcalendar/angular';
 import { CalendarOptions, EventClickArg } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin, { DateClickArg } from '@fullcalendar/interaction';
-import { ModalComponent } from '../../components/modal/modal.component';
-import { RoutinesService } from '../../services/routines.service';
-import { Routine } from '../../interfaces';
-import { FullCalendarComponent } from '@fullcalendar/angular';
-import { TitleCasePipe } from '@angular/common';
-import { preventDefault } from '@fullcalendar/core/internal';
 import { throwError } from 'rxjs';
+import { ModalComponent } from '../../components/modal/modal.component';
+import { Routine } from '../../interfaces';
+import { RoutinesService } from '../../services/routines.service';
 
 @Component({
   templateUrl: './calendar-page.component.html',

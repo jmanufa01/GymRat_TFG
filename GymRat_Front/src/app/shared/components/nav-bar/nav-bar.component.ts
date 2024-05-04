@@ -78,7 +78,13 @@ export class NavBarComponent implements OnInit, AfterViewInit {
   }
 
   handleRejectFriendRequest(notification: Notification): void {
-    this.notificationService.rejectFriendRequest(notification).subscribe();
+    this.notificationService
+      .rejectFriendRequest(notification)
+      .subscribe((res) => {
+        this.notifications = this.notifications.filter(
+          (n) => n.id !== notification.id
+        );
+      });
   }
 
   @HostListener('document:click', ['$event'])
