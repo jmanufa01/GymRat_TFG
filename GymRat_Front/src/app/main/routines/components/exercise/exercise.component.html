@@ -51,7 +51,11 @@
       label="Series"
       ngDefaultControl
       formControlName="series"
-      [inputValue]="this.exerciseForm.get('series')?.value"
+      [inputValue]="
+        this.exerciseForm.get('series')?.value === 0
+          ? ''
+          : this.exerciseForm.get('series')?.value
+      "
       [editable]="this.editing"
     />
     <shared-input
@@ -94,7 +98,9 @@
       <p class="text-center font-bold">Repetitions</p>
       <div
         [class]="
-          this.series.length < 5 ? 'flex' : 'grid grid-cols-2 sm:grid-cols-1'
+          this.series.length < 5
+            ? 'flex sm:grid sm:grid-cols-1'
+            : 'grid grid-cols-2 sm:grid-cols-1'
         "
         formGroupName="reps"
       >
@@ -115,7 +121,9 @@
       <p class="text-center font-bold">Weights</p>
       <div
         [class]="
-          this.series.length < 5 ? 'flex' : 'grid grid-cols-2 sm:grid-cols-1'
+          this.series.length < 5
+            ? 'flex sm:grid sm:grid-cols-1'
+            : 'grid grid-cols-2 sm:grid-cols-1'
         "
         formGroupName="weights"
       >

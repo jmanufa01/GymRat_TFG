@@ -1,27 +1,27 @@
+import { animate, style, transition, trigger } from '@angular/animations';
 import {
+  AfterViewInit,
+  ChangeDetectorRef,
   Component,
-  Input,
-  OnInit,
-  ViewContainerRef,
-  ViewChild,
   ComponentRef,
   ElementRef,
   EventEmitter,
-  ChangeDetectorRef,
-  AfterViewInit,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+  ViewContainerRef,
 } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
+import { throwError } from 'rxjs';
+import { AuthService } from 'src/app/auth/services/auth.service';
+import { UserService } from 'src/app/main/user/services/user.service';
 import { Routine, Superset } from '../../interfaces';
 import { SimpleExercise } from '../../interfaces/simple-exercise.interface';
 import { RoutinesService } from '../../services/routines.service';
-import { AuthService } from 'src/app/auth/services/auth.service';
-import { SupersetComponent } from '../superset/superset.component';
-import { MatDialogRef } from '@angular/material/dialog';
 import { ModalComponent } from '../modal/modal.component';
-import { animate, style, transition, trigger } from '@angular/animations';
-import { UserService } from 'src/app/main/user/services/user.service';
-import { Output } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { throwError } from 'rxjs';
+import { SupersetComponent } from '../superset/superset.component';
 
 @Component({
   selector: 'routines-routine',
@@ -141,6 +141,7 @@ export class RoutineComponent implements OnInit, AfterViewInit {
     supersetComponent: SupersetComponent
   ): Superset | SimpleExercise {
     let exercise: Superset | SimpleExercise;
+    console.log(supersetComponent);
     if (supersetComponent.exercisesForms.length > 1) {
       supersetComponent.exercisesForms.map((form) => {
         if (!this.isFormValid(form)) {
@@ -315,7 +316,7 @@ export class RoutineComponent implements OnInit, AfterViewInit {
   }
 
   public onEditRoutineClick(): void {
-    this.editingRoutine = true;
+    this.editingRoutine = !this.editingRoutine;
   }
 
   public addComponent(superSet: SupersetComponent): void {

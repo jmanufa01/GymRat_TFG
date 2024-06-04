@@ -17,7 +17,7 @@ public class ExerciseService {
     private final RoutineRepository routineRepository;
     private final ExerciseMapper exerciseMapper;
 
-    public List<ExerciseDTO> findExercisesIncludedInRoutines(String name) throws Exception {
+    public List<ExerciseDTO> findExercisesIncludedInRoutines(String name) {
         final var loggedUser = ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
         final var userRoutines = routineRepository.findAllByUsersContaining(loggedUser);
         final var filteredExercises = new ArrayList<ExerciseDTO>();
@@ -40,8 +40,17 @@ public class ExerciseService {
     }
 
     private void checkSimpleExerciseName(SimpleExercise simpleExercise, String name, List<ExerciseDTO> filteredExercises) {
-        if (simpleExercise.getName().toLowerCase().contains(name.toLowerCase())) {
+        if (simpleExercise.getName().toLowerCase().contains(name.toLowerCase()) && !exerciseContainedInList(simpleExercise, filteredExercises)) {
             filteredExercises.add(exerciseMapper.toExerciseDTO(simpleExercise));
         }
+    }
+
+    private boolean exerciseContainedInList(SimpleExercise exercise, List<ExerciseDTO> filteredExercises) {
+        for (ExerciseDTO exerciseDTO: filteredExercises) {
+            if (exerciseDTO.name().equals(exercise.getName())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

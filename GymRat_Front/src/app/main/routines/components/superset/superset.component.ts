@@ -1,13 +1,6 @@
-import {
-  Component,
-  ComponentRef,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-} from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { ExerciseForm, SimpleExercise, Superset } from '../../interfaces';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { ExerciseForm, SimpleExercise } from '../../interfaces';
 
 @Component({
   selector: 'routines-superset',
@@ -24,7 +17,7 @@ export class SupersetComponent implements OnInit {
   public hideItems = false;
 
   @Input()
-  public exercises: SimpleExercise[] = Array(1).fill(null);
+  public exercises: (SimpleExercise | undefined)[] = Array(1).fill(undefined);
 
   @Input()
   public editing: boolean = false;
@@ -37,13 +30,15 @@ export class SupersetComponent implements OnInit {
 
   public exercisesForms: FormGroup<ExerciseForm>[] = [];
 
+  constructor(private fb: FormBuilder) {}
+
   public changeExerciseType(): void {
     if (this.isSuperset) {
-      this.exercises = Array(1).fill(null);
+      this.exercises.pop();
+      this.exercisesForms.pop();
     } else {
-      this.exercises = Array(2).fill(null);
+      this.exercises.push(undefined);
     }
-    this.exercisesForms = [];
     this.isSuperset = !this.isSuperset;
   }
 

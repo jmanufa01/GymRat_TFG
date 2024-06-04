@@ -16,6 +16,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { Subject, Subscription, debounceTime } from 'rxjs';
 import {
   Difficulty,
   ExerciseForm,
@@ -23,7 +24,6 @@ import {
   SimpleExercise,
   Type,
 } from '../../interfaces';
-import { Subject, Subscription, debounceTime } from 'rxjs';
 import { ExercisesService } from '../../services/exercises.service';
 
 @Component({
@@ -65,7 +65,7 @@ export class ExerciseComponent implements OnInit, OnDestroy, AfterViewInit {
     muscle: [Muscle.ABDOMINALS],
     type: [Type.CARDIO],
     difficulty: [Difficulty.BEGINNER],
-    series: [0, [Validators.required, Validators.min(0), Validators.max(10)]],
+    series: [0, [Validators.required, Validators.min(1), Validators.max(10)]],
     reps: this.fb.group({}),
     weights: this.fb.group({}),
   });
@@ -78,11 +78,11 @@ export class ExerciseComponent implements OnInit, OnDestroy, AfterViewInit {
     this.exerciseForm.valueChanges.subscribe((form) => {
       let seriesValue = Number(form.series);
       if (seriesValue! > 10) {
-        this.exerciseForm.patchValue({ series: 10 });
         seriesValue = 10;
+        this.exerciseForm.patchValue({ series: 10 });
       } else if (seriesValue! < 0) {
-        this.exerciseForm.patchValue({ series: 0 });
         seriesValue = 0;
+        this.exerciseForm.patchValue({ series: 0 });
       }
       this.series = Array(seriesValue)
         .fill(0)
@@ -91,8 +91,6 @@ export class ExerciseComponent implements OnInit, OnDestroy, AfterViewInit {
       if (this.series.length > 0) {
         this.changeControls();
       }
-
-      this.form.emit(this.exerciseForm);
     });
   }
 
@@ -185,5 +183,6 @@ export class ExerciseComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.cdr.detectChanges();
+    this.form.emit(this.exerciseForm);
   }
 }

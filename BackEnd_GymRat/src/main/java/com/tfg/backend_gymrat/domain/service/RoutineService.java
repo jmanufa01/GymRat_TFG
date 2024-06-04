@@ -123,6 +123,7 @@ public class RoutineService {
     public void updateRoutine(RoutineDTO routineDTO) throws Exception {
         try {
             log.log(AppConstants.UPDATING_ROUTINE);
+            System.out.println("RoutineDTO: " + routineDTO.toString());
             if (!UtilClass.isRoutineRequestValid(routineDTO)) {
                 throw new MissingRequestDataException();
             }
