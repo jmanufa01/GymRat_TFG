@@ -65,7 +65,7 @@
       <shared-input
         class="p-4"
         label="Muscular Group"
-        [inputValue]="this.routine.muscularGroup"
+        [inputValue]="this.routine.muscularGroup | formatList"
         [editable]="false"
       />
       <shared-input

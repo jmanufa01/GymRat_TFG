@@ -12,11 +12,9 @@ import { AuthService } from '../../services/auth.service';
 export class RegisterPageComponent {
   public difficulties = Object.values(Difficulty);
 
-  //TODO: Add validators
   public registerForm = this.fb.group({
     username: ['', [Validators.required]],
     password: ['', [Validators.required]],
-    confirmPassword: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]],
     birthDate: [Validators.required],
     height: [0.0],
@@ -58,6 +56,7 @@ export class RegisterPageComponent {
   }
 
   register(): void {
+    console.log(this.registerForm);
     if (this.registerForm.invalid || this.passwordError) {
       this.error = true;
       this.errorMessage = 'All fields are required';

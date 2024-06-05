@@ -8,6 +8,7 @@ import { DropdownComponent } from './components/dropdown/dropdown.component';
 import { InputComponent } from './components/input/input.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { FormatListPipe } from './pipes/formatList.pipe';
 import { ReplacePipe } from './pipes/replace.pipe';
 
 @NgModule({
@@ -18,6 +19,7 @@ import { ReplacePipe } from './pipes/replace.pipe';
     LoadingComponent,
     DropdownComponent,
     ReplacePipe,
+    FormatListPipe,
   ],
   imports: [
     CommonModule,
@@ -35,6 +37,7 @@ import { ReplacePipe } from './pipes/replace.pipe';
     FormsModule,
     DropdownComponent,
     ReplacePipe,
+    FormatListPipe,
   ],
 })
 export class SharedModule {}

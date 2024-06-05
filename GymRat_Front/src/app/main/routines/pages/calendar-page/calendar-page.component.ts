@@ -111,13 +111,22 @@ export class CalendarPageComponent implements AfterViewInit {
 
   fillEvents(routines: Routine[]): void {
     routines.forEach((routine) => {
+      const routineColorInLocalStorage = localStorage.getItem(routine.id!);
+      let color = this.getRandomColor();
+
+      if (routineColorInLocalStorage) {
+        color = routineColorInLocalStorage;
+      } else {
+        localStorage.setItem(routine.id!, color);
+      }
+
       this.events.push({
         title: routine.muscularGroup
           .map((exercise) => new TitleCasePipe().transform(exercise))
           .join(', ')
           .replace('_', ' '),
         start: new Date(routine.realizationDate).toISOString(),
-        color: this.getRandomColor(),
+        color,
       });
     });
   }
