@@ -38,6 +38,10 @@ public class AuthService {
             if(!UtilClass.isEmailValid(userDTO.email()))
                 throw new IncorrectRegistrationException();
 
+            if(userRepository.existsUserByUsername(userDTO.username()) || userRepository.existsUserByEmail(userDTO.email())) {
+                throw new UserAlreadyExistsException();
+            }
+
             final var user = userService.createNewUser(userDTO);
 
             authenticationManager.authenticate(

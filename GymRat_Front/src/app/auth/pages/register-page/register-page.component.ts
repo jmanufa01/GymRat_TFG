@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { throwError } from 'rxjs';
 import { Difficulty } from 'src/app/main/routines/interfaces';
 import { AuthService } from '../../services/auth.service';
 
@@ -65,10 +64,10 @@ export class RegisterPageComponent {
 
     this.authService.register(this.registerForm).subscribe({
       next: () => this.router.navigateByUrl('/home'),
-      error: (err) => () => {
+      error: (err) => {
         this.error = true;
-        this.errorMessage = err.error.message;
-        return throwError(() => err);
+        console.log(err);
+        this.errorMessage = err.error.description;
       },
     });
   }

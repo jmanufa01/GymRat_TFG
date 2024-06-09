@@ -123,7 +123,7 @@ public class UserService {
             }
     }
 
-    public User createNewUser(UserDTO userDTO){
+    public User createNewUser(UserDTO userDTO) {
 
         final var user = User.builder()
                 .username(userDTO.username())

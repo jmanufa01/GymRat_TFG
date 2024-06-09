@@ -1,4 +1,5 @@
 import { animate, style, transition, trigger } from '@angular/animations';
+import { TitleCasePipe } from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectorRef,
@@ -27,6 +28,7 @@ import {
   Muscle,
   Routine,
   SimpleExercise,
+  Superset,
 } from 'src/app/main/routines/interfaces';
 import { ExercisesService } from 'src/app/main/routines/services/exercises.service';
 import { RoutinesService } from '../../../routines/services/routines.service';
@@ -89,6 +91,7 @@ export class ProgressPageComponent implements OnInit, OnDestroy, AfterViewInit {
   private debouncerSubscription?: Subscription;
   private data: { x: string; y: number }[] = [];
   private dates: string[] = [];
+  private filterValue: string = '';
 
   constructor(
     private cdr: ChangeDetectorRef,
@@ -155,6 +158,12 @@ export class ProgressPageComponent implements OnInit, OnDestroy, AfterViewInit {
     });
   }
 
+  private includeExercise(exercise: SimpleExercise, date: Date): void {
+    this.dates.includes(date.toISOString())
+      ? this.chooseHigherWeight(exercise, date)
+      : this.addData(exercise, date);
+  }
+
   private fillData(res: Routine[], filterValue: string): void {
     this.data = [];
     this.dates = [];
@@ -167,17 +176,35 @@ export class ProgressPageComponent implements OnInit, OnDestroy, AfterViewInit {
       });
       res.forEach((routine) => {
         routine.exercises.forEach((exercise) => {
-          let simpleExercise: SimpleExercise = exercise as SimpleExercise;
-          if (simpleExercise.series) {
-            let date: Date = new Date(routine.realizationDate);
-
-            this.dates.includes(date.toISOString())
-              ? this.chooseHigherWeight(simpleExercise, date)
-              : this.addData(simpleExercise, date);
+          let superset: Superset = exercise as Superset;
+          if (superset.exercises) {
+            superset.exercises.forEach((simpleExercise) => {
+              if (
+                simpleExercise.series &&
+                (simpleExercise.muscle === this.filterForm.value.value ||
+                  simpleExercise.name === this.filterValue)
+              ) {
+                this.includeExercise(
+                  simpleExercise,
+                  new Date(routine.realizationDate)
+                );
+              }
+            });
+          } else {
+            let simpleExercise: SimpleExercise = exercise as SimpleExercise;
+            if (simpleExercise.series) {
+              this.includeExercise(
+                simpleExercise,
+                new Date(routine.realizationDate)
+              );
+            }
           }
+
           this.chartRef.updateSeries([
             {
-              name: filterValue,
+              name: new TitleCasePipe().transform(
+                filterValue.replace('_', ' ')
+              ),
               data: this.data,
             },
           ]);
@@ -221,13 +248,10 @@ export class ProgressPageComponent implements OnInit, OnDestroy, AfterViewInit {
 
   onMuscleSelect(muscle: string): void {
     this.routineService.getRoutinesByMuscle(muscle).subscribe((res) => {
+      console.log(res);
       this.fillData(res, muscle);
       this.showGraph();
     });
-  }
-
-  onInputClick(): void {
-    this.isExerciseSearchOpen = !this.isExerciseSearchOpen;
   }
 
   onFilteredExerciseClick(exercise: SimpleExercise): void {
@@ -243,15 +267,25 @@ export class ProgressPageComponent implements OnInit, OnDestroy, AfterViewInit {
       });
   }
 
+  filterExercises(value: string): void {
+    this.filterValue = value;
+    this.exercisesService
+      .findExercisesContainedInAnyRoutine(value)
+      .subscribe((res) => {
+        this.filteredExercises = res;
+      });
+  }
+
+  onInputClick(): void {
+    this.filterExercises(this.filterValue);
+    this.isExerciseSearchOpen = !this.isExerciseSearchOpen;
+  }
+
   ngOnInit(): void {
     this.debouncerSubscription = this.debouncer
       .pipe(debounceTime(200))
       .subscribe((value) => {
-        this.exercisesService
-          .findExercisesContainedInAnyRoutine(value)
-          .subscribe((res) => {
-            this.filteredExercises = res;
-          });
+        this.filterExercises(value);
       });
   }
 

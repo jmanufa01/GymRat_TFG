@@ -15,7 +15,7 @@ public class ErrorConstants {
     public static final String USERNAME_NOT_FOUND = "Provided username was not found in database";
 
     public static final String USER_NOT_FOUND = "Provided username was not found in database";
-    public static final String USER_ALREADY_EXISTS = "Provided username already exists in database";
+    public static final String USER_ALREADY_EXISTS = "Provided username or email are already in use";
 
     //Routine errors
     public static final String ROUTINE_NOT_FOUND = "Provided routine was not found in database";

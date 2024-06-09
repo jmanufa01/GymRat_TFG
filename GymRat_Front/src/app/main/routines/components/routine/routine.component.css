@@ -1,3 +1,19 @@
 .exercise-bar-shadow {
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
 }
+
+.dropdown {
+  width: 30%;
+}
+
+@media screen and (max-width: 1024px) {
+  .dropdown {
+    width: 60%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .dropdown {
+    width: 80%;
+  }
+}

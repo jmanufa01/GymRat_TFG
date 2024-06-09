@@ -55,7 +55,7 @@ export class AuthService {
 
     return this.http.post<AuthResponse>(url, body.value).pipe(
       map(({ jwt }) => this.setAuthentication(jwt)),
-      catchError((err) => throwError(() => err.error.message))
+      catchError((err) => throwError(() => err))
     );
   }
 

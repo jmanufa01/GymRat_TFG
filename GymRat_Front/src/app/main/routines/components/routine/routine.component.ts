@@ -109,16 +109,33 @@ export class RoutineComponent implements OnInit, AfterViewInit {
     this.exercisesNumber++;
   }
 
+  public updateExercisesNumber(exerciseNumber: number): void {
+    this.componentReferences.map((x) => {
+      if (x.instance.exerciseNumber > exerciseNumber) {
+        x.instance.exerciseNumber--;
+      }
+    });
+    this.exercisesNumber--;
+  }
+
   public deleteComponent(exerciseNumber: number): void {
+    // Remove previous exercises from routine
     if (this.superSetComponents.length > 0) {
       this.superSetComponents = this.superSetComponents.filter(
         (x) => x.exerciseNumber !== exerciseNumber
       );
 
-      let index = this.exercises.indexOf(this.exercises[exerciseNumber - 1])!;
-      this.exercises.splice(index, 1);
-    }
+      console.log(this.exercisesNumber - 1, this.exercises.length);
 
+      // Remove previous exercises
+      if (exerciseNumber - 1 < this.exercises.length) {
+        let index = this.exercises.indexOf(this.exercises[exerciseNumber - 1])!;
+        this.exercises.splice(index, 1);
+        this.updateExercisesNumber(exerciseNumber);
+        return;
+      }
+    }
+    // Remove created components from routine
     if (this.vcr.length < 1) return;
     const ref: ComponentRef<SupersetComponent> = this.componentReferences.find(
       (x) => x.instance.exerciseNumber === exerciseNumber
@@ -128,13 +145,7 @@ export class RoutineComponent implements OnInit, AfterViewInit {
       (x) => x.instance.exerciseNumber !== exerciseNumber
     );
 
-    this.componentReferences.map((x) => {
-      if (x.instance.exerciseNumber > exerciseNumber) {
-        x.instance.exerciseNumber--;
-      }
-    });
-
-    this.exercisesNumber--;
+    this.updateExercisesNumber(exerciseNumber);
   }
 
   public obtainExercises(
@@ -331,6 +342,7 @@ export class RoutineComponent implements OnInit, AfterViewInit {
     if (this.routine) {
       this.updateFriendsToShare();
       this.exercises = this.routine.exercises.map((exercise) => {
+        this.exercisesNumber++;
         if ((exercise as Superset).exercises) {
           return exercise as Superset;
         } else {

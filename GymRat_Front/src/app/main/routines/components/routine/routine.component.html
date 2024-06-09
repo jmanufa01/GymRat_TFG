@@ -32,7 +32,9 @@
         />
       </div>
       <shared-dropdown
-        dropdownClassNames=" h-44 left-0"
+        [dropdownClassNames]="
+          (this.friendsToShare.length < 1 ? 'w-[20%]' : '') + ' h-44 left-0'
+        "
         [isOpen]="this.isShareRoutineOpen"
         [openComponentRef]="this.shareIconRef"
         (onClickOutise)="this.onCloseDropdown()"

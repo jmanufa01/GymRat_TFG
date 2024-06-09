@@ -39,6 +39,7 @@ public class ApiExceptionHandler {
     @ExceptionHandler({
             MissingRequestDataException.class,
             IncorrectRegistrationException.class,
+            UserAlreadyExistsException.class,
             Exception.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody

@@ -30,6 +30,10 @@ public class AppExceptions {
         public UserNotFoundException() { super(ErrorConstants.USER_NOT_FOUND); }
     }
 
+    public static class UserAlreadyExistsException extends Exception {
+        public UserAlreadyExistsException() { super(ErrorConstants.USER_ALREADY_EXISTS); }
+    }
+
     //Routine exceptions
     public static class RoutineNotFoundException extends Exception {
         public RoutineNotFoundException() { super(ErrorConstants.ROUTINE_NOT_FOUND); }
